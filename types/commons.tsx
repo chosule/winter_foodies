@@ -1,4 +1,8 @@
 import { NextPage } from "next";
-import React from "react";
+import React, { ReactElement, ReactNode } from "react";
 
-export type NextPageWithLayout
+export type NextPageWithLayout<P = {}> = NextPage<P> & {
+  getLayout?: (page: Children) => Children;
+};
+
+export type Children = React.ReactNode;

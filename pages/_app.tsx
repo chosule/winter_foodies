@@ -1,13 +1,37 @@
+import DefaultLayout from "@/components/layouts/Default";
+import { NextPageWithLayout } from "@/types/commons";
+import { Global } from "@emotion/react";
 import type { AppProps } from "next/app";
+import Head from "next/head";
+import Script from "next/script";
+import { FC } from "react";
+import { globalStyle } from "@/styles/global";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "@/styles/theme";
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
 
-/**
- *
- * @description
- * 서버로 요청이 들어왔을때 가장 먼저 실행 되는 컴포넌트
- */
+const MyApp: FC<AppPropsWithLayout> = ({
+  Component,
+  pageProps,
+}: AppPropsWithLayout) => {
+  const getLayout =
+    Component.getLayout ?? ((page) => <DefaultLayout>{page}</DefaultLayout>);
 
-const MyApp = () => {
-  return;
+  return (
+    <>
+      <Script></Script>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+      <Global styles={globalStyle} />
+      <ThemeProvider theme={theme}>
+        {getLayout(<Component {...pageProps} />)}
+      </ThemeProvider>
+
+    </>
+  );
 };
 
 export default MyApp;
