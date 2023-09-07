@@ -15,7 +15,7 @@ const Main = () => {
         <StyledButton />
       </MainUI.Flex>
       <RearTimeSearchWords />
-      <MainMenu></MainMenu>
+      <MainMenu />
     </MainUI.Wrapper>
   );
 };

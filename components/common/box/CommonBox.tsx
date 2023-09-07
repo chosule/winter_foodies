@@ -4,17 +4,24 @@ import { CSSProperties } from "react";
 type TCommonBoxProps = {
   children?: React.ReactNode;
   width?: string;
+  height?: string;
   backgroundColor?: string;
 };
 const CommonBox = ({
   children,
   width,
+  height,
   backgroundColor,
   ...props
 }: TCommonBoxProps) => {
   return (
     <>
-      <StyledBox {...props} width={width} backgroundColor={backgroundColor}>
+      <StyledBox
+        {...props}
+        width={width}
+        height={height}
+        backgroundColor={backgroundColor}
+      >
         {children}
       </StyledBox>
     </>
@@ -22,12 +29,12 @@ const CommonBox = ({
 };
 
 const StyledBox = styled.div<
-  Pick<TCommonBoxProps, "width"> & { backgroundColor?: string }
+  Pick<TCommonBoxProps, "width" | "height"> & { backgroundColor?: string }
 >`
-  width: ${({ width }) => (width ? width : "91px")};
-  height: 91px;
+  width: ${({ width }) => (width ? width : "55px")};
+  height: ${({ height }) => (height ? height : "55px")};
   background-color: ${({ backgroundColor }) =>
-    backgroundColor ? backgroundColor : "#DD803721"};
+    backgroundColor ? backgroundColor : "#DD8037"};
   border-radius: 10px;
 `;
 export default CommonBox;
