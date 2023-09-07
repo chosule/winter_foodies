@@ -1,8 +1,13 @@
 import { createTheme, PaletteMode } from "@mui/material";
 import { primaryColor, secondaryColor } from "./palette";
 
-export const theme = (mode: PaletteMode) =>
+const typography = {
+  fontFamily: ["GmarketSansMedium"].join(","),
+};
+
+export const getTheme = () =>
   createTheme({
+    typography,
     palette: {
       primary: {
         main: primaryColor,
@@ -10,5 +15,10 @@ export const theme = (mode: PaletteMode) =>
       secondary: {
         main: secondaryColor,
       },
+      background: {
+        default: "blue",
+      },
     },
   });
+
+export default getTheme;

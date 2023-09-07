@@ -12,7 +12,9 @@ const DefaultLayout = ({ children }: TDefaultLayoutProps) => {
         <title>Create Next App</title>
       </Head>
       <StyledLayout>
-        <StyledContent>{children}</StyledContent>
+        <StyledOuter>
+          <StyledContent>{children}</StyledContent>
+        </StyledOuter>
       </StyledLayout>
     </div>
   );
@@ -27,11 +29,14 @@ export const StyledLayout = styled.div`
   justify-content: center;
 `;
 
-export const StyledContent = styled.div`
-  max-width: 360px;
+export const StyledOuter = styled.div`
   width: 360px;
-  background-color: pink;
+  background-color: #f3f3f3;
   height: 100%;
+`;
+export const StyledContent = styled.div`
+  width: 90%;
+  margin: 0 auto;
 `;
 
 export default DefaultLayout;

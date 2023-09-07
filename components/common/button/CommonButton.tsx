@@ -1,18 +1,27 @@
 import { Button, ButtonProps, styled } from "@mui/material";
+import { CSSProperties } from "react";
 
 const CommonButton = ({
   children,
-  color = "primary",
+  color = "secondary",
+  variant = "contained",
   ...rest
 }: ButtonProps) => {
   return (
-    <StyledButton color={color} {...rest}>
+    <StyledButton variant={variant} color={color} {...rest}>
       {children}
     </StyledButton>
   );
 };
 
-const StyledButton = styled(Button)`
-  background-color: red;
+const StyledButton = styled(Button)<
+  Pick<CSSProperties, "width" | "height"> & { disableHoverEffect?: boolean }
+>`
+  width: ${({ width }) => (width ? width : "47px")};
+  height: ${({ height }) => (height ? height : "49px")};
+
+  &:hover {
+    ${({ disableHoverEffect }) => disableHoverEffect && "background-color:  ;"}
+  }
 `;
 export default CommonButton;

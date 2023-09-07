@@ -7,19 +7,11 @@ import Head from "next/head";
 import Script from "next/script";
 import { FC } from "react";
 import { globalStyle } from "@/styles/global";
-import { theme } from "@/styles/theme";
+import { getTheme } from "./../styles/theme";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
-
-// const ThemeModeProvider = ({ children }: { children: React.ReactNode }) => {
-//   return (
-//     <ThemeProvider value={ThemeProviderValue}>
-//       <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
-//     </ThemeProvider>
-//   );
-// };
 
 const MyApp: FC<AppPropsWithLayout> = ({
   Component,
@@ -27,7 +19,8 @@ const MyApp: FC<AppPropsWithLayout> = ({
 }: AppPropsWithLayout) => {
   const getLayout =
     Component.getLayout ?? ((page) => <DefaultLayout>{page}</DefaultLayout>);
-
+  const theme = getTheme();
+  console.log("getTheme", theme);
   return (
     <>
       <Script></Script>
@@ -35,9 +28,9 @@ const MyApp: FC<AppPropsWithLayout> = ({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Global styles={globalStyle} />
-      {/* <ThemeModeProvider> */}
-      {getLayout(<Component {...pageProps} />)}
-      {/* </ThemeModeProvider> */}
+      <ThemeProvider theme={theme}>
+        {getLayout(<Component {...pageProps} />)}
+      </ThemeProvider>
     </>
   );
 };

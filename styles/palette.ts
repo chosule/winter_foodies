@@ -9,6 +9,8 @@ export type Colors = {
 
   text_white: string;
 
+  text_orange: string;
+
   text_gray_0: string;
   text_gray_10: string;
   text_gray_20: string;
@@ -30,6 +32,8 @@ export const colors: Colors = {
   text_black: "#353535",
 
   text_white: "#FAFAFA",
+
+  text_orange: "#FF4D00",
 
   text_gray_0: "#E8E8E8",
   text_gray_10: "#DFDFDF",

@@ -7,7 +7,7 @@ export const globalStyle = css`
     padding: 0;
     margin: 0;
     font: inherit;
-    font-family: Pretendard;
+    font-family: GmarketSansMedium;
     font-weight: 300;
     color: inherit;
     word-wrap: break-word;
