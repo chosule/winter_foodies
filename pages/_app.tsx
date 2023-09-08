@@ -17,10 +17,16 @@ const MyApp: FC<AppPropsWithLayout> = ({
   Component,
   pageProps,
 }: AppPropsWithLayout) => {
+  const showBottomNav =
+    pageProps.showBottomNav !== undefined ? pageProps.showBottomNav : true;
+
   const getLayout =
-    Component.getLayout ?? ((page) => <DefaultLayout>{page}</DefaultLayout>);
+    Component.getLayout ??
+    ((page) => (
+      <DefaultLayout showBottomNav={showBottomNav}>{page}</DefaultLayout>
+    ));
   const theme = getTheme();
-  console.log("getTheme", theme);
+
   return (
     <>
       <Script></Script>

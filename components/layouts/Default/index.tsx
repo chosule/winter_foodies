@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Children } from "@/types/commons";
 import styled from "@emotion/styled";
-
+import BottomNavigation from "@/components/layouts/BottomNavigation/BottomNavigation";
 type TDefaultLayoutProps = {
   children: Children;
 };
@@ -14,6 +14,7 @@ const DefaultLayout = ({ children }: TDefaultLayoutProps) => {
       <StyledLayout>
         <StyledOuter>
           <StyledContent>{children}</StyledContent>
+          <BottomNavigation />
         </StyledOuter>
       </StyledLayout>
     </div>
