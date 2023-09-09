@@ -5,10 +5,12 @@ const Nav = styled.nav`
   width: 100%;
   height: 96px;
   background-color: #fff;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 27px;
+  border-top-right-radius: 27px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0;
 `;
 
 const NavItem = styled.div`
@@ -16,9 +18,16 @@ const NavItem = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 5px;
+  width: 18px;
+  gap: 10px;
 `;
 
+const Text = styled.p<{ isActive: boolean }>`
+  font-size: 12px;
+  color: ${({ isActive }) => (isActive ? "#000" : "#ddd")};
+`;
 export const NaviUI = {
   Nav,
   NavItem,
+  Text,
 } as const;

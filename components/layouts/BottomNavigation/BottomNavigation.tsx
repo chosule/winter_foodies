@@ -1,19 +1,24 @@
 import {
   HomeIcon,
+  HomeIconActive,
   MypageIcon,
+  MypageIconActive,
   AroundmeIcon,
+  AroundmeIconActive,
   CartIcon,
+  CartIconActive,
 } from "@/components/Icon/BottomNavigation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { NaviUI } from "./style";
-
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 const routes = [
   {
     text: "홈",
     img: {
       default: <HomeIcon />,
-      action: <HomeIcon />,
+      active: <HomeIconActive />,
     },
     path: "/",
   },
@@ -21,38 +26,42 @@ const routes = [
     text: "내주변",
     img: {
       default: <AroundmeIcon />,
-      action: <AroundmeIcon />,
+      active: <AroundmeIconActive />,
     },
-    path: "/",
+    path: "/aroundme",
   },
   {
     text: "장바구니",
     img: {
       default: <CartIcon />,
-      action: <CartIcon />,
+      active: <CartIconActive />,
     },
-    path: "/",
+    path: "/cart",
   },
   {
     text: "마이페이지",
     img: {
       default: <MypageIcon />,
-      action: <MypageIcon />,
+      active: <MypageIconActive />,
     },
     path: "/mypage",
   },
 ];
 
 const BottomNavigation = () => {
+  const router = useRouter();
+  const pathname = usePathname();
   return (
     <NaviUI.Nav>
       {routes.map((route) => {
-        // const includesPathname = route.asPath.startsWith(route.path)
+        const isActive = pathname === route.path;
+
         return (
           <Link key={route.text} href={route.path} passHref>
             <NaviUI.NavItem>
-              {route.img.default}
-              {route.text}
+              {isActive ? route.img.active : route.img.default}
+              {/* {route.img.default} */}
+              <NaviUI.Text isActive={isActive}>{route.text}</NaviUI.Text>
             </NaviUI.NavItem>
           </Link>
         );
