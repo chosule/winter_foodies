@@ -1,5 +1,5 @@
 import Main from "@/components/Main/components";
-import { PageLayout } from "@/components/layouts/BottomNavigation/index";
+import DefaultLayout from "@/components/layouts/Default";
 
 const MainPage = () => {
   return (
@@ -10,7 +10,7 @@ const MainPage = () => {
 };
 
 MainPage.getLayout = (page: React.ReactNode) => {
-  return <PageLayout>{page}</PageLayout>;
+  return <DefaultLayout>{page}</DefaultLayout>;
 };
 
 export default MainPage;

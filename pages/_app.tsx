@@ -17,8 +17,9 @@ const MyApp: FC<AppPropsWithLayout> = ({
   Component,
   pageProps,
 }: AppPropsWithLayout) => {
-  const getLayout =
-    Component.getLayout ?? ((page) => <DefaultLayout>{page}</DefaultLayout>);
+  // const getLayout =
+  //   Component.getLayout ?? ((page) => <DefaultLayout>{page}</DefaultLayout>);
+  const getLayout = Component.getLayout ?? ((page) => page);
   const theme = getTheme();
 
   return (
