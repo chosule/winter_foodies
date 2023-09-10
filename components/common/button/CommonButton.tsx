@@ -4,7 +4,7 @@ import { CSSProperties } from "react";
 const CommonButton = ({
   children,
   color = "secondary",
-  variant = "contained",
+  variant = "text",
   ...rest
 }: ButtonProps) => {
   return (

@@ -9,9 +9,7 @@ import {
   CartIconActive,
 } from "@/components/Icon/BottomNavigation";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { NaviUI } from "./style";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 const routes = [
   {
@@ -49,7 +47,6 @@ const routes = [
 ];
 
 const BottomNavigation = () => {
-  const router = useRouter();
   const pathname = usePathname();
   return (
     <NaviUI.Nav>
@@ -60,7 +57,6 @@ const BottomNavigation = () => {
           <Link key={route.text} href={route.path} passHref>
             <NaviUI.NavItem>
               {isActive ? route.img.active : route.img.default}
-              {/* {route.img.default} */}
               <NaviUI.Text isActive={isActive}>{route.text}</NaviUI.Text>
             </NaviUI.NavItem>
           </Link>

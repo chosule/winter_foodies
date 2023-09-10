@@ -39,6 +39,7 @@ export const StyledOuter = styled.div`
 export const StyledContent = styled.div`
   width: 90%;
   margin: 0 auto;
+  height: 100%;
 `;
 
 export default DefaultLayout;

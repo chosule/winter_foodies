@@ -9,7 +9,7 @@ const Nav = styled.nav`
   border-top-right-radius: 27px;
   align-items: center;
   justify-content: space-around;
-  position: absolute;
+  position: sticky;
   bottom: 0;
 `;
 

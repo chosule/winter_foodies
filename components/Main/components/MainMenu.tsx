@@ -24,7 +24,7 @@ const MainMenu = () => {
   return (
     <StyledBoxWrap>
       {buttonImages.map((buttonImage) => (
-        <StyledButton>
+        <StyledButton key={buttonImage.url}>
           <Image
             src={buttonImage.url}
             alt={buttonImage.imgName}
@@ -54,6 +54,7 @@ const StyledButton = styled(CommonButton)`
   display: flex;
   flex-direction: column;
   background-color: #dd803721;
+  border-radius: 15px;
 `;
 
 export default MainMenu;
