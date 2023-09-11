@@ -10,21 +10,26 @@ import { CSSProperties } from "react";
 import { handleKakaoLogin } from "@/hooks/auth/useKakaoApi";
 import { handleNaverLogin } from "@/hooks/auth/useNaverApi";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
-import { TLoginSchema } from "@/components/login/schema";
+import { TLoginSchema, loginSchema } from "@/components/Login/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TLoginSchema>();
+  } = useForm<TLoginSchema>({
+    resolver: zodResolver(loginSchema),
+  });
 
-  const onSubmit = () => {
+  const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
     console.log("제출");
   };
 
-  const onError = () => {
-    console.log("에러발생");
+  const onError: SubmitErrorHandler<TLoginSchema> = (error) => {
+    console.log(error);
   };
   return (
     <LoginUI.Wrapper>
@@ -37,6 +42,7 @@ const Login = () => {
               <TextField
                 placeholder="아이디를 입력해 주세요."
                 {...register("id", { required: true })}
+                errorMsg={errors.id?.message}
               />
             </LoginUI.Flex>
             <LoginUI.Flex gap="10px" flexDirection="column">
@@ -54,7 +60,7 @@ const Login = () => {
           </StyleButton>
           {/*  */}
           <LoginUI.Flex flexDirection="column" alignItems="center" gap="10px">
-            <LoginUI.Text fontSize="11px">
+            <LoginUI.Text fontSize="10px">
               SNS계정으로 간편 로그인/회원가입
             </LoginUI.Text>
             <LoginUI.Flex gap="20px">
@@ -73,7 +79,14 @@ const Login = () => {
           </LoginUI.Flex>
         </LoginUI.Flex>
       </form>
-      <StyledLinkText fontSize="12px">회원가입 하러 가기</StyledLinkText>
+      <StyledLinkText
+        fontSize="12px"
+        onClick={() => {
+          router.push("/login/signup");
+        }}
+      >
+        회원가입 하러 가기
+      </StyledLinkText>
     </LoginUI.Wrapper>
   );
 };

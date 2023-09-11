@@ -25,6 +25,7 @@ const TextField = forwardRef<HTMLInputElement, TInputAttributes>(
     );
   }
 );
+TextField.displayName = "TextField";
 
 const StyledInput = styled.input`
   background-color: #fafafa;

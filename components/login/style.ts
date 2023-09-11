@@ -19,7 +19,7 @@ const Flex = styled.div<
 `;
 const Label = styled.label`
   color: #353535;
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 const Text = styled.p<
