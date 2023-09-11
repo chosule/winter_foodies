@@ -29,5 +29,6 @@ const StyledButton = styled(Button)<
   height: ${({ height }) => (height ? height : "49px")};
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : "#DD8037"};
+  color: #fff;
 `;
 export default CommonButton;

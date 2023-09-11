@@ -1,8 +1,6 @@
 import CommonButton from "@/components/common/button/CommonButton";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { PageLayout } from "@/components/layouts/BottomNavigation";
-import BttomNavigation from "@/components/layouts/BottomNavigation/BottomNavigation";
 
 type ButtonImage = {
   imgName: string;
