@@ -74,10 +74,10 @@ const NearDistance = () => {
                 {item.titleId}
               </StyleBox>
               <StyleBox
-                width="250px"
                 backgroundColor="#fff"
                 color="#000"
                 justifyContent="space-between"
+                flexGrow="0.9"
               >
                 <img src={item.img} alt="이미지" />
                 <MainUI.Text fontSize="12px">{item.name}</MainUI.Text>
@@ -95,9 +95,10 @@ const NearDistance = () => {
 };
 
 const StyleBox = styled(CommonBox)<
-  Pick<CSSProperties, "justifyContent" | "color" | "flexDirection">
+  Pick<CSSProperties, "justifyContent" | "color" | "flexDirection" | "flexGrow">
 >`
   display: flex;
+  flex-grow: ${({ flexGrow }) => flexGrow};
   align-items: center;
   justify-content: ${({ justifyContent }) => justifyContent};
   color: ${({ color }) => color};
