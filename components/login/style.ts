@@ -29,6 +29,7 @@ const Text = styled.p<
   text-align: ${({ textAlign }) => textAlign};
   font-weight: ${({ fontWeight }) => fontWeight};
   color: ${({ color }) => color};
+  text-decoration: $;
 `;
 
 export const LoginUI = { Wrapper, Label, Flex, Text } as const;

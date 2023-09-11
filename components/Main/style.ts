@@ -7,7 +7,10 @@ const Wrapper = styled.section<Pick<CSSProperties, "margin" | "gap">>`
   flex-direction: column;
   gap: ${({ gap }) => gap};
 `;
-
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 70px 1fr;
+`;
 const Flex = styled.div<
   Pick<CSSProperties, "alignItems" | "gap" | "flexDirection" | "justifyContent">
 >`
@@ -28,4 +31,5 @@ export const MainUI = {
   Wrapper,
   Flex,
   Text,
+  Grid,
 } as const;
