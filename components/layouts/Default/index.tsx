@@ -31,7 +31,7 @@ export const StyledLayout = styled.div`
 `;
 
 export const StyledOuter = styled.div`
-  width: 360px;
+  width: 511px;
   background-color: #f3f3f3;
   height: 100%;
   position: relative;

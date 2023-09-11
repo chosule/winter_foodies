@@ -7,6 +7,7 @@ const Wrapper = styled.section`
   align-items: center;
   justify-content: center;
   height: 100%;
+  gap: 26px;
 `;
 const Flex = styled.div<
   Pick<CSSProperties, "gap" | "flexDirection" | "alignItems">
@@ -21,4 +22,13 @@ const Label = styled.label`
   font-size: 12px;
 `;
 
-export const LoginUI = { Wrapper, Label, Flex } as const;
+const Text = styled.p<
+  Pick<CSSProperties, "fontSize" | "textAlign" | "fontWeight" | "color">
+>`
+  font-size: ${({ fontSize }) => fontSize};
+  text-align: ${({ textAlign }) => textAlign};
+  font-weight: ${({ fontWeight }) => fontWeight};
+  color: ${({ color }) => color};
+`;
+
+export const LoginUI = { Wrapper, Label, Flex, Text } as const;
