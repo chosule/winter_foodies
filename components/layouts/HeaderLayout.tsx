@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import CommonButton from "@/components/common/button/CommonButton";
+
 const HeaderLayout = ({ headerTitle }: { headerTitle: string }) => {
   const router = useRouter();
 
@@ -30,7 +31,16 @@ const StyleWrap = styled.section`
 `;
 
 const StyleButton = styled(CommonButton)`
+  background-color: transparent;
+  background-image: url(/img/arrow.png);
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-width: 0;
   position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
 `;
 
 const StyleText = styled.p`

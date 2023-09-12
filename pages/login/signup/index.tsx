@@ -1,4 +1,3 @@
-import HeaderLayout from "@/components/layouts/HeaderLayout";
 import LoginLayout from "@/components/layouts/LoginLayout";
 import SignUp from "@/components/Login/Signup/components";
 const SignUpPage = () => {
