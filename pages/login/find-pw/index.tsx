@@ -1,5 +1,6 @@
-import FindPw from "@/components/Login/FindPw/components";
+import FindPw from "@/components/Login/FindPw/components/index";
 import LoginLayout from "@/components/layouts/LoginLayout";
+
 const FindPwPage = () => {
   return (
     <>

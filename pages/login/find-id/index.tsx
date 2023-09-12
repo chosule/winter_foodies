@@ -1,4 +1,4 @@
-import FindId from "@/components/Login/FindPw/components";
+import FindId from "@/components/Login/FindId/components/index";
 import LoginLayout from "@/components/layouts/LoginLayout";
 
 const FindIdPage = () => {
