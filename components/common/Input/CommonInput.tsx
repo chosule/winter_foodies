@@ -12,7 +12,7 @@ type TInputAttributes = InputHTMLAttributes<HTMLInputElement> & TTextFieldProps;
 const TextField = forwardRef<HTMLInputElement, TInputAttributes>(
   ({ ...props }, ref) => {
     return (
-      <>
+      <StyledWrap>
         <StyledInput
           ref={ref}
           {...props}
@@ -21,12 +21,17 @@ const TextField = forwardRef<HTMLInputElement, TInputAttributes>(
           autoComplete="off"
         />
         {props.errorMsg && <ErrorMsg errorMsg={props.errorMsg} />}
-      </>
+      </StyledWrap>
     );
   }
 );
 TextField.displayName = "TextField";
 
+const StyledWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 const StyledInput = styled.input`
   background-color: #fafafa;
   width: 100%;

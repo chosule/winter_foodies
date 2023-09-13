@@ -1,5 +1,5 @@
 import Image from "next/image";
-import TextField from "@/components/common/input/Input";
+import TextField from "@/components/common/Input/CommonInput";
 import { AuthUI } from "../style";
 import CommonButton from "@/components/common/button/CommonButton";
 import styled from "@emotion/styled";

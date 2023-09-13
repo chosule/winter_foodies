@@ -1,9 +1,9 @@
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { AuthUI } from "../../style";
-import TextField from "@/components/common/input/Input";
+import TextField from "@/components/common/Input/CommonInput";
 import CommonButton from "@/components/common/button/CommonButton";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
-import CommonInfoBox from "@/components/common/box/CommonInfoBox";
+import CommonInfoBox from "@/components/common/CommonBox/CommonInfoBox";
 import { TSignUpSchema, signUpSchema } from "@/components/Login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 

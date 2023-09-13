@@ -1,11 +1,9 @@
 import { z } from "zod";
-import {
-  passwordPattern,
-  phoneNumberPattern,
-} from "../../../core/common/regex";
+import { passwordPattern, phoneNumberPattern } from "@/core/common/regex";
 
 export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
+export type TFindIdSchema = z.infer<typeof findIdSchema>;
 
 export const loginSchema = z.object({
   id: z.string().email({ message: "아이디는 이메일 형식으로 입력하세요." }),
@@ -50,3 +48,10 @@ export const signUpSchema = z
     path: ["signUpPasswordChecking"],
     message: "새 비밀번호와 같지 않습니다.",
   });
+
+export const findIdSchema = z.object({
+  findIdPhoneNumber: z.string().regex(phoneNumberPattern, {
+    message: "휴대폰 번호를 정확히 입력해주세요.",
+  }),
+  findIdCertiNumber: z.string().nonempty("인증번호를 정확히 입력해주세요."),
+});
