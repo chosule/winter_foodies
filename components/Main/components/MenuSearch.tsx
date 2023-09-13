@@ -1,5 +1,5 @@
 import { MainUI } from "../style";
-import TextField from "@/components/common/input/Input";
+import TextField from "@/components/common/Input/CommonInput";
 import styled from "@emotion/styled";
 import CommonButton from "@/components/common/button/CommonButton";
 

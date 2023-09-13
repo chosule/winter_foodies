@@ -23,7 +23,7 @@ const DefaultLayout = ({ children }: TDefaultLayoutProps) => {
 
 export const StyledLayout = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -33,7 +33,6 @@ export const StyledLayout = styled.div`
 export const StyledOuter = styled.div`
   width: 511px;
   background-color: #f3f3f3;
-  height: 100%;
   position: relative;
 `;
 export const StyledContent = styled.div`

@@ -1,8 +1,7 @@
 import Head from "next/head";
 import { Children } from "@/types/commons";
 import styled from "@emotion/styled";
-import BottomNavigation from "@/components/layouts/BottomNavigation/BottomNavigation";
-import Header from "./HeaderLayout";
+
 type TDefaultLayoutProps = {
   children: Children;
 };
@@ -33,8 +32,8 @@ export const StyledLayout = styled.div`
 export const StyledOuter = styled.div`
   width: 511px;
   background-color: #fcce8a;
-  height: 100%;
   position: relative;
+  height: 100%;
 `;
 export const StyledContent = styled.div`
   width: 90%;

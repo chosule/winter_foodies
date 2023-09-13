@@ -1,25 +1,37 @@
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 
-const Wrapper = styled.section`
+const Wrapper = styled.section<
+  Pick<CSSProperties, "alignItems" | "justifyContent" | "height">
+>`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  align-items: ${({ alignItems }) => alignItems};
+  justify-content: ${({ justifyContent }) => justifyContent};
   gap: 26px;
+  height: ${({ height }) => (height ? height : "auto")};
+  width: 100%;
 `;
 const Flex = styled.div<
-  Pick<CSSProperties, "gap" | "flexDirection" | "alignItems">
+  Pick<
+    CSSProperties,
+    "gap" | "flexDirection" | "alignItems" | "width" | "justifyContent"
+  >
 >`
   display: flex;
   align-items: ${({ alignItems }) => alignItems};
   gap: ${({ gap }) => gap};
-  flex-direction: ${({ flexDirection }) => flexDirection};
+  flex-direction: ${({ flexDirection }) =>
+    flexDirection ? flexDirection : "column"};
+  width: ${({ width }) => (width ? width : "100%")};
+  justify-content: ${({ justifyContent }) => justifyContent};
+`;
+const FormWrap = styled.form`
+  width: 100%;
 `;
 const Label = styled.label`
   color: #353535;
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 const Text = styled.p<
@@ -29,7 +41,6 @@ const Text = styled.p<
   text-align: ${({ textAlign }) => textAlign};
   font-weight: ${({ fontWeight }) => fontWeight};
   color: ${({ color }) => color};
-  text-decoration: $;
 `;
 
-export const LoginUI = { Wrapper, Label, Flex, Text } as const;
+export const AuthUI = { Wrapper, Label, Flex, Text, FormWrap } as const;

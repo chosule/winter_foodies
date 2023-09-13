@@ -1,92 +1,123 @@
 import Image from "next/image";
-import TextField from "@/components/common/input/Input";
-import { LoginUI } from "../style";
+import TextField from "@/components/common/Input/CommonInput";
+import { AuthUI } from "../style";
 import CommonButton from "@/components/common/button/CommonButton";
 import styled from "@emotion/styled";
 import mainLogoIcon from "@/public/img/mainLogoIcon.png";
 import kakaoIcon from "@/public/img/kakaoIcon.png";
 import naverIcon from "@/public/img/naverIcon.png";
-import { CSSProperties } from "react";
 import { handleKakaoLogin } from "@/hooks/auth/useKakaoApi";
 import { handleNaverLogin } from "@/hooks/auth/useNaverApi";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
-import { TLoginSchema } from "@/components/login/schema";
+import { TLoginSchema, loginSchema } from "@/components/Login/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TLoginSchema>();
+  } = useForm<TLoginSchema>({
+    resolver: zodResolver(loginSchema),
+  });
 
-  const onSubmit = () => {
-    console.log("제출");
+  const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
+    console.log(data);
   };
 
-  const onError = () => {
-    console.log("에러발생");
+  const onError: SubmitErrorHandler<TLoginSchema> = (error) => {
+    console.log(error);
   };
   return (
-    <LoginUI.Wrapper>
+    <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%">
       <Image src={mainLogoIcon} alt="아이콘" width={300} height={278} />
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <LoginUI.Flex gap="20px" flexDirection="column">
-          <LoginUI.Flex flexDirection="column" gap="10px">
-            <LoginUI.Flex gap="10px" flexDirection="column">
-              <LoginUI.Label>아이디</LoginUI.Label>
+      <AuthUI.FormWrap onSubmit={handleSubmit(onSubmit, onError)}>
+        <AuthUI.Flex gap="20px" flexDirection="column">
+          <AuthUI.Flex flexDirection="column" gap="10px">
+            <AuthUI.Flex gap="10px" flexDirection="column">
+              <AuthUI.Label>아이디</AuthUI.Label>
               <TextField
                 placeholder="아이디를 입력해 주세요."
                 {...register("id", { required: true })}
+                errorMsg={errors.id?.message}
               />
-            </LoginUI.Flex>
-            <LoginUI.Flex gap="10px" flexDirection="column">
-              <LoginUI.Label>비밀번호</LoginUI.Label>
+            </AuthUI.Flex>
+            <AuthUI.Flex gap="10px" flexDirection="column">
+              <AuthUI.Label>비밀번호</AuthUI.Label>
               <TextField
                 placeholder="비밀번호를 입력해 주세요."
                 type="password"
                 {...register("password", { required: true })}
                 errorMsg={errors.password?.message}
               />
-            </LoginUI.Flex>
-          </LoginUI.Flex>
-          <StyleButton type="submit" variant="contained">
+            </AuthUI.Flex>
+          </AuthUI.Flex>
+          <CommonButton type="submit" variant="contained" width="100%">
             로그인
-          </StyleButton>
-          {/*  */}
-          <LoginUI.Flex flexDirection="column" alignItems="center" gap="10px">
-            <LoginUI.Text fontSize="11px">
-              SNS계정으로 간편 로그인/회원가입
-            </LoginUI.Text>
-            <LoginUI.Flex gap="20px">
-              <StyleButton onClick={handleKakaoLogin} backgroundColor="none">
-                <Image src={kakaoIcon} alt="카카오톡" width={45} height={45} />
-              </StyleButton>
-              <StyleButton onClick={handleNaverLogin} backgroundColor="none">
-                <Image
-                  src={naverIcon}
-                  alt="네이버로그인"
-                  width={45}
-                  height={45}
-                />
-              </StyleButton>
-            </LoginUI.Flex>
-          </LoginUI.Flex>
-        </LoginUI.Flex>
-      </form>
-      <StyledLinkText fontSize="12px">회원가입 하러 가기</StyledLinkText>
-    </LoginUI.Wrapper>
+          </CommonButton>
+        </AuthUI.Flex>
+      </AuthUI.FormWrap>
+      {/*  */}
+      <AuthUI.Flex flexDirection="initial">
+        <AuthUI.Flex gap="10px" flexDirection="initial">
+          <StyledLinkText
+            fontSize="12px"
+            onClick={() => {
+              router.push("/login/find-id");
+            }}
+          >
+            아이디 찾기
+          </StyledLinkText>
+          <StyledLinkText
+            fontSize="12px"
+            onClick={() => {
+              router.push("/login/find-pw");
+            }}
+          >
+            비밀번호 찾기
+          </StyledLinkText>
+        </AuthUI.Flex>
+        <StyledLinkText
+          fontSize="12px"
+          onClick={() => {
+            router.push("/login/signup");
+          }}
+        >
+          회원가입
+        </StyledLinkText>
+      </AuthUI.Flex>
+      {/*  */}
+      <AuthUI.Flex flexDirection="column" alignItems="center" gap="10px">
+        <AuthUI.Text fontSize="10px">
+          SNS계정으로 간편 로그인/회원가입
+        </AuthUI.Text>
+        <AuthUI.Flex
+          gap="10px"
+          width="inherit"
+          justifyContent="center"
+          flexDirection="initial"
+        >
+          <CommonButton
+            onClick={handleKakaoLogin}
+            backgroundColor="transparent"
+          >
+            <Image src={kakaoIcon} alt="카카오톡" width={45} height={45} />
+          </CommonButton>
+          <CommonButton
+            onClick={handleNaverLogin}
+            backgroundColor="transparent"
+          >
+            <Image src={naverIcon} alt="네이버로그인" width={45} height={45} />
+          </CommonButton>
+        </AuthUI.Flex>
+      </AuthUI.Flex>
+    </AuthUI.Wrapper>
   );
 };
 
-const StyleButton = styled(CommonButton)<
-  Pick<CSSProperties, "backgroundColor">
->`
-  width: 100%;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-`;
-
-const StyledLinkText = styled(LoginUI.Text)`
-  text-decoration: underline;
+const StyledLinkText = styled(AuthUI.Text)`
   cursor: pointer;
 `;
 export default Login;

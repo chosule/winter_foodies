@@ -22,7 +22,7 @@ const MainMenu = () => {
   return (
     <StyledBoxWrap>
       {buttonImages.map((buttonImage) => (
-        <StyledButton key={buttonImage.url}>
+        <StyledButton key={buttonImage.url} backgroundColor="#dd803721">
           <Image
             src={buttonImage.url}
             alt={buttonImage.imgName}
@@ -39,6 +39,7 @@ const MainMenu = () => {
 const StyledBoxWrap = styled.section`
   display: grid;
   grid-template-columns: 3fr 3fr 3fr;
+  justify-items: center;
   width: 100%;
   gap: 19px;
 `;
@@ -51,7 +52,6 @@ const StyledButton = styled(CommonButton)`
   height: 91px;
   display: flex;
   flex-direction: column;
-  background-color: #dd803721;
   border-radius: 15px;
 `;
 
