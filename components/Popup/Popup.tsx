@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Modal from "react-modal";
-import CommonButton from "../common/button/CommonButton";
+import CommonButton from "../common/Button/CommonButton";
 import { CSSProperties } from "react";
 
 type TPopupProps = {
@@ -18,12 +18,7 @@ const Popup = ({ children, isOpen, onClose, title }: TPopupProps) => {
       <StyledModalWrap isOpen={isOpen}>
         <StyledText fontWeight="600">{title}</StyledText>
         <StyledText>{children}</StyledText>
-        <StyledButton
-          onClick={onClose}
-          backgroundColor="#853C0D"
-          width="80%"
-          variant="contained"
-        >
+        <StyledButton onClick={onClose} backgroundColor="#853C0D" width="80%">
           확인
         </StyledButton>
       </StyledModalWrap>
@@ -35,7 +30,8 @@ const StyledModalWrap = styled(Modal)`
   height: 178px;
   width: 359px;
   border-radius: 17px;
-  background-color: #dd8037;
+  background-color: #fcce8a;
+  border: 1px solid #ddd;
   position: fixed;
   top: 50%;
   left: 50%;
