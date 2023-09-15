@@ -15,7 +15,13 @@ const Wrapper = styled.section<
 const Flex = styled.div<
   Pick<
     CSSProperties,
-    "gap" | "flexDirection" | "alignItems" | "width" | "justifyContent"
+    | "gap"
+    | "flexDirection"
+    | "alignItems"
+    | "width"
+    | "justifyContent"
+    | "flex"
+    | "height"
   >
 >`
   display: flex;
@@ -25,9 +31,15 @@ const Flex = styled.div<
     flexDirection ? flexDirection : "column"};
   width: ${({ width }) => (width ? width : "100%")};
   justify-content: ${({ justifyContent }) => justifyContent};
+  flex: ${({ flex }) => flex};
+  height: ${({ height }) => height};
 `;
-const FormWrap = styled.form`
+const FormWrap = styled.form<Pick<CSSProperties, "height" | "flex">>`
   width: 100%;
+  height: ${({ height }) => height};
+  flex: ${({ flex }) => flex};
+  display: flex;
+  flex-direction: column;
 `;
 const Label = styled.label`
   color: #353535;

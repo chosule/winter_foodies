@@ -54,6 +54,8 @@ const StyledMessage = styled.p`
   color: #353535;
   font-weight: 300;
   text-align: center;
+  font-size: 13px;
+  white-space: pre-line;
 `;
 const StyledConfirmBtn = styled(CommonButton)`
   flex: 1;
