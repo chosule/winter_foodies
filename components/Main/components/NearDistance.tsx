@@ -1,4 +1,4 @@
-import CommonBox from "@/components/common/box/CommonBox";
+import CommonBox from "@/components/common/CommonBox/CommonBox";
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 import { MainUI } from "../style";

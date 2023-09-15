@@ -34,6 +34,7 @@ export const StyledOuter = styled.div`
   background-color: #fcce8a;
   position: relative;
   height: 100%;
+  overflow: hidden;
 `;
 export const StyledContent = styled.div`
   width: 90%;

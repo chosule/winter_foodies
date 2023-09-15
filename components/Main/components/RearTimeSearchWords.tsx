@@ -1,4 +1,4 @@
-import CommonBox from "@/components/common/box/CommonBox";
+import CommonBox from "@/components/common/CommonBox/CommonBox";
 import styled from "@emotion/styled";
 import { MainUI } from "../style";
 const RearTimeSearchWords = () => {
