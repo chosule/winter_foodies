@@ -1,7 +1,7 @@
 import Image from "next/image";
 import TextField from "@/components/common/Input/CommonInput";
 import { AuthUI } from "../style";
-import CommonButton from "@/components/common/button/CommonButton";
+import CommonButton from "@/components/common/Button/CommonButton";
 import styled from "@emotion/styled";
 import mainLogoIcon from "@/public/img/mainLogoIcon.png";
 import kakaoIcon from "@/public/img/kakaoIcon.png";

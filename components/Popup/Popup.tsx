@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Modal from "react-modal";
-import CommonButton from "../common/button/CommonButton";
+import CommonButton from "../common/Button/CommonButton";
 import { CSSProperties } from "react";
 
 type TPopupProps = {

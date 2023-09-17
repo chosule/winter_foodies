@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import CommonButton from "@/components/common/button/CommonButton";
+import CommonButton from "@/components/common/Button/CommonButton";
 
 const HeaderLayout = ({ headerTitle }: { headerTitle: string }) => {
   const router = useRouter();

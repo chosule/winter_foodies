@@ -1,7 +1,7 @@
 import { MainUI } from "../style";
 import TextField from "@/components/common/Input/CommonInput";
 import styled from "@emotion/styled";
-import CommonButton from "@/components/common/button/CommonButton";
+import CommonButton from "@/components/common/Button/CommonButton";
 
 const MenuSearch = () => {
   return (

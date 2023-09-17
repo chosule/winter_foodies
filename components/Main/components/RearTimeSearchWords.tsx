@@ -2,11 +2,19 @@ import CommonBox from "@/components/common/CommonBox/CommonBox";
 import styled from "@emotion/styled";
 import { MainUI } from "../style";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import arrowIcon from "@/public/img/arrowIcon.svg";
+type TMockData = {
+  id: number;
+  name: string;
+  img?: string;
+  title?: string;
+};
 
-const MOCK_DATA = [
-  { id: 1, name: "붕어빵" },
+const MOCK_DATA: TMockData[] = [
+  { id: 1, name: "붕어빵", img: "/img/arrowIcon.svg", title: "HOT" },
   { id: 2, name: "어묵" },
-  { id: 3, name: "호떡" },
+  { id: 3, name: "호떡", img: "/img/arrowIcon.svg", title: "HOT" },
   { id: 4, name: "떡볶이" },
   { id: 5, name: "다코야키" },
 ];
@@ -14,15 +22,15 @@ const MOCK_DATA = [
 const RearTimeSearchWords = () => {
   const [currentItem, setCurrentItem] = useState(0);
 
-  useEffect(() => {
-    const tickerInterval = setInterval(() => {
-      setCurrentItem((prevItem) => (prevItem + 1) % MOCK_DATA.length);
-    }, 3000);
+  // useEffect(() => {
+  //   const tickerInterval = setInterval(() => {
+  //     setCurrentItem((prevItem) => (prevItem + 1) % MOCK_DATA.length);
+  //   }, 3000);
 
-    return () => {
-      clearInterval(tickerInterval);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(tickerInterval);
+  //   };
+  // }, []);
 
   return (
     <MainUI.Wrapper>
@@ -38,6 +46,10 @@ const RearTimeSearchWords = () => {
             >
               <StyledText>{item.id}</StyledText>
               <StyledText>{item.name}</StyledText>
+              {item.img && (
+                <img src={item.img} alt={item.img} width="20px" height="20px" />
+              )}
+              {item.title && <StyledText>{item.title}</StyledText>}
             </StyledItemLi>
           ))}
         </StyledItemUl>
@@ -65,7 +77,6 @@ const StyledText = styled.p`
 const StyledItemLi = styled.li`
   display: flex;
   font-size: 16px;
-  background-color: pink;
   gap: 10px;
 `;
 

@@ -1,4 +1,4 @@
-import CommonButton from "@/components/common/button/CommonButton";
+import CommonButton from "@/components/common/Button/CommonButton";
 import styled from "@emotion/styled";
 import Image from "next/image";
 
