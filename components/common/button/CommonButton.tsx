@@ -3,6 +3,7 @@ import { CSSProperties } from "react";
 
 type CommonButtonProps = {
   width?: string;
+  height?: string;
   backgroundColor?: string;
 };
 
@@ -11,6 +12,7 @@ const CommonButton = ({
   color = "secondary",
   variant = "text",
   width,
+  height,
   backgroundColor,
   ...rest
 }: ButtonProps & CommonButtonProps) => {
@@ -19,6 +21,7 @@ const CommonButton = ({
       variant={variant}
       color={color}
       width={width}
+      height={height}
       backgroundColor={backgroundColor}
       {...rest}
     >
@@ -41,7 +44,7 @@ const StyledButton = styled(Button)<
   width: ${({ width }) => (width ? width : "47px")};
   height: ${({ height }) => (height ? height : "45px")};
   background-color: ${({ backgroundColor }) =>
-    backgroundColor ? backgroundColor : "#853C0D"};
+    backgroundColor ? backgroundColor : "#DD8037"};
   color: #fff;
 `;
 export default CommonButton;

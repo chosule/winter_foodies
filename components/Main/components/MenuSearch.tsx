@@ -6,9 +6,13 @@ import CommonButton from "@/components/common/Button/CommonButton";
 const MenuSearch = () => {
   return (
     <MainUI.Wrapper>
-      <MainUI.Flex gap="9px" alignItems="center">
+      <MainUI.Flex
+        gap="15px"
+        alignItems="center"
+        justifyContent="space-between"
+      >
         <TextField placeholder="가게명, 음식명 검색" />
-        <StyledButton />
+        <StyledButton variant="contained" />
       </MainUI.Flex>
     </MainUI.Wrapper>
   );

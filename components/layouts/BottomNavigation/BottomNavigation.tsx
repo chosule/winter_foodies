@@ -7,6 +7,8 @@ import {
   AroundmeIconActive,
   CartIcon,
   CartIconActive,
+  LoginIcon,
+  LoginIconActive,
 } from "@/components/Icon/BottomNavigation";
 import Link from "next/link";
 import { NaviUI } from "./style";
@@ -44,6 +46,14 @@ const routes = [
     },
     path: "/mypage",
   },
+  // {
+  //   text: "로그인",
+  //   img: {
+  //     default: <LoginIcon />,
+  //     active: <LoginIconActive />,
+  //   },
+  //   path: "/login",
+  // },
 ];
 
 const BottomNavigation = () => {

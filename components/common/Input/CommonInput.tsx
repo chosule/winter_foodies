@@ -31,6 +31,7 @@ const StyledWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 `;
 const StyledInput = styled.input`
   background-color: #fafafa;

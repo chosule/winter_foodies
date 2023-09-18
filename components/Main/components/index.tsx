@@ -3,11 +3,12 @@ import RearTimeSearchWords from "./RearTimeSearchWords";
 import MainMenu from "./MainMenu";
 import NearDistance from "./NearDistance";
 import MenuSearch from "./MenuSearch";
+import MyLocation from "./MyLocation";
 
 const Main = () => {
   return (
     <>
-      <MainUI.Text>현재 위치 영역</MainUI.Text>
+      <MyLocation />
       <MenuSearch />
       <RearTimeSearchWords />
       <MainMenu />

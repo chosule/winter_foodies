@@ -1,7 +1,7 @@
 import CommonBox from "@/components/common/CommonBox/CommonBox";
 import styled from "@emotion/styled";
 import { MainUI } from "../style";
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import Image from "next/image";
 import arrowIcon from "@/public/img/arrowIcon.svg";
 type TMockData = {
@@ -22,19 +22,21 @@ const MOCK_DATA: TMockData[] = [
 const RearTimeSearchWords = () => {
   const [currentItem, setCurrentItem] = useState(0);
 
-  // useEffect(() => {
-  //   const tickerInterval = setInterval(() => {
-  //     setCurrentItem((prevItem) => (prevItem + 1) % MOCK_DATA.length);
-  //   }, 3000);
+  useEffect(() => {
+    const tickerInterval = setInterval(() => {
+      setCurrentItem((prevItem) => (prevItem + 1) % MOCK_DATA.length);
+    }, 3500);
 
-  //   return () => {
-  //     clearInterval(tickerInterval);
-  //   };
-  // }, []);
+    return () => {
+      clearInterval(tickerInterval);
+    };
+  }, []);
 
   return (
-    <MainUI.Wrapper>
-      <MainUI.Text textAlign="left">지금 인기있는 간식이에요!</MainUI.Text>
+    <MainUI.Wrapper gap="10px">
+      <MainUI.Text fontSize="14px" textAlign="left">
+        지금 인기있는 간식이에요 !
+      </MainUI.Text>
       <StyledItemWrap>
         <StyledItemUl>
           {MOCK_DATA.map((item, index) => (
@@ -44,12 +46,23 @@ const RearTimeSearchWords = () => {
                 display: index === currentItem ? "flex" : "none",
               }}
             >
-              <StyledText>{item.id}</StyledText>
-              <StyledText>{item.name}</StyledText>
-              {item.img && (
-                <img src={item.img} alt={item.img} width="20px" height="20px" />
+              <StyledText color="#353535">{item.id}</StyledText>
+              <StyledText color="#353535">{item.name}</StyledText>
+              <StyledImgWrap>
+                {item.img && (
+                  <img
+                    src={item.img}
+                    alt={item.img}
+                    width="33px"
+                    height="34px"
+                  />
+                )}
+              </StyledImgWrap>
+              {item.title && (
+                <StyledText color="#DD8037" fontSize="8px">
+                  {item.title}
+                </StyledText>
               )}
-              {item.title && <StyledText>{item.title}</StyledText>}
             </StyledItemLi>
           ))}
         </StyledItemUl>
@@ -62,6 +75,11 @@ const StyledItemWrap = styled.div`
   width: 100%;
 `;
 
+const StyledImgWrap = styled.div`
+  position: absolute;
+  top: -12px;
+  left: 90px;
+`;
 const StyledItemUl = styled.ul`
   list-style-type: none;
   padding: 0;
@@ -71,13 +89,16 @@ const StyledItemUl = styled.ul`
   padding: 13px 18px;
 `;
 
-const StyledText = styled.p`
-  font-weight: 600;
+const StyledText = styled.p<Pick<CSSProperties, "fontSize" | "color">>`
+  font-weight: 300;
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : "16px")};
+  color: ${({ color }) => color};
 `;
 const StyledItemLi = styled.li`
   display: flex;
   font-size: 16px;
   gap: 10px;
+  position: relative;
 `;
 
 export default RearTimeSearchWords;

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 
 const Wrapper = styled.section<Pick<CSSProperties, "margin" | "gap">>`
-  margin: ${({ margin }) => (margin ? margin : "10px 0 10px")};
+  margin: ${({ margin }) => (margin ? margin : "15px 0 10px")};
   display: flex;
   flex-direction: column;
   gap: ${({ gap }) => gap};
@@ -12,17 +12,21 @@ const Grid = styled.div`
   grid-template-columns: 70px 1fr;
 `;
 const Flex = styled.div<
-  Pick<CSSProperties, "alignItems" | "gap" | "flexDirection" | "justifyContent">
+  Pick<
+    CSSProperties,
+    "alignItems" | "gap" | "flexDirection" | "justifyContent" | "width"
+  >
 >`
   display: flex;
   flex-direction: ${({ flexDirection }) => flexDirection};
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
   gap: ${({ gap }) => gap};
+  width: ${({ width }) => width};
 `;
 
 const Text = styled.p<Pick<CSSProperties, "fontSize" | "textAlign">>`
-  font-size: ${({ fontSize }) => (fontSize ? fontSize : "12px")};
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : "14px")};
   color: ${({ color }) => (color ? color : "#353535")};
   text-align: ${({ textAlign }) => (textAlign ? textAlign : "center")};
 `;

@@ -12,10 +12,12 @@ const DefaultLayout = ({ children }: TDefaultLayoutProps) => {
         <title>Create Next App</title>
       </Head>
       <StyledLayout>
-        <StyledOuter>
-          <StyledContent>{children}</StyledContent>
+        <div>
+          <StyledOuter>
+            <StyledContent>{children}</StyledContent>
+          </StyledOuter>
           <BottomNavigation />
-        </StyledOuter>
+        </div>
       </StyledLayout>
     </div>
   );
@@ -34,7 +36,7 @@ export const StyledOuter = styled.div`
   width: 511px;
   background-color: #f3f3f3;
   position: relative;
-  overflow:hidden;
+  overflow: hidden;
 `;
 export const StyledContent = styled.div`
   width: 90%;

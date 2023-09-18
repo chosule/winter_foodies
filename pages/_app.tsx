@@ -19,7 +19,6 @@ const MyApp: FC<AppPropsWithLayout> = ({
 }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
   const theme = getTheme();
-
   return (
     <>
       <Script>
