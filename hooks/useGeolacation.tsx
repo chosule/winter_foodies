@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 
 const options = {
@@ -12,9 +11,6 @@ type TLocation = {
   longitude: number;
 };
 
-type TAddressData = {
-  address_name: string;
-};
 const useGeolocation = () => {
   const handleSuccess = async (): Promise<TLocation> => {
     return new Promise((resolve, reject) => {
