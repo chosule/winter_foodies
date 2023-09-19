@@ -62,7 +62,7 @@ const MOCKDATA: TMockData[] = [
 const NearDistance = () => {
   return (
     <MainUI.Wrapper gap="10px">
-      <MainUI.Flex gap="10px">
+      <MainUI.Flex gap="10px" alignItems="center">
         <MainUI.Text>나와 가장 가까운 간식</MainUI.Text>
         <MainUI.Text color="#DD8037">TOP5</MainUI.Text>
       </MainUI.Flex>
@@ -74,7 +74,6 @@ const NearDistance = () => {
                 {item.titleId}
               </StyleBox>
               <StyleBox
-                backgroundColor="#fff"
                 color="#000"
                 justifyContent="space-between"
                 flexGrow="0.9"

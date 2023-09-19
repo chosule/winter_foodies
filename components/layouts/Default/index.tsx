@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Children } from "@/types/commons";
 import styled from "@emotion/styled";
 import BottomNavigation from "@/components/layouts/BottomNavigation/BottomNavigation";
+
 type TDefaultLayoutProps = {
   children: Children;
 };
@@ -12,18 +13,24 @@ const DefaultLayout = ({ children }: TDefaultLayoutProps) => {
         <title>Create Next App</title>
       </Head>
       <StyledLayout>
-        <StyledOuter>
-          <StyledContent>{children}</StyledContent>
+        <StyledWrapper>
+          <StyledOuter>
+            <StyledContent>{children}</StyledContent>
+          </StyledOuter>
           <BottomNavigation />
-        </StyledOuter>
+        </StyledWrapper>
       </StyledLayout>
     </div>
   );
 };
 
+export const StyledWrapper = styled.div`
+  height: 100%;
+`;
+
 export const StyledLayout = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -34,7 +41,8 @@ export const StyledOuter = styled.div`
   width: 511px;
   background-color: #f3f3f3;
   position: relative;
-  overflow:hidden;
+  overflow: hidden;
+  height: 100%;
 `;
 export const StyledContent = styled.div`
   width: 90%;
