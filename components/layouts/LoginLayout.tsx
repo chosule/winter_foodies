@@ -20,7 +20,7 @@ const LoginLayout = ({ children }: TDefaultLayoutProps) => {
   );
 };
 
-export const StyledLayout = styled.div`
+const StyledLayout = styled.div`
   width: 100%;
   height: 100vh;
   min-height: 100vh;
@@ -29,14 +29,14 @@ export const StyledLayout = styled.div`
   justify-content: center;
 `;
 
-export const StyledOuter = styled.div`
+const StyledOuter = styled.div`
   width: 511px;
   background-color: #fcce8a;
   position: relative;
   height: 100%;
   overflow: hidden;
 `;
-export const StyledContent = styled.div`
+const StyledContent = styled.div`
   width: 90%;
   margin: 0 auto;
   height: 100%;

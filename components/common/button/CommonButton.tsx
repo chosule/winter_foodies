@@ -4,7 +4,7 @@ import { CSSProperties } from "react";
 type CommonButtonProps = {
   width?: string;
   height?: string;
-  backgroundColor?: string;
+  backgroundcolor?: string;
 };
 
 const CommonButton = ({
@@ -22,7 +22,7 @@ const CommonButton = ({
       color={color}
       width={width}
       height={height}
-      backgroundColor={backgroundColor}
+      style={{ backgroundColor }}
       {...rest}
     >
       {children}

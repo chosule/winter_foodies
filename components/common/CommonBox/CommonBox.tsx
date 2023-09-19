@@ -5,23 +5,12 @@ type TCommonBoxProps = {
   children?: React.ReactNode;
   width?: string;
   height?: string;
-  backgroundColor?: string;
+  backgroundcolor?: string;
 };
-const CommonBox = ({
-  children,
-  width,
-  height,
-  backgroundColor,
-  ...props
-}: TCommonBoxProps) => {
+const CommonBox = ({ children, width, height, ...props }: TCommonBoxProps) => {
   return (
     <>
-      <StyledBox
-        {...props}
-        width={width}
-        height={height}
-        backgroundColor={backgroundColor}
-      >
+      <StyledBox {...props} width={width} height={height}>
         {children}
       </StyledBox>
     </>

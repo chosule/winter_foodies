@@ -8,6 +8,7 @@ import { FC } from "react";
 import { globalStyle } from "@/styles/global";
 import { getTheme } from "./../styles/theme";
 import ModalProvider from "@/context/ModalProvider";
+import ReactQueryProvider from "@/context/app/ReactQueryProvider";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -28,11 +29,13 @@ const MyApp: FC<AppPropsWithLayout> = ({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Global styles={globalStyle} />
-      <ModalProvider>
-        <ThemeProvider theme={theme}>
-          {getLayout(<Component {...pageProps} />)}
-        </ThemeProvider>
-      </ModalProvider>
+      <ReactQueryProvider>
+        <ModalProvider>
+          <ThemeProvider theme={theme}>
+            {getLayout(<Component {...pageProps} />)}
+          </ThemeProvider>
+        </ModalProvider>
+      </ReactQueryProvider>
     </>
   );
 };

@@ -2,6 +2,7 @@ import CommonButton from "@/components/common/Button/CommonButton";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 type ButtonImage = {
   id: number;
@@ -21,30 +22,58 @@ const buttonImages: ButtonImage[] = [
   { id: 9, imgName: "국화빵", url: "/img/icon8.png" },
 ];
 const MainMenu = () => {
+  const router = useRouter();
   return (
     <StyledBoxWrap>
       {buttonImages.map((buttonImage) => (
-        <Link
-          href={{
-            pathname: "main/menu-detail/[id]",
-            query: { id: JSON.stringify(buttonImage.id) },
+        <StyledButton
+          key={buttonImage.url}
+          backgroundColor="#dd803721"
+          onClick={() => {
+            router.push({
+              pathname: "main/menu-detail/[id]",
+              query: { id: buttonImage.id, imgName: buttonImage.imgName },
+            });
           }}
-          as={`main/menu-detail/${buttonImage.id}`}
-          key={buttonImage.id}
         >
-          <StyledButton key={buttonImage.url} backgroundColor="#dd803721">
-            <Image
-              src={buttonImage.url}
-              alt={buttonImage.imgName}
-              width="57"
-              height="50"
-              priority
-            />
-            <StyledButtonText>{buttonImage.imgName}</StyledButtonText>
-          </StyledButton>
-        </Link>
+          <Image
+            src={buttonImage.url}
+            alt={buttonImage.imgName}
+            width="57"
+            height="50"
+            priority
+          />
+          <StyledButtonText>{buttonImage.imgName}</StyledButtonText>
+        </StyledButton>
       ))}
     </StyledBoxWrap>
+    // <StyledBoxWrap>
+    //   {buttonImages.map((buttonImage) => (
+    //     <Link
+    //       href={{
+    //         pathname: "main/menu-detail/[id]",
+    //         query: {
+    //           id: JSON.stringify(buttonImage.id),
+    //           menuName: JSON.stringify(buttonImage.imgName),
+    //           url: JSON.stringify(buttonImage.url),
+    //         },
+    //       }}
+    //       as={`main/menu-detail/${buttonImage.id}`}
+    //       key={buttonImage.id}
+    //     >
+    //       <StyledButton key={buttonImage.url} backgroundColor="#dd803721">
+    //         <Image
+    //           src={buttonImage.url}
+    //           alt={buttonImage.imgName}
+    //           width="57"
+    //           height="50"
+    //           priority
+    //         />
+    //         <StyledButtonText>{buttonImage.imgName}</StyledButtonText>
+    //       </StyledButton>
+    //     </Link>
+    //   ))}
+    // </StyledBoxWrap>
   );
 };
 

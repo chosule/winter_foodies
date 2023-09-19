@@ -1,14 +1,14 @@
 import DefaultLayout from "@/components/layouts/Default";
 import { useRouter } from "next/router";
-import MainMenuDetail from "@/components/Main/components/MainMenuDetail";
+import MainMenuDetail from "@/components/Main/components/mainMenu/MainMenuDetail";
 
 const MenuDetail = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, imgName } = router.query;
 
   return (
     <>
-      <MainMenuDetail id={id as string} />
+      <MainMenuDetail id={id as string} imgName={imgName as string} />
     </>
   );
 };

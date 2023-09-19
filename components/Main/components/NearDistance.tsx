@@ -74,7 +74,6 @@ const NearDistance = () => {
                 {item.titleId}
               </StyleBox>
               <StyleBox
-                backgroundColor="#fff"
                 color="#000"
                 justifyContent="space-between"
                 flexGrow="0.9"
