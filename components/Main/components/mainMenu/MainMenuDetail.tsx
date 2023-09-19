@@ -14,7 +14,6 @@ const MainMenuDetail = ({ id, imgName }: dataProps) => {
       <HeaderLayout headerTitle={imgName} />
       <MainUI.Wrapper>
         <MenuDetailTab />
-        <div>메뉴디테일 페이지</div>
         <div>{id}</div>
       </MainUI.Wrapper>
     </>
