@@ -1,5 +1,5 @@
 export default class WinterFoodApi {
-  constructor(apiClient) {
+  constructor() {
     this.apiClient = apiClient;
   }
 
