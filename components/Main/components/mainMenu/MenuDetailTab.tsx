@@ -1,11 +1,11 @@
 import { Tab, Tabs, Box } from "@mui/material";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 
 const MenuDetailTab = () => {
   const [current, setCurrent] = useState(0);
 
-  const handleTab = (e, value) => {
+  const handleTab = (e: SyntheticEvent, value: number) => {
     setCurrent(value);
   };
   return (

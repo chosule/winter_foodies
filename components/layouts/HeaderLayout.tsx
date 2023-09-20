@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import CommonButton from "@/components/common/Button/CommonButton";

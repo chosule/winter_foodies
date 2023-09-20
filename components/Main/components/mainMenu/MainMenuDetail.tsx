@@ -2,19 +2,24 @@ import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { MainUI } from "../../style";
 import MenuDetailTab from "./MenuDetailTab";
 import { useQuery } from "@tanstack/react-query";
-import mainMenuDetailApi from "@/components/Main/hooks/useMainMenuDetail";
+import FakeWinterFoodClient from "@/types/api/FakeWinterFoodClient";
+
 type dataProps = {
   id: string;
   imgName: string;
 };
 
 const MainMenuDetail = ({ id, imgName }: dataProps) => {
-  // console.log("test", imgName);
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["mainMenuDetail"],
-    queryFn: mainMenuDetailApi,
+  const {
+    isLoading,
+    error,
+    data: menudetails,
+  } = useQuery(["menudetails"], async () => {
+    const menuDetailApi = new FakeWinterFoodClient();
+    const response = await menuDetailApi.menuDetail();
+    return response.data; // 실제 데이터를 반환
   });
-  if (isLoading || !data) return <div>is Loading...</div>;
+  console.log("data 나오는지 test => ", menudetails);
   return (
     <>
       <HeaderLayout headerTitle={imgName} />
