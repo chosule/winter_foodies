@@ -12,6 +12,7 @@ const MyLocation = () => {
   useEffect(() => {
     handleSuccess()
       .then((location) => {
+        console.log("location --> ", location); // 경도,위도 확인
         getCurrentLocation(location.latitude, location.longitude)
           .then((address) => {
             setCurrentAddress(address);
@@ -24,6 +25,7 @@ const MyLocation = () => {
         handleError(error);
       });
   }, []);
+
   return (
     <StyledFlex>
       {currentAddress && <StyledText>{currentAddress}</StyledText>}
