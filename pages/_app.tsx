@@ -9,10 +9,7 @@ import { globalStyle } from "@/styles/global";
 import { getTheme } from "./../styles/theme";
 import ModalProvider from "@/context/ModalProvider";
 import ReactQueryProvider from "@/context/app/ReactQueryProvider";
-import {
-  DataApiContext,
-  WinterFoodApiProvider,
-} from "@/context/dataApiContext";
+import { WinterFoodApiProvider } from "@/context/dataApiContext";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;

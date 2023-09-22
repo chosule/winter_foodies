@@ -16,7 +16,7 @@ const MainMenuDetail = ({ id, imgName }: dataProps) => {
   const { isLoading, error, data } = useQuery(["menuDetails"], () =>
     client.menuDetail()
   );
-  console.log("data 나오는지 test => ", data);
+  // console.log("data 나오는지 test => ", data);
   return (
     <>
       {isLoading && <div>로딩중...</div>}

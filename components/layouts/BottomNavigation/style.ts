@@ -11,6 +11,7 @@ const Nav = styled.nav`
   justify-content: space-around;
   position: sticky;
   bottom: 0;
+  z-index: 1;
 `;
 
 const NavItem = styled.div`
