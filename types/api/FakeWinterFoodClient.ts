@@ -10,4 +10,7 @@ export default class FakeWinterFoodClient {
       .get(`/fakeApi/fakeMenuDetailData.json`)
       .then((res) => res.data);
   }
+  async searchMap() {
+    return axios.get(`/fakeApi/fakeApiSearchMap.json`).then((res) => res.data);
+  }
 }

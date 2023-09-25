@@ -1,6 +1,8 @@
-const refreshIcon = () => {
+import styled from "@emotion/styled";
+
+const RefreshIcon = () => {
   return (
-    <svg
+    <StyledWarningIcon
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
       width="50.000000pt"
@@ -10,7 +12,7 @@ const refreshIcon = () => {
     >
       <g
         transform="translate(0.000000,50.000000) scale(0.100000,-0.100000)"
-        fill="#000000"
+        fill="#fff"
         stroke="none"
       >
         <path
@@ -26,8 +28,11 @@ const refreshIcon = () => {
        -26 50 -38 31z"
         />
       </g>
-    </svg>
+    </StyledWarningIcon>
   );
 };
 
-export default refreshIcon;
+const StyledWarningIcon = styled.svg`
+  width: 23px;
+`;
+export default RefreshIcon;

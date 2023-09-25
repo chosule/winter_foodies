@@ -1,5 +1,5 @@
 import FakeWinterFoodClient from "@/types/api/fakeWinterFoodClient";
-import WinterFoodClient from "@/types/api/fakeWinterFoodClient";
+import WinterFoodClient from "@/types/api/winterFoodClient";
 import { ReactNode, createContext, useContext } from "react";
 
 type ProviderProps = {
@@ -8,8 +8,8 @@ type ProviderProps = {
 
 export const DataApiContext = createContext({});
 
-const client: FakeWinterFoodClient = new FakeWinterFoodClient();
-// const client: WinterFoodClient = new WinterFoodApi();
+// const client: FakeWinterFoodClient = new FakeWinterFoodClient();
+const client: WinterFoodClient = new WinterFoodClient();
 
 export function WinterFoodApiProvider({ children }: ProviderProps) {
   return (

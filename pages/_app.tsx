@@ -10,6 +10,7 @@ import { getTheme } from "./../styles/theme";
 import ModalProvider from "@/context/ModalProvider";
 import ReactQueryProvider from "@/context/app/ReactQueryProvider";
 import { WinterFoodApiProvider } from "@/context/dataApiContext";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -37,6 +38,7 @@ const MyApp: FC<AppPropsWithLayout> = ({
               {getLayout(<Component {...pageProps} />)}
             </ThemeProvider>
           </ModalProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
         </ReactQueryProvider>
       </WinterFoodApiProvider>
     </>
