@@ -12,6 +12,8 @@ import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
 import { TLoginSchema, loginSchema } from "@/components/Login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
+import { useProjectApi } from "@/context/dataApiContext";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 const Login = () => {
   const router = useRouter();
@@ -22,9 +24,19 @@ const Login = () => {
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
   });
+  const { client } = useProjectApi();
+
+  const mutation = useMutation((data) => client.login(data), {
+    onSuccess: (data) => {
+      console.log("로그인 성공", data);
+    },
+    onError: (error) => {
+      console.error("로그인 에러", error);
+    },
+  });
 
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
-    console.log(data);
+    mutation.mutate(data); // mutation 함수 호출
   };
 
   const onError: SubmitErrorHandler<TLoginSchema> = (error) => {
@@ -40,8 +52,8 @@ const Login = () => {
               <AuthUI.Label>아이디</AuthUI.Label>
               <TextField
                 placeholder="아이디를 입력해 주세요."
-                {...register("id", { required: true })}
-                errorMsg={errors.id?.message}
+                {...register("usernameOrEmail", { required: true })}
+                errorMsg={errors.usernameOrEmail?.message}
               />
             </AuthUI.Flex>
             <AuthUI.Flex gap="10px" flexDirection="column">

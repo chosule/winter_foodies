@@ -5,8 +5,9 @@ import BottomNavigation from "@/components/layouts/BottomNavigation/BottomNaviga
 
 type TDefaultLayoutProps = {
   children: Children;
+  width?: string;
 };
-const DefaultLayout = ({ children }: TDefaultLayoutProps) => {
+const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
   return (
     <div>
       <Head>
@@ -15,7 +16,7 @@ const DefaultLayout = ({ children }: TDefaultLayoutProps) => {
       <StyledLayout>
         <StyledWrapper>
           <StyledOuter>
-            <StyledContent>{children}</StyledContent>
+            <StyledContent width={width}>{children}</StyledContent>
           </StyledOuter>
           <BottomNavigation />
         </StyledWrapper>
@@ -44,8 +45,8 @@ export const StyledOuter = styled.div`
   overflow: hidden;
   height: 100%;
 `;
-export const StyledContent = styled.div`
-  width: 90%;
+export const StyledContent = styled.div<TDefaultLayoutProps>`
+  width: ${({ width }) => (width ? width : "90%")};
   margin: 0 auto;
   height: 100%;
 `;

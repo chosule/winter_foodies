@@ -9,7 +9,7 @@ const PostsPage = () => {
     queryKey: ["posts"],
     queryFn: getPosts,
   });
-
+  console.log("getposts", getPosts());
   const { data: otherData } = useQuery({
     queryKey: ["posts-2"],
     queryFn: getPosts,

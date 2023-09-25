@@ -23,7 +23,7 @@
       "images": "string",
       "nickname": "붕어조아",
       "order": {
-        "createAt": "2023-09-18T07:32:46.175Z",
+        "createAt": "2023-09-20T08:58:01.030Z",
         "id": 0,
         "message": "string",
         "orderProducts": [
@@ -32,7 +32,7 @@
             "id": 0,
             "quantity": 0,
             "subTotalAmount": 0,
-            "visitTime": "2023-09-18T07:32:46.175Z"
+            "visitTime": "2023-09-20T08:58:01.030Z"
           }
         ],
         "processYn": "string",
@@ -53,18 +53,18 @@
           "id": 0,
           "quantity": 0,
           "subTotalAmount": 0,
-          "visitTime": "2023-09-18T07:32:46.175Z"
+          "visitTime": "2023-09-20T08:58:01.030Z"
         }
       ],
-      "orderTime": "2023-09-18T07:32:46.175Z",
+      "orderTime": "2023-09-20T08:58:01.030Z",
       "orderedProducts": ["string"],
       "rating": 5,
-      "reviewTime": "2023-09-18T07:32:46.175Z",
+      "reviewTime": "2023-09-20T08:58:01.030Z",
       "store": {
         "id": 0,
         "orders": [
           {
-            "createAt": "2023-09-18T07:32:46.175Z",
+            "createAt": "2023-09-20T08:58:01.030Z",
             "id": 0,
             "message": "string",
             "orderProducts": [
@@ -73,7 +73,7 @@
                 "id": 0,
                 "quantity": 0,
                 "subTotalAmount": 0,
-                "visitTime": "2023-09-18T07:32:46.175Z"
+                "visitTime": "2023-09-20T08:58:01.030Z"
               }
             ],
             "processYn": "string",
