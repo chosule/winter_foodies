@@ -13,10 +13,13 @@ import { TLoginSchema, loginSchema } from "@/components/Login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { useProjectApi } from "@/context/dataApiContext";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import useContextModal from "@/context/hooks/useContextModal";
 
 const Login = () => {
+  const modal = useContextModal();
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -29,6 +32,7 @@ const Login = () => {
   const mutation = useMutation((data) => client.login(data), {
     onSuccess: (data) => {
       console.log("로그인 성공", data);
+      openAlert();
     },
     onError: (error) => {
       console.error("로그인 에러", error);
@@ -41,6 +45,13 @@ const Login = () => {
 
   const onError: SubmitErrorHandler<TLoginSchema> = (error) => {
     console.log(error);
+  };
+  const openAlert = () => {
+    modal.openAlert({
+      title: "알림",
+      message: `메인페이지로 이동합니다.`,
+      btnText: "확인",
+    });
   };
   return (
     <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%">

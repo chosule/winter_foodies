@@ -8,10 +8,14 @@ import { TSignUpSchema, signUpSchema } from "@/components/Login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useProjectApi } from "@/context/dataApiContext";
 
 const SignUp = () => {
   const modal = useContextModal();
   const router = useRouter();
+  const { client } = useProjectApi();
+
   const {
     register,
     handleSubmit,
@@ -20,10 +24,19 @@ const SignUp = () => {
     resolver: zodResolver(signUpSchema),
   });
 
+  const { mutate } = useMutation((data) => client.signUp(data), {
+    onSuccess: (data) => {
+      console.log("회원가입success", data);
+      openAlert();
+      // router.push("/login");
+    },
+    onError: (error) => {
+      console.log("error", error);
+    },
+  });
+
   const onSubmit: SubmitHandler<TSignUpSchema> = (data) => {
-    console.log(data);
-    openAlert();
-    router.push("/login");
+    mutate(data);
   };
   const onError: SubmitErrorHandler<TSignUpSchema> = (error) => {
     console.log("error", error);
@@ -50,24 +63,24 @@ const SignUp = () => {
               <AuthUI.Label>닉네임</AuthUI.Label>
               <TextField
                 placeholder="닉네임을 입력해주세요."
-                {...register("signUpNickName", { required: true })}
-                errorMsg={errors.signUpNickName?.message}
+                {...register("username", { required: true })}
+                errorMsg={errors.username?.message}
               />
             </AuthUI.Flex>
             <AuthUI.Flex gap="10px">
               <AuthUI.Label>아이디</AuthUI.Label>
               <TextField
                 placeholder="아이디를 입력해주세요."
-                {...register("signUpId", { required: true })}
-                errorMsg={errors.signUpId?.message}
+                {...register("email", { required: true })}
+                errorMsg={errors.email?.message}
               />
             </AuthUI.Flex>
             <AuthUI.Flex gap="10px">
               <AuthUI.Label>핸드폰 번호</AuthUI.Label>
               <TextField
                 placeholder="핸드폰번호를 입력해주세요."
-                {...register("signUpPhoneNumber", { required: true })}
-                errorMsg={errors.signUpPhoneNumber?.message}
+                {...register("phoneNumber", { required: true })}
+                errorMsg={errors.phoneNumber?.message}
               />
             </AuthUI.Flex>
             <AuthUI.Flex gap="10px">
@@ -75,8 +88,8 @@ const SignUp = () => {
               <TextField
                 type="password"
                 placeholder="비밀번호를 입력해주세요."
-                {...register("signUpPassword", { required: true })}
-                errorMsg={errors.signUpPassword?.message}
+                {...register("password", { required: true })}
+                errorMsg={errors.password?.message}
               />
             </AuthUI.Flex>
             <AuthUI.Flex gap="10px">

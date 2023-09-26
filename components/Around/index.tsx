@@ -21,10 +21,9 @@ const MapContainer = () => {
   const { isLoading, error, data } = useQuery(["searchData"], () =>
     client.searchMap()
   );
-
+  console.log("data ==>", data);
   useEffect(() => {
     const container = document.getElementById("map");
-
     if (!isLoading && data) {
       // 데이터 수정 및 상태 업데이트
       const updatedMarkers = data.map((datas) => ({
@@ -35,7 +34,8 @@ const MapContainer = () => {
 
       // Kakao 지도 API 스크립트 동적으로 로드
       const script = document.createElement("script");
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false`;
+
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false&libraries=services`;
       script.async = true;
       document.head.appendChild(script);
       script.onload = () => {
