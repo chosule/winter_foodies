@@ -15,6 +15,9 @@ import { useRouter } from "next/router";
 import { useProjectApi } from "@/context/dataApiContext";
 import { useMutation } from "@tanstack/react-query";
 import useContextModal from "@/context/hooks/useContextModal";
+import { TLoginResponse } from "@/types/api/loginType";
+import { AxiosError } from "axios";
+import { TDataApiContext } from "@/context/dataApiContext";
 
 const Login = () => {
   const modal = useContextModal();
@@ -29,23 +32,27 @@ const Login = () => {
   });
   const { client } = useProjectApi();
 
-  const mutation = useMutation((data) => client.login(data), {
-    onSuccess: (data) => {
-      console.log("로그인 성공", data);
-      openAlert();
-    },
-    onError: (error) => {
-      console.error("로그인 에러", error);
-    },
-  });
+  const mutation = useMutation<TLoginResponse, AxiosError, string>(
+    (data) => client.login(data),
+    {
+      onSuccess: (data) => {
+        console.log("로그인 성공 ->", data);
+        openAlert();
+      },
+      onError: (error) => {
+        console.error("로그인 에러 ->", error);
+      },
+    }
+  );
 
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
-    mutation.mutate(data); // mutation 함수 호출
+    mutation.mutate(data);
   };
 
   const onError: SubmitErrorHandler<TLoginSchema> = (error) => {
     console.log(error);
   };
+
   const openAlert = () => {
     modal.openAlert({
       title: "알림",

@@ -15,13 +15,22 @@ declare global {
 var imageSrc =
   "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
+/**
+ *
+ * @description
+ * 첫화면은 내 현재위치 나오게 하고 주변에 아무것도 없으면 없을수도잇음
+ * 버튼 클릭시 주변에 상점이 없을경우 -> 팝업으로 상점이 주변에 없습니다.띄우기
+ * 버튼 클릭시 주변에 상점이 있을경우 -> 마커로 상점 보여주기
+ */
+
 const MapContainer = () => {
   const { handleSuccess } = useGeolocation();
   const { client } = useProjectApi();
+
   const { isLoading, error, data } = useQuery(["searchData"], () =>
     client.searchMap()
   );
-  console.log("data ==>", data);
+
   useEffect(() => {
     const container = document.getElementById("map");
     if (!isLoading && data) {
@@ -35,9 +44,10 @@ const MapContainer = () => {
       // Kakao 지도 API 스크립트 동적으로 로드
       const script = document.createElement("script");
 
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false&libraries=services`;
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}`;
       script.async = true;
       document.head.appendChild(script);
+
       script.onload = () => {
         window.kakao.maps.load(() => {
           const mainPosition = new window.kakao.maps.LatLng(

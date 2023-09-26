@@ -2,8 +2,6 @@ import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { MainUI } from "../../style";
 import MenuDetailTab from "./MenuDetailTab";
 import { useQuery } from "@tanstack/react-query";
-import FakeWinterFoodClient from "@/types/api/fakeWinterFoodClient";
-import menuDetailData from "@/types/api/fakeWinterFoodClient";
 import { useProjectApi } from "@/context/dataApiContext";
 
 type dataProps = {
