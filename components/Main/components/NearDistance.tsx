@@ -2,64 +2,11 @@ import CommonBox from "@/components/common/CommonBox/CommonBox";
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 import { MainUI } from "../style";
+import useGeolocation from "@/hooks/useGeolacation";
 
-type TMockData = {
-  titleId: string;
-  img: string;
-  name: string;
-  distance: number;
-};
-const MOCKDATA: TMockData[] = [
-  {
-    titleId: "1",
-    img: "임시이미지",
-    name: "붕어빵이름",
-    distance: 19,
-  },
-  {
-    titleId: "2",
-    img: "임시이미지",
-    name: "호떡이름",
-    distance: 19,
-  },
-  {
-    titleId: "3",
-    img: "임시이미지",
-    name: "어묵이름",
-    distance: 20,
-  },
-  {
-    titleId: "4",
-    img: "임시이미지",
-    name: "어묵이름",
-    distance: 20,
-  },
-  {
-    titleId: "5",
-    img: "임시이미지",
-    name: "어묵이름",
-    distance: 20,
-  },
-  {
-    titleId: "6",
-    img: "임시이미지",
-    name: "어묵이름",
-    distance: 20,
-  },
-  {
-    titleId: "7",
-    img: "임시이미지",
-    name: "어묵이름",
-    distance: 20,
-  },
-  {
-    titleId: "8",
-    img: "임시이미지",
-    name: "어묵이름",
-    distance: 20,
-  },
-];
 const NearDistance = () => {
+  const { handleSuccess } = useGeolocation();
+  console.log("ts", handleSuccess);
   return (
     <MainUI.Wrapper gap="10px">
       <MainUI.Flex gap="10px" alignItems="center">
@@ -67,7 +14,7 @@ const NearDistance = () => {
         <MainUI.Text color="#DD8037">TOP5</MainUI.Text>
       </MainUI.Flex>
       <MainUI.Flex flexDirection="column" gap="15px">
-        {MOCKDATA.map((item) => {
+        {/* {MOCKDATA.map((item) => {
           return (
             <MainUI.Flex key={item.titleId} justifyContent="space-between">
               <StyleBox color="#fff" justifyContent="center">
@@ -87,7 +34,7 @@ const NearDistance = () => {
               </StyleBox>
             </MainUI.Flex>
           );
-        })}
+        })} */}
       </MainUI.Flex>
     </MainUI.Wrapper>
   );

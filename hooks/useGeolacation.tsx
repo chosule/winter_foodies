@@ -6,7 +6,7 @@ const options = {
   timeout: 20000,
 };
 
-type TLocation = {
+export type TLocation = {
   latitude: number;
   longitude: number;
 };

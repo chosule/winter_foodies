@@ -9,8 +9,9 @@ import { globalStyle } from "@/styles/global";
 import { getTheme } from "./../styles/theme";
 import ModalProvider from "@/context/ModalProvider";
 import ReactQueryProvider from "@/context/app/ReactQueryProvider";
-import { WinterFoodApiProvider } from "@/context/dataApiContext";
+import { WinterFoodApiProvider } from "@/context/hooks/useDataContextApi";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import GeoLocationProvider from "@/context/GeoLocationProvider";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -32,14 +33,16 @@ const MyApp: FC<AppPropsWithLayout> = ({
       </Head>
       <Global styles={globalStyle} />
       <WinterFoodApiProvider>
-        <ReactQueryProvider>
-          <ModalProvider>
-            <ThemeProvider theme={theme}>
-              {getLayout(<Component {...pageProps} />)}
-            </ThemeProvider>
-          </ModalProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </ReactQueryProvider>
+        <GeoLocationProvider>
+          <ReactQueryProvider>
+            <ModalProvider>
+              <ThemeProvider theme={theme}>
+                {getLayout(<Component {...pageProps} />)}
+              </ThemeProvider>
+            </ModalProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </ReactQueryProvider>
+        </GeoLocationProvider>
       </WinterFoodApiProvider>
     </>
   );
