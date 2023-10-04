@@ -11,23 +11,16 @@ const MyLocation = () => {
   const [currentAddress, setCurrentAddress] = useState<string | null>(null);
 
   const location = useContextGeolocation();
-  console.log("확인", location);
-  // useEffect(() => {
-  //   handleSuccess()
-  //     .then((location) => {
-  //       // console.log("location --> ", location); // 경도,위도 확인
-  //       getCurrentLocation(location.latitude, location.longitude)
-  //         .then((address) => {
-  //           setCurrentAddress(address);
-  //         })
-  //         .catch((error) => {
-  //           handleError(error);
-  //         });
-  //     })
-  //     .catch((error) => {
-  //       handleError(error);
-  //     });
-  // }, []);
+  // console.log("확인", location);
+  useEffect(() => {
+    getCurrentLocation(location.latitude, location.longitude)
+      .then((address) => {
+        setCurrentAddress(address);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  }, []);
 
   return (
     <StyledFlex>

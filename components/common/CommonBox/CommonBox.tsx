@@ -7,10 +7,21 @@ type TCommonBoxProps = {
   height?: string;
   backgroundcolor?: string;
 };
-const CommonBox = ({ children, width, height, ...props }: TCommonBoxProps) => {
+const CommonBox = ({
+  children,
+  width,
+  height,
+  backgroundcolor,
+  ...props
+}: TCommonBoxProps) => {
   return (
     <>
-      <StyledBox {...props} width={width} height={height}>
+      <StyledBox
+        {...props}
+        width={width}
+        height={height}
+        backgroundColor={backgroundcolor}
+      >
         {children}
       </StyledBox>
     </>

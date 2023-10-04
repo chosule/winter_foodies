@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Children } from "@/types/commons";
 import styled from "@emotion/styled";
 import BottomNavigation from "@/components/layouts/BottomNavigation/BottomNavigation";
+import MainLeftPc from "@/components/Main/components/MainLeftPc";
 
 type TDefaultLayoutProps = {
   children: Children;
@@ -15,10 +16,13 @@ const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
       </Head>
       <StyledLayout>
         <StyledWrapper>
-          <StyledOuter>
-            <StyledContent width={width}>{children}</StyledContent>
-          </StyledOuter>
-          <BottomNavigation />
+          <MainLeftPc />
+          <div>
+            <StyledOuter>
+              <StyledContent width={width}>{children}</StyledContent>
+            </StyledOuter>
+            <BottomNavigation />
+          </div>
         </StyledWrapper>
       </StyledLayout>
     </div>
@@ -27,6 +31,8 @@ const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
 
 export const StyledWrapper = styled.div`
   height: 100%;
+  display: flex;
+  gap: 76px;
 `;
 
 export const StyledLayout = styled.div`
@@ -40,7 +46,7 @@ export const StyledLayout = styled.div`
 
 export const StyledOuter = styled.div`
   width: 511px;
-  background-color: #f3f3f3;
+  border: 1px solid #e7e7e7;
   position: relative;
   overflow: hidden;
   height: 100%;
@@ -49,6 +55,9 @@ export const StyledContent = styled.div<TDefaultLayoutProps>`
   width: ${({ width }) => (width ? width : "90%")};
   margin: 0 auto;
   height: 100%;
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
 `;
 
 export default DefaultLayout;

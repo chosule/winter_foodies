@@ -4,7 +4,6 @@ const Nav = styled.nav`
   display: flex;
   width: 100%;
   height: 96px;
-  background-color: #fff;
   border-top-left-radius: 27px;
   border-top-right-radius: 27px;
   align-items: center;

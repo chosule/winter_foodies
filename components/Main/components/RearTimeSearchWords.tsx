@@ -32,8 +32,8 @@ const RearTimeSearchWords = () => {
   }, []);
 
   return (
-    <MainUI.Wrapper gap="10px">
-      <MainUI.Text fontSize="14px" textAlign="left">
+    <MainUI.Wrapper gap="17px">
+      <MainUI.Text fontSize="16px" textAlign="left">
         지금 인기있는 간식이에요 !
       </MainUI.Text>
       <StyledItemWrap>
@@ -90,7 +90,7 @@ const StyledItemUl = styled.ul`
 
 const StyledText = styled.p<Pick<CSSProperties, "fontSize" | "color">>`
   font-weight: 300;
-  font-size: ${({ fontSize }) => (fontSize ? fontSize : "16px")};
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : "15px")};
   color: ${({ color }) => color};
 `;
 const StyledItemLi = styled.li`

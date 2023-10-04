@@ -32,7 +32,7 @@ const useGeolocation = () => {
   };
 
   const handleError = (error: GeolocationPositionError) => {
-    alert(error.message);
+    console.log(error.message);
   };
 
   return { handleSuccess, handleError };

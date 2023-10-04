@@ -95,6 +95,8 @@ const StyledButton = styled(CommonButton)`
   flex-direction: column;
   border-radius: 15px;
   gap: 8px;
+  background-color: #fff;
+  border: 1px solid #e7e7e7;
 `;
 
 export default MainMenu;

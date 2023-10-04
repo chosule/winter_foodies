@@ -31,9 +31,9 @@ export default class WinterFoodClient {
     return axios.get(`/fakeApi/fakeApiSearchMap.json`).then((res) => res.data);
   }
 
-  async nearDistanceRank(lat, lon) {
-    return axios
+  async nearDistanceSnack(lat, lon) {
+    return this.httpClient
       .get(`/api/main/snacks?lat=${lat}&lon=${lon}`)
-      .then((res) => res.data);
+      .then((res) => res.data.data);
   }
 }

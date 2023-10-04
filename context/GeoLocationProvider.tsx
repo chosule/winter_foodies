@@ -11,11 +11,17 @@ import { TLocation } from "@/hooks/useGeolacation";
 type TGeolocationProvider = {
   children: ReactNode;
 };
-export const LocationContext = createContext<TLocation | null>(null);
+export const LocationContext = createContext<TLocation>({
+  latitude: 0,
+  longitude: 0,
+});
 
 const GeoLocationProvider = ({ children }: TGeolocationProvider) => {
   const { handleSuccess } = useGeolocation();
-  const [location, setLocation] = useState<TLocation | null>(null);
+  const [location, setLocation] = useState<TLocation>({
+    latitude: 0,
+    longitude: 0,
+  });
 
   useEffect(() => {
     handleSuccess()
