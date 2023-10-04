@@ -20,8 +20,8 @@ const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
           <div>
             <StyledOuter>
               <StyledContent width={width}>{children}</StyledContent>
+              <BottomNavigation />
             </StyledOuter>
-            <BottomNavigation />
           </div>
         </StyledWrapper>
       </StyledLayout>
@@ -37,8 +37,7 @@ export const StyledWrapper = styled.div`
 
 export const StyledLayout = styled.div`
   width: 100%;
-  height: 100vh;
-  min-height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

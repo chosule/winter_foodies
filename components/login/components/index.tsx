@@ -18,6 +18,7 @@ import useContextModal from "@/context/hooks/useContextModal";
 import { TLoginResponse } from "@/types/api/loginType";
 import { AxiosError } from "axios";
 import { TDataApiContext } from "@/context/hooks/useDataContextApi";
+import { useEffect } from "react";
 
 const Login = () => {
   const modal = useContextModal();
@@ -32,18 +33,28 @@ const Login = () => {
   });
   const { client } = useProjectApi();
 
+  const onLoginSuccess = (res) => {
+    console.log("로그인 성공 ->", res);
+    const accessToken = res.data.accessToken;
+    console.log("엑세스토큰", accessToken);
+
+    // localStorage에 accessToken 저장
+    localStorage.setItem("accessToken", accessToken);
+
+    // 원하는 동작 수행
+    openAlert();
+  };
+
   const mutation = useMutation<TLoginResponse, AxiosError, string>(
     (data) => client.login(data),
     {
-      onSuccess: (data) => {
-        console.log("로그인 성공 ->", data);
-        openAlert();
-      },
+      onSuccess: onLoginSuccess,
       onError: (error) => {
         console.error("로그인 에러 ->", error);
       },
     }
   );
+  useEffect(() => {}, []);
 
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
     mutation.mutate(data);
