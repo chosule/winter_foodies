@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useProjectApi } from "@/context/dataApiContext";
+import { useProjectApi } from "@/context/hooks/useDataContextApi";
 
 const SignUp = () => {
   const modal = useContextModal();

@@ -12,12 +12,12 @@ import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
 import { TLoginSchema, loginSchema } from "@/components/Login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import { useProjectApi } from "@/context/dataApiContext";
+import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useMutation } from "@tanstack/react-query";
 import useContextModal from "@/context/hooks/useContextModal";
 import { TLoginResponse } from "@/types/api/loginType";
 import { AxiosError } from "axios";
-import { TDataApiContext } from "@/context/dataApiContext";
+import { TDataApiContext } from "@/context/hooks/useDataContextApi";
 
 const Login = () => {
   const modal = useContextModal();

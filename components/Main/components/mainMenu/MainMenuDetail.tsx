@@ -2,7 +2,7 @@ import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { MainUI } from "../../style";
 import MenuDetailTab from "./MenuDetailTab";
 import { useQuery } from "@tanstack/react-query";
-import { useProjectApi } from "@/context/dataApiContext";
+import { useProjectApi } from "@/context/hooks/useDataContextApi";
 
 type dataProps = {
   id: string;

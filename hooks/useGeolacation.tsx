@@ -6,7 +6,7 @@ const options = {
   timeout: 20000,
 };
 
-type TLocation = {
+export type TLocation = {
   latitude: number;
   longitude: number;
 };
@@ -32,7 +32,7 @@ const useGeolocation = () => {
   };
 
   const handleError = (error: GeolocationPositionError) => {
-    alert(error.message);
+    console.log(error.message);
   };
 
   return { handleSuccess, handleError };

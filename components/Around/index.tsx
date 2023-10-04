@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { useEffect } from "react";
 import CommonBox from "../common/CommonBox/CommonBox";
 import RefreshIcon from "@/public/img/refreshIcon";
-import { useProjectApi } from "@/context/dataApiContext";
+import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useQuery } from "@tanstack/react-query";
 
 declare global {

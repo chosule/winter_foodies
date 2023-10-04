@@ -30,4 +30,10 @@ export default class WinterFoodClient {
   async searchMap() {
     return axios.get(`/fakeApi/fakeApiSearchMap.json`).then((res) => res.data);
   }
+
+  async nearDistanceSnack(lat, lon) {
+    return this.httpClient
+      .get(`/api/main/snacks?lat=${lat}&lon=${lon}`)
+      .then((res) => res.data.data);
+  }
 }
