@@ -30,7 +30,6 @@ const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
 };
 
 export const StyledWrapper = styled.div`
-  height: 100%;
   display: flex;
   gap: 76px;
 `;
@@ -41,6 +40,8 @@ export const StyledLayout = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 96px;
+  position: relative;
 `;
 
 export const StyledOuter = styled.div`
@@ -49,6 +50,8 @@ export const StyledOuter = styled.div`
   position: relative;
   overflow: hidden;
   height: 100%;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+    rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 8px 30px;
 `;
 export const StyledContent = styled.div<TDefaultLayoutProps>`
   width: ${({ width }) => (width ? width : "90%")};

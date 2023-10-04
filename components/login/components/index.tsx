@@ -41,7 +41,6 @@ const Login = () => {
     // localStorage에 accessToken 저장
     localStorage.setItem("accessToken", accessToken);
 
-    // 원하는 동작 수행
     openAlert();
   };
 
