@@ -19,10 +19,16 @@ import { TLoginResponse } from "@/types/api/loginType";
 import { AxiosError } from "axios";
 import { TDataApiContext } from "@/context/hooks/useDataContextApi";
 import { useEffect } from "react";
+import Link from "next/link";
 
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
+  const handleKakaoLogin = () => {
+    router.push(
+      "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=f9a7426e2123a6b9d3e94a63fb5440ce&redirect_uri=http%3A%2F%2F172.105.204.235%3A8080%2Foauth%2Fkakao"
+    );
+  };
 
   const {
     register,
@@ -41,8 +47,8 @@ const Login = () => {
     // localStorage에 accessToken 저장
     localStorage.setItem("accessToken", accessToken);
 
-    // 원하는 동작 수행
     openAlert();
+    router.push("/main");
   };
 
   const mutation = useMutation<TLoginResponse, AxiosError, string>(
@@ -54,7 +60,6 @@ const Login = () => {
       },
     }
   );
-  useEffect(() => {}, []);
 
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
     mutation.mutate(data);
@@ -140,6 +145,7 @@ const Login = () => {
           justifyContent="center"
           flexDirection="initial"
         >
+          <button onClick={handleKakaoLogin}>카카오로그인test</button>
           <CommonButton
             onClick={handleKakaoLogin}
             backgroundColor="transparent"
