@@ -5,17 +5,23 @@ import { CSSProperties } from "react";
 
 const MainLeftPc = () => {
   return (
-    <StyledFlex flexDirection="column" gap="30px">
-      <StyledFlex gap="10px" alignItems="center">
-        <StyledText>우리와 가까운 간식,</StyledText>
-        <StyledTitle>Winter Foodies</StyledTitle>
+    <StyledWrap>
+      <StyledFlex flexDirection="column" gap="30px">
+        <StyledFlex gap="10px" alignItems="center">
+          <StyledText>우리와 가까운 간식,</StyledText>
+          <StyledTitle>Winter Foodies</StyledTitle>
+        </StyledFlex>
+        <MenuSearch />
+        <RearTimeSearchWords />
       </StyledFlex>
-      <MenuSearch />
-      <RearTimeSearchWords />
-    </StyledFlex>
+    </StyledWrap>
   );
 };
 
+const StyledWrap = styled.div`
+  position: fixed;
+  margin-left: -450px;
+`;
 const StyledFlex = styled.div<
   Pick<CSSProperties, "gap" | "flexDirection" | "alignItems">
 >`

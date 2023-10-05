@@ -2,11 +2,10 @@ import styled from "@emotion/styled";
 
 const Nav = styled.nav`
   display: flex;
-  width: 511px;
+  width: 508px;
   background-color: #fff;
   height: 96px;
-  border-top-left-radius: 27px;
-  border-top-right-radius: 27px;
+
   align-items: center;
   justify-content: space-around;
   position: fixed;

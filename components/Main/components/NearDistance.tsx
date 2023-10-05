@@ -6,6 +6,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useContextGeolocation } from "@/context/GeoLocationProvider";
 
+type TNearSnack = {
+  ranking: number;
+  storeId: string;
+  name: string;
+  address: string;
+  phone: string;
+  distance: number;
+  lat: number;
+  lon: number;
+};
 const NearDistance = () => {
   const location = useContextGeolocation();
   const { client } = useProjectApi();
@@ -23,7 +33,7 @@ const NearDistance = () => {
       </MainUI.Flex>
       <MainUI.Flex flexDirection="column" gap="15px">
         {data &&
-          data.map((nearSnack) => (
+          data.map((nearSnack: TNearSnack) => (
             <MainUI.Flex key={nearSnack.ranking} justifyContent="space-between">
               <StyleBox color="#fff" justifyContent="center">
                 {nearSnack.ranking}
@@ -35,7 +45,7 @@ const NearDistance = () => {
                 flexGrow="0.9"
                 backgroundcolor="#fff"
               >
-                <img src={nearSnack.img} alt="이미지" />
+                {/* <img src={nearSnack.img} alt="이미지" /> */}
                 <MainUI.Flex flex="1" justifyContent="center" width="100%">
                   <MainUI.Text fontSize="15px">{nearSnack.name}</MainUI.Text>
                 </MainUI.Flex>

@@ -15,14 +15,12 @@ const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
         <title>Create Next App</title>
       </Head>
       <StyledLayout>
+        <MainLeftPc />
         <StyledWrapper>
-          <MainLeftPc />
-          <div>
-            <StyledOuter>
-              <StyledContent width={width}>{children}</StyledContent>
-              <BottomNavigation />
-            </StyledOuter>
-          </div>
+          <StyledOuter>
+            <StyledContent width={width}>{children}</StyledContent>
+            <BottomNavigation />
+          </StyledOuter>
         </StyledWrapper>
       </StyledLayout>
     </div>
@@ -31,7 +29,7 @@ const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
 
 export const StyledWrapper = styled.div`
   display: flex;
-  gap: 76px;
+  position: relative;
 `;
 
 export const StyledLayout = styled.div`
@@ -40,13 +38,13 @@ export const StyledLayout = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 96px;
   position: relative;
 `;
 
 export const StyledOuter = styled.div`
   width: 511px;
   border: 1px solid #e7e7e7;
+  margin-left: 510px;
   position: relative;
   overflow: hidden;
   height: 100%;
