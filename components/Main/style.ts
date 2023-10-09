@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 
-const Wrapper = styled.section<{ gap: string }>`
+const Wrapper = styled.section<{ gap?: string }>`
   display: flex;
   flex-direction: column;
   gap: ${({ gap }) => gap};

@@ -3,6 +3,7 @@ import { MainUI } from "../../style";
 import MenuDetailTab from "./MenuDetailTab";
 import { useQuery } from "@tanstack/react-query";
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
+import Skeleton from "@/pages/Skeleton/Skeleton";
 
 type dataProps = {
   id: string;
@@ -14,15 +15,20 @@ const MainMenuDetail = ({ id, imgName }: dataProps) => {
   const { isLoading, error, data } = useQuery(["menuDetails"], () =>
     client.menuDetail()
   );
-  // console.log("data 나오는지 test => ", data);
+  console.log("data 나오는지 test => ", data);
   return (
     <>
-      {isLoading && <div>로딩중...</div>}
-      <HeaderLayout headerTitle={imgName} />
-      <MainUI.Wrapper>
-        <MenuDetailTab />
-        <div>{id}</div>
-      </MainUI.Wrapper>
+      {isLoading ? (
+        <Skeleton></Skeleton>
+      ) : (
+        <>
+          <HeaderLayout headerTitle={imgName} />
+          <MainUI.Wrapper>
+            <MenuDetailTab />
+            <div>{id}</div>
+          </MainUI.Wrapper>
+        </>
+      )}
     </>
   );
 };

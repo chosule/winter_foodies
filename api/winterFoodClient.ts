@@ -36,4 +36,8 @@ export default class WinterFoodClient {
       .get(`/api/main/snacks?lat=${lat}&lon=${lon}`)
       .then((res) => res.data.data);
   }
+
+  async kakaoLogin() {
+    return this.httpClient.post(`/oauth/kakao`).then((res) => res.data);
+  }
 }
