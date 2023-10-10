@@ -6,9 +6,4 @@ export const handleKakaoLogin = () => {
   console.log("code확인", code);
 };
 
-// if (typeof window !== "undefined") {
-//   const code = new URL(window.location.href).searchParams.get("code");
-//   console.log("code확인", code);
-// }
-
 export default { kakaoURL, handleKakaoLogin };

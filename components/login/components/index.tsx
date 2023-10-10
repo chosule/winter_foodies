@@ -53,7 +53,6 @@ const Login = () => {
       },
     }
   );
-  useEffect(() => {}, []);
 
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
     mutation.mutate(data);
@@ -70,6 +69,7 @@ const Login = () => {
       btnText: "확인",
     });
   };
+
   return (
     <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%">
       <Image src={mainLogoIcon} alt="아이콘" width={300} height={278} />

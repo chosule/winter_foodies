@@ -37,7 +37,9 @@ export default class WinterFoodClient {
       .then((res) => res.data.data);
   }
 
-  async kakaoLogin() {
-    return this.httpClient.post(`/oauth/kakao`).then((res) => res.data);
+  async kakaoLogin(code) {
+    return this.httpClient
+      .post(`/oauth/kakao/callback`, code)
+      .then((res) => res.data);
   }
 }
