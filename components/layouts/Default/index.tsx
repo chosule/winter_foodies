@@ -30,6 +30,7 @@ const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
 export const StyledWrapper = styled.div`
   display: flex;
   position: relative;
+  height: 100%;
 `;
 
 export const StyledLayout = styled.div`
@@ -48,6 +49,7 @@ export const StyledOuter = styled.div`
   position: relative;
   overflow: hidden;
   height: 100%;
+  min-height: 100vh;
   box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
     rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 8px 30px;
 `;

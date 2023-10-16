@@ -42,6 +42,7 @@ const Login = () => {
     localStorage.setItem("accessToken", accessToken);
 
     openAlert();
+    router.push("/");
   };
 
   const mutation = useMutation<TLoginResponse, AxiosError, string>(
@@ -53,7 +54,6 @@ const Login = () => {
       },
     }
   );
-  useEffect(() => {}, []);
 
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
     mutation.mutate(data);
@@ -70,6 +70,7 @@ const Login = () => {
       btnText: "확인",
     });
   };
+
   return (
     <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%">
       <Image src={mainLogoIcon} alt="아이콘" width={300} height={278} />
@@ -139,16 +140,10 @@ const Login = () => {
           justifyContent="center"
           flexDirection="initial"
         >
-          <CommonButton
-            onClick={handleKakaoLogin}
-            backgroundColor="transparent"
-          >
+          <CommonButton onClick={handleKakaoLogin}>
             <Image src={kakaoIcon} alt="카카오톡" width={45} height={45} />
           </CommonButton>
-          <CommonButton
-            onClick={handleNaverLogin}
-            backgroundColor="transparent"
-          >
+          <CommonButton onClick={handleNaverLogin}>
             <Image src={naverIcon} alt="네이버로그인" width={45} height={45} />
           </CommonButton>
         </AuthUI.Flex>
