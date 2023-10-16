@@ -1,4 +1,5 @@
 import FindPw from "@/components/Login/FindPw/components/index";
+import DefaultLayout from "@/components/layouts/Default";
 import LoginLayout from "@/components/layouts/LoginLayout";
 
 const FindPwPage = () => {
@@ -10,6 +11,6 @@ const FindPwPage = () => {
 };
 
 FindPwPage.getLayout = (page: React.ReactNode) => {
-  return <LoginLayout>{page}</LoginLayout>;
+  return <DefaultLayout>{page}</DefaultLayout>;
 };
 export default FindPwPage;

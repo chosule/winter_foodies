@@ -24,7 +24,7 @@ const NearDistance = () => {
     client.nearDistanceSnack(location?.latitude, location?.longitude)
   );
   return (
-    <MainUI.Wrapper gap="17px">
+    <MainUI.Wrapper gap="17px" minHeight="537px">
       <MainUI.Flex gap="10px" alignItems="center">
         <MainUI.Text fontSize="16px">나와 가장 가까운 간식</MainUI.Text>
         <MainUI.Text fontSize="16px" color="#DD8037">
@@ -56,7 +56,7 @@ const NearDistance = () => {
                   gap="4px"
                 >
                   <MainUI.Text fontSize="10px">현재나와</MainUI.Text>
-                  <MainUI.Text fontSize="15px">
+                  <MainUI.Text fontSize="15px" color="#DD8037">
                     {nearSnack.distance}m
                   </MainUI.Text>
                 </MainUI.Flex>

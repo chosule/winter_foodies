@@ -8,7 +8,7 @@ const Wrapper = styled.section<
   flex-direction: column;
   align-items: ${({ alignItems }) => alignItems};
   justify-content: ${({ justifyContent }) => justifyContent};
-  gap: 26px;
+  gap: 54px;
   height: ${({ height }) => (height ? height : "auto")};
   width: 100%;
 `;

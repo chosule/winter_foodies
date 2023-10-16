@@ -2,26 +2,29 @@ import styled from "@emotion/styled";
 import MenuSearch from "./MenuSearch";
 import RearTimeSearchWords from "./RearTimeSearchWords";
 import { CSSProperties } from "react";
+import RearTimeWordsPc from "./RearTimeWordsPc";
 
 const MainLeftPc = () => {
   return (
     <StyledWrap>
-      <StyledFlex flexDirection="column" gap="30px">
+      <StyledOuter flexDirection="column" gap="30px">
         <StyledFlex gap="10px" alignItems="center">
           <StyledText>우리와 가까운 간식,</StyledText>
           <StyledTitle>Winter Foodies</StyledTitle>
         </StyledFlex>
         <MenuSearch />
-        <RearTimeSearchWords />
-      </StyledFlex>
+        <RearTimeWordsPc />
+      </StyledOuter>
     </StyledWrap>
   );
 };
 
 const StyledWrap = styled.div`
-  position: fixed;
-  margin-left: -450px;
+  height: 100%;
+  position: relative;
+  z-index: 1000;
 `;
+
 const StyledFlex = styled.div<
   Pick<CSSProperties, "gap" | "flexDirection" | "alignItems">
 >`
@@ -30,6 +33,13 @@ const StyledFlex = styled.div<
   justify-content: center;
   gap: ${({ gap }) => gap};
   align-items: ${({ alignItems }) => alignItems};
+`;
+
+const StyledOuter = styled(StyledFlex)`
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 25%;
 `;
 const StyledText = styled.span`
   font-size: 15px;

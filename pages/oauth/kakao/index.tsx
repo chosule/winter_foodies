@@ -8,11 +8,21 @@ import {
 } from "@/types/api/kakaoLoginType";
 import { AxiosError } from "axios";
 import useContextModal from "@/context/hooks/useContextModal";
+import { useRouter } from "next/router";
 
 const KakaoCallbackPage = () => {
   const modal = useContextModal();
+  const router = useRouter();
   const { client } = useProjectApi();
   const [codeState, setCodeState] = useState<string | null>(null);
+
+  const openAlert = () => {
+    modal.openAlert({
+      title: "알림",
+      message: `로그인되어 \n 메인페이지로 이동합니다.`,
+      btnText: "확인",
+    });
+  };
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code");
     setCodeState(code);
@@ -26,6 +36,8 @@ const KakaoCallbackPage = () => {
     onSuccess: (res: TKakaoLoginResponse) => {
       //   console.log(res.data.accessToken, "엑세스토큰추출");
       localStorage.setItem("accessToken", res.data.accessToken);
+      openAlert();
+      router.push("/");
     },
     onError: (error) => {
       console.log(error, "에러");

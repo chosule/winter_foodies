@@ -17,8 +17,6 @@ import { useMutation } from "@tanstack/react-query";
 import useContextModal from "@/context/hooks/useContextModal";
 import { TLoginResponse } from "@/types/api/loginType";
 import { AxiosError } from "axios";
-import { TDataApiContext } from "@/context/hooks/useDataContextApi";
-import { useEffect } from "react";
 
 const Login = () => {
   const modal = useContextModal();
@@ -27,7 +25,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
   });
@@ -38,7 +36,7 @@ const Login = () => {
     const accessToken = res.data.accessToken;
     console.log("엑세스토큰", accessToken);
 
-    // localStorage에 accessToken 저장
+    // localStorage - accessToken 저장
     localStorage.setItem("accessToken", accessToken);
 
     openAlert();
@@ -95,7 +93,12 @@ const Login = () => {
               />
             </AuthUI.Flex>
           </AuthUI.Flex>
-          <CommonButton type="submit" variant="contained" width="100%">
+          <CommonButton
+            type="submit"
+            variant="contained"
+            width="100%"
+            disabled={!isDirty || !isValid}
+          >
             로그인
           </CommonButton>
         </AuthUI.Flex>
@@ -140,10 +143,16 @@ const Login = () => {
           justifyContent="center"
           flexDirection="initial"
         >
-          <CommonButton onClick={handleKakaoLogin}>
+          <CommonButton
+            onClick={handleKakaoLogin}
+            backgroundColor="transparent"
+          >
             <Image src={kakaoIcon} alt="카카오톡" width={45} height={45} />
           </CommonButton>
-          <CommonButton onClick={handleNaverLogin}>
+          <CommonButton
+            onClick={handleNaverLogin}
+            backgroundColor="transparent"
+          >
             <Image src={naverIcon} alt="네이버로그인" width={45} height={45} />
           </CommonButton>
         </AuthUI.Flex>

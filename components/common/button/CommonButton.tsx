@@ -22,7 +22,7 @@ const CommonButton = ({
       color={color}
       width={width}
       height={height}
-      backgroundcolor={backgroundColor}
+      backgroundColor={backgroundColor}
       {...rest}
     >
       {children}

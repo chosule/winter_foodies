@@ -1,3 +1,4 @@
+import DefaultLayout from "@/components/layouts/Default";
 import LoginLayout from "@/components/layouts/LoginLayout";
 import Login from "@/components/Login/components/index";
 
@@ -10,7 +11,7 @@ const LoginPage = () => {
 };
 
 LoginPage.getLayout = (page: React.ReactNode) => {
-  return <LoginLayout>{page}</LoginLayout>;
+  return <DefaultLayout>{page}</DefaultLayout>;
 };
 
 export default LoginPage;
