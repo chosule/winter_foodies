@@ -2,27 +2,39 @@ import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import useKakaoApi from "@/hooks/auth/useKakaoApi";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import {
+  TKakaoLoginResponse,
+  TKakaoLoginRequest,
+} from "@/types/api/kakaoLoginType";
+import { AxiosError } from "axios";
+import useContextModal from "@/context/hooks/useContextModal";
 
-type TCode = string;
 const KakaoCallbackPage = () => {
+  const modal = useContextModal();
   const { client } = useProjectApi();
   const [codeState, setCodeState] = useState<string | null>(null);
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code");
     setCodeState(code);
   }, []);
-  const mutation = useMutation((code) => client.kakaoLogin({ code }), {
-    onSuccess: (res) => {
-      console.log(res, "성공");
+
+  const mutation = useMutation<
+    TKakaoLoginResponse,
+    AxiosError,
+    TKakaoLoginRequest
+  >((code) => client.kakaoLogin(code), {
+    onSuccess: (res: TKakaoLoginResponse) => {
+      //   console.log(res.data.accessToken, "엑세스토큰추출");
+      localStorage.setItem("accessToken", res.data.accessToken);
     },
     onError: (error) => {
       console.log(error, "에러");
     },
   });
+
   useEffect(() => {
-    console.log(codeState, "코드나오나");
     if (codeState) {
-      mutation.mutate(codeState);
+      mutation.mutate({ code: codeState });
     }
   }, [codeState]);
 

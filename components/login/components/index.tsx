@@ -42,6 +42,7 @@ const Login = () => {
     localStorage.setItem("accessToken", accessToken);
 
     openAlert();
+    router.push("/");
   };
 
   const mutation = useMutation<TLoginResponse, AxiosError, string>(
@@ -139,16 +140,10 @@ const Login = () => {
           justifyContent="center"
           flexDirection="initial"
         >
-          <CommonButton
-            onClick={handleKakaoLogin}
-            backgroundColor="transparent"
-          >
+          <CommonButton onClick={handleKakaoLogin}>
             <Image src={kakaoIcon} alt="카카오톡" width={45} height={45} />
           </CommonButton>
-          <CommonButton
-            onClick={handleNaverLogin}
-            backgroundColor="transparent"
-          >
+          <CommonButton onClick={handleNaverLogin}>
             <Image src={naverIcon} alt="네이버로그인" width={45} height={45} />
           </CommonButton>
         </AuthUI.Flex>

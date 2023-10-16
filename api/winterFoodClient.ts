@@ -1,6 +1,10 @@
 import axios, { AxiosInstance, Axios } from "axios";
 import { TLoginResponse, TLoginRequest } from "../types/api/loginType";
-
+import {
+  TKakaoLoginRequest,
+  TKakaoLoginResponse,
+} from "@/types/api/kakaoLoginType";
+import { TSignUpRequest, TSignUpResponse } from "@/types/api/signUpType";
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
@@ -21,15 +25,15 @@ export default class WinterFoodClient {
       .then((res) => res.data as TLoginResponse);
   }
 
-  async signUp(form: string) {
+  async signUp(form: TSignUpRequest) {
     return this.httpClient
       .post(`/api/auth/register`, form)
-      .then((res) => res.data);
+      .then((res) => res.data as TSignUpResponse);
   }
 
-  async searchMap() {
-    return axios.get(`/fakeApi/fakeApiSearchMap.json`).then((res) => res.data);
-  }
+  // async searchMap() {
+  //   return axios.get(`/fakeApi/fakeApiSearchMap.json`).then((res) => res.data);
+  // }
 
   async nearDistanceSnack(lat, lon) {
     return this.httpClient
@@ -37,9 +41,9 @@ export default class WinterFoodClient {
       .then((res) => res.data.data);
   }
 
-  async kakaoLogin(code) {
+  async kakaoLogin(code: TKakaoLoginRequest) {
     return this.httpClient
-      .post(`/oauth/kakao/callback`, code)
-      .then((res) => res.data);
+      .post(`/api/oauth/kakao`, code)
+      .then((res) => res.data as TKakaoLoginResponse);
   }
 }

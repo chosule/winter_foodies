@@ -4,7 +4,7 @@ import { CSSProperties } from "react";
 type CommonButtonProps = {
   width?: string;
   height?: string;
-  backgroundcolor?: string;
+  backgroundColor?: string;
 };
 
 const CommonButton = ({
@@ -13,6 +13,7 @@ const CommonButton = ({
   variant = "text",
   width,
   height,
+  backgroundColor,
   ...rest
 }: ButtonProps & CommonButtonProps) => {
   return (
@@ -21,6 +22,7 @@ const CommonButton = ({
       color={color}
       width={width}
       height={height}
+      backgroundcolor={backgroundColor}
       {...rest}
     >
       {children}
@@ -31,8 +33,8 @@ const CommonButton = ({
 const StyledButton = styled(Button)<CommonButtonProps>`
   width: ${({ width }) => (width ? width : "47px")};
   height: ${({ height }) => (height ? height : "45px")};
-  background-color: ${({ backgroundcolor }) =>
-    backgroundcolor ? backgroundcolor : "#DD8037"};
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor ? backgroundColor : "#DD8037"};
   color: #fff;
 `;
 export default CommonButton;
