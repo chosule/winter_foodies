@@ -7,13 +7,18 @@ const Wrap = styled.div<{ padding: string }>`
 const Flex = styled.div<
   Pick<
     CSSProperties,
-    "flexDirection" | "justifyContent" | "gap" | "alignItems" | "padding"
+    | "flexDirection"
+    | "justifyContent"
+    | "gap"
+    | "alignItems"
+    | "padding"
+    | "height"
   >
 >`
   display: flex;
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
-  height: 100%;
+  height: ${({ height }) => (height ? height : "100%")};
   flex-direction: ${({ flexDirection }) => flexDirection};
   padding: ${({ padding }) => padding};
   gap: ${({ gap }) => gap};

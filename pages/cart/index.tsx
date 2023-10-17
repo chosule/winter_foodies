@@ -9,7 +9,11 @@ import styled from "@emotion/styled";
 
 const CartPage = () => {
   return (
-    <CartUI.Flex flexDirection="column" justifyContent="space-between">
+    <CartUI.Flex
+      flexDirection="column"
+      justifyContent="space-between"
+      height="87%"
+    >
       <div>
         <StyledBox width="100%">
           <CartUI.Flex alignItems="center" justifyContent="space-between">
@@ -42,11 +46,11 @@ const CartPage = () => {
               <CartUI.Flex justifyContent="space-between" alignItems="center">
                 <CartUI.Text fontWeight="800">2,000원</CartUI.Text>
                 <CartUI.Flex gap="20px" alignItems="center">
-                  <StyledButton backgroundcolor="none">
+                  <StyledButton backgroundcolor="none" disableRipple>
                     <FiMinusCircle />
                   </StyledButton>
                   <CartUI.Text>4</CartUI.Text>
-                  <StyledButton backgroundcolor="none">
+                  <StyledButton backgroundcolor="none" disableRipple>
                     <BiPlusCircle />
                   </StyledButton>
                 </CartUI.Flex>
@@ -62,11 +66,11 @@ const CartPage = () => {
               <CartUI.Flex justifyContent="space-between" alignItems="center">
                 <CartUI.Text fontWeight="800">2,000원</CartUI.Text>
                 <CartUI.Flex gap="20px" alignItems="center">
-                  <StyledButton backgroundcolor="none">
+                  <StyledButton backgroundcolor="none" disableRipple>
                     <FiMinusCircle />
                   </StyledButton>
                   <CartUI.Text>4</CartUI.Text>
-                  <StyledButton backgroundcolor="none">
+                  <StyledButton backgroundcolor="none" disableRipple>
                     <BiPlusCircle />
                   </StyledButton>
                 </CartUI.Flex>
@@ -75,7 +79,10 @@ const CartPage = () => {
           </CommonBox>
         </CartUI.Flex>
       </div>
-      <CommonButton width="100%">6800원 주문하기</CommonButton>
+      <CommonButton width="100%" variant="contained">
+        6800원 주문하기
+      </CommonButton>
+      <CommonButton>추가하기</CommonButton>
     </CartUI.Flex>
   );
 };

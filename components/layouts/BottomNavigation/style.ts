@@ -11,6 +11,9 @@ const Nav = styled.nav`
   position: fixed;
   bottom: 0;
   z-index: 1;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const NavItem = styled.div`

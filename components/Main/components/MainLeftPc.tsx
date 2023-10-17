@@ -3,7 +3,6 @@ import MenuSearch from "./MenuSearch";
 import RearTimeSearchWords from "./RearTimeSearchWords";
 import { CSSProperties } from "react";
 import RearTimeWordsPc from "./RearTimeWordsPc";
-
 const MainLeftPc = () => {
   return (
     <StyledWrap>
@@ -22,7 +21,7 @@ const MainLeftPc = () => {
 const StyledWrap = styled.div`
   height: 100%;
   position: relative;
-  z-index: 1000;
+  z-index: 999;
 `;
 
 const StyledFlex = styled.div<
@@ -39,7 +38,13 @@ const StyledOuter = styled(StyledFlex)`
   position: fixed;
   top: 50%;
   transform: translate(0, -50%);
-  left: 25%;
+  left: 30%;
+  @media (max-width: 970px) {
+    left: 0;
+  }
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 const StyledText = styled.span`
   font-size: 15px;

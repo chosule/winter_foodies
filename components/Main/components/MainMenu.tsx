@@ -28,7 +28,7 @@ const MainMenu = () => {
       {buttonImages.map((buttonImage) => (
         <StyledButton
           key={buttonImage.url}
-          backgroundColor="#dd803721"
+          backgroundcolor="#dd803721"
           onClick={() => {
             router.push({
               pathname: "main/menu-detail/[id]",

@@ -29,7 +29,7 @@ const StyledOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 999;
+  z-index: 1000;
   background-color: rgb(0 0 0 / 65%);
 `;
 const StyledContent = styled.div`
@@ -45,7 +45,7 @@ const StyledContent = styled.div`
   overflow: hidden;
   background-color: #f3f3f3;
   transform: translate(-50%, -50%);
-  z-index: 999;
+  z-index: 1000;
 `;
 const StyledTitle = styled.h3`
   text-align: center;

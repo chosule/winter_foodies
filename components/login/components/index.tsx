@@ -17,7 +17,7 @@ import { useMutation } from "@tanstack/react-query";
 import useContextModal from "@/context/hooks/useContextModal";
 import { TLoginResponse } from "@/types/api/loginType";
 import { AxiosError } from "axios";
-
+import { StyledOuter } from "@/components/layouts/Default";
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
@@ -145,13 +145,13 @@ const Login = () => {
         >
           <CommonButton
             onClick={handleKakaoLogin}
-            backgroundColor="transparent"
+            backgroundcolor="transparent"
           >
             <Image src={kakaoIcon} alt="카카오톡" width={45} height={45} />
           </CommonButton>
           <CommonButton
             onClick={handleNaverLogin}
-            backgroundColor="transparent"
+            backgroundcolor="transparent"
           >
             <Image src={naverIcon} alt="네이버로그인" width={45} height={45} />
           </CommonButton>
@@ -164,4 +164,5 @@ const Login = () => {
 const StyledLinkText = styled(AuthUI.Text)`
   cursor: pointer;
 `;
+
 export default Login;

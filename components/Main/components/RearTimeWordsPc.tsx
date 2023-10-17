@@ -21,7 +21,7 @@ const RearTimeWordsPc = () => {
       {MOCK_DATA.map((snack) => (
         <StyledBoxBtn
           key={snack.id}
-          backgroundColor="transparent"
+          backgroundcolor="transparent"
           width="0"
           height="0"
         >

@@ -24,6 +24,7 @@ const FindId = () => {
   const onSubmit: SubmitHandler<TFindIdSchema> = (data) => {
     // console.log("data--->", data);
     openAlert();
+    router.push("/login");
   };
 
   const onError: SubmitErrorHandler<TFindIdSchema> = (error) => {
@@ -33,7 +34,7 @@ const FindId = () => {
   const openAlert = () => {
     modal.openAlert({
       title: "알림",
-      message: `회원님의아이디는 test@naver.com 입니다`,
+      message: `회원님의아이디는 \n test@naver.com 입니다. \n 로그인페이지로 이동합니다.`,
       btnText: "확인",
     });
   };
@@ -88,17 +89,6 @@ const FindId = () => {
                   </AuthUI.Flex>
                 </AuthUI.Flex>
               </AuthUI.FormWrap>
-            </AuthUI.Flex>
-            <AuthUI.Flex>
-              <CommonButton
-                width="100%"
-                variant="contained"
-                onClick={() => {
-                  router.push("/login");
-                }}
-              >
-                로그인하기
-              </CommonButton>
             </AuthUI.Flex>
           </AuthUI.Flex>
         </AuthUI.Flex>
