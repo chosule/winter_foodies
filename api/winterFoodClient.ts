@@ -57,6 +57,4 @@ export default class WinterFoodClient {
       .post(`/api/oauth/naver`, code)
       .then((res) => res.data as TNaverLoginResponse);
   }
-
-  async;
 }

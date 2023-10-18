@@ -48,7 +48,7 @@ export const StyledLayout = styled.div`
 export const StyledOuter = styled.div`
   width: 511px;
   border: 1px solid #e7e7e7;
-  margin-left: 455px;
+  margin-left: 700px;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
