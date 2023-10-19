@@ -27,69 +27,69 @@ const MapContainer = () => {
   const { handleSuccess } = useGeolocation();
   const { client } = useProjectApi();
 
-  const { isLoading, error, data } = useQuery(["searchData"], () =>
-    client.searchMap()
-  );
+  // const { isLoading, error, data } = useQuery(["searchData"], () =>
+  //   client.searchMap()
+  // );
 
-  useEffect(() => {
-    const container = document.getElementById("map");
-    if (!isLoading && data) {
-      // 데이터 수정 및 상태 업데이트
-      const updatedMarkers = data.map((datas) => ({
-        ...datas,
-        latitude: parseFloat(datas.latitude), // 문자열을 숫자로 변환
-        longitude: parseFloat(datas.longitude), // 문자열을 숫자로 변환
-      }));
+  // useEffect(() => {
+  //   const container = document.getElementById("map");
+  //   if (!isLoading && data) {
+  //     // 데이터 수정 및 상태 업데이트
+  //     const updatedMarkers = data.map((datas) => ({
+  //       ...datas,
+  //       latitude: parseFloat(datas.latitude), // 문자열을 숫자로 변환
+  //       longitude: parseFloat(datas.longitude), // 문자열을 숫자로 변환
+  //     }));
 
-      // Kakao 지도 API 스크립트 동적으로 로드
-      const script = document.createElement("script");
+  //     // Kakao 지도 API 스크립트 동적으로 로드
+  //     const script = document.createElement("script");
 
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}`;
-      script.async = true;
-      document.head.appendChild(script);
+  //     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}`;
+  //     script.async = true;
+  //     document.head.appendChild(script);
 
-      script.onload = () => {
-        window.kakao.maps.load(() => {
-          const mainPosition = new window.kakao.maps.LatLng(
-            updatedMarkers[0].latitude, // 예시로 첫 번째 마커의 위치를 사용
-            updatedMarkers[0].longitude
-          );
+  //     script.onload = () => {
+  //       window.kakao.maps.load(() => {
+  //         const mainPosition = new window.kakao.maps.LatLng(
+  //           updatedMarkers[0].latitude, // 예시로 첫 번째 마커의 위치를 사용
+  //           updatedMarkers[0].longitude
+  //         );
 
-          const options = {
-            center: mainPosition,
-            level: 5,
-          };
-          const map = new window.kakao.maps.Map(container, options);
+  //         const options = {
+  //           center: mainPosition,
+  //           level: 5,
+  //         };
+  //         const map = new window.kakao.maps.Map(container, options);
 
-          var imageSize = new window.kakao.maps.Size(24, 35);
+  //         var imageSize = new window.kakao.maps.Size(24, 35);
 
-          var markerImage = new window.kakao.maps.MarkerImage(
-            imageSrc,
-            imageSize
-          );
+  //         var markerImage = new window.kakao.maps.MarkerImage(
+  //           imageSrc,
+  //           imageSize
+  //         );
 
-          updatedMarkers.forEach((marker) => {
-            const position = new window.kakao.maps.LatLng(
-              marker.latitude,
-              marker.longitude
-            );
+  //         updatedMarkers.forEach((marker) => {
+  //           const position = new window.kakao.maps.LatLng(
+  //             marker.latitude,
+  //             marker.longitude
+  //           );
 
-            const mainMarker = new window.kakao.maps.Marker({
-              position: position,
-              image: markerImage,
-              title: marker.name,
-            });
-            mainMarker.setMap(map);
-          });
-        });
-      };
+  //           const mainMarker = new window.kakao.maps.Marker({
+  //             position: position,
+  //             image: markerImage,
+  //             title: marker.name,
+  //           });
+  //           mainMarker.setMap(map);
+  //         });
+  //       });
+  //     };
 
-      return () => {
-        // 컴포넌트 언마운트 시 스크립트 제거
-        document.head.removeChild(script);
-      };
-    }
-  }, [isLoading, data]);
+  //     return () => {
+  //       // 컴포넌트 언마운트 시 스크립트 제거
+  //       document.head.removeChild(script);
+  //     };
+  //   }
+  // }, [isLoading, data]);
 
   return (
     <>

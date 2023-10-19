@@ -2,19 +2,27 @@ import styled from "@emotion/styled";
 import MenuSearch from "./MenuSearch";
 import RearTimeSearchWords from "./RearTimeSearchWords";
 import { CSSProperties } from "react";
-
+import RearTimeWordsPc from "./RearTimeWordsPc";
 const MainLeftPc = () => {
   return (
-    <StyledFlex flexDirection="column" gap="30px">
-      <StyledFlex gap="10px" alignItems="center">
-        <StyledText>우리와 가까운 간식,</StyledText>
-        <StyledTitle>Winter Foodies</StyledTitle>
-      </StyledFlex>
-      <MenuSearch />
-      <RearTimeSearchWords />
-    </StyledFlex>
+    <StyledWrap>
+      <StyledOuter flexDirection="column" gap="30px">
+        <StyledFlex gap="10px" alignItems="center">
+          <StyledText>우리와 가까운 간식,</StyledText>
+          <StyledTitle>Winter Foodies</StyledTitle>
+        </StyledFlex>
+        <MenuSearch />
+        <RearTimeWordsPc />
+      </StyledOuter>
+    </StyledWrap>
   );
 };
+
+const StyledWrap = styled.div`
+  height: 100%;
+  position: relative;
+  z-index: 999;
+`;
 
 const StyledFlex = styled.div<
   Pick<CSSProperties, "gap" | "flexDirection" | "alignItems">
@@ -24,6 +32,19 @@ const StyledFlex = styled.div<
   justify-content: center;
   gap: ${({ gap }) => gap};
   align-items: ${({ alignItems }) => alignItems};
+`;
+
+const StyledOuter = styled(StyledFlex)`
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 30%;
+  @media (max-width: 970px) {
+    left: 0;
+  }
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 const StyledText = styled.span`
   font-size: 15px;

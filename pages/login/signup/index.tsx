@@ -1,3 +1,4 @@
+import DefaultLayout from "@/components/layouts/Default";
 import LoginLayout from "@/components/layouts/LoginLayout";
 import SignUp from "@/components/Login/Signup/components";
 const SignUpPage = () => {
@@ -9,7 +10,7 @@ const SignUpPage = () => {
 };
 
 SignUpPage.getLayout = (page: React.ReactNode) => {
-  return <LoginLayout>{page}</LoginLayout>;
+  return <DefaultLayout>{page}</DefaultLayout>;
 };
 
 export default SignUpPage;

@@ -24,11 +24,7 @@ import Link from "next/link";
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
-  const handleKakaoLogin = () => {
-    router.push(
-      "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=f9a7426e2123a6b9d3e94a63fb5440ce&redirect_uri=http%3A%2F%2F172.105.204.235%3A8080%2Foauth%2Fkakao"
-    );
-  };
+  const { client } = useProjectApi();
 
   const {
     register,
@@ -37,7 +33,6 @@ const Login = () => {
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
   });
-  const { client } = useProjectApi();
 
   const onLoginSuccess = (res) => {
     console.log("로그인 성공 ->", res);
@@ -145,16 +140,15 @@ const Login = () => {
           justifyContent="center"
           flexDirection="initial"
         >
-          <button onClick={handleKakaoLogin}>카카오로그인test</button>
           <CommonButton
             onClick={handleKakaoLogin}
-            backgroundColor="transparent"
+            backgroundcolor="transparent"
           >
             <Image src={kakaoIcon} alt="카카오톡" width={45} height={45} />
           </CommonButton>
           <CommonButton
             onClick={handleNaverLogin}
-            backgroundColor="transparent"
+            backgroundcolor="transparent"
           >
             <Image src={naverIcon} alt="네이버로그인" width={45} height={45} />
           </CommonButton>

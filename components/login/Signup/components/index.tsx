@@ -19,7 +19,7 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<TSignUpSchema>({
     resolver: zodResolver(signUpSchema),
   });
@@ -76,12 +76,43 @@ const SignUp = () => {
               />
             </AuthUI.Flex>
             <AuthUI.Flex gap="10px">
-              <AuthUI.Label>핸드폰 번호</AuthUI.Label>
-              <TextField
-                placeholder="핸드폰번호를 입력해주세요."
-                {...register("phoneNumber", { required: true })}
-                errorMsg={errors.phoneNumber?.message}
-              />
+              <AuthUI.Label>휴대폰번호</AuthUI.Label>
+              <AuthUI.Flex gap="20px" flexDirection="initial">
+                <AuthUI.Flex>
+                  <TextField
+                    {...register("phoneNumber", { required: true })}
+                    placeholder="핸드폰번호를 입력해주세요."
+                    errorMsg={errors.phoneNumber?.message}
+                  />
+                </AuthUI.Flex>
+                <CommonButton
+                  variant="contained"
+                  type="submit"
+                  name="submitbutton"
+                >
+                  인증
+                </CommonButton>
+              </AuthUI.Flex>
+            </AuthUI.Flex>
+            <AuthUI.Flex gap="10px">
+              <AuthUI.Label>인증번호</AuthUI.Label>
+              <AuthUI.Flex gap="20px" flexDirection="initial">
+                <AuthUI.Flex>
+                  <TextField
+                    {...register("SignUpCertiNumber", { required: true })}
+                    placeholder="인증번호를 입력해주세요."
+                    errorMsg={errors.SignUpCertiNumber?.message}
+                  />
+                </AuthUI.Flex>
+                <CommonButton
+                  variant="contained"
+                  type="submit"
+                  name="submitbutton"
+                  disabled={!isDirty || !isValid}
+                >
+                  확인
+                </CommonButton>
+              </AuthUI.Flex>
             </AuthUI.Flex>
             <AuthUI.Flex gap="10px">
               <AuthUI.Label>비밀번호</AuthUI.Label>
