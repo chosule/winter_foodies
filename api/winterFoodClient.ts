@@ -22,19 +22,22 @@ export default class WinterFoodClient {
       },
     });
   }
-
+  // 로그인
   async login(form: TLoginRequest): Promise<TLoginResponse> {
     return this.httpClient
       .post(`/api/auth/login`, form)
       .then((res) => res.data as TLoginResponse);
   }
-
+  // 회원가입
   async signUp(form: TSignUpRequest) {
     return this.httpClient
       .post(`/api/auth/register`, form)
       .then((res) => res.data as TSignUpResponse);
   }
-
+  //아이디 찾기
+  async findId(data) {
+    return this.httpClient.post(`/api/auth/findId`).then((res) => res.data);
+  }
   // async searchMap() {
   //   return axios.get(`/fakeApi/fakeApiSearchMap.json`).then((res) => res.data);
   // }
