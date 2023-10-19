@@ -9,6 +9,7 @@ import {
   TNaverLoginRequest,
   TNaverLoginResponse,
 } from "@/types/api/naverLoginType";
+import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
@@ -35,8 +36,10 @@ export default class WinterFoodClient {
       .then((res) => res.data as TSignUpResponse);
   }
   //아이디 찾기
-  async findId(data) {
-    return this.httpClient.post(`/api/auth/findId`).then((res) => res.data);
+  async findId(data: TFindIdRequest) {
+    return this.httpClient
+      .post(`/api/auth/findId`, data)
+      .then((res) => res.data as TFindIdResponse);
   }
   // async searchMap() {
   //   return axios.get(`/fakeApi/fakeApiSearchMap.json`).then((res) => res.data);

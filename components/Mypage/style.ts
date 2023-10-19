@@ -10,9 +10,11 @@ const Flex = styled.div<
     | "padding"
     | "gap"
     | "width"
+    | "margin"
   >
 >`
   display: flex;
+  margin: ${({ margin }) => margin};
   align-items: ${({ alignItems }) => alignItems};
   justify-content: ${({ justifyContent }) => justifyContent};
   flex-direction: ${({ flexDirection }) => flexDirection};

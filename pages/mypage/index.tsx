@@ -51,28 +51,37 @@ const MyPage = () => {
         })}
       </StyledBox>
       {/*  */}
-      <MyPageUI.Flex flexDirection="column" gap="40px" padding="30px 0">
-        <MyPageUI.Flex width="100%" justifyContent="space-between">
-          <MyPageUI.Flex gap="15px">
-            <PiSpeakerHigh />
+      <StyledFlexCusotom
+        flexDirection="column"
+        gap="40px"
+        padding="30px 0"
+        margin="30px 0"
+      >
+        <StyledCursor width="100%" justifyContent="space-between">
+          <MyPageUI.Flex gap="15px" alignItems="center">
+            <PiSpeakerHigh style={{ fontSize: "25px" }} />
             <MyPageUI.Text>공지사항</MyPageUI.Text>
           </MyPageUI.Flex>
           <MdArrowForwardIos />
-        </MyPageUI.Flex>
-        <MyPageUI.Flex width="100%" justifyContent="space-between">
-          <MyPageUI.Flex gap="15px">
-            <AiOutlineUnlock />
+        </StyledCursor>
+        <StyledCursor width="100%" justifyContent="space-between">
+          <MyPageUI.Flex alignItems="center" gap="15px">
+            <AiOutlineUnlock style={{ fontSize: "25px" }} />
             <MyPageUI.Text>로그아웃하기</MyPageUI.Text>
           </MyPageUI.Flex>
           <MdArrowForwardIos />
-        </MyPageUI.Flex>
-      </MyPageUI.Flex>
+        </StyledCursor>
+      </StyledFlexCusotom>
     </div>
   );
 };
 
-const StyledListBut = styled(CommonButton)`
-  color: #000;
+const StyledFlexCusotom = styled(MyPageUI.Flex)`
+  border-top: 2px solid #ddd;
+`;
+
+const StyledCursor = styled(MyPageUI.Flex)`
+  cursor: pointer;
 `;
 const StyledBox = styled(MyPageUI.Flex)`
   background-color: #fafafa;

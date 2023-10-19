@@ -9,10 +9,15 @@ import modal from "@/utils/modal";
 import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
 import CommonInfoBox from "@/components/common/CommonBox/CommonInfoBox";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
+import { useProjectApi } from "@/context/hooks/useDataContextApi";
 
 const FindId = () => {
   const modal = useContextModal();
   const router = useRouter();
+  const { client } = useProjectApi();
   const {
     register,
     handleSubmit,
@@ -20,11 +25,22 @@ const FindId = () => {
   } = useForm<TFindIdSchema>({
     resolver: zodResolver(findIdSchema),
   });
-
+  const { mutate } = useMutation<TFindIdRequest, AxiosError, TFindIdRequest>(
+    (data) => client.findId(data),
+    {
+      onSuccess: (data) => {
+        console.log("아이디찾기 성공", data);
+        openAlert();
+        router.push("/login");
+      },
+      onError: (err) => {
+        console.log("error", err);
+      },
+    }
+  );
   const onSubmit: SubmitHandler<TFindIdSchema> = (data) => {
     // console.log("data--->", data);
-    openAlert();
-    router.push("/login");
+    mutate(data);
   };
 
   const onError: SubmitErrorHandler<TFindIdSchema> = (error) => {
@@ -53,9 +69,9 @@ const FindId = () => {
                     <AuthUI.Flex gap="20px" flexDirection="initial">
                       <AuthUI.Flex>
                         <TextField
-                          {...register("findIdPhoneNumber", { required: true })}
+                          {...register("phoneNumber", { required: true })}
                           placeholder="핸드폰번호를 입력해주세요."
-                          errorMsg={errors.findIdPhoneNumber?.message}
+                          errorMsg={errors.phoneNumber?.message}
                         />
                       </AuthUI.Flex>
                       <CommonButton
@@ -73,9 +89,9 @@ const FindId = () => {
                     <AuthUI.Flex gap="20px" flexDirection="initial">
                       <AuthUI.Flex>
                         <TextField
-                          {...register("findIdCertiNumber", { required: true })}
+                          {...register("authCode", { required: true })}
                           placeholder="인증번호를 입력해주세요."
-                          errorMsg={errors.findIdCertiNumber?.message}
+                          errorMsg={errors.authCode?.message}
                         />
                       </AuthUI.Flex>
                       <CommonButton

@@ -64,10 +64,10 @@ export const signUpSchema = z
   });
 
 export const findIdSchema = z.object({
-  findIdPhoneNumber: z.string().regex(phoneNumberPattern, {
+  phoneNumber: z.string().regex(phoneNumberPattern, {
     message: "휴대폰 번호를 정확히 입력해주세요.",
   }),
-  findIdCertiNumber: z.string().nonempty("인증번호를 정확히 입력해주세요."),
+  authCode: z.string().nonempty("인증번호를 정확히 입력해주세요."),
 });
 
 export const findPasswordSchema = z.object({
