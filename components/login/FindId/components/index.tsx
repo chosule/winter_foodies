@@ -49,7 +49,7 @@ const FindId = () => {
               <AuthUI.FormWrap onSubmit={handleSubmit(onSubmit, onError)}>
                 <AuthUI.Flex gap="10px">
                   <AuthUI.Flex gap="10px">
-                    <AuthUI.Label>휴대폰번호</AuthUI.Label>
+                    <AuthUI.Label>핸드폰번호</AuthUI.Label>
                     <AuthUI.Flex gap="20px" flexDirection="initial">
                       <AuthUI.Flex>
                         <TextField
@@ -67,6 +67,7 @@ const FindId = () => {
                       </CommonButton>
                     </AuthUI.Flex>
                   </AuthUI.Flex>
+
                   <AuthUI.Flex gap="10px">
                     <AuthUI.Label>인증번호</AuthUI.Label>
                     <AuthUI.Flex gap="20px" flexDirection="initial">

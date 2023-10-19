@@ -17,30 +17,33 @@ import { useMutation } from "@tanstack/react-query";
 import useContextModal from "@/context/hooks/useContextModal";
 import { TLoginResponse } from "@/types/api/loginType";
 import { AxiosError } from "axios";
-import { StyledOuter } from "@/components/layouts/Default";
+import { TDataApiContext } from "@/context/hooks/useDataContextApi";
+import { useEffect } from "react";
+import Link from "next/link";
+
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
+  const { client } = useProjectApi();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors },
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
   });
-  const { client } = useProjectApi();
 
   const onLoginSuccess = (res) => {
     console.log("로그인 성공 ->", res);
     const accessToken = res.data.accessToken;
     console.log("엑세스토큰", accessToken);
 
-    // localStorage - accessToken 저장
+    // localStorage에 accessToken 저장
     localStorage.setItem("accessToken", accessToken);
 
     openAlert();
-    router.push("/");
+    router.push("/main");
   };
 
   const mutation = useMutation<TLoginResponse, AxiosError, string>(
@@ -68,7 +71,6 @@ const Login = () => {
       btnText: "확인",
     });
   };
-
   return (
     <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%">
       <Image src={mainLogoIcon} alt="아이콘" width={300} height={278} />
@@ -93,12 +95,7 @@ const Login = () => {
               />
             </AuthUI.Flex>
           </AuthUI.Flex>
-          <CommonButton
-            type="submit"
-            variant="contained"
-            width="100%"
-            disabled={!isDirty || !isValid}
-          >
+          <CommonButton type="submit" variant="contained" width="100%">
             로그인
           </CommonButton>
         </AuthUI.Flex>
@@ -164,5 +161,4 @@ const Login = () => {
 const StyledLinkText = styled(AuthUI.Text)`
   cursor: pointer;
 `;
-
 export default Login;
