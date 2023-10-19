@@ -5,6 +5,10 @@ import {
   TKakaoLoginResponse,
 } from "@/types/api/kakaoLoginType";
 import { TSignUpRequest, TSignUpResponse } from "@/types/api/signUpType";
+import {
+  TNaverLoginRequest,
+  TNaverLoginResponse,
+} from "@/types/api/naverLoginType";
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
@@ -41,9 +45,16 @@ export default class WinterFoodClient {
       .then((res) => res.data.data);
   }
 
+  //카카오 로그인
   async kakaoLogin(code: TKakaoLoginRequest) {
     return this.httpClient
       .post(`/api/oauth/kakao`, code)
       .then((res) => res.data as TKakaoLoginResponse);
+  }
+  //네이버 로그인
+  async naverLogin(code: TNaverLoginRequest) {
+    return this.httpClient
+      .post(`/api/oauth/naver`, code)
+      .then((res) => res.data as TNaverLoginResponse);
   }
 }

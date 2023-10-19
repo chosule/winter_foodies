@@ -4,5 +4,5 @@ export type TKakaoLoginRequest = {
 };
 export type TKakaoLoginResponse = {
   data: any;
-  accessToken: string;
+  accessToken?: string;
 };

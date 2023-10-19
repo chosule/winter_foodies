@@ -30,7 +30,10 @@ const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
 export const StyledWrapper = styled.div`
   display: flex;
   position: relative;
-  height: 100%;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const StyledLayout = styled.div`
@@ -45,13 +48,19 @@ export const StyledLayout = styled.div`
 export const StyledOuter = styled.div`
   width: 511px;
   border: 1px solid #e7e7e7;
-  margin-left: 510px;
+  margin-left: 700px;
   position: relative;
   overflow: hidden;
-  height: 100%;
   min-height: 100vh;
   box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
     rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 8px 30px;
+  @media (max-width: 970px) {
+    width: 100%;
+    margin-left: 360px;
+  }
+  @media (max-width: 600px) {
+    margin-left: 0;
+  }
 `;
 export const StyledContent = styled.div<TDefaultLayoutProps>`
   width: ${({ width }) => (width ? width : "90%")};

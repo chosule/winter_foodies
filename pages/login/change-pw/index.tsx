@@ -1,4 +1,5 @@
 import ChangePassword from "@/components/Login/ChangePw/components";
+import DefaultLayout from "@/components/layouts/Default";
 import LoginLayout from "@/components/layouts/LoginLayout";
 
 const ChangePwPage = () => {
@@ -9,6 +10,6 @@ const ChangePwPage = () => {
   );
 };
 ChangePwPage.getLayout = (page: React.ReactNode) => {
-  return <LoginLayout>{page}</LoginLayout>;
+  return <DefaultLayout>{page}</DefaultLayout>;
 };
 export default ChangePwPage;

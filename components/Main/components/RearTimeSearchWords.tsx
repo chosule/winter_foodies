@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 import { MainUI } from "../style";
 import { useState, useEffect, CSSProperties } from "react";
-import Image from "next/image";
-import arrowIcon from "@/public/img/arrowIcon.svg";
+
 type TMockData = {
   id: number;
   name: string;

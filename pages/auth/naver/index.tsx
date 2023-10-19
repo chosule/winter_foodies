@@ -1,21 +1,19 @@
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
-import useKakaoApi from "@/hooks/auth/useKakaoApi";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import {
-  TKakaoLoginResponse,
-  TKakaoLoginRequest,
-} from "@/types/api/kakaoLoginType";
+  TNaverLoginRequest,
+  TNaverLoginResponse,
+} from "@/types/api/naverLoginType";
 import { AxiosError } from "axios";
-import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
+import useContextModal from "@/context/hooks/useContextModal";
 
-const KakaoCallbackPage = () => {
-  const modal = useContextModal();
+const NaverCallbackPage = () => {
   const router = useRouter();
-  const { client } = useProjectApi();
+  const modal = useContextModal();
   const [codeState, setCodeState] = useState<string | null>(null);
-
+  const { client } = useProjectApi();
   const openAlert = () => {
     modal.openAlert({
       title: "알림",
@@ -29,18 +27,19 @@ const KakaoCallbackPage = () => {
   }, []);
 
   const mutation = useMutation<
-    TKakaoLoginResponse,
+    TNaverLoginResponse,
     AxiosError,
-    TKakaoLoginRequest
-  >((code) => client.kakaoLogin(code), {
-    onSuccess: (res: TKakaoLoginResponse) => {
-      //   console.log(res.data.accessToken, "엑세스토큰추출");
+    TNaverLoginRequest
+  >((code) => client.naverLogin(code), {
+    onSuccess: (res: TNaverLoginResponse) => {
+      //   console.log(res);
+      //   console.log("accessToken", res.data.accessToken);
       localStorage.setItem("accessToken", res.data.accessToken);
       openAlert();
       router.push("/");
     },
-    onError: (error) => {
-      console.log(error, "에러");
+    onError: (err) => {
+      console.log("err", err);
     },
   });
 
@@ -49,8 +48,7 @@ const KakaoCallbackPage = () => {
       mutation.mutate({ code: codeState });
     }
   }, [codeState]);
-
   return <div></div>;
 };
 
-export default KakaoCallbackPage;
+export default NaverCallbackPage;

@@ -1,4 +1,5 @@
 import FindId from "@/components/Login/FindId/components/index";
+import DefaultLayout from "@/components/layouts/Default";
 import LoginLayout from "@/components/layouts/LoginLayout";
 
 const FindIdPage = () => {
@@ -9,6 +10,6 @@ const FindIdPage = () => {
   );
 };
 FindIdPage.getLayout = (page: React.ReactNode) => {
-  return <LoginLayout>{page}</LoginLayout>;
+  return <DefaultLayout>{page}</DefaultLayout>;
 };
 export default FindIdPage;

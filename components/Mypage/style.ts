@@ -1,33 +1,30 @@
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 
-const Wrap = styled.div<{ padding: string }>`
-  width: 100%;
-`;
 const Flex = styled.div<
   Pick<
     CSSProperties,
+    | "alignItems"
     | "flexDirection"
     | "justifyContent"
-    | "gap"
-    | "alignItems"
     | "padding"
-    | "height"
+    | "gap"
+    | "width"
   >
 >`
   display: flex;
-  justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
-  height: ${({ height }) => (height ? height : "100%")};
+  justify-content: ${({ justifyContent }) => justifyContent};
   flex-direction: ${({ flexDirection }) => flexDirection};
+  position: relative;
   padding: ${({ padding }) => padding};
   gap: ${({ gap }) => gap};
+  width: ${({ width }) => width};
 `;
-
-const Text = styled.p<Pick<CSSProperties, "fontSize" | "color" | "fontWeight">>`
+const Text = styled.p<Pick<CSSProperties, "fontSize" | "fontWeight" | "color">>`
   font-size: ${({ fontSize }) => fontSize};
-  color: ${({ color }) => (color ? color : "#000")};
   font-weight: ${({ fontWeight }) => fontWeight};
+  color: ${({ color }) => color};
 `;
 
-export const CartUI = { Flex, Text, Wrap } as const;
+export const MyPageUI = { Text, Flex } as const;
