@@ -1,6 +1,9 @@
 import { Tab, Tabs, Box } from "@mui/material";
 import styled from "@emotion/styled";
 import { SyntheticEvent, useState } from "react";
+import MainMenuDetail from "../../../../pages/main/MainMenuDetail";
+import NearByDetail from "../../../../pages/main/bearBy-detail";
+import CartPage from "@/pages/cart";
 
 const MenuDetailTab = () => {
   const [current, setCurrent] = useState(0);
@@ -16,7 +19,7 @@ const MenuDetailTab = () => {
         <StyledTab label="리뷰 순" />
         <StyledTab label="별점 순" />
       </StyledTabs>
-      {current === 0 && <p>가까운순 페이지</p>}
+      {current === 0 && <NearByDetail />}
       {current === 1 && <p>판매량순 페이지</p>}
       {current === 2 && <p>리뷰순 페이지</p>}
       {current === 3 && <p>별점순 페이지</p>}

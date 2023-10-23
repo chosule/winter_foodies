@@ -1,14 +1,16 @@
 import DefaultLayout from "@/components/layouts/Default";
 import { useRouter } from "next/router";
-import MainMenuDetail from "@/components/Main/components/mainMenu/MainMenuDetail";
+import MainMenuDetail from "@/pages/main/MainMenuDetail";
+import TabLayout from "@/components/layouts/TabLayout";
 
 const MenuDetail = () => {
   const router = useRouter();
-  const { id, imgName } = router.query;
+  const { id } = router.query;
 
   return (
     <>
       <MainMenuDetail id={id as string} />
+      {/* <TabLayout /> */}
     </>
   );
 };
