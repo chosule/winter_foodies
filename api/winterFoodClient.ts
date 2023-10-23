@@ -10,6 +10,10 @@ import {
   TNaverLoginResponse,
 } from "@/types/api/naverLoginType";
 import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
+import {
+  TPhoneCertiRequest,
+  TPhoneCertiResponse,
+} from "@/types/api/phoneCertificationType";
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
@@ -39,12 +43,14 @@ export default class WinterFoodClient {
   async findId(data: TFindIdRequest) {
     return this.httpClient
       .post(`/api/auth/findId`, data)
-      .then((res) => res.data as TFindIdResponse);
+      .then((res) => res.data.data as TFindIdResponse);
   }
-  // async searchMap() {
-  //   return axios.get(`/fakeApi/fakeApiSearchMap.json`).then((res) => res.data);
-  // }
-
+  //휴대폰 인증
+  async phoneCertification(data: TPhoneCertiRequest) {
+    return this.httpClient
+      .post(`/api/auth/sendAuthCode`, data)
+      .then((res) => res.data as TPhoneCertiResponse);
+  }
   async nearDistanceSnack(lat, lon) {
     return this.httpClient
       .get(`/api/main/snacks?lat=${lat}&lon=${lon}`)
@@ -62,5 +68,12 @@ export default class WinterFoodClient {
     return this.httpClient
       .post(`/api/oauth/naver`, code)
       .then((res) => res.data as TNaverLoginResponse);
+  }
+
+  // 메인메뉴클릭시 이동페이지
+  async mainPageNearby(id) {
+    return this.httpClient
+      .get(`/main/menu-detail/${id}/nearby/proximity?latitude=37&longitude=127`)
+      .then((res) => res.data);
   }
 }

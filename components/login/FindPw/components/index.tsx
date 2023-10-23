@@ -8,10 +8,18 @@ import CommonButton from "@/components/common/Button/CommonButton";
 import { useRouter } from "next/router";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import useContextModal from "@/context/hooks/useContextModal";
+import {
+  TPhoneCertiRequest,
+  TPhoneCertiResponse,
+} from "@/types/api/phoneCertificationType";
+import { AxiosError } from "axios";
+import { useProjectApi } from "@/context/hooks/useDataContextApi";
+import { useMutation } from "@tanstack/react-query";
 
 const FindPassword = () => {
   const modal = useContextModal();
   const router = useRouter();
+  const { client } = useProjectApi();
   const {
     register,
     handleSubmit,
@@ -20,6 +28,23 @@ const FindPassword = () => {
     resolver: zodResolver(findPasswordSchema),
   });
 
+  const { mutate } = useMutation<
+    TPhoneCertiRequest,
+    AxiosError,
+    TPhoneCertiResponse
+  >((data) => client.phoneCertification(data), {
+    onSuccess: (data) => {
+      console.log("data?", data);
+    },
+    onError: (err) => {
+      console.log("error", err);
+    },
+  });
+  const authCodeSubmit = () => {};
+
+  const authCodePhoneSubmit = (data) => {
+    mutate(data);
+  };
   const onSubmit: SubmitHandler<TFindPasswordSchema> = (data) => {
     openAlert();
     router.push("/login/change-pw");
@@ -36,6 +61,14 @@ const FindPassword = () => {
       btnText: "확인",
     });
   };
+  const openNotice = () => {
+    modal.openNotice({
+      title: "알림",
+      message: "핸드폰 번호가 전송되었습니다.",
+      btnText: "확인",
+    });
+  };
+
   return (
     <>
       <HeaderLayout headerTitle="비밀번호 찾기" />
@@ -75,8 +108,8 @@ const FindPassword = () => {
                 </AuthUI.Flex>
                 <CommonButton
                   variant="contained"
-                  type="submit"
-                  name="phoneSubmit"
+                  // type="submit"
+                  onClick={authCodePhoneSubmit}
                 >
                   인증
                 </CommonButton>
@@ -94,7 +127,8 @@ const FindPassword = () => {
                 </AuthUI.Flex>
                 <CommonButton
                   variant="contained"
-                  type="submit"
+                  // type="submit"
+                  onClick={authCodeSubmit}
                   name="CertiSubmit"
                   disabled={!isDirty || !isValid}
                 >

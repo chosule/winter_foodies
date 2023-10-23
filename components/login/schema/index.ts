@@ -3,9 +3,10 @@ import { passwordPattern, phoneNumberPattern } from "@/core/common/regex";
 
 export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
-export type TFindIdSchema = z.infer<typeof findIdSchema>;
+export type TAuthCodeSchema = z.infer<typeof authCodeSchema>;
 export type TFindPasswordSchema = z.infer<typeof findPasswordSchema>;
 export type TChangePasswordSchema = z.infer<typeof changePasswordSchema>;
+export type TSendAuthCodePhoneNumber = z.infer<typeof sendAuthCodePhoneNumber>;
 
 export const loginSchema = z.object({
   usernameOrEmail: z
@@ -44,17 +45,17 @@ export const signUpSchema = z
     signUpPasswordChecking: z.string().regex(passwordPattern, {
       message: "비밀번호를 다시 재입력해주세요.",
     }),
-    phoneNumber: z
-      .string()
-      .min(8, {
-        message: "비밀번호는 영문/숫자/특수문자 조합으로 8~15자리 입니다.",
-      })
-      .max(15, {
-        message: "비밀번호는 영문/숫자/특수문자 조합으로 8~15자리 입니다.",
-      })
-      .regex(phoneNumberPattern, {
-        message: "휴대폰 번호를 정확히 입력해 주세요.",
-      }),
+    // phoneNumber: z
+    //   .string()
+    //   .min(8, {
+    //     message: "비밀번호는 영문/숫자/특수문자 조합으로 8~15자리 입니다.",
+    //   })
+    //   .max(15, {
+    //     message: "비밀번호는 영문/숫자/특수문자 조합으로 8~15자리 입니다.",
+    //   })
+    //   .regex(phoneNumberPattern, {
+    //     message: "휴대폰 번호를 정확히 입력해 주세요.",
+    //   }),
     SignUpCertiNumber: z.string().nonempty("인증번호를 정확히 입력해주세요."),
   })
 
@@ -63,11 +64,19 @@ export const signUpSchema = z
     message: "새 비밀번호와 같지 않습니다.",
   });
 
-export const findIdSchema = z.object({
+// 핸드폰번호 + 인증코드 스키마
+export const authCodeSchema = z.object({
   phoneNumber: z.string().regex(phoneNumberPattern, {
     message: "휴대폰 번호를 정확히 입력해주세요.",
   }),
   authCode: z.string().nonempty("인증번호를 정확히 입력해주세요."),
+});
+
+// 핸드폰 sendAuthCode
+export const sendAuthCodePhoneNumber = z.object({
+  phoneNumber: z.string().regex(phoneNumberPattern, {
+    message: "휴대폰 번호를 정확히 입력해 주세요.",
+  }),
 });
 
 export const findPasswordSchema = z.object({

@@ -8,7 +8,7 @@ const MenuDetail = () => {
 
   return (
     <>
-      <MainMenuDetail id={id as string} imgName={imgName as string} />
+      <MainMenuDetail id={id as string} />
     </>
   );
 };

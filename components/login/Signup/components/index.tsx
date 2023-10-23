@@ -4,7 +4,12 @@ import TextField from "@/components/common/Input/CommonInput";
 import CommonButton from "@/components/common/Button/CommonButton";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
 import CommonInfoBox from "@/components/common/CommonBox/CommonInfoBox";
-import { TSignUpSchema, signUpSchema } from "@/components/Login/schema";
+import {
+  TSendAuthCodePhoneNumber,
+  TSignUpSchema,
+  sendAuthCodePhoneNumber,
+  signUpSchema,
+} from "@/components/Login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
@@ -23,20 +28,28 @@ const SignUp = () => {
   } = useForm<TSignUpSchema>({
     resolver: zodResolver(signUpSchema),
   });
+  const { register: phoneNumberRegister } = useForm<TSendAuthCodePhoneNumber>({
+    resolver: zodResolver(sendAuthCodePhoneNumber),
+  });
 
-  const { mutate } = useMutation((data) => client.signUp(data), {
+  const { mutate } = useMutation((data) => client.phoneCertification(data), {
     onSuccess: (data) => {
-      console.log("회원가입success", data);
-      openAlert();
-      // router.push("/login");
+      console.log("핸드폰번호인증 data -->", data);
     },
     onError: (error) => {
       console.log("error", error);
     },
   });
+  const authCodePhoneSubmit: SubmitHandler<TSendAuthCodePhoneNumber> = (
+    data
+  ) => {
+    console.log("data-->", data);
+    mutate(data);
+  };
 
   const onSubmit: SubmitHandler<TSignUpSchema> = (data) => {
-    mutate(data);
+    // mutate(data);
+    console.log(data);
   };
   const onError: SubmitErrorHandler<TSignUpSchema> = (error) => {
     console.log("error", error);
@@ -80,15 +93,15 @@ const SignUp = () => {
               <AuthUI.Flex gap="20px" flexDirection="initial">
                 <AuthUI.Flex>
                   <TextField
-                    {...register("phoneNumber", { required: true })}
+                    {...phoneNumberRegister("phoneNumber", { required: true })}
                     placeholder="핸드폰번호를 입력해주세요."
-                    errorMsg={errors.phoneNumber?.message}
+                    // errorMsg={errors.phoneNumber?.message}
                   />
                 </AuthUI.Flex>
                 <CommonButton
                   variant="contained"
-                  type="submit"
-                  name="submitbutton"
+                  // type="submit"
+                  onClick={handleSubmit(authCodePhoneSubmit)}
                 >
                   인증
                 </CommonButton>
