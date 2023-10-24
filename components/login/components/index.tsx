@@ -12,23 +12,17 @@ import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
 import { TLoginSchema, loginSchema } from "@/components/Login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import { useProjectApi } from "@/context/hooks/useDataContextApi";
-import { useMutation } from "@tanstack/react-query";
 import useContextModal from "@/context/hooks/useContextModal";
-import { TLoginResponse, TLoginRequest } from "@/types/api/loginType";
-import { AxiosError } from "axios";
-import { TDataApiContext } from "@/context/hooks/useDataContextApi";
-import { useEffect } from "react";
-import Link from "next/link";
-import { useRecoilState } from "recoil";
 import { userState } from "@/shared/atoms";
-import useLogin from "@/hooks/auth/useLogin";
+import useLogin from "@/hooks/auth/useAuth";
+import { useRecoilState } from "recoil";
+import useUser from "@/hooks/auth/useUser";
 
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
-  const { client } = useProjectApi();
-  const { loginQuery } = useLogin();
+  // const { loginQuery } = useLogin();
+  const { loginQuery } = useUser();
   const {
     register,
     handleSubmit,
@@ -41,15 +35,16 @@ const Login = () => {
     loginQuery.mutate(data, {
       onSuccess: (res) => {
         console.log("response", res?.accessToken);
-        const accessToken = res?.accessToken;
-        // console.log("엑세스 추출", response?.data?.accessToken);
-        localStorage.setItem("accessToken", accessToken);
+        // const accessToken = res?.accessToken;
+        // // console.log("엑세스 추출", response?.data?.accessToken);
+        // localStorage.setItem("accessToken", accessToken);
+        // setAuth(accessToken);
         openAlert();
         router.push("/main");
       },
     });
   };
-  const onError = (error) => {
+  const onError: SubmitErrorHandler<TLoginSchema> = (error) => {
     console.log("error", error);
   };
 
