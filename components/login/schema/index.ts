@@ -9,9 +9,7 @@ export type TChangePasswordSchema = z.infer<typeof changePasswordSchema>;
 export type TSendAuthCodePhoneNumber = z.infer<typeof sendAuthCodePhoneNumber>;
 
 export const loginSchema = z.object({
-  usernameOrEmail: z
-    .string()
-    .email({ message: "아이디는 이메일 형식으로 입력하세요." }),
+  email: z.string().email({ message: "아이디는 이메일 형식으로 입력하세요." }),
   password: z
     .string()
     .min(8, {

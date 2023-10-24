@@ -32,7 +32,7 @@ const MainMenu = () => {
           onClick={() => {
             router.push({
               pathname: "main/menu-detail/[id]",
-              query: { id: buttonImage.id, imgName: buttonImage.imgName },
+              query: { id: [buttonImage.id] },
             });
           }}
         >

@@ -12,7 +12,8 @@ import ReactQueryProvider from "@/context/app/ReactQueryProvider";
 import { WinterFoodApiProvider } from "@/context/hooks/useDataContextApi";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import GeoLocationProvider from "@/context/GeoLocationProvider";
-
+import { RecoilRoot } from "recoil";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
@@ -23,6 +24,8 @@ const MyApp: FC<AppPropsWithLayout> = ({
 }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
   const theme = getTheme();
+  const queryClient = new QueryClient();
+
   return (
     <>
       <Script>
@@ -32,18 +35,20 @@ const MyApp: FC<AppPropsWithLayout> = ({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Global styles={globalStyle} />
-      <WinterFoodApiProvider>
-        <GeoLocationProvider>
-          <ReactQueryProvider>
-            <ModalProvider>
-              <ThemeProvider theme={theme}>
-                {getLayout(<Component {...pageProps} />)}
-              </ThemeProvider>
-            </ModalProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </ReactQueryProvider>
-        </GeoLocationProvider>
-      </WinterFoodApiProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <WinterFoodApiProvider>
+            <GeoLocationProvider>
+              <ModalProvider>
+                <ThemeProvider theme={theme}>
+                  {getLayout(<Component {...pageProps} />)}
+                </ThemeProvider>
+              </ModalProvider>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </GeoLocationProvider>
+          </WinterFoodApiProvider>
+        </QueryClientProvider>
+      </RecoilRoot>
     </>
   );
 };

@@ -1,12 +1,14 @@
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { MainUI } from "../../components/Main/style";
-import MenuDetailTab from "../../components/Main/components/mainMenu/MenuDetailTab";
+import MenuDetailTab from "@/components/Main/components/mainMenu/MenuDetailTab";
 import { useQuery } from "@tanstack/react-query";
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import Skeleton from "@/pages/Skeleton/Skeleton";
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import CommonBox from "@/components/common/CommonBox/CommonBox";
 import styled from "@emotion/styled";
+import { Tab, Tabs, Box } from "@mui/material";
+import NearbyPage from "./menu-detail/Nearby";
 
 type dataProps = {
   id: string;
@@ -14,21 +16,18 @@ type dataProps = {
 
 const MainMenuDetail = ({ id }: dataProps) => {
   const { client } = useProjectApi();
-  // const [menuDetails, setMenuDetails] = useState([]);
-  // const { isLoading, error, data } = useQuery(["mainPageNearby"], () =>
-  //   client.mainPageNearby(id)
-  // );
+  const {
+    isLoading,
+    error,
+    data: nearbyData,
+  } = useQuery(["mainPageNearby"], () => client.mainPageNearby(id));
+  // console.log("data", nearbyData);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setMenuDetails(data);
-  //   }
-  // }, [data]);
-  // console.log("menudetail결과", menuDetails);
   return (
     <>
-      <HeaderLayout />
-      <div>디테일 페이지</div>
+      <HeaderLayout headerTitle={id} />
+      <MenuDetailTab nearbyData={nearbyData} />
+
       {/* {menuDetails.map((menuDetail) => (
           <>
             <MainUI.Wrapper>
@@ -50,9 +49,9 @@ const MainMenuDetail = ({ id }: dataProps) => {
   );
 };
 
-const StyledBox = styled(CommonBox)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
+// const StyledBox = styled(CommonBox)`
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+// `;
 export default MainMenuDetail;

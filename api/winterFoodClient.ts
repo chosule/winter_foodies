@@ -28,10 +28,10 @@ export default class WinterFoodClient {
     });
   }
   // 로그인
-  async login(form: TLoginRequest): Promise<TLoginResponse> {
+  async login(form: TLoginRequest) {
     return this.httpClient
       .post(`/api/auth/login`, form)
-      .then((res) => res.data as TLoginResponse);
+      .then((res) => res.data.data as TLoginResponse);
   }
   // 회원가입
   async signUp(form: TSignUpRequest) {

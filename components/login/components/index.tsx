@@ -15,17 +15,20 @@ import { useRouter } from "next/router";
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useMutation } from "@tanstack/react-query";
 import useContextModal from "@/context/hooks/useContextModal";
-import { TLoginResponse } from "@/types/api/loginType";
+import { TLoginResponse, TLoginRequest } from "@/types/api/loginType";
 import { AxiosError } from "axios";
 import { TDataApiContext } from "@/context/hooks/useDataContextApi";
 import { useEffect } from "react";
 import Link from "next/link";
+import { useRecoilState } from "recoil";
+import { userState } from "@/shared/atoms";
+import useLogin from "@/hooks/auth/useLogin";
 
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
   const { client } = useProjectApi();
-
+  const { loginQuery } = useLogin();
   const {
     register,
     handleSubmit,
@@ -34,34 +37,20 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onLoginSuccess = (res) => {
-    console.log("로그인 성공 ->", res);
-    const accessToken = res.data.accessToken;
-    console.log("엑세스토큰", accessToken);
-
-    // localStorage에 accessToken 저장
-    localStorage.setItem("accessToken", accessToken);
-
-    openAlert();
-    router.push("/main");
-  };
-
-  const mutation = useMutation<TLoginResponse, AxiosError, string>(
-    (data) => client.login(data),
-    {
-      onSuccess: onLoginSuccess,
-      onError: (error) => {
-        console.error("로그인 에러 ->", error);
-      },
-    }
-  );
-
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
-    mutation.mutate(data);
+    loginQuery.mutate(data, {
+      onSuccess: (res) => {
+        console.log("response", res?.accessToken);
+        const accessToken = res?.accessToken;
+        // console.log("엑세스 추출", response?.data?.accessToken);
+        localStorage.setItem("accessToken", accessToken);
+        openAlert();
+        router.push("/main");
+      },
+    });
   };
-
-  const onError: SubmitErrorHandler<TLoginSchema> = (error) => {
-    console.log(error);
+  const onError = (error) => {
+    console.log("error", error);
   };
 
   const openAlert = () => {
@@ -81,8 +70,8 @@ const Login = () => {
               <AuthUI.Label>아이디</AuthUI.Label>
               <TextField
                 placeholder="아이디를 입력해 주세요."
-                {...register("usernameOrEmail", { required: true })}
-                errorMsg={errors.usernameOrEmail?.message}
+                {...register("email", { required: true })}
+                errorMsg={errors.email?.message}
               />
             </AuthUI.Flex>
             <AuthUI.Flex gap="10px" flexDirection="column">
