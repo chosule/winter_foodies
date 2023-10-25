@@ -47,33 +47,6 @@ const MainMenu = () => {
         </StyledButton>
       ))}
     </StyledBoxWrap>
-    // <StyledBoxWrap>
-    //   {buttonImages.map((buttonImage) => (
-    //     <Link
-    //       href={{
-    //         pathname: "main/menu-detail/[id]",
-    //         query: {
-    //           id: JSON.stringify(buttonImage.id),
-    //           menuName: JSON.stringify(buttonImage.imgName),
-    //           url: JSON.stringify(buttonImage.url),
-    //         },
-    //       }}
-    //       as={`main/menu-detail/${buttonImage.id}`}
-    //       key={buttonImage.id}
-    //     >
-    //       <StyledButton key={buttonImage.url} backgroundColor="#dd803721">
-    //         <Image
-    //           src={buttonImage.url}
-    //           alt={buttonImage.imgName}
-    //           width="57"
-    //           height="50"
-    //           priority
-    //         />
-    //         <StyledButtonText>{buttonImage.imgName}</StyledButtonText>
-    //       </StyledButton>
-    //     </Link>
-    //   ))}
-    // </StyledBoxWrap>
   );
 };
 

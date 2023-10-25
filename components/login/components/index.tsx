@@ -13,16 +13,16 @@ import { TLoginSchema, loginSchema } from "@/components/Login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import useContextModal from "@/context/hooks/useContextModal";
-import { userState } from "@/shared/atoms";
 import useLogin from "@/hooks/auth/useAuth";
-import { useRecoilState } from "recoil";
-import useUser from "@/hooks/auth/useUser";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import useUser from "@/hooks/auth/useUserAuth";
+import { userState } from "@/recoil/state";
 
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
-  // const { loginQuery } = useLogin();
-  const { loginQuery } = useUser();
+  const { loginQuery } = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -35,10 +35,9 @@ const Login = () => {
     loginQuery.mutate(data, {
       onSuccess: (res) => {
         console.log("response", res?.accessToken);
-        // const accessToken = res?.accessToken;
-        // // console.log("엑세스 추출", response?.data?.accessToken);
-        // localStorage.setItem("accessToken", accessToken);
-        // setAuth(accessToken);
+        const accessToken = res?.accessToken;
+        // console.log("엑세스 추출", response?.data?.accessToken);
+        localStorage.setItem("accessToken", accessToken);
         openAlert();
         router.push("/main");
       },

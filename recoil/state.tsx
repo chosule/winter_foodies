@@ -4,3 +4,8 @@ export const userState = atom<string | null>({
   key: "authState",
   default: "",
 });
+
+export const nearbyState = atom({
+  key: "nearbyDataState",
+  default: null,
+});

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { SyntheticEvent, useState } from "react";
 import NearbyPage from "@/pages/main/menu-detail/Nearby";
 
-const MenuDetailTab = ({ nearbyData }) => {
+const MenuDetailTab = () => {
   const [current, setCurrent] = useState(0);
 
   const handleTab = (e: SyntheticEvent, value: number) => {
@@ -17,7 +17,7 @@ const MenuDetailTab = ({ nearbyData }) => {
         <StyledTab label="리뷰 순" />
         <StyledTab label="별점 순" />
       </StyledTabs>
-      {current === 0 && <NearbyPage nearbyData={nearbyData} />}
+      {current === 0 && <NearbyPage />}
       {current === 1 && <p>판매량순 페이지</p>}
       {current === 2 && <p>리뷰순 페이지</p>}
       {current === 3 && <p>별점순 페이지</p>}

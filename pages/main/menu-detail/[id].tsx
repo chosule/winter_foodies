@@ -11,7 +11,6 @@ const MenuDetail = () => {
   return (
     <>
       <MainMenuDetail id={id as string} />
-      {/* <TabLayout /> */}
     </>
   );
 };
