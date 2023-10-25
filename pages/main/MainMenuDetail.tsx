@@ -7,24 +7,23 @@ import NearbyPage from "./menu-detail/Nearby";
 import { useRecoilState } from "recoil";
 import { nearbyState } from "@/recoil/state";
 import { useEffect } from "react";
-
+import useProduct from "@/hooks/propduct/useProduct";
+import { menuId } from "@/recoil/state";
 type dataProps = {
   id: string;
 };
 
 const MainMenuDetail = ({ id }: dataProps) => {
   const { client } = useProjectApi();
+  const { nearbyApi } = useProduct();
   const [nearbyDataRecoil, setNearbyDataRecoil] = useRecoilState(nearbyState);
-
-  const { isSuccess, data: nearbyData } = useQuery(["mainPageNearby"], () =>
-    client.mainPageNearby(id)
-  );
+  const [menuIdRecoil, setMenuIdRecoil] = useRecoilState(menuId);
 
   useEffect(() => {
-    if (isSuccess) {
-      return setNearbyDataRecoil(nearbyData);
+    if (id) {
+      setMenuIdRecoil(id);
     }
-  }, [isSuccess, nearbyData]);
+  }, [id]);
 
   return (
     <>

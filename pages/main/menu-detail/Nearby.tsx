@@ -1,14 +1,28 @@
 import { MainUI } from "@/components/Main/style";
 import CommonBox from "@/components/common/CommonBox/CommonBox";
-import { nearbyState } from "@/recoil/state";
+import { nearbyState, menuId } from "@/recoil/state";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { BiSolidStar } from "react-icons/bi";
 import { useRecoilValue } from "recoil";
+import useProduct from "@/hooks/propduct/useProduct";
+import { useEffect } from "react";
 
 const NearbyPage = () => {
-  const nearbyData = useRecoilValue(nearbyState);
-  console.log("nearby", nearbyData);
+  // const nearbyData = useRecoilValue(nearbyState);
+  // console.log("nearby", nearbyData);
+  const id = useRecoilValue(menuId);
+  console.log("id", id);
+  const { nearbyApi } = useProduct();
+
+  const { isSuccess, data: nearbyData } = nearbyApi(id);
+  console.log("제발 나와", nearbyData);
+  // useEffect(() => {
+  //   if (isSuccess) {
+
+  //     return setNearbyDataRecoil(nearbyData);
+  //   }
+  // }, [isSuccess, nearbyData]);
   return (
     <StyledFlex flexDirection="column" gap="20px">
       {nearbyData?.map((nearby) => (

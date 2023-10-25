@@ -9,3 +9,8 @@ export const nearbyState = atom({
   key: "nearbyDataState",
   default: null,
 });
+
+export const menuId = atom({
+  key: "menuIdState",
+  default: null,
+});
