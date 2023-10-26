@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useEffect } from "react";
 
 const options = {
   enableHighAccuracy: true,
@@ -37,7 +38,6 @@ const useGeolocation = () => {
 
   return { handleSuccess, handleError };
 };
-
 export const getCurrentLocation = async (
   latitude: number,
   longitude: number

@@ -9,7 +9,13 @@ import { AiOutlineUnlock } from "react-icons/ai";
 import { MdArrowForwardIos } from "react-icons/md";
 import styled from "@emotion/styled";
 import CommonButton from "@/components/common/Button/CommonButton";
-const mypageInfos = [
+
+type infoType = {
+  id: number;
+  icon: JSX.Element;
+  infoTitle: string;
+};
+const mypageInfos: infoType[] = [
   { id: 1, icon: <BiLockOpen />, infoTitle: "내정보" },
   { id: 2, icon: <AiOutlineHeart />, infoTitle: "찜한매장" },
   { id: 3, icon: <GrNotes />, infoTitle: "리뷰관리" },
@@ -32,20 +38,16 @@ const MyPage = () => {
       </MyPageUI.Flex>
       {/*  */}
       <StyledBox justifyContent="space-between">
-        {mypageInfos.map((info) => {
+        {mypageInfos.map(({ id, icon, infoTitle }) => {
           return (
-            <MyPageUI.Flex
-              key={info.id}
-              alignItems="center"
-              flexDirection="column"
-            >
+            <MyPageUI.Flex key={id} alignItems="center" flexDirection="column">
               <CommonButton
                 backgroundcolor="none"
                 style={{ color: "#000", fontSize: "30px" }}
               >
-                {info.icon}
+                {icon}
               </CommonButton>
-              <MyPageUI.Text fontSize="12px">{info.infoTitle}</MyPageUI.Text>
+              <MyPageUI.Text fontSize="12px">{infoTitle}</MyPageUI.Text>
             </MyPageUI.Flex>
           );
         })}

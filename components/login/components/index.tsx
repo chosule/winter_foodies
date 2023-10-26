@@ -16,7 +16,7 @@ import useContextModal from "@/context/hooks/useContextModal";
 import useLogin from "@/hooks/auth/useAuth";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import useUser from "@/hooks/auth/useUserAuth";
-import { userState } from "@/recoil/state";
+import { userState } from "@/recoil/atom";
 
 const Login = () => {
   const modal = useContextModal();

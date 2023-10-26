@@ -55,7 +55,6 @@ export const StyledOuter = styled.div`
   box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
     rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 8px 30px;
   @media (max-width: 970px) {
-    width: 100%;
     margin-left: 360px;
   }
   @media (max-width: 600px) {

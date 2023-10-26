@@ -1,4 +1,4 @@
-import { userState } from "@/recoil/state";
+import { userState } from "@/recoil/atom";
 import { useResetRecoilState, useSetRecoilState } from "recoil";
 
 /**

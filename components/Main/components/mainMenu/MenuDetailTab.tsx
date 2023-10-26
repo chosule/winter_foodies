@@ -1,7 +1,10 @@
 import { Tab, Tabs, Box } from "@mui/material";
 import styled from "@emotion/styled";
 import { SyntheticEvent, useState } from "react";
-import NearbyPage from "@/pages/main/menu-detail/Nearby";
+import SalesRateDetail from "./SalesRateDetail";
+import NearbyDetail from "./NearByDetail";
+import ReviesDetail from "./ReviesDetail";
+import GradeDetail from "./GradeDetail";
 
 const MenuDetailTab = () => {
   const [current, setCurrent] = useState(0);
@@ -17,16 +20,28 @@ const MenuDetailTab = () => {
         <StyledTab label="리뷰 순" />
         <StyledTab label="별점 순" />
       </StyledTabs>
-      {current === 0 && <NearbyPage />}
-      {current === 1 && <p>판매량순 페이지</p>}
-      {current === 2 && <p>리뷰순 페이지</p>}
-      {current === 3 && <p>별점순 페이지</p>}
+      {current === 0 && <NearbyDetail />}
+      {current === 1 && <SalesRateDetail />}
+      {current === 2 && <ReviesDetail />}
+      {current === 3 && <GradeDetail />}
     </StyledBox>
   );
 };
 
 const StyledBox = styled(Box)``;
-const StyledTab = styled(Tab)``;
-const StyledTabs = styled(Tabs)``;
+const StyledTabs = styled(Tabs)`
+  gap: 10px;
+  .MuiTabs-indicator {
+    display: none;
+  }
+`;
+const StyledTab = styled(Tab)`
+  background-color: #ddd;
+  border-radius: 18px;
+  .Mui-selected {
+    background: pink;
+    color: red;
+  }
+`;
 
 export default MenuDetailTab;

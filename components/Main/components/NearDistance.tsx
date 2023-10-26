@@ -5,22 +5,13 @@ import { MainUI } from "../style";
 import { useQuery } from "@tanstack/react-query";
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useContextGeolocation } from "@/context/GeoLocationProvider";
+import { TNearSnackResponse } from "@/types/api/nearSnackType";
 
-type TNearSnack = {
-  ranking: number;
-  storeId: string;
-  name: string;
-  address: string;
-  phone: string;
-  distance: number;
-  lat: number;
-  lon: number;
-};
 const NearDistance = () => {
   const location = useContextGeolocation();
   const { client } = useProjectApi();
 
-  const { data, isLoading } = useQuery(["nearSnack"], () =>
+  const { data: nearSnackData, isLoading } = useQuery(["nearSnack"], () =>
     client.nearDistanceSnack(location?.latitude, location?.longitude)
   );
   return (
@@ -32,37 +23,39 @@ const NearDistance = () => {
         </MainUI.Text>
       </MainUI.Flex>
       <MainUI.Flex flexDirection="column" gap="15px">
-        {data &&
-          data.map((nearSnack: TNearSnack) => (
-            <MainUI.Flex key={nearSnack.ranking} justifyContent="space-between">
-              <StyleBox color="#fff" justifyContent="center">
-                {nearSnack.ranking}
-              </StyleBox>
-              <StyledBoxCustom
-                width="130px"
-                color="#000"
-                justifyContent="space-evenly"
-                flexGrow="0.9"
-                backgroundcolor="#fff"
-              >
-                {/* <img src={nearSnack.img} alt="이미지" /> */}
-                <MainUI.Flex flex="1" justifyContent="center" width="100%">
-                  <MainUI.Text fontSize="15px">{nearSnack.name}</MainUI.Text>
-                </MainUI.Flex>
-                <MainUI.Flex
-                  flexDirection="column"
-                  alignItems="center"
-                  flex="0.3"
-                  gap="4px"
+        {nearSnackData &&
+          nearSnackData.map(
+            ({ ranking, name, distance }: TNearSnackResponse) => (
+              <MainUI.Flex key={ranking} justifyContent="space-between">
+                <StyleBox color="#fff" justifyContent="center">
+                  {ranking}
+                </StyleBox>
+                <StyledBoxCustom
+                  width="130px"
+                  color="#000"
+                  justifyContent="space-evenly"
+                  flexGrow="0.9"
+                  backgroundcolor="#fff"
                 >
-                  <MainUI.Text fontSize="10px">현재나와</MainUI.Text>
-                  <MainUI.Text fontSize="15px" color="#DD8037">
-                    {nearSnack.distance}m
-                  </MainUI.Text>
-                </MainUI.Flex>
-              </StyledBoxCustom>
-            </MainUI.Flex>
-          ))}
+                  {/* <img src={nearSnack.img} alt="이미지" /> */}
+                  <MainUI.Flex flex="1" justifyContent="center" width="100%">
+                    <MainUI.Text fontSize="15px">{name}</MainUI.Text>
+                  </MainUI.Flex>
+                  <MainUI.Flex
+                    flexDirection="column"
+                    alignItems="center"
+                    flex="0.3"
+                    gap="4px"
+                  >
+                    <MainUI.Text fontSize="10px">현재나와</MainUI.Text>
+                    <MainUI.Text fontSize="15px" color="#DD8037">
+                      {distance}m
+                    </MainUI.Text>
+                  </MainUI.Flex>
+                </StyledBoxCustom>
+              </MainUI.Flex>
+            )
+          )}
       </MainUI.Flex>
     </MainUI.Wrapper>
   );

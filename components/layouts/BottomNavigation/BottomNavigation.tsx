@@ -60,14 +60,13 @@ const BottomNavigation = () => {
   const pathname = usePathname();
   return (
     <NaviUI.Nav>
-      {routes.map((route) => {
-        const isActive = pathname === route.path;
-
+      {routes.map(({ path, text, img }) => {
+        const isActive = pathname === path;
         return (
-          <Link key={route.text} href={route.path} passHref>
+          <Link key={text} href={path} passHref>
             <NaviUI.NavItem>
-              {isActive ? route.img.active : route.img.default}
-              <NaviUI.Text isActive={isActive}>{route.text}</NaviUI.Text>
+              {isActive ? img.active : img.default}
+              <NaviUI.Text isActive={isActive}>{text}</NaviUI.Text>
             </NaviUI.NavItem>
           </Link>
         );

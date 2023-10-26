@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import CommonButton from "@/components/common/Button/CommonButton";
+import { nearbyState } from "@/recoil/atom";
+import { useRecoilValue } from "recoil";
 
-const HeaderLayout = ({ headerTitle }: { headerTitle: string }) => {
+const HeaderLayout = () => {
   const router = useRouter();
-
+  const nearbyData = useRecoilValue(nearbyState);
+  const category = nearbyData[0]?.category;
   return (
     <>
       <StyleWrap>
@@ -13,7 +16,7 @@ const HeaderLayout = ({ headerTitle }: { headerTitle: string }) => {
             router.back();
           }}
         />
-        <StyleText>{headerTitle}</StyleText>
+        {category && <StyleText>{category}</StyleText>}
       </StyleWrap>
     </>
   );

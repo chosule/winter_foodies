@@ -25,25 +25,19 @@ const MainMenu = () => {
   const router = useRouter();
   return (
     <StyledBoxWrap>
-      {buttonImages.map((buttonImage) => (
+      {buttonImages.map(({ url, id, imgName }) => (
         <StyledButton
-          key={buttonImage.url}
+          key={id}
           backgroundcolor="#dd803721"
           onClick={() => {
             router.push({
               pathname: "main/menu-detail/[id]",
-              query: { id: [buttonImage.id] },
+              query: { id: [id] },
             });
           }}
         >
-          <Image
-            src={buttonImage.url}
-            alt={buttonImage.imgName}
-            width="57"
-            height="50"
-            priority
-          />
-          <StyledButtonText>{buttonImage.imgName}</StyledButtonText>
+          <Image src={url} alt={imgName} width="57" height="50" priority />
+          <StyledButtonText>{imgName}</StyledButtonText>
         </StyledButton>
       ))}
     </StyledBoxWrap>

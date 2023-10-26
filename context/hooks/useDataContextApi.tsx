@@ -7,7 +7,7 @@ type ProviderProps = {
 };
 
 export type TDataApiContext = {
-  client: WinterFoodClient; // client 변수의 타입을 WinterFoodClient로 명시
+  client: WinterFoodClient;
 };
 
 export const DataApiContext = createContext<TDataApiContext | undefined>(
