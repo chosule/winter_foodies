@@ -9,6 +9,7 @@ export default function useProduct() {
       staleTime: Infinity,
     });
   };
+
   const salesRateApi = (id: number) => {
     return useQuery(["salesDetailData"], () => client.mainPageSalesRate(id), {
       staleTime: Infinity,

@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import useProduct from "@/hooks/propduct/useProduct";
 import { useEffect } from "react";
 import { TNearSnackResponse } from "@/types/api/nearSnackType";
+import uuid from "react-uuid";
 
 const SalesRateDetail = () => {
   const { salesRateApi } = useProduct();
@@ -17,22 +18,22 @@ const SalesRateDetail = () => {
     <StyledFlex flexDirection="column" gap="20px">
       {salesData?.map(
         ({
-          id,
-          imageUrl,
+          picture,
           name,
+          ranking,
+          rating,
           address,
           distance,
-          rating,
         }: TNearSnackResponse) => (
           <StyledBox
-            key={id}
+            key={uuid()}
             width="100%"
             backgroundcolor="#f3f3f3"
             height="70px"
           >
             <div>
               <Image
-                src={imageUrl}
+                src={picture}
                 alt="이미지"
                 width={70}
                 height={70}
