@@ -17,6 +17,7 @@ const nextConfig = {
       "mblogthumb-phinf.pstatic.net",
       "media.istockphoto.com",
       "cdn.pixabay.com",
+      "via.placeholder.com"
     ],
   },
 };

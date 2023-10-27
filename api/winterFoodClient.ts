@@ -56,7 +56,7 @@ export default class WinterFoodClient {
   //휴대폰 인증
   async phoneCertification(data: TPhoneCertiRequest) {
     return this.httpClient
-      .post(`/api/auth/sendAuthCode`, data)
+      .post(`/api/auth/sendAuthCode`, { phoneNumber: data })
       .then((res) => res.data as TPhoneCertiResponse);
   }
   async nearDistanceSnack(
@@ -101,12 +101,12 @@ export default class WinterFoodClient {
       .get(
         `/main/menu-detail/${id}/nearby/review-count?latitude=37&longitude=127`
       )
-      .then((res) => res.data as TMenuDetailResponse);
+      .then((res) => res.data.data as TMenuDetailResponse);
   }
   // 메인메뉴클릭시 이동페이지 -> 평점순
   async mainPageGrade(id: TMenuDetailRequest) {
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/rating?latitude=37&longitude=127`)
-      .then((res) => res.data as TMenuDetailResponse);
+      .then((res) => res.data.data as TMenuDetailResponse);
   }
 }

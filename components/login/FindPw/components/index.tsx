@@ -1,7 +1,11 @@
 import CommonInfoBox from "@/components/common/CommonBox/CommonInfoBox";
 import { AuthUI } from "../../style";
 import TextField from "@/components/common/Input/CommonInput";
-import { findPasswordSchema, TFindPasswordSchema } from "./../../schema/index";
+import {
+  findPasswordSchema,
+  TFindPasswordSchema,
+  TSendAuthCodePhoneNumber,
+} from "./../../schema/index";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import CommonButton from "@/components/common/Button/CommonButton";
@@ -15,11 +19,22 @@ import {
 import { AxiosError } from "axios";
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useMutation } from "@tanstack/react-query";
+import useLogin from "@/hooks/auth/useAuth";
+import { useState } from "react";
+import useValid from "@/hooks/auth/useValid";
 
 const FindPassword = () => {
   const modal = useContextModal();
+
   const router = useRouter();
-  const { client } = useProjectApi();
+  const { phoneAuthApi } = useLogin();
+  const [form, setForm] = useState({
+    phoneNumber: "",
+  });
+  const [test, setText] = useState("");
+  const { isValidState, validText } = useValid(form);
+  console.log("isValidState-->", isValidState);
+  // console.log("validText", validText);
   const {
     register,
     handleSubmit,
@@ -28,22 +43,12 @@ const FindPassword = () => {
     resolver: zodResolver(findPasswordSchema),
   });
 
-  const { mutate } = useMutation<
-    TPhoneCertiRequest,
-    AxiosError,
-    TPhoneCertiResponse
-  >((data) => client.phoneCertification(data), {
-    onSuccess: (data) => {
-      console.log("data?", data);
-    },
-    onError: (err) => {
-      console.log("error", err);
-    },
-  });
-  const authCodeSubmit = () => {};
-
-  const authCodePhoneSubmit = (data) => {
-    mutate(data);
+  const authCodePhoneSubmit = ({ phoneNumber }) => {
+    phoneAuthApi.mutate(phoneNumber, {
+      onSuccess: (res) => {
+        // console.log("핸드폰인증 success --> ", res);
+      },
+    });
   };
   const onSubmit: SubmitHandler<TFindPasswordSchema> = (data) => {
     openAlert();
@@ -101,15 +106,24 @@ const FindPassword = () => {
               <AuthUI.Flex gap="20px" flexDirection="initial">
                 <AuthUI.Flex>
                   <TextField
-                    {...register("findPwPhoneNumber", { required: true })}
+                    type="phoneNumber"
+                    value={form.phoneNumber}
+                    onChange={(e) =>
+                      setForm({ ...form, phoneNumber: e.target.value })
+                    }
                     placeholder="휴대폰 번호를 입력해주세요."
-                    errorMsg={errors.findPwPhoneNumber?.message}
+                    validText={validText}
+                    valueType={"phoneNumber"}
+                    // {...register("findPwPhoneNumber", { required: true })}
+                    // errorMsg={errors.findPw5PhoneNumber?.message}
                   />
                 </AuthUI.Flex>
                 <CommonButton
                   variant="contained"
-                  // type="submit"
-                  onClick={authCodePhoneSubmit}
+                  onClick={() => {
+                    authCodePhoneSubmit(form.phoneNumber);
+                  }}
+                  isactive={isValidState.isPhoneNumberAuthCode ? false : true}
                 >
                   인증
                 </CommonButton>
@@ -128,7 +142,6 @@ const FindPassword = () => {
                 <CommonButton
                   variant="contained"
                   // type="submit"
-                  onClick={authCodeSubmit}
                   name="CertiSubmit"
                   disabled={!isDirty || !isValid}
                 >

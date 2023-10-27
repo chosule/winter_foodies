@@ -1,5 +1,9 @@
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { TLoginRequest, TLoginResponse } from "@/types/api/loginType";
+import {
+  TPhoneCertiRequest,
+  TPhoneCertiResponse,
+} from "@/types/api/phoneCertificationType";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
@@ -13,7 +17,7 @@ const useLogin = () => {
   const queryClient = useQueryClient();
   const { client } = useProjectApi();
 
-  const loginQuery = useMutation<
+  const loginApi = useMutation<
     TLoginResponse,
     AxiosError,
     TLoginRequest,
@@ -21,7 +25,17 @@ const useLogin = () => {
   >((data) => client.login(data), {
     onSuccess: () => queryClient.invalidateQueries(["login"]),
   });
-  return { loginQuery };
+
+  const phoneAuthApi = useMutation<
+    TPhoneCertiResponse,
+    AxiosError,
+    TPhoneCertiRequest,
+    TPhoneCertiResponse
+  >((data) => client.phoneCertification(data), {
+    onSuccess: () => queryClient.invalidateQueries(["phoneAuth"]),
+  });
+
+  return { loginApi, phoneAuthApi };
 };
 
 export default useLogin;

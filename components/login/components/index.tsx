@@ -21,7 +21,7 @@ import { userState } from "@/recoil/atom";
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
-  const { loginQuery } = useLogin();
+  const { loginApi } = useLogin();
 
   const {
     register,
@@ -32,7 +32,7 @@ const Login = () => {
   });
 
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
-    loginQuery.mutate(data, {
+    loginApi.mutate(data, {
       onSuccess: (res) => {
         console.log("response", res?.accessToken);
         const accessToken = res?.accessToken;

@@ -30,18 +30,22 @@ const MenuDetailTab = () => {
 
 const StyledBox = styled(Box)``;
 const StyledTabs = styled(Tabs)`
-  gap: 10px;
   .MuiTabs-indicator {
     display: none;
+  }
+  .MuiTabs-flexContainer {
+    gap: 10px;
+  }
+  .Mui-selected {
+    background-color: #dd8037;
+    color: #fff !important;
   }
 `;
 const StyledTab = styled(Tab)`
   background-color: #ddd;
   border-radius: 18px;
-  .Mui-selected {
-    background: pink;
-    color: red;
-  }
+  min-height: 33px;
+  padding: 6px 16px;
 `;
 
 export default MenuDetailTab;

@@ -4,7 +4,7 @@ import CommonButton from "@/components/common/Button/CommonButton";
 import { nearbyState } from "@/recoil/atom";
 import { useRecoilValue } from "recoil";
 
-const HeaderLayout = () => {
+const HeaderLayout = ({ headerTitle }: string) => {
   const router = useRouter();
   const nearbyData = useRecoilValue(nearbyState);
   const category = nearbyData[0]?.category;

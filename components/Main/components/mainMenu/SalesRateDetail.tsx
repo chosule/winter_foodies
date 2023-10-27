@@ -56,9 +56,13 @@ const SalesRateDetail = () => {
                   </MainUI.Text>
                 </MainUI.Flex>
               </MainUI.Flex>
-              <MainUI.Flex width="60px" gap="3px">
-                <BiSolidStar style={{ color: "#DD8037" }} />
-                <p>{rating}</p>
+              <MainUI.Flex width="60px" gap="3px" alignItems="center">
+                <div>
+                  <BiSolidStar
+                    style={{ color: "#DD8037", fontSize: "15px;" }}
+                  />
+                </div>
+                <MainUI.Text fontSize="10px">{rating}</MainUI.Text>
               </MainUI.Flex>
             </MainUI.Flex>
           </StyledBox>
@@ -70,7 +74,7 @@ const SalesRateDetail = () => {
 
 const StyledFlex = styled(MainUI.Flex)`
   cursor: pointer;
-  padding-top: 30px;
+  padding-top: 15px;
 `;
 const StyledBox = styled(CommonBox)`
   display: flex;
