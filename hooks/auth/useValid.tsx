@@ -45,18 +45,18 @@ export default function useValid(changeValue: InValidType) {
   }, [changeValue.phoneNumber]);
 
   useEffect(() => {
-    if (!changeValue.certi) {
+    if (!changeValue.authCode) {
       setValidText("");
       setIsValidState({ ...isValidState, isCertiCode: false });
     } else {
-      if (!certiNumberPattern.test(changeValue.certi)) {
+      if (!certiNumberPattern.test(changeValue.authCode)) {
         setIsValidState({ ...isValidState, isCertiCode: false });
         setValidText("인증코드를 정확히 입력해주세요.");
       } else {
         setIsValidState({ ...isValidState, isCertiCode: true });
       }
     }
-  }, [changeValue.certi]);
+  }, [changeValue.authCode]);
 
   return { isValidState, validText };
 }
