@@ -20,44 +20,27 @@ import { AxiosError } from "axios";
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useMutation } from "@tanstack/react-query";
 import useLogin from "@/hooks/auth/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useValid from "@/hooks/auth/useValid";
 
 const FindPassword = () => {
   const modal = useContextModal();
 
   const router = useRouter();
-  const { phoneAuthApi } = useLogin();
+  const { phoneAuthApi, certiAuthApi } = useLogin();
   const [form, setForm] = useState({
     phoneNumber: "",
+    authCode: "",
   });
-  const [test, setText] = useState("");
-  const { isValidState, validText } = useValid(form);
-  console.log("isValidState-->", isValidState);
-  // console.log("validText", validText);
   const {
-    register,
-    handleSubmit,
-    formState: { errors, isDirty, isValid },
-  } = useForm<TFindPasswordSchema>({
-    resolver: zodResolver(findPasswordSchema),
-  });
+    isValidState: phoneNumberIsValidState,
+    validText: phoneNumberValidText,
+  } = useValid({ phoneNumber: form.phoneNumber });
 
-  const authCodePhoneSubmit = ({ phoneNumber }) => {
-    phoneAuthApi.mutate(phoneNumber, {
-      onSuccess: (res) => {
-        // console.log("핸드폰인증 success --> ", res);
-      },
-    });
-  };
-  const onSubmit: SubmitHandler<TFindPasswordSchema> = (data) => {
-    openAlert();
-    router.push("/login/change-pw");
-  };
-
-  const onError: SubmitErrorHandler<TFindPasswordSchema> = (error) => {
-    console.log("error", error);
-  };
+  const {
+    isValidState: certiNumberValidState,
+    validText: certiNumberValidText,
+  } = useValid({ authCode: form.authCode });
 
   const openAlert = () => {
     modal.openAlert({
@@ -66,12 +49,60 @@ const FindPassword = () => {
       btnText: "확인",
     });
   };
-  const openNotice = () => {
+  const openPhoneModal = () => {
     modal.openNotice({
       title: "알림",
       message: "핸드폰 번호가 전송되었습니다.",
       btnText: "확인",
     });
+  };
+  const openPhoneErrorModal = () => {
+    modal.openNotice({
+      title: "알림",
+      message: "회원정보가 존재하지 않습니다.",
+      btnText: "확인",
+    });
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isDirty, isValid },
+  } = useForm<TFindPasswordSchema>({
+    resolver: zodResolver(findPasswordSchema),
+  });
+
+  const phoneSubmit = () => {
+    if (phoneNumberIsValidState.isPhoneNumberAuthCode === true) {
+      authCodePhoneSubmit(form.phoneNumber);
+      openPhoneModal();
+    } else {
+      openPhoneErrorModal();
+    }
+  };
+  const authCodePhoneSubmit = (phoneNumber) => {
+    phoneAuthApi.mutate(phoneNumber, {
+      onSuccess: (res) => {
+        console.log("핸드폰인증 success --> ", res);
+      },
+    });
+  };
+
+  const certiCodeSubmit = () => {
+    console.log("form?", form);
+    certiAuthApi.mutate(form, {
+      onSuccess: (res) => {
+        console.log("인증코드 success ===>", res);
+      },
+    });
+  };
+
+  const onSubmit: SubmitHandler<TFindPasswordSchema> = (data) => {
+    openAlert();
+    router.push("/login/change-pw");
+  };
+
+  const onError: SubmitErrorHandler<TFindPasswordSchema> = (error) => {
+    console.log("error", error);
   };
 
   return (
@@ -112,18 +143,21 @@ const FindPassword = () => {
                       setForm({ ...form, phoneNumber: e.target.value })
                     }
                     placeholder="휴대폰 번호를 입력해주세요."
-                    validText={validText}
-                    valueType={"phoneNumber"}
+                    validText={phoneNumberValidText}
+                    valueType={"phoneAuthCode"}
+                    isValidState={phoneNumberIsValidState.isPhoneNumberAuthCode}
                     // {...register("findPwPhoneNumber", { required: true })}
                     // errorMsg={errors.findPw5PhoneNumber?.message}
                   />
                 </AuthUI.Flex>
                 <CommonButton
                   variant="contained"
-                  onClick={() => {
-                    authCodePhoneSubmit(form.phoneNumber);
-                  }}
-                  isactive={isValidState.isPhoneNumberAuthCode ? false : true}
+                  onClick={phoneSubmit}
+                  isactive={
+                    phoneNumberIsValidState.isPhoneNumberAuthCode
+                      ? "false"
+                      : "true"
+                  }
                 >
                   인증
                 </CommonButton>
@@ -134,16 +168,27 @@ const FindPassword = () => {
               <AuthUI.Flex gap="20px" flexDirection="initial">
                 <AuthUI.Flex>
                   <TextField
-                    {...register("findPwCertiNumber", { required: true })}
+                    type="certi"
+                    value={form.authCode}
+                    onChange={(e) =>
+                      setForm({ ...form, authCode: e.target.value })
+                    }
                     placeholder="인증번호를 입력해주세요."
-                    errorMsg={errors.findPwCertiNumber?.message}
+                    validText={certiNumberValidText}
+                    isValidState={certiNumberValidState.isCertiCode}
+                    // {...register("findPwCertiNumber", { required: true })}
+                    // errorMsg={errors.findPwCertiNumber?.message}
                   />
                 </AuthUI.Flex>
                 <CommonButton
                   variant="contained"
                   // type="submit"
                   name="CertiSubmit"
-                  disabled={!isDirty || !isValid}
+                  onClick={certiCodeSubmit}
+                  isactive={
+                    certiNumberValidState.isCertiCode ? "false" : "true"
+                  }
+                  // disabled={!isDirty || !isValid}
                 >
                   확인
                 </CommonButton>

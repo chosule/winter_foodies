@@ -59,6 +59,12 @@ export default class WinterFoodClient {
       .post(`/api/auth/sendAuthCode`, { phoneNumber: data })
       .then((res) => res.data as TPhoneCertiResponse);
   }
+  //인증코드 전송
+  async certifiCode(data) {
+    return this.httpClient
+      .post(`/api/auth/verify`, data)
+      .then((res) => res.data);
+  }
   async nearDistanceSnack(
     lat: TNearSnackRequest["lat"],
     lon: TNearSnackRequest["lon"]

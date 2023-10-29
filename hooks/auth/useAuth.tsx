@@ -35,7 +35,11 @@ const useLogin = () => {
     onSuccess: () => queryClient.invalidateQueries(["phoneAuth"]),
   });
 
-  return { loginApi, phoneAuthApi };
+  const certiAuthApi = useMutation((data) => client.certifiCode(data), {
+    onSuccess: () => queryClient.invalidateQueries(["certiAuth"]),
+  });
+
+  return { loginApi, phoneAuthApi, certiAuthApi };
 };
 
 export default useLogin;

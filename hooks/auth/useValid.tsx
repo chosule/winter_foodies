@@ -1,24 +1,62 @@
 import { useEffect, useState } from "react";
-import { phoneNumberPattern } from "@/core/common/regex";
+import {
+  phoneNumberPattern,
+  phoneNumberMaxPattern,
+  certiNumberPattern,
+} from "@/core/common/regex";
 
 type InValidType = {
   phoneNumber?: string;
 };
-export default function useValid(changeValue: InValidType) {
-  const [isValidState, setIsValidState] = useState({
-    isPhoneNumberAuthCode: false,
-  });
+type IsValidStateType = {
+  isPhoneNumberAuthCode: boolean | null;
+  isCertiCode: boolean | null;
+};
 
+export default function useValid(changeValue: InValidType) {
+  const [isValidState, setIsValidState] = useState<IsValidStateType>({
+    isPhoneNumberAuthCode: null,
+    isCertiCode: null,
+  });
   const [validText, setValidText] = useState("");
-  console.log("validText--->", validText);
+  // console.log("isvalidState", isValidState);
   useEffect(() => {
-    if (!phoneNumberPattern.test(changeValue.phoneNumber)) {
-      //정귯식표현이랑같지않으면 에러메세지가 나타나라
-      setValidText("휴대폰 번호를 정확히 입력해 주세요.");
+    if (!changeValue.phoneNumber) {
+      setValidText("");
       setIsValidState({ ...isValidState, isPhoneNumberAuthCode: false });
     } else {
-      setIsValidState({ ...isValidState, isPhoneNumberAuthCode: true });
+      const isValidPhoneNumber = phoneNumberPattern.test(
+        changeValue.phoneNumber
+      );
+      const isValidPhoneNumberMax = phoneNumberMaxPattern.test(
+        changeValue.phoneNumber
+      );
+
+      if (!isValidPhoneNumber) {
+        setIsValidState({ ...isValidState, isPhoneNumberAuthCode: false });
+        setValidText("휴대폰 번호를 정확히 입력해 주세요.");
+      } else if (!isValidPhoneNumberMax) {
+        setIsValidState({ ...isValidState, isPhoneNumberAuthCode: false });
+        setValidText("휴대폰 번호가 최대 길이를 초과했습니다.");
+      } else {
+        setIsValidState({ ...isValidState, isPhoneNumberAuthCode: true });
+      }
     }
-  }, []);
+  }, [changeValue.phoneNumber]);
+
+  useEffect(() => {
+    if (!changeValue.certi) {
+      setValidText("");
+      setIsValidState({ ...isValidState, isCertiCode: false });
+    } else {
+      if (!certiNumberPattern.test(changeValue.certi)) {
+        setIsValidState({ ...isValidState, isCertiCode: false });
+        setValidText("인증코드를 정확히 입력해주세요.");
+      } else {
+        setIsValidState({ ...isValidState, isCertiCode: true });
+      }
+    }
+  }, [changeValue.certi]);
+
   return { isValidState, validText };
 }

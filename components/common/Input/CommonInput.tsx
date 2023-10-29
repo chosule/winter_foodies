@@ -1,4 +1,4 @@
-import ErrorMsg from "@/components/ErrorMsg/ErrorMsg";
+import { ErrorMsg, ErrorMessage } from "@/components/ErrorMsg/ErrorMsg";
 import useValid from "@/hooks/auth/useValid";
 import styled from "@emotion/styled";
 import { InputHTMLAttributes, forwardRef } from "react";
@@ -8,6 +8,9 @@ type TTextFieldProps = {
   errorMsg?: string;
   validText?: string;
   valid?: string;
+  isValidState?: string;
+  valueType?: string;
+  isActive?: string;
 };
 
 type TInputAttributes = InputHTMLAttributes<HTMLInputElement> & TTextFieldProps;
@@ -15,7 +18,7 @@ type TInputAttributes = InputHTMLAttributes<HTMLInputElement> & TTextFieldProps;
 const TextField = forwardRef<HTMLInputElement, TInputAttributes>(
   ({ ...props }, ref) => {
     return (
-      <StyledWrap isValid={props.valid}>
+      <StyledWrap>
         <StyledInput
           ref={ref}
           {...props}
@@ -24,7 +27,7 @@ const TextField = forwardRef<HTMLInputElement, TInputAttributes>(
           autoComplete="off"
         />
         {props.errorMsg && <ErrorMsg errorMsg={props.errorMsg} />}
-        {props.validText && <div>{props.validText}1</div>}
+        {!props.isValidState && <ErrorMessage errorMessage={props.validText} />}
       </StyledWrap>
     );
   }

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import WarningIcon from "@/public/img/WarningIcon";
 
-const ErrorMsg = ({ errorMsg, ...rest }: { errorMsg: string }) => {
+export const ErrorMsg = ({ errorMsg, ...rest }: { errorMsg: string }) => {
   return (
     <StyleFlex>
       <WarningIcon />
@@ -10,6 +10,14 @@ const ErrorMsg = ({ errorMsg, ...rest }: { errorMsg: string }) => {
   );
 };
 
+export const ErrorMessage = ({ errorMessage }: { errorMessage: string }) => {
+  return (
+    <StyleFlex>
+      {/* <WarningIcon /> */}
+      <StyledError>{errorMessage}</StyledError>
+    </StyleFlex>
+  );
+};
 const StyleFlex = styled.div`
   display: flex;
   gap: 7px;

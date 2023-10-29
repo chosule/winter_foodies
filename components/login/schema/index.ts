@@ -43,17 +43,17 @@ export const signUpSchema = z
     signUpPasswordChecking: z.string().regex(passwordPattern, {
       message: "비밀번호를 다시 재입력해주세요.",
     }),
-    // phoneNumber: z
-    //   .string()
-    //   .min(8, {
-    //     message: "비밀번호는 영문/숫자/특수문자 조합으로 8~15자리 입니다.",
-    //   })
-    //   .max(15, {
-    //     message: "비밀번호는 영문/숫자/특수문자 조합으로 8~15자리 입니다.",
-    //   })
-    //   .regex(phoneNumberPattern, {
-    //     message: "휴대폰 번호를 정확히 입력해 주세요.",
-    //   }),
+    phoneNumber: z
+      .string()
+      .min(8, {
+        message: "비밀번호는 영문/숫자/특수문자 조합으로 8~15자리 입니다.",
+      })
+      .max(15, {
+        message: "비밀번호는 영문/숫자/특수문자 조합으로 8~15자리 입니다.",
+      })
+      .regex(phoneNumberPattern, {
+        message: "휴대폰 번호를 정확히 입력해 주세요.",
+      }),
     SignUpCertiNumber: z.string().nonempty("인증번호를 정확히 입력해주세요."),
   })
 
