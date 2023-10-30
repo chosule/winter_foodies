@@ -6,7 +6,7 @@ import {
 } from "@/types/api/phoneCertificationType";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-
+import { TFindPwResponse, TFindPwRequest } from "@/types/api/findPwType";
 /**
  *
  * @description
@@ -39,7 +39,16 @@ const useLogin = () => {
     onSuccess: () => queryClient.invalidateQueries(["certiAuth"]),
   });
 
-  return { loginApi, phoneAuthApi, certiAuthApi };
+  const findPwApi = useMutation<
+    TFindPwResponse,
+    AxiosError,
+    TFindPwRequest,
+    TFindPwResponse
+  >((data) => client.findPw(data), {
+    onSuccess: () => queryClient.invalidateQueries(["findPw"]),
+  });
+
+  return { loginApi, phoneAuthApi, certiAuthApi, findPwApi };
 };
 
 export default useLogin;

@@ -22,6 +22,8 @@ import {
   TNearSnackRequest,
   TNearSnackResponse,
 } from "@/types/api/nearSnackType";
+import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
+
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
@@ -65,6 +67,15 @@ export default class WinterFoodClient {
       .post(`/api/auth/verify`, data)
       .then((res) => res.data);
   }
+
+  //비밀번호 찾기
+  async findPw(data: TFindPwRequest) {
+    return this.httpClient
+      .post(`/api/auth/verifyUser`, data)
+      .then((res) => res.data as TFindPwResponse);
+  }
+
+  //가까운곳 top-5 ?
   async nearDistanceSnack(
     lat: TNearSnackRequest["lat"],
     lon: TNearSnackRequest["lon"]

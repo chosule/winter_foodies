@@ -17,6 +17,7 @@ const HeaderLayout = ({ headerTitle }: string) => {
           }}
         />
         {category && <StyleText>{category}</StyleText>}
+        {headerTitle && <StyleText>{headerTitle}</StyleText>}
       </StyleWrap>
     </>
   );

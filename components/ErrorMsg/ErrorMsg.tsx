@@ -4,7 +4,7 @@ import WarningIcon from "@/public/img/WarningIcon";
 export const ErrorMsg = ({ errorMsg, ...rest }: { errorMsg: string }) => {
   return (
     <StyleFlex>
-      <WarningIcon />
+      {/* <WarningIcon /> */}
       <StyledError {...rest}>{errorMsg}</StyledError>
     </StyleFlex>
   );

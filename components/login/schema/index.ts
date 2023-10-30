@@ -77,15 +77,10 @@ export const sendAuthCodePhoneNumber = z.object({
   }),
 });
 
+// 비밀번호 찾기
 export const findPasswordSchema = z.object({
-  findPwEmail: z
-    .string()
-    .email({ message: "아이디는 이메일 형식으로 입력하세요." }),
-  findPwName: z.string().nonempty("이름을입력해주세요."),
-  findPwPhoneNumber: z.string().regex(phoneNumberPattern, {
-    message: "휴대폰 번호를 정확히 입력해주세요.",
-  }),
-  findPwCertiNumber: z.string().nonempty("인증번호를 정확히 입력해주세요."),
+  email: z.string().email({ message: "아이디는 이메일 형식으로 입력하세요." }),
+  username: z.string().nonempty("이름을입력해주세요."),
 });
 
 export const changePasswordSchema = z //

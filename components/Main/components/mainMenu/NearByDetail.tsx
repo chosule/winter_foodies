@@ -21,6 +21,7 @@ const NearbyDetail = () => {
       return setNearbyDataRecoil(nearbyData);
     }
   }, [isSuccess, nearbyData]);
+  console.log("데이터 확인", nearbyData);
   return (
     <StyledFlex flexDirection="column" gap="20px">
       {nearbyData &&

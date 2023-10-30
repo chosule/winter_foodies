@@ -76,10 +76,10 @@ const FindId = () => {
   return (
     <>
       <HeaderLayout headerTitle="아이디찾기" />
-      <AuthUI.Wrapper height="100%">
-        <AuthUI.Flex gap="26px" height="100%">
+      <AuthUI.Wrapper>
+        <AuthUI.Flex gap="26px">
           <CommonInfoBox infotitle="등록된 휴대폰 번호로 찾기" />
-          <AuthUI.Flex height="100%">
+          <AuthUI.Flex>
             <AuthUI.Flex flex="0.8">
               <AuthUI.FormWrap onSubmit={handleSubmit(onSubmit, onError)}>
                 <AuthUI.Flex gap="10px">
