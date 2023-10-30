@@ -105,9 +105,12 @@ const FindPassword = () => {
     if (completeSubmit.phoneComplete && completeSubmit.AuthCodeComplete) {
       findPwApi.mutate(data, {
         onSuccess: (res) => {
-          // console.log("전체전송submit 확인", res);
+          console.log("전체전송submit 확인", res);
           openAlert();
-          router.push("/login/change-pw");
+          router.push({
+            pathname: `/login/change-pw`,
+            query: res,
+          });
         },
       });
     } else {

@@ -11,24 +11,37 @@ import CommonButton from "@/components/common/Button/CommonButton";
 import { useRouter } from "next/router";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import useContextModal from "@/context/hooks/useContextModal";
+import useLogin from "@/hooks/auth/useAuth";
 
 const ChangePassword = () => {
   const router = useRouter();
   const modal = useContextModal();
+  const { changeApi } = useLogin();
+  // console.log("router", router.query.id);
+
+  const userId = router.query.id;
+
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<TChangePasswordSchema>({
     resolver: zodResolver(changePasswordSchema),
   });
 
-  const onSubmit: SubmitHandler<TChangePasswordSchema> = (data) => {
-    console.log("data", data);
-    openAlert();
-    router.push("/login");
+  const onSubmit: SubmitHandler<TChangePasswordSchema> = () => {
+    const newPassword = getValues("changePassword");
+    const data = { newPassword, userId };
+    console.log("특정 데이터: ", data);
+    changeApi.mutate(data, {
+      onSuccess: (res) => {
+        console.log("res", res);
+        openAlert();
+        router.push("/login");
+      },
+    });
   };
-
   const onError: SubmitErrorHandler<TChangePasswordSchema> = (error) => {
     console.log("error", error);
   };

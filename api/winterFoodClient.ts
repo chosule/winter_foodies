@@ -74,7 +74,12 @@ export default class WinterFoodClient {
       .post(`/api/auth/verifyUser`, data)
       .then((res) => res.data as TFindPwResponse);
   }
-
+  //비밀번호 변경
+  async changePw(data) {
+    return this.httpClient
+      .put(`/api/auth/resetPassword`, data)
+      .then((res) => res.data);
+  }
   //가까운곳 top-5 ?
   async nearDistanceSnack(
     lat: TNearSnackRequest["lat"],

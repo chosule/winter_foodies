@@ -48,7 +48,11 @@ const useLogin = () => {
     onSuccess: () => queryClient.invalidateQueries(["findPw"]),
   });
 
-  return { loginApi, phoneAuthApi, certiAuthApi, findPwApi };
+  const changeApi = useMutation((data) => client.changePw(data), {
+    onSuccess: () => queryClient.invalidateQueries(["changePw"]),
+  });
+
+  return { loginApi, phoneAuthApi, certiAuthApi, findPwApi, changeApi };
 };
 
 export default useLogin;
