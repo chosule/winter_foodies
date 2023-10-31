@@ -8,11 +8,13 @@ import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import { BiSolidStar } from "react-icons/bi";
 import uuid from "react-uuid";
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 
 const ReviesDetail = () => {
   const { reviewApi } = useProduct();
-  const menuPageId = useRecoilValue(menuId);
-  const { isSuccess, data: reviewData } = reviewApi(menuPageId);
+  const router = useRouter();
+  const { id } = router.query;
+  const { isSuccess, data: reviewData } = reviewApi(id);
 
   return (
     <StyledFlex flexDirection="column" gap="20px">

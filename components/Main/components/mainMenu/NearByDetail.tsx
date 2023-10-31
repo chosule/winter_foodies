@@ -15,9 +15,8 @@ import { useRouter } from "next/router";
 const NearbyDetail = () => {
   const router = useRouter();
   const { id } = router.query;
-  console.log("test", router.query);
   // const { id } = router.query;
-  const menuPageId = useRecoilValue(menuId);
+  // const menuPageId = useRecoilValue(menuId);
   // const numberMenuPageId = Number.parseInt(menuPageId);
   // console.log("test?", typeof numberMenuPageId);
 
@@ -30,6 +29,7 @@ const NearbyDetail = () => {
 
   const { isSuccess, isLoading, data: nearbyData } = nearbyApi(id);
   // console.log("test", menuPageId);
+
   useEffect(() => {
     if (isSuccess) {
       return setNearbyDataRecoil(nearbyData);

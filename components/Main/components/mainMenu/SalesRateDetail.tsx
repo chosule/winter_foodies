@@ -9,11 +9,13 @@ import useProduct from "@/hooks/propduct/useProduct";
 import { useEffect } from "react";
 import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import uuid from "react-uuid";
+import { useRouter } from "next/router";
 
 const SalesRateDetail = () => {
+  const router = useRouter();
+  const { id } = router.query;
   const { salesRateApi } = useProduct();
-  const menuPageId = useRecoilValue(menuId);
-  const { isSuccess, data: salesData } = salesRateApi(menuPageId);
+  const { isSuccess, data: salesData } = salesRateApi(id);
   return (
     <StyledFlex flexDirection="column" gap="20px">
       {salesData?.map(
