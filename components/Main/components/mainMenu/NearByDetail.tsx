@@ -9,19 +9,33 @@ import useProduct from "@/hooks/propduct/useProduct";
 import { useEffect } from "react";
 import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import uuid from "react-uuid";
+import nearbySelectors from "@/recoil/selectors";
+import { useRouter } from "next/router";
 
 const NearbyDetail = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  console.log("test", router.query);
+  // const { id } = router.query;
   const menuPageId = useRecoilValue(menuId);
+  // const numberMenuPageId = Number.parseInt(menuPageId);
+  // console.log("test?", typeof numberMenuPageId);
+
+  // const test = Number.isNaN(numberMenuPageId);
+  // const menuPageId = useRecoilValue(nearbySelectors);
+
   const { nearbyApi } = useProduct();
 
   const [nearbyDataRecoil, setNearbyDataRecoil] = useRecoilState(nearbyState);
-  const { isSuccess, isLoading, data: nearbyData } = nearbyApi(menuPageId);
+
+  const { isSuccess, isLoading, data: nearbyData } = nearbyApi(id);
+  // console.log("test", menuPageId);
   useEffect(() => {
     if (isSuccess) {
       return setNearbyDataRecoil(nearbyData);
     }
   }, [isSuccess, nearbyData]);
-  console.log("데이터 확인", nearbyData);
+
   return (
     <StyledFlex flexDirection="column" gap="20px">
       {nearbyData &&

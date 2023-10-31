@@ -105,8 +105,10 @@ export default class WinterFoodClient {
 
   // 메인메뉴클릭시 이동페이지 -> 가까운순
   async mainPageNearby(id: TMenuDetailRequest) {
+    console.log("id?", id);
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/proximity?latitude=37&longitude=127`)
+
       .then((res) => res.data.data as TMenuDetailResponse);
   }
   // 메인메뉴클릭시 이동페이지 -> 판매량순
@@ -130,5 +132,10 @@ export default class WinterFoodClient {
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/rating?latitude=37&longitude=127`)
       .then((res) => res.data.data as TMenuDetailResponse);
+  }
+
+  //장바구니 추가
+  async addNewProduct() {
+    return this.httpClient.post;
   }
 }

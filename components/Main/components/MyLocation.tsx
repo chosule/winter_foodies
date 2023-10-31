@@ -20,7 +20,7 @@ const MyLocation = () => {
       .catch((error) => {
         handleError(error);
       });
-  }, []);
+  }, [location]);
 
   return (
     <StyledFlex>
