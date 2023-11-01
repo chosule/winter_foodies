@@ -39,6 +39,8 @@ const StyledOuter = styled(StyledFlex)`
   top: 50%;
   transform: translate(0, -50%);
   left: 30%;
+  width: 100%;
+  max-width: 320px;
   @media (max-width: 970px) {
     left: 0;
   }

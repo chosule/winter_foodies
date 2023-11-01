@@ -61,7 +61,7 @@ const SalesRateDetail = () => {
               <MainUI.Flex width="60px" gap="3px" alignItems="center">
                 <div>
                   <BiSolidStar
-                    style={{ color: "#DD8037", fontSize: "15px;" }}
+                    style={{ color: "#DD8037", fontSize: "15px" }}
                   />
                 </div>
                 <MainUI.Text fontSize="10px">{rating}</MainUI.Text>

@@ -6,12 +6,7 @@ export const userState = atom<string | null>({
   default: "",
 });
 
-export const nearbyState = atom<string[]>({
-  key: `nearbyDataState/${v1()}`,
-  default: [],
-});
-
-export const menuId = atom<number>({
-  key: `menuIdState/${v1()}`,
-  default: 0,
-});
+// export const nearbyState = atom<string[]>({
+//   key: `nearbyDataState/${v1()}`,
+//   default: [],
+// });

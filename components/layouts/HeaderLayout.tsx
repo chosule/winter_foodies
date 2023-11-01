@@ -6,8 +6,6 @@ import { useRecoilValue } from "recoil";
 
 const HeaderLayout = ({ headerTitle }: string) => {
   const router = useRouter();
-  const nearbyData = useRecoilValue(nearbyState);
-  const categoryName = nearbyData[0]?.categoryName;
   return (
     <>
       <StyleWrap>
@@ -16,7 +14,6 @@ const HeaderLayout = ({ headerTitle }: string) => {
             router.back();
           }}
         />
-        {categoryName && <StyleText>{categoryName}</StyleText>}
         {headerTitle && <StyleText>{headerTitle}</StyleText>}
       </StyleWrap>
     </>

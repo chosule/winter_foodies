@@ -23,6 +23,7 @@ import useLogin from "@/hooks/auth/useAuth";
 import { forwardRef, useEffect, useState } from "react";
 import useValid from "@/hooks/auth/useValid";
 import useAuthModal from "@/hooks/modal/useAuthModal";
+
 const FindPassword = () => {
   const router = useRouter();
   const { phoneAuthApi, certiAuthApi, findPwApi } = useLogin();
@@ -154,7 +155,6 @@ const FindPassword = () => {
               <AuthUI.Flex gap="20px" flexDirection="initial">
                 <AuthUI.Flex>
                   <TextField
-                    type="phoneNumber"
                     value={form.phoneNumber}
                     onChange={(e) =>
                       setForm({ ...form, phoneNumber: e.target.value })
@@ -185,7 +185,6 @@ const FindPassword = () => {
               <AuthUI.Flex gap="20px" flexDirection="initial">
                 <AuthUI.Flex>
                   <TextField
-                    type="certi"
                     value={form.authCode}
                     onChange={(e) =>
                       setForm({ ...form, authCode: e.target.value })

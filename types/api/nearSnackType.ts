@@ -3,12 +3,14 @@ export type TNearSnackRequest = {
   lon: number;
 };
 export type TNearSnackResponse = {
-  ranking: number;
-  storeId: string;
+  status: string;
+  categoryName: string;
+  picture: string;
   name: string;
+  rating: number;
   address: string;
-  phone: string;
   distance: number;
-  lat: number;
-  lon: number;
+  ranking: number;
+  reviewCount: number;
+  salesVolume: number;
 };

@@ -6,6 +6,7 @@ type TCommonBoxProps = {
   width?: string;
   height?: string;
   backgroundcolor?: string;
+  onClick?: () => void;
 };
 const CommonBox = ({
   children,

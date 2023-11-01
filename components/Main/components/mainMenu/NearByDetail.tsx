@@ -11,31 +11,15 @@ import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import uuid from "react-uuid";
 import nearbySelectors from "@/recoil/selectors";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const NearbyDetail = () => {
   const router = useRouter();
-  const { id } = router.query;
-  // const { id } = router.query;
-  // const menuPageId = useRecoilValue(menuId);
-  // const numberMenuPageId = Number.parseInt(menuPageId);
-  // console.log("test?", typeof numberMenuPageId);
-
-  // const test = Number.isNaN(numberMenuPageId);
-  // const menuPageId = useRecoilValue(nearbySelectors);
-
+  const { id, detailId } = router.query;
   const { nearbyApi } = useProduct();
 
-  const [nearbyDataRecoil, setNearbyDataRecoil] = useRecoilState(nearbyState);
-
   const { isSuccess, isLoading, data: nearbyData } = nearbyApi(id);
-  // console.log("test", menuPageId);
-
-  useEffect(() => {
-    if (isSuccess) {
-      return setNearbyDataRecoil(nearbyData);
-    }
-  }, [isSuccess, nearbyData]);
-
+  console.log(nearbyData);
   return (
     <StyledFlex flexDirection="column" gap="20px">
       {nearbyData &&
@@ -43,7 +27,6 @@ const NearbyDetail = () => {
           ({
             picture,
             name,
-            ranking,
             rating,
             address,
             distance,
@@ -53,6 +36,12 @@ const NearbyDetail = () => {
               width="100%"
               backgroundcolor="#f3f3f3"
               height="70px"
+              onClick={() => {
+                router.push({
+                  pathname: "/main/menu-detail/[id]/[detailId]",
+                  query: { id: id, detailId: name, name },
+                });
+              }}
             >
               <div>
                 <Image

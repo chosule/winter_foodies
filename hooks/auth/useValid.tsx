@@ -7,6 +7,7 @@ import {
 
 type InValidType = {
   phoneNumber?: string;
+  authCode?: string;
 };
 type IsValidStateType = {
   isPhoneNumberAuthCode: boolean | null;

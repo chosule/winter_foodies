@@ -1,16 +1,16 @@
 import DefaultLayout from "@/components/layouts/Default";
 import { useRouter } from "next/router";
-import MainMenuDetail from "@/pages/main/MainMenuDetail";
-import TabLayout from "@/components/layouts/TabLayout";
-import { useState } from "react";
+import HeaderLayout from "@/components/layouts/HeaderLayout";
+import MenuDetailTab from "@/components/Main/components/mainMenu/MenuDetailTab";
 
 const MenuDetail = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { imgName } = router.query;
 
   return (
     <>
-      <MainMenuDetail id={id as string} />
+      <HeaderLayout headerTitle={imgName} />
+      <MenuDetailTab />
     </>
   );
 };

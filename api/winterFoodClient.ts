@@ -55,10 +55,10 @@ export default class WinterFoodClient {
       .post(`/api/auth/findId`, data)
       .then((res) => res.data.data as TFindIdResponse);
   }
-  //휴대폰 인증
+  // 아이디 찾기 , 비밀번호 찾기 휴대폰 인증
   async phoneCertification(data: TPhoneCertiRequest) {
     return this.httpClient
-      .post(`/api/auth/sendAuthCode`, { phoneNumber: data })
+      .post(`/api/auth/sendAuthCodeFind`, { phoneNumber: data })
       .then((res) => res.data as TPhoneCertiResponse);
   }
   //인증코드 전송
@@ -105,7 +105,6 @@ export default class WinterFoodClient {
 
   // 메인메뉴클릭시 이동페이지 -> 가까운순
   async mainPageNearby(id: TMenuDetailRequest) {
-    console.log("id?", id);
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/proximity?latitude=37&longitude=127`)
 
