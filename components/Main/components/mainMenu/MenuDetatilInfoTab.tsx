@@ -1,10 +1,9 @@
 import { Tab, Tabs, Box } from "@mui/material";
 import styled from "@emotion/styled";
 import { SyntheticEvent, useState } from "react";
-import SalesRateDetail from "./SalesRateDetail";
-import NearbyDetail from "./NearByDetail";
-import ReviesDetail from "./ReviesDetail";
-import GradeDetail from "./GradeDetail";
+import StoreMenu from "../mainMenuDetailInfo/StoreMenuCart";
+import StoreMenuInfo from "../mainMenuDetailInfo/StoreMenuInfo";
+import StoreMenuCart from "../mainMenuDetailInfo/StoreMenuCart";
 
 const MenuDetailInfoTab = () => {
   const [current, setCurrent] = useState(0);
@@ -19,8 +18,8 @@ const MenuDetailInfoTab = () => {
         <StyledTab label="정보" />
         <StyledTab label="리뷰" />
       </StyledTabs>
-      {current === 0 && <div>메뉴 탭</div>}
-      {current === 1 && <div>정보 탭</div>}
+      {current === 0 && <StoreMenuCart />}
+      {current === 1 && <StoreMenuInfo />}
       {current === 2 && <div>리뷰 탭</div>}
     </StyledBox>
   );

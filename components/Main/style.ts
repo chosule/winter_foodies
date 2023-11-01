@@ -27,12 +27,13 @@ const Flex = styled.div<
 `;
 
 const Text = styled.p<
-  Pick<CSSProperties, "fontSize" | "textAlign" | "lineHeight">
+  Pick<CSSProperties, "fontSize" | "textAlign" | "lineHeight" | "fontWeight">
 >`
   font-size: ${({ fontSize }) => (fontSize ? fontSize : "15px")};
   color: ${({ color }) => (color ? color : "#353535")};
   text-align: ${({ textAlign }) => (textAlign ? textAlign : "center")};
   line-height: ${({ lineHeight }) => lineHeight};
+  font-weight: ${({ fontWeight }) => fontWeight};
 `;
 
 export const MainUI = {
