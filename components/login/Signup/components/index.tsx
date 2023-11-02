@@ -64,12 +64,12 @@ const SignUp = () => {
   };
   return (
     <>
-      <HeaderLayout headerTitle="회원가입" />
       <AuthUI.Wrapper height="100%">
+        <HeaderLayout headerTitle="회원가입" />
         <CommonInfoBox infotitle="회원정보를 입력해주세요" />
         <AuthUI.FormWrap
+          height="calc(100vh - 98px)"
           onSubmit={handleSubmit(onSubmit, onError)}
-          height="100%"
         >
           <AuthUI.Flex gap="10px" flexDirection="column" flex="0.8">
             <AuthUI.Flex gap="10px">

@@ -1,4 +1,3 @@
-import Cart from "@/components/Cart/Cart";
 import CommonBox from "@/components/common/CommonBox/CommonBox";
 import DefaultLayout from "@/components/layouts/Default";
 import { CartUI } from "@/components/Cart/style";

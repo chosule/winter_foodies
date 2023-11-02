@@ -5,10 +5,11 @@ import { InputHTMLAttributes, forwardRef } from "react";
 
 type TTextFieldProps = {
   placeholder?: string;
+  errorMessage?: string;
   errorMsg?: string;
   validText?: string;
   valid?: string;
-  isValidState?: string;
+  isValidState?: string | undefined;
   valueType?: string;
   isActive?: string;
 };
@@ -37,7 +38,6 @@ TextField.displayName = "TextField";
 const StyledWrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
   width: 100%;
 `;
 const StyledInput = styled.input`

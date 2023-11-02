@@ -39,6 +39,7 @@ const Login = () => {
         // console.log("엑세스 추출", response?.data?.accessToken);
         localStorage.setItem("accessToken", accessToken);
         openAlert();
+
         router.push("/main");
       },
     });

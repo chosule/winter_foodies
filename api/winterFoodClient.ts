@@ -33,10 +33,11 @@ export default class WinterFoodClient {
       baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
       headers: {
         "Content-Type": "application/json",
-        withCredentials: true,
+        withCredentials: "true",
       },
     });
   }
+
   // 로그인
   async login(form: TLoginRequest) {
     return this.httpClient
@@ -133,8 +134,12 @@ export default class WinterFoodClient {
       .then((res) => res.data.data as TMenuDetailResponse);
   }
 
-  //장바구니 추가
-  async addNewProduct() {
-    return this.httpClient.post;
-  }
+  //장바구니 추가 , 업데이트
+  // async addNewProduct() {
+  //   return this.httpClient("/js/fake.json").then((res) => res.data);
+  // }
+  // 장바구니 추가 를 가져오는 api
+  // async getCart(){
+  //   return this.httpClient.get(``)
+  // }
 }

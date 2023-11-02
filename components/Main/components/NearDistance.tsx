@@ -17,8 +17,10 @@ const NearDistance = () => {
   return (
     <MainUI.Wrapper gap="17px" minHeight="537px">
       <MainUI.Flex gap="10px" alignItems="center">
-        <MainUI.Text fontSize="16px">나와 가장 가까운 간식</MainUI.Text>
-        <MainUI.Text fontSize="16px" color="#DD8037">
+        <MainUI.Text fontSize="16px" fontWeight="600">
+          나와 가장 가까운 간식
+        </MainUI.Text>
+        <MainUI.Text fontSize="16px" color="#DD8037" fontWeight="600">
           TOP5
         </MainUI.Text>
       </MainUI.Flex>

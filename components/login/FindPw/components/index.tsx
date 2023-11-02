@@ -209,11 +209,11 @@ const FindPassword = () => {
                   확인
                 </CommonButton>
               </AuthUI.Flex>
-              <CommonButton variant="contained" type="submit" width="100%">
-                비밀번호 찾기
-              </CommonButton>
             </AuthUI.Flex>
           </AuthUI.Flex>
+          <CommonButton variant="contained" type="submit" width="100%">
+            비밀번호 찾기
+          </CommonButton>
         </AuthUI.FormWrap>
       </AuthUI.Wrapper>
     </>

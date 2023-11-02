@@ -9,6 +9,7 @@ const Wrapper = styled.section<
   align-items: ${({ alignItems }) => alignItems};
   justify-content: ${({ justifyContent }) => justifyContent};
   gap: 32px;
+  min-height: calc(100vh - 100px);
   height: ${({ height }) => (height ? height : "auto")};
   width: 100%;
 `;
@@ -40,6 +41,7 @@ const FormWrap = styled.form<Pick<CSSProperties, "height" | "flex">>`
   flex: ${({ flex }) => flex};
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 `;
 const Label = styled.label`
   color: #353535;

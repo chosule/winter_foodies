@@ -44,19 +44,19 @@ const MainMenu = () => {
   );
 };
 
-const StyledBoxWrap = styled.section`
+const StyledBoxWrap = styled.div`
   display: grid;
   grid-template-columns: 3fr 3fr 3fr;
   justify-items: center;
   width: 100%;
-  gap: 19px;
+  gap: 28px;
 `;
 const StyledButtonText = styled.p`
   font-size: 15px;
   color: #747474;
 `;
 const StyledButton = styled(CommonButton)`
-  width: 120px;
+  width: 100%;
   height: 110px;
   display: flex;
   flex-direction: column;

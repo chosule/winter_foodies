@@ -1,4 +1,3 @@
-import FakeWinterFoodClient from "@/api/fakeWinterFoodClient";
 import WinterFoodClient from "@/api/winterFoodClient";
 import { ReactNode, createContext, useContext } from "react";
 
