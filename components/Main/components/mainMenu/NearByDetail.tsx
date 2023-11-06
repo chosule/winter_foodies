@@ -16,6 +16,7 @@ import Link from "next/link";
 const NearbyDetail = () => {
   const router = useRouter();
   const { id, detailId } = router.query;
+  console.log("id?", id);
   const { nearbyApi } = useProduct();
 
   const { isSuccess, isLoading, data: nearbyData } = nearbyApi(id);
@@ -30,6 +31,7 @@ const NearbyDetail = () => {
             rating,
             address,
             distance,
+            id,
           }: TNearSnackResponse) => (
             <StyledBox
               key={uuid()}

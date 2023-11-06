@@ -64,9 +64,12 @@ export const signUpSchema = z
 
 // 핸드폰번호 + 인증코드 스키마
 export const authCodeSchema = z.object({
-  phoneNumber: z.string().regex(phoneNumberPattern, {
-    message: "휴대폰 번호를 정확히 입력해주세요.",
-  }),
+  phoneNumber: z
+    .string()
+    .min(8, { message: "핸드폰 번호를 정확히 입력해주세요." })
+    .regex(phoneNumberPattern, {
+      message: "휴대폰 번호를 정확히 입력해주세요.",
+    }),
   authCode: z.string().nonempty("인증번호를 정확히 입력해주세요."),
 });
 

@@ -3,7 +3,6 @@ export type TNearSnackRequest = {
   lon: number;
 };
 export type TNearSnackResponse = {
-  status: string;
   categoryName: string;
   picture: string;
   name: string;
@@ -13,4 +12,5 @@ export type TNearSnackResponse = {
   ranking: number;
   reviewCount: number;
   salesVolume: number;
+  id: number;
 };

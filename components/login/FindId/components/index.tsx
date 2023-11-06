@@ -16,12 +16,13 @@ import { AxiosError } from "axios";
 import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useEffect, useState } from "react";
+import useLogin from "@/hooks/auth/useAuth";
 
 const FindId = () => {
   const modal = useContextModal();
   const router = useRouter();
   const [dataEmail, setDataEmail] = useState();
-  const { client } = useProjectApi();
+  const { findIdApi } = useLogin();
   const {
     register,
     handleSubmit,
@@ -29,30 +30,28 @@ const FindId = () => {
   } = useForm<TAuthCodeSchema>({
     resolver: zodResolver(authCodeSchema),
   });
+
   const submitPhone = () => {
     openNotice();
   };
+
   useEffect(() => {
     if (dataEmail !== undefined) {
       openAlert(dataEmail);
     }
   }, [dataEmail]);
 
-  const { mutate } = useMutation<TFindIdRequest, AxiosError, TFindIdRequest>(
-    (data) => client.findId(data),
-    {
-      onSuccess: (data) => {
-        // console.log("data?", data);
-        setDataEmail(data.email);
+  const onSubmit: SubmitHandler<TAuthCodeSchema> = (data) => {
+    findIdApi.mutate(data, {
+      onSuccess: (res) => {
+        console.log("res--->", res);
+        setDataEmail(res.email);
         router.push("/login");
       },
       onError: (err) => {
-        console.log("error", err);
+        console.log("err", err);
       },
-    }
-  );
-  const onSubmit: SubmitHandler<TAuthCodeSchema> = (data) => {
-    mutate(data);
+    });
   };
 
   const onError: SubmitErrorHandler<TAuthCodeSchema> = (error) => {
@@ -62,7 +61,7 @@ const FindId = () => {
   const openAlert = (data: TFindIdResponse) => {
     modal.openAlert({
       title: "알림",
-      message: `회원님의아이디는 \n ${data}입니다. \n 로그인페이지로 이동합니다.`,
+      message: `회원님의아이디는 \n ${dataEmail}입니다. \n 로그인페이지로 이동합니다.`,
       btnText: "확인",
     });
   };
@@ -95,9 +94,7 @@ const FindId = () => {
                           errorMsg={errors.phoneNumber?.message}
                         />
                       </AuthUI.Flex>
-                      <CommonButton variant="contained" onClick={submitPhone}>
-                        인증
-                      </CommonButton>
+                      <CommonButton variant="contained">인증</CommonButton>
                     </AuthUI.Flex>
                   </AuthUI.Flex>
 
@@ -116,7 +113,6 @@ const FindId = () => {
                       <CommonButton
                         variant="contained"
                         type="submit"
-                        name="submitbutton"
                         disabled={!isDirty || !isValid}
                       >
                         확인

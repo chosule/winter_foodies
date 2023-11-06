@@ -14,15 +14,18 @@ const useUserAuth = () => {
   const setUserAccessToken = useSetRecoilState(userState);
   const resetUserInfo = useResetRecoilState(userState);
   const userAccessToken = useRecoilValue(userState);
-  const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
-    if (userAccessToken === accessToken) {
-      setUserAccessToken(accessToken);
-    } else {
-      resetUserInfo();
+    if (typeof window !== "undefined") {
+      const accessToken = localStorage.getItem("accessToken");
+      if (userAccessToken === accessToken) {
+        setUserAccessToken(accessToken);
+      } else {
+        resetUserInfo();
+      }
     }
-  }, [accessToken]);
-  return { setUserAccessToken, accessToken };
+  }, []);
+
+  return { setUserAccessToken };
 };
 
 export default useUserAuth;

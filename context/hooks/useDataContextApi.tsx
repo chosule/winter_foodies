@@ -27,5 +27,6 @@ export function WinterFoodApiProvider({ children }: ProviderProps) {
 }
 
 export function useProjectApi() {
-  return useContext(DataApiContext);
+  const context = useContext(DataApiContext);
+  return context;
 }

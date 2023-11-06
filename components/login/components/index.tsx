@@ -17,12 +17,14 @@ import useLogin from "@/hooks/auth/useAuth";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import useUser from "@/hooks/auth/useUserAuth";
 import { userState } from "@/recoil/atom";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
   const { loginApi } = useLogin();
-
+  const [token, setToken] = useState("");
+  const [tokenValue, setTokenValue] = useRecoilState(userState);
   const {
     register,
     handleSubmit,
@@ -34,10 +36,8 @@ const Login = () => {
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
     loginApi.mutate(data, {
       onSuccess: (res) => {
-        console.log("response", res?.accessToken);
         const accessToken = res?.accessToken;
-        // console.log("엑세스 추출", response?.data?.accessToken);
-        localStorage.setItem("accessToken", accessToken);
+        setToken(accessToken);
         openAlert();
 
         router.push("/main");
@@ -55,6 +55,13 @@ const Login = () => {
       btnText: "확인",
     });
   };
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("accessToken", token);
+      setTokenValue(token);
+    }
+  }, [onSubmit]);
   return (
     <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%">
       <Image src={mainLogoIcon} alt="아이콘" width={300} height={278} />

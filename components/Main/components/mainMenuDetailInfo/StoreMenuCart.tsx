@@ -7,12 +7,20 @@ import { useRecoilValue } from "recoil";
 import { userState } from "@/recoil/atom";
 import useUserAuth from "@/hooks/auth/useUserAuth";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
+import useCart from "@/hooks/cart/useCart";
 
 const StoreMenuCart = () => {
-  const user = useRecoilValue(userState); //토큰가져오기
-  console.log("user--->", user);
-  const { setUserAccessToken } = useUserAuth();
-  console.log("userState", setUserAccessToken);
+  const jwt = useRecoilValue(userState); //토큰가져오기
+  const { menuApi } = useCart();
+  const router = useRouter();
+  const { id } = router.query;
+  console.log("name?", id);
+  // console.log("user--->", user);
+  // const { isSuccess, data: menuData } = menuApi(id, user);
+  useEffect(() => {
+    menuApi.mutate({ id, jwt });
+  }, []);
   const handleClick = () => {
     //사용자의 아이디와 제품을 만들어서
   };
