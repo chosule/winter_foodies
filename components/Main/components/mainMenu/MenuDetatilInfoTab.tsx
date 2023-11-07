@@ -25,13 +25,11 @@ const MenuDetailInfoTab = () => {
   );
 };
 
-const StyledBox = styled(Box)`
-  margin-bottom: 20px;
-`;
+const StyledBox = styled(Box)``;
 const StyledTabs = styled(Tabs)`
   .MuiTabs-indicator {
     background-color: #dd8037;
-    bottom: 13px;
+    bottom: 27px;
   }
   .MuiTabs-flexContainer {
     gap: 10px;
@@ -43,6 +41,7 @@ const StyledTabs = styled(Tabs)`
 const StyledTab = styled(Tab)`
   min-height: 60px;
   padding: 6px 16px;
+  margin-bottom: 20px;
 `;
 
 export default MenuDetailInfoTab;

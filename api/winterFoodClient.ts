@@ -151,11 +151,14 @@ export default class WinterFoodClient {
       .then((res) => res.data.data);
   }
   //장바구니 추가 , 업데이트
-  async addNewProduct() {
-    return this.httpClient.post("/api/cart/items").then((res) => res.data);
+  async addNewProduct(id) {
+    return this.httpClient
+      .post("/api/cart/items", { itemId: id })
+      .then((res) => res.data);
   }
-  // 장바구니  조회
-  // async getCart(){
-  //   return this.httpClient.get(``)
-  // }
+
+  // 장바구니 조회
+  async getCart() {
+    return this.httpClient.get(`/api/cart/items`).then((res) => res.data);
+  }
 }

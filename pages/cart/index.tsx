@@ -5,8 +5,12 @@ import { BiPlusCircle } from "react-icons/bi";
 import { FiMinusCircle } from "react-icons/fi";
 import CommonButton from "@/components/common/Button/CommonButton";
 import styled from "@emotion/styled";
+import useCart from "@/hooks/cart/useCart";
 
 const CartPage = () => {
+  const { getCartApi } = useCart();
+  const { data: getCart } = getCartApi();
+  console.log("장바구니조회", getCart);
   return (
     <CartUI.Flex
       flexDirection="column"

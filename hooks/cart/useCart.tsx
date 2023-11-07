@@ -15,7 +15,17 @@ const useCart = () => {
     });
   };
 
-  return { menuApi };
+  const addNewProductApi = useMutation((id) => client.addNewProduct(id), {
+    onSuccess: () => queryClient.invalidateQueries(["addCart"]),
+  });
+
+  const getCartApi = () => {
+    return useQuery(["getCart"], () => client.getCart(), {
+      staleTime: Infinity,
+    });
+  };
+
+  return { menuApi, addNewProductApi, getCartApi };
 };
 
 export default useCart;

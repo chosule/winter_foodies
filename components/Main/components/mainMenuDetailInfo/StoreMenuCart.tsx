@@ -13,25 +13,31 @@ import Image from "next/image";
 
 const StoreMenuCart = () => {
   const user = useRecoilValue(userState);
-  const { menuApi } = useCart();
+  const { menuApi, addNewProductApi } = useCart();
   const router = useRouter();
   const { id, picture } = router.query;
 
-  const { data } = menuApi(id);
+  const { data: menuData } = menuApi(id);
 
-  if (!data || !data.menu) {
-    // Handle the case where data or menu is not available
+  const handleClick = () => {
+    addNewProductApi.mutate(id, {
+      onSuccess: (res) => {
+        console.log("res", res);
+      },
+    });
+  };
+  if (!menuData || !menuData.menu) {
     return <div>Loading...</div>;
   }
-
+  console.log("data", menuData);
   return (
     <MainUI.Flex gap="30px" flexDirection="column">
-      {data.menu.map(({ foodId, menuName, price }) => (
+      {menuData.menu.map(({ foodId, menuName, price }) => (
         <MainUI.Flex gap="20px" flexDirection="column" key={foodId}>
           <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
             <StyledText fontWeight="600">{menuName}</StyledText>
             <StyledText fontWeight="600">{price}</StyledText>
-            <CartBtn backgroundcolor="#fff" height="55px">
+            <CartBtn backgroundcolor="#fff" height="55px" onClick={handleClick}>
               <BsCartPlus style={{ color: "#000" }} />
               <StyledText fontSize="10px" fontWeight="600">
                 추가하기
