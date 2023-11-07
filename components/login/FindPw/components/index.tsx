@@ -35,6 +35,7 @@ const FindPassword = () => {
     openAuthCodeErrorModal,
     openAuthCodeCompleteModal,
   } = useAuthModal();
+
   const [completeSubmit, setCompleteSubmit] = useState({
     phoneComplete: false,
     AuthCodeComplete: false,
@@ -196,18 +197,20 @@ const FindPassword = () => {
                     // errorMsg={errors.findPwCertiNumber?.message}
                   />
                 </AuthUI.Flex>
-                <CommonButton
-                  variant="contained"
-                  // type="submit"
-                  name="CertiSubmit"
-                  onClick={authCertiSubmit}
-                  isactive={
-                    certiNumberValidState.isCertiCode ? "false" : "true"
-                  }
-                  // disabled={!isDirty || !isValid}
-                >
-                  확인
-                </CommonButton>
+                <div>
+                  <CommonButton
+                    variant="contained"
+                    // type="submit"
+                    name="CertiSubmit"
+                    onClick={authCertiSubmit}
+                    isactive={
+                      certiNumberValidState.isCertiCode ? "false" : "true"
+                    }
+                    // disabled={!isDirty || !isValid}
+                  >
+                    확인
+                  </CommonButton>
+                </div>
               </AuthUI.Flex>
             </AuthUI.Flex>
           </AuthUI.Flex>

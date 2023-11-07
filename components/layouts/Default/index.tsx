@@ -66,7 +66,6 @@ export const StyledContent = styled.div<TDefaultLayoutProps>`
   height: 100%;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 59px);
   gap: 16px;
 `;
 

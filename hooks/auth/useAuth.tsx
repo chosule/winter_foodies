@@ -17,7 +17,6 @@ import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
 const useLogin = () => {
   const queryClient = useQueryClient();
   const { client } = useProjectApi();
-
   // 로그인
   const loginApi = useMutation<
     TLoginResponse,
@@ -26,6 +25,11 @@ const useLogin = () => {
     TLoginResponse
   >((data) => client.login(data), {
     onSuccess: () => queryClient.invalidateQueries(["login"]),
+  });
+
+  //회원가입
+  const signUpApi = useMutation((data) => client.signUp(data), {
+    onSuccess: () => queryClient.invalidateQueries(["signup"]),
   });
 
   //핸드폰번호찾기
@@ -53,6 +57,11 @@ const useLogin = () => {
     onSuccess: () => queryClient.invalidateQueries(["findPw"]),
   });
 
+  //비밀번호 바꾸기
+  const changePwApi = useMutation((data) => client.changePw(data), {
+    onSuccess: () => queryClient.invalidateQueries(["changePw"]),
+  });
+
   //아이디 찾기
   const findIdApi = useMutation<
     TFindIdResponse,
@@ -63,17 +72,14 @@ const useLogin = () => {
     onSuccess: () => queryClient.invalidateQueries(["findId"]),
   });
 
-  const changeApi = useMutation((data) => client.changePw(data), {
-    onSuccess: () => queryClient.invalidateQueries(["changePw"]),
-  });
-
   return {
     loginApi,
     phoneAuthApi,
     certiAuthApi,
     findPwApi,
-    changeApi,
+    changePwApi,
     findIdApi,
+    signUpApi,
   };
 };
 

@@ -36,6 +36,16 @@ export default class WinterFoodClient {
         withCredentials: "true",
       },
     });
+    // Add request interceptor
+    this.httpClient.interceptors.request.use((config) => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      } else {
+        localStorage.removeItem("accessToken");
+      }
+      return config;
+    });
   }
 
   // 로그인
@@ -135,10 +145,10 @@ export default class WinterFoodClient {
   }
 
   //메뉴판
-  async menu(id, jwt) {
+  async menu(id) {
     return this.httpClient
-      .get(`/api/store/menu/${id}`, { data: jwt })
-      .then((res) => res.data);
+      .get(`/api/store/menu/${id}`)
+      .then((res) => res.data.data);
   }
   //장바구니 추가 , 업데이트
   async addNewProduct() {

@@ -16,7 +16,6 @@ import Link from "next/link";
 const NearbyDetail = () => {
   const router = useRouter();
   const { id, detailId } = router.query;
-  console.log("id?", id);
   const { nearbyApi } = useProduct();
 
   const { isSuccess, isLoading, data: nearbyData } = nearbyApi(id);
@@ -41,7 +40,7 @@ const NearbyDetail = () => {
               onClick={() => {
                 router.push({
                   pathname: "/main/menu-detail/[id]/[detailId]",
-                  query: { id: id, detailId: name, name },
+                  query: { id: id, detailId: name, name, picture },
                 });
               }}
             >

@@ -45,6 +45,14 @@ const useAuthModal = () => {
       btnText: "확인",
     });
   };
+
+  const phoneAuthError404 = () => {
+    modal.openNotice({
+      title: "알림",
+      message: "등록된 휴대폰 번호가 없습니다.",
+      btnText: "확인",
+    });
+  };
   return {
     openAlert,
     openPhoneModal,
@@ -52,6 +60,7 @@ const useAuthModal = () => {
     openAuthCodeModal,
     openAuthCodeErrorModal,
     openAuthCodeCompleteModal,
+    phoneAuthError404,
   };
 };
 

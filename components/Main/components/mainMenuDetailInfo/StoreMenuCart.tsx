@@ -6,57 +6,40 @@ import CommonButton from "@/components/common/Button/CommonButton";
 import { useRecoilValue } from "recoil";
 import { userState } from "@/recoil/atom";
 import useUserAuth from "@/hooks/auth/useUserAuth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useCart from "@/hooks/cart/useCart";
+import Image from "next/image";
 
 const StoreMenuCart = () => {
-  const jwt = useRecoilValue(userState); //토큰가져오기
+  const user = useRecoilValue(userState);
   const { menuApi } = useCart();
   const router = useRouter();
-  const { id } = router.query;
-  console.log("name?", id);
-  // console.log("user--->", user);
-  // const { isSuccess, data: menuData } = menuApi(id, user);
-  useEffect(() => {
-    menuApi.mutate({ id, jwt });
-  }, []);
-  const handleClick = () => {
-    //사용자의 아이디와 제품을 만들어서
-  };
+  const { id, picture } = router.query;
+
+  const { data } = menuApi(id);
+
+  if (!data || !data.menu) {
+    // Handle the case where data or menu is not available
+    return <div>Loading...</div>;
+  }
 
   return (
-    <MainUI.Flex gap="20px" flexDirection="column">
-      <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
-        <MainUI.Text fontWeight="600">어묵</MainUI.Text>
-        <MainUI.Text fontWeight="600">500원</MainUI.Text>
-        <CartBtn backgroundcolor="#fff" height="55px">
-          <BsCartPlus style={{ color: "#000" }} />
-          <MainUI.Text fontSize="10px" fontWeight="600">
-            추가하기
-          </MainUI.Text>
-        </CartBtn>
-      </StyledBox>
-      <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
-        <MainUI.Text fontWeight="600">어묵</MainUI.Text>
-        <MainUI.Text fontWeight="600">500원</MainUI.Text>
-        <CartBtn backgroundcolor="#fff" height="55px">
-          <BsCartPlus style={{ color: "#000" }} />
-          <MainUI.Text fontSize="10px" fontWeight="600">
-            추가하기
-          </MainUI.Text>
-        </CartBtn>
-      </StyledBox>
-      <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
-        <MainUI.Text fontWeight="600">어묵</MainUI.Text>
-        <MainUI.Text fontWeight="600">500원</MainUI.Text>
-        <CartBtn backgroundcolor="#fff" height="55px">
-          <BsCartPlus style={{ color: "#000" }} />
-          <MainUI.Text fontSize="10px" fontWeight="600">
-            추가하기
-          </MainUI.Text>
-        </CartBtn>
-      </StyledBox>
+    <MainUI.Flex gap="30px" flexDirection="column">
+      {data.menu.map(({ foodId, menuName, price }) => (
+        <MainUI.Flex gap="20px" flexDirection="column" key={foodId}>
+          <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
+            <StyledText fontWeight="600">{menuName}</StyledText>
+            <StyledText fontWeight="600">{price}</StyledText>
+            <CartBtn backgroundcolor="#fff" height="55px">
+              <BsCartPlus style={{ color: "#000" }} />
+              <StyledText fontSize="10px" fontWeight="600">
+                추가하기
+              </StyledText>
+            </CartBtn>
+          </StyledBox>
+        </MainUI.Flex>
+      ))}
     </MainUI.Flex>
   );
 };
@@ -67,6 +50,9 @@ const StyledBox = styled(CommonBox)`
   justify-content: space-around;
 `;
 
+const StyledText = styled(MainUI.Text)`
+  flex: 0.3;
+`;
 const CartBtn = styled(CommonButton)`
   display: flex;
   flex-direction: column;

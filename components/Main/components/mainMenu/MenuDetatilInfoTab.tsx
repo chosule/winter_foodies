@@ -25,7 +25,9 @@ const MenuDetailInfoTab = () => {
   );
 };
 
-const StyledBox = styled(Box)``;
+const StyledBox = styled(Box)`
+  margin-bottom: 20px;
+`;
 const StyledTabs = styled(Tabs)`
   .MuiTabs-indicator {
     background-color: #dd8037;
@@ -39,7 +41,7 @@ const StyledTabs = styled(Tabs)`
   }
 `;
 const StyledTab = styled(Tab)`
-  min-height: 33px;
+  min-height: 60px;
   padding: 6px 16px;
 `;
 

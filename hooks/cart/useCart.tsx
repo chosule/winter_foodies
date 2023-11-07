@@ -7,20 +7,13 @@ const useCart = () => {
   const queryClient = useQueryClient();
   const { client } = useProjectApi();
   const user = useRecoilValue(userState);
-  // 메뉴판
-  //   const menuApi = (id: number, userAuth: string) => {
-  //     return useQuery(["menu"], () => client.menu(id, userAuth), {
-  //       staleTime: Infinity,
-  //     });
-  //   };
-  const menuApi = useMutation(
-    ({ id, jwt }) => {
-      return client.menu(id, jwt);
-    },
-    {
-      onSuccess: () => queryClient.invalidateQueries(["menu"]),
-    }
-  );
+
+  // 메뉴판 api
+  const menuApi = (id) => {
+    return useQuery(["menu"], () => client.menu(id), {
+      staleTime: Infinity,
+    });
+  };
 
   return { menuApi };
 };

@@ -16,7 +16,7 @@ import useLogin from "@/hooks/auth/useAuth";
 const ChangePassword = () => {
   const router = useRouter();
   const modal = useContextModal();
-  const { changeApi } = useLogin();
+  const { changePwApi } = useLogin();
   // console.log("router", router.query.id);
 
   const userId = router.query.id;
@@ -34,7 +34,7 @@ const ChangePassword = () => {
     const newPassword = getValues("changePassword");
     const data = { newPassword, userId };
     console.log("특정 데이터: ", data);
-    changeApi.mutate(data, {
+    changePwApi.mutate(data, {
       onSuccess: (res) => {
         console.log("res", res);
         openAlert();
@@ -87,7 +87,7 @@ const ChangePassword = () => {
                 </AuthUI.Flex>
               </AuthUI.Flex>
             </AuthUI.Flex>
-            <AuthUI.Flex flex="0.3">
+            <AuthUI.Flex>
               <CommonButton width="100%" variant="contained" type="submit">
                 비밀번호 변경
               </CommonButton>

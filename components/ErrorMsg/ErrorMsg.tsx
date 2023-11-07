@@ -20,7 +20,7 @@ export const ErrorMessage = ({ errorMessage }: { errorMessage: string }) => {
 };
 const StyleFlex = styled.div`
   display: flex;
-  gap: 7px;
+  padding:10px 0;
 `;
 const StyledError = styled.p`
   font-size: 12px;

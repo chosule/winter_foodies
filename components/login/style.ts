@@ -9,7 +9,6 @@ const Wrapper = styled.section<
   align-items: ${({ alignItems }) => alignItems};
   justify-content: ${({ justifyContent }) => justifyContent};
   gap: 32px;
-  min-height: calc(100vh - 100px);
   height: ${({ height }) => (height ? height : "auto")};
   width: 100%;
 `;
@@ -35,13 +34,18 @@ const Flex = styled.div<
   flex: ${({ flex }) => flex};
   height: ${({ height }) => height};
 `;
-const FormWrap = styled.form<Pick<CSSProperties, "height" | "flex">>`
+const FormWrap = styled.form<
+  Pick<CSSProperties, "height" | "flex" | "minHeight" | "gap">
+>`
   width: 100%;
   height: ${({ height }) => height};
+  min-height: ${({ minHeight }) =>
+    minHeight ? minHeight : "calc( 100vh - 344px );"};
   flex: ${({ flex }) => flex};
+  gap: ${({ gap }) => gap};
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 const Label = styled.label`
   color: #353535;

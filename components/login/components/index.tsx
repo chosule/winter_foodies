@@ -39,7 +39,6 @@ const Login = () => {
         const accessToken = res?.accessToken;
         setToken(accessToken);
         openAlert();
-
         router.push("/main");
       },
     });
@@ -62,10 +61,14 @@ const Login = () => {
       setTokenValue(token);
     }
   }, [onSubmit]);
+
   return (
     <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%">
       <Image src={mainLogoIcon} alt="아이콘" width={300} height={278} />
-      <AuthUI.FormWrap onSubmit={handleSubmit(onSubmit, onError)}>
+      <AuthUI.FormWrap
+        onSubmit={handleSubmit(onSubmit, onError)}
+        minHeight="initial"
+      >
         <AuthUI.Flex gap="20px" flexDirection="column">
           <AuthUI.Flex flexDirection="column" gap="10px">
             <AuthUI.Flex gap="10px" flexDirection="column">
