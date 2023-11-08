@@ -36,7 +36,7 @@ const MainMenu = () => {
             });
           }}
         >
-          <Image src={url} alt={imgName} width="57" height="50" priority />
+          <Image src={url} alt={imgName} width="42" height="41" priority />
           <StyledButtonText>{imgName}</StyledButtonText>
         </StyledButton>
       ))}
@@ -56,14 +56,14 @@ const StyledButtonText = styled.p`
   color: #747474;
 `;
 const StyledButton = styled(CommonButton)`
-  width: 100%;
-  height: 110px;
+  width: 70%;
+  height: 94px;
   display: flex;
   flex-direction: column;
-  border-radius: 15px;
+  border-radius: 20px;
   gap: 8px;
   background-color: #fff;
-  border: 1px solid #e7e7e7;
+  border: 2px solid #704f38;
 `;
 
 export default MainMenu;

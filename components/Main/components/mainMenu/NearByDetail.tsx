@@ -1,17 +1,12 @@
 import { MainUI } from "@/components/Main/style";
 import CommonBox from "@/components/common/CommonBox/CommonBox";
-import { nearbyState, menuId } from "@/recoil/atom";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { BiSolidStar } from "react-icons/bi";
-import { useRecoilState, useRecoilValue } from "recoil";
 import useProduct from "@/hooks/propduct/useProduct";
-import { useEffect } from "react";
 import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import uuid from "react-uuid";
-import nearbySelectors from "@/recoil/selectors";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 const NearbyDetail = () => {
   const router = useRouter();
