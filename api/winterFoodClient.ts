@@ -23,7 +23,12 @@ import {
   TNearSnackResponse,
 } from "@/types/api/nearSnackType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
-
+import { TMenuResponse, TMenuRequest } from "@/types/api/menuType";
+import { TGetCartResponse } from "@/types/api/getCartType";
+import {
+  TAddNewProductRequest,
+  TAddNewProductResponse,
+} from "@/types/api/addNewProductType";
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
@@ -145,21 +150,23 @@ export default class WinterFoodClient {
   }
 
   //메뉴판
-  async menu(id) {
+  async menu(id: TMenuRequest) {
     return this.httpClient
       .get(`/api/store/menu/${id}`)
-      .then((res) => res.data.data);
+      .then((res) => res.data.data as TMenuResponse);
   }
   //장바구니 추가 , 업데이트
-  async addNewProduct(id) {
+  async addNewProduct(product: TAddNewProductRequest[]) {
     return this.httpClient
-      .post("/api/cart/items", { itemId: id })
-      .then((res) => res.data);
+      .post("/api/cart/items", product)
+      .then((res) => res.data as TAddNewProductResponse);
   }
 
   // 장바구니 조회
   async getCart() {
-    return this.httpClient.get(`/api/cart/items`).then((res) => res.data);
+    return this.httpClient
+      .get(`/api/cart/items`)
+      .then((res) => res.data as TGetCartResponse);
   }
 
   // 장바구니 삭제

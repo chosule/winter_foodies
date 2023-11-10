@@ -16,7 +16,7 @@ const useCart = () => {
   };
 
   // 카드 추가 or 업데이트
-  const addNewProductApi = useMutation((id) => client.addNewProduct(id), {
+  const addNewProductApi = useMutation(() => client.addNewProduct(id), {
     onSuccess: () => queryClient.invalidateQueries(["addCart"]),
   });
 
