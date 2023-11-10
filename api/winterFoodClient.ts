@@ -161,4 +161,9 @@ export default class WinterFoodClient {
   async getCart() {
     return this.httpClient.get(`/api/cart/items`).then((res) => res.data);
   }
+
+  // 장바구니 삭제
+  async productDelete() {
+    return this.httpClient.delete(`/api/cart/items`).then((res) => res.data);
+  }
 }

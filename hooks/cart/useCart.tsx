@@ -4,8 +4,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 
 const useCart = () => {
-  const queryClient = useQueryClient();
   const { client } = useProjectApi();
+  const queryClient = useQueryClient();
   const user = useRecoilValue(userState);
 
   // 메뉴판 api
@@ -15,17 +15,20 @@ const useCart = () => {
     });
   };
 
+  // 카드 추가 or 업데이트
   const addNewProductApi = useMutation((id) => client.addNewProduct(id), {
     onSuccess: () => queryClient.invalidateQueries(["addCart"]),
   });
 
-  const getCartApi = () => {
-    return useQuery(["getCart"], () => client.getCart(), {
-      staleTime: Infinity,
-    });
-  };
+  // 카트조회
+  const getCartApi = useQuery(["getCart"], () => client.getCart());
 
-  return { menuApi, addNewProductApi, getCartApi };
+  // 카트삭제
+  const productDeleteApi = useMutation((id) => client.productDelete(id), {
+    onSuccess: () => queryClient.invalidateQueries(["deleteCart"]),
+  });
+
+  return { menuApi, addNewProductApi, getCartApi, productDeleteApi };
 };
 
 export default useCart;
