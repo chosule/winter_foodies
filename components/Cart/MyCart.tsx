@@ -9,16 +9,12 @@ import CommonButton from "../common/Button/CommonButton";
 const MyCart = ({}) => {
   return (
     <>
-      {isSuccess && (
-        <>
-          <CartUI.Flex flexDirection="column" justifyContent="space-between">
-            <CartUI.Flex gap="10px" flexDirection="column">
-              <CartItem />
-            </CartUI.Flex>
-            <CommonButton width="100%">6800원 주문하기</CommonButton>
-          </CartUI.Flex>
-        </>
-      )}
+      <CartUI.Flex flexDirection="column" justifyContent="space-between">
+        <CartUI.Flex gap="10px" flexDirection="column">
+          <CartItem />
+        </CartUI.Flex>
+        <CommonButton width="100%">6800원 주문하기</CommonButton>
+      </CartUI.Flex>
     </>
   );
 };

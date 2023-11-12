@@ -15,17 +15,30 @@ const StoreMenuCart = () => {
   const user = useRecoilValue(userState);
   const router = useRouter();
   const { menuApi, addNewProductApi } = useCart();
-
+  const [menu, setMenu] = useState();
   const { id, picture } = router.query;
 
   const { data: menuData, isSuccess } = menuApi(id);
+  console.log("menuData", menuData);
+  // useEffect(() => {
+  //   setMenu(menuData.menu);
+  // }, [menuData]);
+  // console.log("menuData", menu);
 
-  const handleClick = (foodIds) => {
-    addNewProductApi.mutate(foodIds, {
-      onSuccess: (res) => {
-        console.log("데이터저장", res);
+  const handleClick = (foodId, menuName) => {
+    addNewProductApi.mutate(
+      {
+        itemId: foodId,
+        itemName: menuName,
+        quantity: 1,
+        price: 1000,
       },
-    });
+      {
+        onSuccess: (res) => {
+          console.log("데이터저장", res);
+        },
+      }
+    );
   };
 
   if (!menuData || !menuData.menu) {
@@ -39,15 +52,13 @@ const StoreMenuCart = () => {
           <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
             <StyledText fontWeight="600">{menuName}</StyledText>
             <StyledText fontWeight="600">{price}</StyledText>
-            <CartBtn
-              backgroundcolor="#fff"
-              height="55px"
-              onClick={() => {
-                handleClick(foodId);
-              }}
-            >
+            <CartBtn backgroundcolor="#fff" height="55px">
               <BsCartPlus style={{ color: "#000" }} />
-              <StyledText fontSize="10px" fontWeight="600">
+              <StyledText
+                fontSize="10px"
+                fontWeight="600"
+                onClick={() => handleClick(foodId, menuName)}
+              >
                 추가하기
               </StyledText>
             </CartBtn>

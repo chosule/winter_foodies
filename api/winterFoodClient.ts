@@ -156,9 +156,9 @@ export default class WinterFoodClient {
       .then((res) => res.data.data as TMenuResponse);
   }
   //장바구니 추가 , 업데이트
-  async addNewProduct(product: TAddNewProductRequest[]) {
+  async addNewProduct(product) {
     return this.httpClient
-      .post("/api/cart/items", product)
+      .post(`/api/cart/items`, product)
       .then((res) => res.data as TAddNewProductResponse);
   }
 

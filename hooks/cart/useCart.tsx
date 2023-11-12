@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 const useCart = () => {
   const { client } = useProjectApi();
   const queryClient = useQueryClient();
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
 
   // 메뉴판 api
   const menuApi = (id) => {
@@ -16,19 +16,22 @@ const useCart = () => {
   };
 
   // 카드 추가 or 업데이트
-  const addNewProductApi = useMutation(() => client.addNewProduct(id), {
-    onSuccess: () => queryClient.invalidateQueries(["addCart"]),
-  });
+  const addNewProductApi = useMutation(
+    (proudct) => client.addNewProduct(proudct),
+    {
+      onSuccess: () => queryClient.invalidateQueries(["addCart"]),
+    }
+  );
 
   // 카트조회
-  const getCartApi = useQuery(["getCart"], () => client.getCart());
+  // const getCartApi = useQuery(["getCart"], () => client.getCart());
 
   // 카트삭제
   const productDeleteApi = useMutation((id) => client.productDelete(id), {
     onSuccess: () => queryClient.invalidateQueries(["deleteCart"]),
   });
 
-  return { menuApi, addNewProductApi, getCartApi, productDeleteApi };
+  return { menuApi, addNewProductApi, productDeleteApi };
 };
 
 export default useCart;

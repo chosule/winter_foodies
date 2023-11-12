@@ -11,16 +11,16 @@ import { HiPlus } from "react-icons/hi";
 import useCart from "@/hooks/cart/useCart";
 
 const CartItem = () => {
-  const {
-    getCartApi: { isLoading, isSuccess, data: products },
-  } = useCart();
+  // const {
+  //   getCartApi: { isLoading, isSuccess, data: products },
+  // } = useCart();
 
-  console.log("getCart", products);
+  // console.log("getCart", products);
 
-  if (isLoading) return <div>...loading</div>;
-  const { productDeleteApi } = useCart();
+  // if (isLoading) return <div>...loading</div>;
+  // const { productDeleteApi } = useCart();
 
-  const handleDelete = (itemId) => productDeleteApi.mutate(itemId);
+  // const handleDelete = (itemId) => productDeleteApi.mutate(itemId);
 
   return (
     <></>
