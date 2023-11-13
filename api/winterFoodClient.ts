@@ -156,7 +156,7 @@ export default class WinterFoodClient {
       .then((res) => res.data.data as TMenuResponse);
   }
   //장바구니 추가 , 업데이트
-  async addNewProduct(product) {
+  async addNewProduct(product: TAddNewProductRequest) {
     return this.httpClient
       .post(`/api/cart/items`, product)
       .then((res) => res.data as TAddNewProductResponse);
@@ -170,7 +170,9 @@ export default class WinterFoodClient {
   }
 
   // 장바구니 삭제
-  async productDelete() {
-    return this.httpClient.delete(`/api/cart/items`).then((res) => res.data);
+  async productDelete(id) {
+    return this.httpClient
+      .delete(`/api/cart/items`, id)
+      .then((res) => res.data);
   }
 }

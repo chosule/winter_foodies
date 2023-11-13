@@ -9,63 +9,72 @@ import { BiPlusCircle } from "react-icons/bi";
 import { IoCloseSharp } from "react-icons/io5";
 import { HiPlus } from "react-icons/hi";
 import useCart from "@/hooks/cart/useCart";
+import { useEffect, useState } from "react";
+import CommonButton from "../common/Button/CommonButton";
 
-const CartItem = () => {
-  // const {
-  //   getCartApi: { isLoading, isSuccess, data: products },
-  // } = useCart();
+const CartItem = ({ products }) => {
+  const { productDeleteApi, addNewProductApi } = useCart();
+  const [time, setTime] = useState();
+  const [quantity, setQuantity] = useState({ quantity: 1 });
 
-  // console.log("getCart", products);
+  useEffect(() => {
+    setTime(products.cookingTime + 10);
+    console.log(time);
+  }, []);
 
-  // if (isLoading) return <div>...loading</div>;
-  // const { productDeleteApi } = useCart();
+  const handleMinus = () => {
+    if (quantity < 2) return;
+    setQuantity({ ...quantity, quantity: quantity - 1 });
+  };
 
+  const handlePlus = () => {
+    setQuantity((prev) => ({ ...prev, quantity: quantity + 1 }));
+  };
   // const handleDelete = (itemId) => productDeleteApi.mutate(itemId);
 
   return (
-    <></>
-    // <>
-    //   {products.data.map(({ itemName, price, userId, itemId }) => (
-    //     <div key={crypto.randomUUID()}>
-    //       <CartUI.Text fontSize="18px" fontWeight="600">
-    //         {products.storeName} 가게
-    //       </CartUI.Text>
-    //       {/*  */}
-    //       <StyledBox width="100%" height="100px" backgroundcolor="#fff">
-    //         <CartUI.Flex justifyContent="space-between" alignItems="center">
-    //           <CartUI.Text>{itemName}</CartUI.Text>
-    //           <IoCloseSharp
-    //             onClick={() => handleDelete(itemId)}
-    //             style={{ fontSize: "20px" }}
-    //           />
-    //         </CartUI.Flex>
-    //         <CartUI.Flex gap="15px">
-    //           <StyledImgBox
-    //             src={products.imageUrl}
-    //             alt="이미지"
-    //             width={70}
-    //             height={70}
-    //           />
-    //           <ul>
-    //             <CartUI.Text fontSize="14px">개당가격 : {price} 원</CartUI.Text>
-    //             <CartUI.Text fontSize="14px">
-    //               예상조리시간 : {products.cookTime} ~ 사이
-    //             </CartUI.Text>
-    //             <CartUI.Text fontSize="14px">
-    //               <CartUI.Flex>
-    //                 <div>2000원</div>
-    //                 <CartUI.Flex gap="10px">
-    //                   <HiPlus />
-    //                   <FaMinus />
-    //                 </CartUI.Flex>
-    //               </CartUI.Flex>
-    //             </CartUI.Text>
-    //           </ul>
-    //         </CartUI.Flex>
-    //       </StyledBox>
-    //     </div>
-    //   ))}
-    // </>
+    <>
+      {products.data.map(({ itemId, price, itemName }) => (
+        <div key={crypto.randomUUID()}>
+          <CartUI.Text fontSize="18px" fontWeight="600">
+            {products.storeName} 가게
+          </CartUI.Text>
+          {/*  */}
+          <StyledBox width="100%" height="100px" backgroundcolor="#fff">
+            <CartUI.Flex justifyContent="space-between" alignItems="center">
+              <CartUI.Text>{itemName}</CartUI.Text>
+              <IoCloseSharp
+                onClick={() => handleDelete(itemId)}
+                style={{ fontSize: "20px" }}
+              />
+            </CartUI.Flex>
+            <CartUI.Flex gap="15px">
+              <StyledImgBox
+                src={products.imageUrl}
+                alt="이미지"
+                width={70}
+                height={70}
+              />
+              <div>
+                <CartUI.Text fontSize="14px">개당가격 : {price} 원</CartUI.Text>
+                <CartUI.Text fontSize="14px">
+                  예상조리시간 : {products.cookingTime} ~ {time} 사이
+                </CartUI.Text>
+                <StyledQuantityBox height="20px">
+                  <StyledButton backgroundcolor="pink" width="0px">
+                    <HiPlus onClick={handlePlus} />
+                  </StyledButton>
+                  {quantity}
+                  <StyledButton backgroundcolor="pink" width="0px">
+                    <FaMinus onClick={handleMinus} />
+                  </StyledButton>
+                </StyledQuantityBox>
+              </div>
+            </CartUI.Flex>
+          </StyledBox>
+        </div>
+      ))}
+    </>
   );
 };
 const StyledBox = styled(CommonBox)`
@@ -76,6 +85,18 @@ const StyledBox = styled(CommonBox)`
 
 const StyledImgBox = styled(Image)`
   border-radius: 10px;
+`;
+
+const StyledQuantityBox = styled(CartUI.Flex)`
   border: 1px solid #000;
+  border-radius: 4px;
+  justify-content: space-between;
+  align-items: center;
+`;
+const StyledButton = styled(CommonButton)`
+  color: #000;
+  min-height: initial;
+  width: 15px;
+  height: 100%;
 `;
 export default CartItem;

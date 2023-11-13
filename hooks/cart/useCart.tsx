@@ -1,6 +1,11 @@
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { userState } from "@/recoil/atom";
+import {
+  TAddNewProductRequest,
+  TAddNewProductResponse,
+} from "@/types/api/addNewProductType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useRecoilValue } from "recoil";
 
 const useCart = () => {
@@ -9,29 +14,31 @@ const useCart = () => {
   // const user = useRecoilValue(userState);
 
   // 메뉴판 api
-  const menuApi = (id) => {
+  const menuApi = (id: number) => {
     return useQuery(["menu"], () => client.menu(id), {
       staleTime: Infinity,
     });
   };
 
   // 카드 추가 or 업데이트
-  const addNewProductApi = useMutation(
-    (proudct) => client.addNewProduct(proudct),
-    {
-      onSuccess: () => queryClient.invalidateQueries(["addCart"]),
-    }
-  );
+  const addNewProductApi = useMutation<
+    TAddNewProductResponse,
+    AxiosError,
+    TAddNewProductRequest,
+    TAddNewProductResponse
+  >((proudct) => client.addNewProduct(proudct), {
+    onSuccess: () => queryClient.invalidateQueries(["addCart"]),
+  });
 
   // 카트조회
-  // const getCartApi = useQuery(["getCart"], () => client.getCart());
+  const getCartApi = useQuery(["getCart"], () => client.getCart());
 
   // 카트삭제
   const productDeleteApi = useMutation((id) => client.productDelete(id), {
     onSuccess: () => queryClient.invalidateQueries(["deleteCart"]),
   });
 
-  return { menuApi, addNewProductApi, productDeleteApi };
+  return { menuApi, addNewProductApi, getCartApi, productDeleteApi };
 };
 
 export default useCart;

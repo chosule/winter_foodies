@@ -10,28 +10,22 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useCart from "@/hooks/cart/useCart";
 import Image from "next/image";
+import { MenuDetailData } from "@/types/api/menuType";
 
 const StoreMenuCart = () => {
-  const user = useRecoilValue(userState);
   const router = useRouter();
   const { menuApi, addNewProductApi } = useCart();
-  const [menu, setMenu] = useState();
   const { id, picture } = router.query;
 
   const { data: menuData, isSuccess } = menuApi(id);
-  console.log("menuData", menuData);
-  // useEffect(() => {
-  //   setMenu(menuData.menu);
-  // }, [menuData]);
-  // console.log("menuData", menu);
 
-  const handleClick = (foodId, menuName) => {
+  const handleClick = (foodId, menuName, price): void => {
     addNewProductApi.mutate(
       {
         itemId: foodId,
         itemName: menuName,
         quantity: 1,
-        price: 1000,
+        price: price,
       },
       {
         onSuccess: (res) => {
@@ -47,7 +41,7 @@ const StoreMenuCart = () => {
 
   return (
     <MainUI.Flex gap="30px" flexDirection="column">
-      {menuData.menu.map(({ foodId, menuName, price }) => (
+      {menuData.menu.map(({ foodId, menuName, price }: MenuDetailData) => (
         <MainUI.Flex gap="20px" flexDirection="column" key={foodId}>
           <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
             <StyledText fontWeight="600">{menuName}</StyledText>
@@ -57,7 +51,7 @@ const StoreMenuCart = () => {
               <StyledText
                 fontSize="10px"
                 fontWeight="600"
-                onClick={() => handleClick(foodId, menuName)}
+                onClick={() => handleClick(foodId, menuName, price)}
               >
                 추가하기
               </StyledText>
