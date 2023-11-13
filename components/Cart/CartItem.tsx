@@ -2,51 +2,29 @@ import styled from "@emotion/styled";
 import { CartUI } from "./style";
 import CommonBox from "../common/CommonBox/CommonBox";
 import Image from "next/image";
-import { FiMinusCircle } from "react-icons/fi";
-import { PiCookingPotBold } from "react-icons/pi";
-import { FaMinus } from "react-icons/fa6";
-import { BiPlusCircle } from "react-icons/bi";
 import { IoCloseSharp } from "react-icons/io5";
 import { HiPlus } from "react-icons/hi";
+import { FaMinus } from "react-icons/fa6";
 import useCart from "@/hooks/cart/useCart";
 import { useEffect, useState } from "react";
 import CommonButton from "../common/Button/CommonButton";
 
 const CartItem = ({ products }) => {
-  const { productDeleteApi, addNewProductApi } = useCart();
-  const [time, setTime] = useState();
-  const [quantity, setQuantity] = useState({ quantity: 1 });
+  const { productDeleteApi } = useCart();
 
-  useEffect(() => {
-    setTime(products.cookingTime + 10);
-    console.log(time);
-  }, []);
-
-  const handleMinus = () => {
-    if (quantity < 2) return;
-    setQuantity({ ...quantity, quantity: quantity - 1 });
-  };
-
-  const handlePlus = () => {
-    setQuantity((prev) => ({ ...prev, quantity: quantity + 1 }));
-  };
-  // const handleDelete = (itemId) => productDeleteApi.mutate(itemId);
+  const handleDelete = (itemId) => productDeleteApi.mutate(itemId);
 
   return (
     <>
-      {products.data.map(({ itemId, price, itemName }) => (
-        <div key={crypto.randomUUID()}>
+      {products?.data?.map(({ itemId, price, itemName, quantity }) => (
+        <div key={itemId}>
           <CartUI.Text fontSize="18px" fontWeight="600">
             {products.storeName} 가게
           </CartUI.Text>
-          {/*  */}
           <StyledBox width="100%" height="100px" backgroundcolor="#fff">
             <CartUI.Flex justifyContent="space-between" alignItems="center">
               <CartUI.Text>{itemName}</CartUI.Text>
-              <IoCloseSharp
-                onClick={() => handleDelete(itemId)}
-                style={{ fontSize: "20px" }}
-              />
+              <IoCloseSharp onClick={() => handleDelete(itemId)} />
             </CartUI.Flex>
             <CartUI.Flex gap="15px">
               <StyledImgBox
@@ -58,23 +36,40 @@ const CartItem = ({ products }) => {
               <div>
                 <CartUI.Text fontSize="14px">개당가격 : {price} 원</CartUI.Text>
                 <CartUI.Text fontSize="14px">
-                  예상조리시간 : {products.cookingTime} ~ {time} 사이
+                  {products.cookingTime + 10} 사이
                 </CartUI.Text>
-                <StyledQuantityBox height="20px">
-                  <StyledButton backgroundcolor="pink" width="0px">
-                    <HiPlus onClick={handlePlus} />
-                  </StyledButton>
-                  {quantity}
-                  <StyledButton backgroundcolor="pink" width="0px">
-                    <FaMinus onClick={handleMinus} />
-                  </StyledButton>
-                </StyledQuantityBox>
+                <CounterQuantity quantity={quantity} />
               </div>
             </CartUI.Flex>
           </StyledBox>
         </div>
       ))}
     </>
+  );
+};
+
+const CounterQuantity = ({ quantity }) => {
+  const [counter, setCounter] = useState(quantity);
+  const handlePlus = () => {
+    setCounter((prev) => prev + 1);
+    console.log("counter", counter);
+  };
+  const handleMinus = () => {
+    if (quantity < 2) return;
+    setCounter((prev) => prev - 1);
+    console.log("counter", counter);
+  };
+  return (
+    <StyledQuantityBox height="20px">
+      <StyledButton backgroundcolor="pink" width="0px">
+        <HiPlus onClick={handlePlus} />
+      </StyledButton>
+      {/* {quantity} */}
+      {counter}
+      <StyledButton backgroundcolor="pink" width="0px">
+        <FaMinus onClick={handleMinus} />
+      </StyledButton>
+    </StyledQuantityBox>
   );
 };
 const StyledBox = styled(CommonBox)`

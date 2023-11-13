@@ -175,4 +175,11 @@ export default class WinterFoodClient {
       .delete(`/api/cart/items`, id)
       .then((res) => res.data);
   }
+
+  //주문하기
+  async CartOrder(data) {
+    return this.httpClient
+      .post(`/api/cart/order`, data)
+      .then((res) => res.data);
+  }
 }
