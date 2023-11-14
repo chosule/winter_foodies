@@ -3,28 +3,85 @@ import { CartUI } from "./style";
 import CommonBox from "../common/CommonBox/CommonBox";
 import Image from "next/image";
 import { IoCloseSharp } from "react-icons/io5";
-import { HiPlus } from "react-icons/hi";
-import { FaMinus } from "react-icons/fa6";
 import useCart from "@/hooks/cart/useCart";
 import { useEffect, useState } from "react";
 import CommonButton from "../common/Button/CommonButton";
+import { cartState } from "@/recoil/atom";
+import { useRecoilValue } from "recoil";
+import CounterQuantity from "./CounterQuantity";
 
 const CartItem = ({ products }) => {
   const { productDeleteApi } = useCart();
-
   const handleDelete = (itemId) => productDeleteApi.mutate(itemId);
+
+  //서버에 보낼 state만들기
+  const [cartItems, setCartItems] = useState({
+    items: [],
+    totalPrice: 0,
+  });
+
+  const handlePlus = (product) => {
+    setCartItems((prevCartItems) => {
+      const existingItemIndex = prevCartItems?.items.findIndex(
+        (item) => item.itemId === product.itemId
+      );
+      let newItems;
+      if (existingItemIndex >= 0) {
+        newItems = [...prevCartItems.items];
+        newItems[existingItemIndex].quantity += 1;
+      } else {
+        newItems = [...prevCartItems?.items, { ...product, quantity: 1 }];
+      }
+      const newTotalPrice = newItems.reduce(
+        (total, item) => total + item.quantity * item.price,
+        0
+      );
+      return {
+        items: newItems,
+        totalPrice: newTotalPrice,
+      };
+    });
+  };
+
+  const handleMinus = (product) => {
+    setCartItems((prevCartItems) => {
+      const existingItemIndex = prevCartItems?.items.findIndex(
+        (item) => item.itemId === product.itemId
+      );
+      let newItems;
+      if (existingItemIndex >= 0) {
+        newItems = [...prevCartItems.items];
+        if (newItems[existingItemIndex].quantity > 1) {
+          newItems[existingItemIndex].quantity -= 1;
+        }
+        // return { ...prevCartItems, items: newItems };
+      } else {
+        newItems = [...prevCartItems?.items, { ...product, quantity: 1 }];
+        // return { ...prevCartItems, items: newItems };
+      }
+      const newTotalPrice = newItems.reduce(
+        (total, item) => total + item.quantity * item.price,
+        0
+      );
+      return {
+        items: newItems,
+        totalPrice: newTotalPrice,
+      };
+    });
+  };
+  console.log("cartItems", cartItems);
 
   return (
     <>
-      {products?.data?.map(({ itemId, price, itemName, quantity }) => (
-        <div key={itemId}>
+      {products?.data?.map((items) => (
+        <div key={items.itemId}>
           <CartUI.Text fontSize="18px" fontWeight="600">
             {products.storeName} 가게
           </CartUI.Text>
           <StyledBox width="100%" height="100px" backgroundcolor="#fff">
             <CartUI.Flex justifyContent="space-between" alignItems="center">
-              <CartUI.Text>{itemName}</CartUI.Text>
-              <IoCloseSharp onClick={() => handleDelete(itemId)} />
+              <CartUI.Text>{items.itemName}</CartUI.Text>
+              <IoCloseSharp onClick={() => handleDelete(items.itemId)} />
             </CartUI.Flex>
             <CartUI.Flex gap="15px">
               <StyledImgBox
@@ -34,44 +91,31 @@ const CartItem = ({ products }) => {
                 height={70}
               />
               <div>
-                <CartUI.Text fontSize="14px">개당가격 : {price} 원</CartUI.Text>
+                <CartUI.Text fontSize="14px">
+                  개당가격 : {items.price} 원
+                </CartUI.Text>
                 <CartUI.Text fontSize="14px">
                   {products.cookingTime + 10} 사이
                 </CartUI.Text>
-                <CounterQuantity quantity={quantity} />
+                <p>수량 : {items.quantity}</p>
+                <CounterQuantity
+                  handlePlus={handlePlus}
+                  handleMinus={handleMinus}
+                  items={items}
+                  cartItems={cartItems}
+                />
               </div>
             </CartUI.Flex>
           </StyledBox>
         </div>
       ))}
+      <CommonButton variant="contained" width="100%">
+        {cartItems.totalPrice}원 주문하기
+      </CommonButton>
     </>
   );
 };
 
-const CounterQuantity = ({ quantity }) => {
-  const [counter, setCounter] = useState(quantity);
-  const handlePlus = () => {
-    setCounter((prev) => prev + 1);
-    console.log("counter", counter);
-  };
-  const handleMinus = () => {
-    if (quantity < 2) return;
-    setCounter((prev) => prev - 1);
-    console.log("counter", counter);
-  };
-  return (
-    <StyledQuantityBox height="20px">
-      <StyledButton backgroundcolor="pink" width="0px">
-        <HiPlus onClick={handlePlus} />
-      </StyledButton>
-      {/* {quantity} */}
-      {counter}
-      <StyledButton backgroundcolor="pink" width="0px">
-        <FaMinus onClick={handleMinus} />
-      </StyledButton>
-    </StyledQuantityBox>
-  );
-};
 const StyledBox = styled(CommonBox)`
   margin: 10px 0;
   display: flex;
@@ -82,16 +126,4 @@ const StyledImgBox = styled(Image)`
   border-radius: 10px;
 `;
 
-const StyledQuantityBox = styled(CartUI.Flex)`
-  border: 1px solid #000;
-  border-radius: 4px;
-  justify-content: space-between;
-  align-items: center;
-`;
-const StyledButton = styled(CommonButton)`
-  color: #000;
-  min-height: initial;
-  width: 15px;
-  height: 100%;
-`;
 export default CartItem;

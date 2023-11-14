@@ -6,7 +6,7 @@ export const userState = atom<string | null>({
   default: "",
 });
 
-// export const nearbyState = atom<string[]>({
-//   key: `nearbyDataState/${v1()}`,
-//   default: [],
-// });
+export const cartState = atom<string | null>({
+  key: `cartState/${v1()}`,
+  default: "",
+});

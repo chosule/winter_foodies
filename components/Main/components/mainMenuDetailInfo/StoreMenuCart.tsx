@@ -47,14 +47,18 @@ const StoreMenuCart = () => {
             <StyledText fontWeight="600">{menuName}</StyledText>
             <StyledText fontWeight="600">{price}</StyledText>
             <CartBtn backgroundcolor="#fff" height="55px">
-              <BsCartPlus style={{ color: "#000" }} />
-              <StyledText
-                fontSize="10px"
-                fontWeight="600"
-                onClick={() => handleClick(foodId, menuName, price)}
-              >
-                추가하기
-              </StyledText>
+              <CartBtnOuter>
+                <BsCartPlus
+                  style={{ color: "#000", fontSize: "18px", width: "100%" }}
+                />
+                <StyledText
+                  fontSize="10px"
+                  fontWeight="600"
+                  onClick={() => handleClick(foodId, menuName, price)}
+                >
+                  추가하기
+                </StyledText>
+              </CartBtnOuter>
             </CartBtn>
           </StyledBox>
         </MainUI.Flex>
@@ -73,9 +77,15 @@ const StyledText = styled(MainUI.Text)`
   flex: 0.3;
 `;
 const CartBtn = styled(CommonButton)`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
   border-radius: 10px;
+  padding: 0;
+`;
+const CartBtnOuter = styled.div`
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  display: flex;
+  width: 100%;
+  height: 100%;
 `;
 export default StoreMenuCart;

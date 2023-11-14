@@ -5,6 +5,9 @@ import CommonBox from "@/components/common/CommonBox/CommonBox";
 import useCart from "@/hooks/cart/useCart";
 import CartItem from "./CartItem";
 import CommonButton from "../common/Button/CommonButton";
+import { useRecoilState } from "recoil";
+import { cartState } from "@/recoil/atom";
+import { useEffect } from "react";
 
 const MyCart = () => {
   const {
@@ -13,7 +16,12 @@ const MyCart = () => {
   if (isLoading) {
     <div>...loding중</div>;
   }
-  console.log("products", products);
+  const [cartData, setCartData] = useRecoilState(cartState);
+
+  useEffect(() => {
+    setCartData(products?.data);
+  }, [products]);
+
   // const totalPrice =
   //   products &&
   //   products.reduce((prev, current) => prev + parseInt(current.price));
@@ -27,7 +35,6 @@ const MyCart = () => {
               <CartItem products={products} />
               {/* ))} */}
             </CartUI.Flex>
-            <CommonButton width="100%">6800원 주문하기</CommonButton>
           </CartUI.Flex>
         </>
       ) : (

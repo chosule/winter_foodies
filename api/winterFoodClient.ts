@@ -177,9 +177,9 @@ export default class WinterFoodClient {
   }
 
   //주문하기
-  async CartOrder(data) {
+  async cartOrder(item) {
     return this.httpClient
-      .post(`/api/cart/order`, data)
+      .post(`/api/cart/order`, item)
       .then((res) => res.data);
   }
 }

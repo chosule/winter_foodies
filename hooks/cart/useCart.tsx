@@ -39,7 +39,17 @@ const useCart = () => {
     onSuccess: () => queryClient.invalidateQueries(["deleteCart"]),
   });
 
-  return { menuApi, addNewProductApi, getCartApi, productDeleteApi };
+  //주문하기
+  const CartOrderApi = useMutation((item) => client.cartOrder(item), {
+    onSuccess: () => queryClient.invalidateQueries(["orderCart"]),
+  });
+  return {
+    menuApi,
+    addNewProductApi,
+    getCartApi,
+    productDeleteApi,
+    CartOrderApi,
+  };
 };
 
 export default useCart;
