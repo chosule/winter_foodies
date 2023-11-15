@@ -7,28 +7,73 @@ import useCart from "@/hooks/cart/useCart";
 import { useEffect, useState } from "react";
 import CommonButton from "../common/Button/CommonButton";
 import { cartState } from "@/recoil/atom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import CounterQuantity from "./CounterQuantity";
+import {
+  TGetCartResponse,
+  GetCartDataDetailType,
+} from "@/types/api/getCartType";
+import { useRouter } from "next/router";
 
-const CartItem = ({ products }) => {
-  const { productDeleteApi } = useCart();
-  const handleDelete = (itemId) => productDeleteApi.mutate(itemId);
+type productsProps = {
+  products: TGetCartResponse;
+};
 
-  //서버에 보낼 state만들기
-  const [cartItems, setCartItems] = useState({
-    items: [],
-    totalPrice: 0,
-  });
+interface cartState {
+  items: GetCartDataDetailType[];
+  totalPrice: number;
+}
 
-  const handlePlus = (product) => {
-    setCartItems((prevCartItems) => {
-      const existingItemIndex = prevCartItems?.items.findIndex(
+const CartItem = ({ products }: productsProps) => {
+  const { productDeleteApi, CartOrderApi } = useCart();
+  const router = useRouter();
+
+  const [cartData, setCartData] = useRecoilState(cartState);
+  console.log("리코일 cartData상태확인 ", cartData);
+
+  //삭제하기
+  const handleDelete = () => {
+    const deleteId = cartData.items.map((item) => {
+      return item.itemId;
+    });
+    console.log("삭제아이디", deleteId);
+    productDeleteApi.mutate(deleteId, {
+      onSuccess: (res) => {
+        console.log("삭제하기 성공 값-->", res);
+      },
+    });
+  };
+
+  //주문하기
+  const handleOrder = () => {
+    const updatedCartData = {
+      ...cartData,
+      items: cartData.items.map((item) => {
+        const { itemId, ...rest } = item;
+        return { productId: itemId, ...rest };
+      }),
+    };
+    console.log("매핑", updatedCartData);
+    CartOrderApi.mutate(cartData, {
+      onSuccess: (res) => {
+        console.log("주문하기-->", res);
+        router.push("/cart/order-detail");
+      },
+    });
+  };
+
+  const handlePlus = (product: GetCartDataDetailType) => {
+    setCartData((prevCartItems) => {
+      const existingItemIndex = prevCartItems?.items?.findIndex(
         (item) => item.itemId === product.itemId
       );
       let newItems;
       if (existingItemIndex >= 0) {
         newItems = [...prevCartItems.items];
-        newItems[existingItemIndex].quantity += 1;
+        newItems[existingItemIndex] = {
+          ...newItems[existingItemIndex],
+          quantity: newItems[existingItemIndex].quantity + 1,
+        };
       } else {
         newItems = [...prevCartItems?.items, { ...product, quantity: 1 }];
       }
@@ -43,21 +88,20 @@ const CartItem = ({ products }) => {
     });
   };
 
-  const handleMinus = (product) => {
-    setCartItems((prevCartItems) => {
-      const existingItemIndex = prevCartItems?.items.findIndex(
+  const handleMinus = (product: GetCartDataDetailType) => {
+    setCartData((prevCartItems) => {
+      const existingItemIndex = prevCartItems?.items?.findIndex(
         (item) => item.itemId === product.itemId
       );
       let newItems;
       if (existingItemIndex >= 0) {
         newItems = [...prevCartItems.items];
-        if (newItems[existingItemIndex].quantity > 1) {
-          newItems[existingItemIndex].quantity -= 1;
-        }
-        // return { ...prevCartItems, items: newItems };
+        newItems[existingItemIndex] = {
+          ...newItems[existingItemIndex],
+          quantity: newItems[existingItemIndex].quantity - 1,
+        };
       } else {
         newItems = [...prevCartItems?.items, { ...product, quantity: 1 }];
-        // return { ...prevCartItems, items: newItems };
       }
       const newTotalPrice = newItems.reduce(
         (total, item) => total + item.quantity * item.price,
@@ -69,10 +113,11 @@ const CartItem = ({ products }) => {
       };
     });
   };
-  console.log("cartItems", cartItems);
-
   return (
     <>
+      {cartData.items.map((cart) => (
+        <div>{cart.itemName}</div>
+      ))}
       {products?.data?.map((items) => (
         <div key={items.itemId}>
           <CartUI.Text fontSize="18px" fontWeight="600">
@@ -81,7 +126,7 @@ const CartItem = ({ products }) => {
           <StyledBox width="100%" height="100px" backgroundcolor="#fff">
             <CartUI.Flex justifyContent="space-between" alignItems="center">
               <CartUI.Text>{items.itemName}</CartUI.Text>
-              <IoCloseSharp onClick={() => handleDelete(items.itemId)} />
+              <IoCloseSharp onClick={handleDelete} />
             </CartUI.Flex>
             <CartUI.Flex gap="15px">
               <StyledImgBox
@@ -95,22 +140,21 @@ const CartItem = ({ products }) => {
                   개당가격 : {items.price} 원
                 </CartUI.Text>
                 <CartUI.Text fontSize="14px">
+                  주문시간 : {products.cookingTime} -{" "}
                   {products.cookingTime + 10} 사이
                 </CartUI.Text>
-                <p>수량 : {items.quantity}</p>
                 <CounterQuantity
                   handlePlus={handlePlus}
                   handleMinus={handleMinus}
                   items={items}
-                  cartItems={cartItems}
                 />
               </div>
             </CartUI.Flex>
           </StyledBox>
         </div>
       ))}
-      <CommonButton variant="contained" width="100%">
-        {cartItems.totalPrice}원 주문하기
+      <CommonButton onClick={handleOrder} variant="contained" width="100%">
+        {cartData.totalPrice}원 주문하기
       </CommonButton>
     </>
   );

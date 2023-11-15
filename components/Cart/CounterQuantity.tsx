@@ -7,25 +7,30 @@ import { useRecoilValue } from "recoil";
 import { cartState } from "@/recoil/atom";
 import { useEffect, useState } from "react";
 import CartItem from "./CartItem";
+import useCart from "@/hooks/cart/useCart";
 
-const CounterQuantity = ({ handlePlus, handleMinus, items, cartItems }) => {
-  const productData = useRecoilValue(cartState);
-
-  const cartItemFInd = cartItems?.items.find(
+const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
+  const cartData = useRecoilValue(cartState);
+  const cartItemFInd = cartData?.items.find(
     (cartItem) => cartItem.itemId === items.itemId
   );
   const cartQuantity = cartItemFInd?.quantity || 0;
 
   return (
-    <StyledQuantityBox height="20px">
-      <StyledButton backgroundcolor="transparent" width="0px">
-        <HiPlus onClick={() => handlePlus(items)} style={{ width: "100%" }} />
-      </StyledButton>
-      {cartQuantity}
-      <StyledButton backgroundcolor="transparent" width="0px">
-        <FaMinus onClick={() => handleMinus(items)} style={{ width: "100%" }} />
-      </StyledButton>
-    </StyledQuantityBox>
+    <>
+      <StyledQuantityBox height="20px">
+        <StyledButton backgroundcolor="transparent" width="0px">
+          <HiPlus onClick={() => handlePlus(items)} style={{ width: "100%" }} />
+        </StyledButton>
+        {cartQuantity}
+        <StyledButton backgroundcolor="transparent" width="0px">
+          <FaMinus
+            onClick={() => handleMinus(items)}
+            style={{ width: "100%" }}
+          />
+        </StyledButton>
+      </StyledQuantityBox>
+    </>
   );
 };
 

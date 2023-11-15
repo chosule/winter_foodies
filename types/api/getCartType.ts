@@ -6,11 +6,11 @@ export interface GetCartData {
   data: GetCartDataDetailType[];
 }
 export interface GetCartDataDetailType {
-  userId: number;
   itemId: string;
   itemName: string;
-  quantity: number;
   price: number;
+  quantity: number;
+  userId: number;
 }
 
 export type TGetCartResponse = GetCartData;

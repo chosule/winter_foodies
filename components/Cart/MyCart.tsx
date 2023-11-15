@@ -16,22 +16,13 @@ const MyCart = () => {
   if (isLoading) {
     <div>...loding중</div>;
   }
-  const [cartData, setCartData] = useRecoilState(cartState);
 
-  useEffect(() => {
-    setCartData(products?.data);
-  }, [products]);
-
-  // const totalPrice =
-  //   products &&
-  //   products.reduce((prev, current) => prev + parseInt(current.price));
   return (
     <>
       {isSuccess ? (
         <>
           <CartUI.Flex flexDirection="column" justifyContent="space-between">
             <CartUI.Flex gap="10px" flexDirection="column">
-              {/* {products.map((product) => ( */}
               <CartItem products={products} />
               {/* ))} */}
             </CartUI.Flex>
