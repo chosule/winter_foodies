@@ -1,6 +1,4 @@
-import CommonBox from "@/components/common/CommonBox/CommonBox";
 import DefaultLayout from "@/components/layouts/Default";
-import CommonButton from "@/components/common/Button/CommonButton";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import MyCart from "@/components/Cart/MyCart";
 

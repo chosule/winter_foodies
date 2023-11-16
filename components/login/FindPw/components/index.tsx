@@ -1,24 +1,12 @@
-import CommonInfoBox from "@/components/common/CommonBox/CommonInfoBox";
+import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import { AuthUI } from "../../style";
-import TextField from "@/components/common/Input/CommonInput";
-import {
-  findPasswordSchema,
-  TFindPasswordSchema,
-  TSendAuthCodePhoneNumber,
-} from "./../../schema/index";
+import TextField from "@/components/ui/Input/CommonInput";
+import { findPasswordSchema, TFindPasswordSchema } from "./../../schema/index";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
-import CommonButton from "@/components/common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import { useRouter } from "next/router";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
-import useContextModal from "@/context/hooks/useContextModal";
-import {
-  TPhoneCertiRequest,
-  TPhoneCertiResponse,
-} from "@/types/api/phoneCertificationType";
-import { AxiosError } from "axios";
-import { useProjectApi } from "@/context/hooks/useDataContextApi";
-import { useMutation } from "@tanstack/react-query";
 import useLogin from "@/hooks/auth/useAuth";
 import { forwardRef, useEffect, useState } from "react";
 import useValid from "@/hooks/auth/useValid";

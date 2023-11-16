@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { CartUI } from "./style";
-import CommonBox from "../common/CommonBox/CommonBox";
+import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import Image from "next/image";
 import { IoCloseSharp } from "react-icons/io5";
 import useCart from "@/hooks/cart/useCart";
 import { useEffect, useState } from "react";
-import CommonButton from "../common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import { cartState } from "@/recoil/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import CounterQuantity from "./CounterQuantity";
@@ -29,7 +29,7 @@ const CartItem = ({ products }: productsProps) => {
   const router = useRouter();
 
   const [cartData, setCartData] = useRecoilState(cartState);
-  console.log("리코일 cartData상태확인 ", cartData);
+  // console.log("리코일 cartData상태확인 ", cartData);
 
   //삭제하기
   const handleDelete = () => {
@@ -54,10 +54,17 @@ const CartItem = ({ products }: productsProps) => {
       }),
     };
     console.log("매핑", updatedCartData);
-    CartOrderApi.mutate(cartData, {
+
+    CartOrderApi.mutate(updatedCartData, {
       onSuccess: (res) => {
         console.log("주문하기-->", res);
-        router.push("/cart/order-detail");
+        router.push(
+          {
+            pathname: "/cart/order-detail",
+            query: res,
+          },
+          "/query"
+        );
       },
     });
   };
@@ -65,7 +72,7 @@ const CartItem = ({ products }: productsProps) => {
   const handlePlus = (product: GetCartDataDetailType) => {
     setCartData((prevCartItems) => {
       const existingItemIndex = prevCartItems?.items?.findIndex(
-        (item) => item.itemId === product.itemId
+        (item) => item.itemId === product?.itemId
       );
       let newItems;
       if (existingItemIndex >= 0) {
@@ -91,7 +98,7 @@ const CartItem = ({ products }: productsProps) => {
   const handleMinus = (product: GetCartDataDetailType) => {
     setCartData((prevCartItems) => {
       const existingItemIndex = prevCartItems?.items?.findIndex(
-        (item) => item.itemId === product.itemId
+        (item) => item.itemId === product?.itemId
       );
       let newItems;
       if (existingItemIndex >= 0) {
@@ -115,9 +122,33 @@ const CartItem = ({ products }: productsProps) => {
   };
   return (
     <>
-      {cartData.items.map((cart) => (
-        <div>{cart.itemName}</div>
-      ))}
+      {/* {cartData.items.map((cart) => (
+        <div key={cart.itemId}>
+          <CartUI.Flex justifyContent="space-between" alignItems="center">
+            <CartUI.Flex gap="10px" alignItems="center">
+              <CartUI.Text>{cart.itemName}</CartUI.Text>
+              <CartUI.Text color="#A9A9A9" fontSize="13px">
+                개당 {cart.price}
+              </CartUI.Text>
+            </CartUI.Flex>
+            <IoCloseSharp onClick={handleDelete} />
+          </CartUI.Flex>
+          <div>
+            <CartUI.Text fontSize="14px">
+              개당가격 : {cart.price} 원
+            </CartUI.Text>
+            <CartUI.Text fontSize="14px">
+              주문시간 : {products.cookingTime} - {products.cookingTime + 10}{" "}
+              사이
+            </CartUI.Text>
+            <CounterQuantity
+              handlePlus={handlePlus}
+              handleMinus={handleMinus}
+              cart={cart}
+            />
+          </div>
+        </div>
+      ))} */}
       {products?.data?.map((items) => (
         <div key={items.itemId}>
           <CartUI.Text fontSize="18px" fontWeight="600">

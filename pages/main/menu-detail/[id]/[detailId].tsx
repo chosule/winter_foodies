@@ -1,4 +1,3 @@
-import MenuDetailTab from "@/components/Main/components/mainMenu/MenuDetailTab";
 import MenuDetailInfoTab from "@/components/Main/components/mainMenu/MenuDetatilInfoTab";
 import DefaultLayout from "@/components/layouts/Default";
 import HeaderLayout from "@/components/layouts/HeaderLayout";

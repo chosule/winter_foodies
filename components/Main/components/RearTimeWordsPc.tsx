@@ -1,4 +1,4 @@
-import CommonButton from "@/components/common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import styled from "@emotion/styled";
 import { MainUI } from "../style";
 type TMockData = {

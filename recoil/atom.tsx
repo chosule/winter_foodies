@@ -21,3 +21,8 @@ export const cartState = atom<CartState>({
     totalPrice: 0,
   },
 });
+
+export const checkState = atom({
+  key: `checkState/${v1()}`,
+  default: "",
+});

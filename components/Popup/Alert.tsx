@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import CommonButton from "../common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 
 type TAlertProps = {
   title?: string;

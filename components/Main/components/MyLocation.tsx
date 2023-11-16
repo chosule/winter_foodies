@@ -1,4 +1,4 @@
-import CommonButton from "@/components/common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import useGeolocation, { getCurrentLocation } from "@/hooks/useGeolacation";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";

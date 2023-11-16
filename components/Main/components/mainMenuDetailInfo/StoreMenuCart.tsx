@@ -1,23 +1,20 @@
-import CommonBox from "@/components/common/CommonBox/CommonBox";
+import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import { BsCartPlus } from "react-icons/bs";
 import { MainUI } from "../../style";
 import styled from "@emotion/styled";
-import CommonButton from "@/components/common/Button/CommonButton";
-import { useRecoilValue } from "recoil";
-import { userState } from "@/recoil/atom";
-import useUserAuth from "@/hooks/auth/useUserAuth";
-import { useEffect, useState } from "react";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import { useRouter } from "next/router";
 import useCart from "@/hooks/cart/useCart";
-import Image from "next/image";
 import { MenuDetailData } from "@/types/api/menuType";
+import { useRecoilValue } from "recoil";
+import { checkState } from "@/recoil/atom";
 
 const StoreMenuCart = () => {
   const router = useRouter();
   const { menuApi, addNewProductApi } = useCart();
   const { id, picture } = router.query;
 
-  const { data: menuData, isSuccess } = menuApi(id);
+  const { data: menuData } = menuApi(id);
 
   const handleClick = (foodId, menuName, price): void => {
     addNewProductApi.mutate(
@@ -29,7 +26,7 @@ const StoreMenuCart = () => {
       },
       {
         onSuccess: (res) => {
-          console.log("데이터저장", res);
+          console.log("추가된거확인-->", res);
         },
       }
     );

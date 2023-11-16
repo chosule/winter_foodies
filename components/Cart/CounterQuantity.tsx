@@ -1,18 +1,15 @@
 import styled from "@emotion/styled";
 import { CartUI } from "./style";
-import CommonButton from "../common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import { HiPlus } from "react-icons/hi";
 import { FaMinus } from "react-icons/fa6";
 import { useRecoilValue } from "recoil";
 import { cartState } from "@/recoil/atom";
-import { useEffect, useState } from "react";
-import CartItem from "./CartItem";
-import useCart from "@/hooks/cart/useCart";
 
 const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
   const cartData = useRecoilValue(cartState);
   const cartItemFInd = cartData?.items.find(
-    (cartItem) => cartItem.itemId === items.itemId
+    (cartItem) => cartItem.itemId === items?.itemId
   );
   const cartQuantity = cartItemFInd?.quantity || 0;
 

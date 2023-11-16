@@ -8,7 +8,7 @@ import { PiSpeakerHigh } from "react-icons/pi";
 import { AiOutlineUnlock } from "react-icons/ai";
 import { MdArrowForwardIos } from "react-icons/md";
 import styled from "@emotion/styled";
-import CommonButton from "@/components/common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 
 type infoType = {
   id: number;

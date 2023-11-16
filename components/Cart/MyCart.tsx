@@ -1,13 +1,6 @@
-import Image from "next/image";
 import { CartUI } from "./style";
-import styled from "@emotion/styled";
-import CommonBox from "@/components/common/CommonBox/CommonBox";
 import useCart from "@/hooks/cart/useCart";
 import CartItem from "./CartItem";
-import CommonButton from "../common/Button/CommonButton";
-import { useRecoilState } from "recoil";
-import { cartState } from "@/recoil/atom";
-import { useEffect } from "react";
 
 const MyCart = () => {
   const {

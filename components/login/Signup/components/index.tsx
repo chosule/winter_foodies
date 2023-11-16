@@ -1,9 +1,9 @@
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { AuthUI } from "../../style";
-import TextField from "@/components/common/Input/CommonInput";
-import CommonButton from "@/components/common/Button/CommonButton";
+import TextField from "@/components/ui/Input/CommonInput";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
-import CommonInfoBox from "@/components/common/CommonBox/CommonInfoBox";
+import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import {
   TSendAuthCodePhoneNumber,
   TSignUpSchema,
@@ -21,7 +21,6 @@ import useAuthModal from "@/hooks/modal/useAuthModal";
 import WinterFoodClient from "@/api/winterFoodClient";
 
 const SignUp = () => {
-
   const { signUpApi, phoneAuthApi, certiAuthApi } = useLogin();
   const {
     register,

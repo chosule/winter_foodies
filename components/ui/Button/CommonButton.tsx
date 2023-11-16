@@ -1,5 +1,4 @@
 import { Button, ButtonProps, styled } from "@mui/material";
-import { CSSProperties } from "react";
 
 type CommonButtonProps = {
   width?: string;

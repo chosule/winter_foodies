@@ -1,6 +1,6 @@
-import TextField from "@/components/common/Input/CommonInput";
+import TextField from "@/components/ui/Input/CommonInput";
 import { AuthUI } from "../../style";
-import CommonButton from "@/components/common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
 import {
@@ -10,12 +10,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
-import CommonInfoBox from "@/components/common/CommonBox/CommonInfoBox";
-import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
-import { useProjectApi } from "@/context/hooks/useDataContextApi";
-import { useEffect, useState } from "react";
+import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import useLogin from "@/hooks/auth/useAuth";
 
 const FindId = () => {

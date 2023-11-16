@@ -1,4 +1,4 @@
-import CommonBox from "@/components/common/CommonBox/CommonBox";
+import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import { IoLocationOutline } from "react-icons/io5";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import { PiForkKnifeBold } from "react-icons/pi";
