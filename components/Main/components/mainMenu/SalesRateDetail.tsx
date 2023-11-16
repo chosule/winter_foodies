@@ -1,12 +1,9 @@
 import { MainUI } from "@/components/Main/style";
-import CommonBox from "@/components/common/CommonBox/CommonBox";
-import { nearbyState, menuId } from "@/recoil/atom";
+import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { BiSolidStar } from "react-icons/bi";
-import { useRecoilState, useRecoilValue } from "recoil";
 import useProduct from "@/hooks/propduct/useProduct";
-import { useEffect } from "react";
 import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import uuid from "react-uuid";
 import { useRouter } from "next/router";
@@ -60,9 +57,7 @@ const SalesRateDetail = () => {
               </MainUI.Flex>
               <MainUI.Flex width="60px" gap="3px" alignItems="center">
                 <div>
-                  <BiSolidStar
-                    style={{ color: "#DD8037", fontSize: "15px" }}
-                  />
+                  <BiSolidStar style={{ color: "#DD8037", fontSize: "15px" }} />
                 </div>
                 <MainUI.Text fontSize="10px">{rating}</MainUI.Text>
               </MainUI.Flex>

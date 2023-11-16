@@ -1,5 +1,5 @@
 import { MainUI } from "@/components/Main/style";
-import CommonBox from "@/components/common/CommonBox/CommonBox";
+import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { BiSolidStar } from "react-icons/bi";

@@ -1,9 +1,7 @@
 import { MainUI } from "@/components/Main/style";
-import CommonBox from "@/components/common/CommonBox/CommonBox";
+import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import useProduct from "@/hooks/propduct/useProduct";
-import { menuId } from "@/recoil/atom";
 import Image from "next/image";
-import { useRecoilValue } from "recoil";
 import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import { BiSolidStar } from "react-icons/bi";
 import uuid from "react-uuid";
