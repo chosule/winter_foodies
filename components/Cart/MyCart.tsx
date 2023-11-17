@@ -1,13 +1,21 @@
 import { CartUI } from "./style";
 import useCart from "@/hooks/cart/useCart";
 import CartItem from "./CartItem";
+import { useRecoilState } from "recoil";
+import { getCartState } from "@/recoil/atom";
 
 const MyCart = () => {
   const {
     getCartApi: { isLoading, isSuccess, data: products },
   } = useCart();
+
+  const [getCartData, setCartData] = useRecoilState(getCartState);
   if (isLoading) {
     <div>...loding중</div>;
+  }
+
+  if (isSuccess) {
+    setCartData(products);
   }
 
   return (

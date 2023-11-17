@@ -22,7 +22,7 @@ export const cartState = atom<CartState>({
   },
 });
 
-export const checkState = atom({
-  key: `checkState/${v1()}`,
+export const getCartState = atom({
+  key: `getCartState/${v1()}`,
   default: "",
 });

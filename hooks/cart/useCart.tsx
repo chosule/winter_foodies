@@ -31,7 +31,9 @@ const useCart = () => {
   });
 
   // 카트조회
-  const getCartApi = useQuery(["getCart"], () => client.getCart());
+  const getCartApi = useQuery(["getCart"], () => client.getCart(), {
+    staleTime: Infinity,
+  });
 
   // 카트삭제
   const productDeleteApi = useMutation((id) => client.productDelete(id), {

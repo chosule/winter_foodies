@@ -15,15 +15,30 @@ const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
 
   return (
     <>
-      <StyledQuantityBox height="20px">
+      <StyledQuantityBox gap="40px">
         <StyledButton backgroundcolor="transparent" width="0px">
-          <HiPlus onClick={() => handlePlus(items)} style={{ width: "100%" }} />
+          <HiPlus
+            onClick={() => handlePlus(items)}
+            style={{
+              width: "30px",
+              height: "30px",
+              padding: "5px",
+              background: "#fff",
+              borderRadius: "100%",
+            }}
+          />
         </StyledButton>
-        {cartQuantity}
+        {cartQuantity + 1}
         <StyledButton backgroundcolor="transparent" width="0px">
           <FaMinus
             onClick={() => handleMinus(items)}
-            style={{ width: "100%" }}
+            style={{
+              width: "30px",
+              height: "30px",
+              padding: "5px",
+              background: "#fff",
+              borderRadius: "100%",
+            }}
           />
         </StyledButton>
       </StyledQuantityBox>
@@ -32,8 +47,6 @@ const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
 };
 
 const StyledQuantityBox = styled(CartUI.Flex)`
-  border: 1px solid #000;
-  border-radius: 4px;
   justify-content: space-between;
   align-items: center;
 `;
@@ -41,7 +54,8 @@ const StyledQuantityBox = styled(CartUI.Flex)`
 const StyledButton = styled(CommonButton)`
   color: #000;
   padding: 0;
-  width: 15px;
+  width: 100%;
+  min-width: inherit;
   height: 100%;
 `;
 export default CounterQuantity;

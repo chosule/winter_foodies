@@ -6,8 +6,6 @@ import CommonButton from "@/components/ui/Button/CommonButton";
 import { useRouter } from "next/router";
 import useCart from "@/hooks/cart/useCart";
 import { MenuDetailData } from "@/types/api/menuType";
-import { useRecoilValue } from "recoil";
-import { checkState } from "@/recoil/atom";
 
 const StoreMenuCart = () => {
   const router = useRouter();
