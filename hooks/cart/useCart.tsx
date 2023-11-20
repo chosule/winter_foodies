@@ -1,12 +1,10 @@
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
-import { userState } from "@/recoil/atom";
 import {
   TAddNewProductRequest,
   TAddNewProductResponse,
 } from "@/types/api/addNewProductType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useRecoilValue } from "recoil";
 
 const useCart = () => {
   const { client } = useProjectApi();
@@ -20,7 +18,7 @@ const useCart = () => {
     });
   };
 
-  // 카드 추가 or 업데이트
+  // 카트 추가 or 업데이트
   const addNewProductApi = useMutation<
     TAddNewProductResponse,
     AxiosError,
@@ -40,16 +38,23 @@ const useCart = () => {
     onSuccess: () => queryClient.invalidateQueries(["deleteCart"]),
   });
 
-  //주문하기
-  const CartOrderApi = useMutation((item) => client.cartOrder(item), {
+  // 주문하기
+  const cartOrderApi = useMutation((item) => client.cartOrder(item), {
     onSuccess: () => queryClient.invalidateQueries(["orderCart"]),
   });
+
+  //주문내역 
+  const orderDetailsApi = useQuery(['getOrderDetail'], () => client.orderDetail(),{
+    staleTime:Infinity,
+  })
+  
   return {
     menuApi,
     addNewProductApi,
     getCartApi,
     productDeleteApi,
-    CartOrderApi,
+    cartOrderApi,
+    orderDetailsApi
   };
 };
 

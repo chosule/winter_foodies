@@ -4,7 +4,8 @@ import { CSSProperties } from "react";
 const Flex = styled.div<
   Pick<
     CSSProperties,
-    | "alignItems"
+    | "alignItems" 
+    | "lineHeight"
     | "flexDirection"
     | "justifyContent"
     | "padding"
@@ -22,6 +23,7 @@ const Flex = styled.div<
   padding: ${({ padding }) => padding};
   gap: ${({ gap }) => gap};
   width: ${({ width }) => width};
+  line-height:${({lineHeight}) => lineHeight};
 `;
 const Text = styled.p<Pick<CSSProperties, "fontSize" | "fontWeight" | "color">>`
   font-size: ${({ fontSize }) => fontSize};

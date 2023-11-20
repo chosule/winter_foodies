@@ -1,9 +1,14 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import CommonButton from "@/components/ui/Button/CommonButton";
+import { FaRegHeart } from "react-icons/fa";
+import useCart from "@/hooks/cart/useCart";
+import { FaHeart } from "react-icons/fa";
 
-const HeaderLayout = ({ headerTitle }: string) => {
+
+const HeaderLayout = ({ headerTitle }) => {
   const router = useRouter();
+
   return (
     <StyledWrap>
       <StyledOuter>
@@ -13,11 +18,20 @@ const HeaderLayout = ({ headerTitle }: string) => {
           }}
         />
         {headerTitle && <StyleText>{headerTitle}</StyleText>}
+        {/* <StyledFavorites>
+          {favorites && <button onClick={onClick}><StyledHeartIcons isFavorite={isFavorite}/></button>}
+        </StyledFavorites> */}
       </StyledOuter>
     </StyledWrap>
   );
 };
 
+
+const StyledFavorites = styled.div`
+  position:absolute;
+  right:0;
+
+`
 const StyledWrap = styled.section`
   position: relative;
   min-height: 100px;

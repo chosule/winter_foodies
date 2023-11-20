@@ -26,3 +26,8 @@ export const getCartState = atom({
   key: `getCartState/${v1()}`,
   default: "",
 });
+
+export const heartState = atom({
+  key:`heartState/${v1()}`,
+  default:"true",
+})
