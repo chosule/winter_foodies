@@ -13,6 +13,9 @@ import {
 import Link from "next/link";
 import { NaviUI } from "./style";
 import { usePathname } from "next/navigation";
+import CartStatus from "@/components/Cart/CartStatus";
+import { useQuery } from "@tanstack/react-query";
+import { useProjectApi } from "@/context/hooks/useDataContextApi";
 const routes = [
   {
     text: "홈",
@@ -37,6 +40,7 @@ const routes = [
       active: <CartIconActive />,
     },
     path: "/cart",
+    cartStatus: true,
   },
   {
     text: "마이페이지",
@@ -57,22 +61,28 @@ const routes = [
 ];
 
 const BottomNavigation = () => {
+  const { client } = useProjectApi();
+  // const { data: products } = useQuery(["carts"], () => client.getCart());
+
+  // console.log("??---> ", products);
   const pathname = usePathname();
   return (
-    <NaviUI.Nav>
-      {routes.map((route) => {
-        const isActive = pathname === route.path;
-
-        return (
-          <Link key={route.text} href={route.path} passHref>
-            <NaviUI.NavItem>
-              {isActive ? route.img.active : route.img.default}
-              <NaviUI.Text isActive={isActive}>{route.text}</NaviUI.Text>
-            </NaviUI.NavItem>
-          </Link>
-        );
-      })}
-    </NaviUI.Nav>
+    <NaviUI.NavWrap>
+      <NaviUI.Nav>
+        {routes.map(({ path, text, img, cartStatus }) => {
+          const isActive = pathname === path;
+          return (
+            <Link key={text} href={path} passHref>
+              <NaviUI.NavItem>
+                {isActive ? img.active : img.default}
+                <NaviUI.Text isActive={isActive}>{text}</NaviUI.Text>
+                {cartStatus && <CartStatus />}
+              </NaviUI.NavItem>
+            </Link>
+          );
+        })}
+      </NaviUI.Nav>
+    </NaviUI.NavWrap>
   );
 };
 

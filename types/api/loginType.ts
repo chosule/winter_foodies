@@ -1,5 +1,5 @@
 export type TLoginRequest = {
-  usernameOrEmail: string;
+  email: string;
   password: string;
 };
 

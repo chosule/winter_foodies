@@ -1,10 +1,10 @@
 import { Button, ButtonProps, styled } from "@mui/material";
-import { CSSProperties } from "react";
 
 type CommonButtonProps = {
   width?: string;
   height?: string;
   backgroundcolor?: string;
+  isactive?: string;
 };
 
 const CommonButton = ({
@@ -14,6 +14,7 @@ const CommonButton = ({
   width,
   height,
   backgroundcolor,
+  isactive,
   ...rest
 }: ButtonProps & CommonButtonProps) => {
   return (
@@ -23,6 +24,7 @@ const CommonButton = ({
       width={width}
       height={height}
       backgroundcolor={backgroundcolor}
+      isactive={isactive}
       {...rest}
     >
       {children}

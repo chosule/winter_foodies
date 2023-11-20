@@ -1,4 +1,3 @@
-import FakeWinterFoodClient from "@/api/fakeWinterFoodClient";
 import WinterFoodClient from "@/api/winterFoodClient";
 import { ReactNode, createContext, useContext } from "react";
 
@@ -7,7 +6,7 @@ type ProviderProps = {
 };
 
 export type TDataApiContext = {
-  client: WinterFoodClient; // client 변수의 타입을 WinterFoodClient로 명시
+  client: WinterFoodClient;
 };
 
 export const DataApiContext = createContext<TDataApiContext | undefined>(
@@ -28,5 +27,6 @@ export function WinterFoodApiProvider({ children }: ProviderProps) {
 }
 
 export function useProjectApi() {
-  return useContext(DataApiContext);
+  const context = useContext(DataApiContext);
+  return context;
 }

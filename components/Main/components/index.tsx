@@ -1,6 +1,6 @@
 import { MainUI } from "../style";
 import RearTimeSearchWords from "./RearTimeSearchWords";
-import MainMenu from "./MainMenu";
+import MainMenu from "./mainMenu/MainMenu";
 import NearDistance from "./NearDistance";
 import MenuSearch from "./MenuSearch";
 import MyLocation from "./MyLocation";

@@ -1,7 +1,7 @@
 import Image from "next/image";
-import TextField from "@/components/common/Input/CommonInput";
+import TextField from "@/components/ui/Input/CommonInput";
 import { AuthUI } from "../style";
-import CommonButton from "@/components/common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import styled from "@emotion/styled";
 import mainLogoIcon from "@/public/img/mainLogoIcon.png";
 import kakaoIcon from "@/public/img/kakaoIcon.png";
@@ -12,20 +12,19 @@ import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
 import { TLoginSchema, loginSchema } from "@/components/Login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import { useProjectApi } from "@/context/hooks/useDataContextApi";
-import { useMutation } from "@tanstack/react-query";
 import useContextModal from "@/context/hooks/useContextModal";
-import { TLoginResponse } from "@/types/api/loginType";
-import { AxiosError } from "axios";
-import { TDataApiContext } from "@/context/hooks/useDataContextApi";
-import { useEffect } from "react";
-import Link from "next/link";
+import useLogin from "@/hooks/auth/useAuth";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import useUser from "@/hooks/auth/useUserAuth";
+import { userState } from "@/recoil/atom";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
-  const { client } = useProjectApi();
-
+  const { loginApi } = useLogin();
+  const [token, setToken] = useState("");
+  const [tokenValue, setTokenValue] = useRecoilState(userState);
   const {
     register,
     handleSubmit,
@@ -34,34 +33,18 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onLoginSuccess = (res) => {
-    console.log("로그인 성공 ->", res);
-    const accessToken = res.data.accessToken;
-    console.log("엑세스토큰", accessToken);
-
-    // localStorage에 accessToken 저장
-    localStorage.setItem("accessToken", accessToken);
-
-    openAlert();
-    router.push("/main");
-  };
-
-  const mutation = useMutation<TLoginResponse, AxiosError, string>(
-    (data) => client.login(data),
-    {
-      onSuccess: onLoginSuccess,
-      onError: (error) => {
-        console.error("로그인 에러 ->", error);
-      },
-    }
-  );
-
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
-    mutation.mutate(data);
+    loginApi.mutate(data, {
+      onSuccess: (res) => {
+        const accessToken = res?.accessToken;
+        setToken(accessToken);
+        openAlert();
+        router.push("/main");
+      },
+    });
   };
-
   const onError: SubmitErrorHandler<TLoginSchema> = (error) => {
-    console.log(error);
+    console.log("error", error);
   };
 
   const openAlert = () => {
@@ -71,18 +54,29 @@ const Login = () => {
       btnText: "확인",
     });
   };
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("accessToken", token);
+      setTokenValue(token);
+    }
+  }, [onSubmit]);
+
   return (
     <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%">
       <Image src={mainLogoIcon} alt="아이콘" width={300} height={278} />
-      <AuthUI.FormWrap onSubmit={handleSubmit(onSubmit, onError)}>
+      <AuthUI.FormWrap
+        onSubmit={handleSubmit(onSubmit, onError)}
+        minHeight="initial"
+      >
         <AuthUI.Flex gap="20px" flexDirection="column">
           <AuthUI.Flex flexDirection="column" gap="10px">
             <AuthUI.Flex gap="10px" flexDirection="column">
               <AuthUI.Label>아이디</AuthUI.Label>
               <TextField
                 placeholder="아이디를 입력해 주세요."
-                {...register("usernameOrEmail", { required: true })}
-                errorMsg={errors.usernameOrEmail?.message}
+                {...register("email", { required: true })}
+                errorMsg={errors.email?.message}
               />
             </AuthUI.Flex>
             <AuthUI.Flex gap="10px" flexDirection="column">

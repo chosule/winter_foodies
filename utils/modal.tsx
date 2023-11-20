@@ -32,6 +32,11 @@ const modal = {
   openAlert: (props: Props) => {
     modal.open(Alert, props);
   },
+
+  //notice
+  openNotice: (props: Props) => {
+    modal.open(Alert, props);
+  },
 };
 
 export default modal;

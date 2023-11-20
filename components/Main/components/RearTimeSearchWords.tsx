@@ -31,8 +31,8 @@ const RearTimeSearchWords = () => {
   }, []);
 
   return (
-    <MainUI.Wrapper gap="17px">
-      <MainUI.Text fontSize="16px" textAlign="left">
+    <MainUI.Flex gap="17px" flexDirection="column">
+      <MainUI.Text fontSize="16px" textAlign="left" fontWeight="600">
         지금 인기있는 간식이에요 !
       </MainUI.Text>
       <StyledItemWrap>
@@ -65,7 +65,7 @@ const RearTimeSearchWords = () => {
           ))}
         </StyledItemUl>
       </StyledItemWrap>
-    </MainUI.Wrapper>
+    </MainUI.Flex>
   );
 };
 const StyledItemWrap = styled.div`

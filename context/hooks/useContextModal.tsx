@@ -40,11 +40,15 @@ const useContextModal = () => {
   const openAlert = (props: ModalProps) => {
     openModal({ ...props, type: "ALERT" });
   };
+  const openNotice = (props: ModalProps) => {
+    openModal({ ...props, type: "ALERT" });
+  };
 
   return {
     openModal,
     closeModal,
     openAlert,
+    openNotice,
   };
 };
 

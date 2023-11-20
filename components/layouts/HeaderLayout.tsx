@@ -1,32 +1,41 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import CommonButton from "@/components/common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 
-const HeaderLayout = ({ headerTitle }: { headerTitle: string }) => {
+const HeaderLayout = ({ headerTitle }: string) => {
   const router = useRouter();
-
   return (
-    <>
-      <StyleWrap>
+    <StyledWrap>
+      <StyledOuter>
         <StyleButton
           onClick={() => {
             router.back();
           }}
         />
-        <StyleText>{headerTitle}</StyleText>
-      </StyleWrap>
-    </>
+        {headerTitle && <StyleText>{headerTitle}</StyleText>}
+      </StyledOuter>
+    </StyledWrap>
   );
 };
 
-const StyleWrap = styled.section`
-  width: 100%;
+const StyledWrap = styled.section`
+  position: relative;
+  min-height: 100px;
   height: 100px;
+  width: 100%;
+  max-width: 511px;
+`;
+const StyledOuter = styled.div`
+  min-height: 100px;
+  width: 100%;
+  max-width: 460px;
+  z-index: 1;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  position: relative;
 `;
 
 const StyleButton = styled(CommonButton)`

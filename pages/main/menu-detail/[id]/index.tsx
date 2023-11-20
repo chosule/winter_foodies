@@ -1,14 +1,16 @@
 import DefaultLayout from "@/components/layouts/Default";
 import { useRouter } from "next/router";
-import MainMenuDetail from "@/components/Main/components/mainMenu/MainMenuDetail";
+import HeaderLayout from "@/components/layouts/HeaderLayout";
+import MenuDetailTab from "@/components/Main/components/mainMenu/MenuDetailTab";
 
 const MenuDetail = () => {
   const router = useRouter();
-  const { id, imgName } = router.query;
+  const { imgName } = router.query;
 
   return (
     <>
-      <MainMenuDetail id={id as string} imgName={imgName as string} />
+      <HeaderLayout headerTitle={imgName} />
+      <MenuDetailTab />
     </>
   );
 };

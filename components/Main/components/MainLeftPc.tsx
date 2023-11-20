@@ -8,8 +8,11 @@ const MainLeftPc = () => {
     <StyledWrap>
       <StyledOuter flexDirection="column" gap="30px">
         <StyledFlex gap="10px" alignItems="center">
-          <StyledText>우리와 가까운 간식,</StyledText>
-          <StyledTitle>Winter Foodies</StyledTitle>
+          <StyledText fontSize="15px">우리와 가까운 간식,</StyledText>
+          <StyledFlex flexDirection="column">
+            <StyledTitle>Winter</StyledTitle>
+            <StyledUnderLineTitle>Foodies</StyledUnderLineTitle>
+          </StyledFlex>
         </StyledFlex>
         <MenuSearch />
         <RearTimeWordsPc />
@@ -25,7 +28,7 @@ const StyledWrap = styled.div`
 `;
 
 const StyledFlex = styled.div<
-  Pick<CSSProperties, "gap" | "flexDirection" | "alignItems">
+  Pick<CSSProperties, "gap" | "flexDirection" | "alignItems" | "width">
 >`
   display: flex;
   flex-direction: ${({ flexDirection }) => flexDirection};
@@ -39,6 +42,8 @@ const StyledOuter = styled(StyledFlex)`
   top: 50%;
   transform: translate(0, -50%);
   left: 30%;
+  width: 100%;
+  max-width: 320px;
   @media (max-width: 970px) {
     left: 0;
   }
@@ -46,14 +51,18 @@ const StyledOuter = styled(StyledFlex)`
     display: none;
   }
 `;
-const StyledText = styled.span`
-  font-size: 15px;
+const StyledText = styled.span<{ fontSize?: string }>`
+  font-size: ${({ fontSize }) => fontSize};
 `;
 const StyledTitle = styled(StyledText)`
   font-size: 25px;
   font-style: italic;
   font-weight: 600;
+`;
+
+const StyledUnderLineTitle = styled(StyledTitle)`
   position: relative;
+  text-indent: 47px;
   &::after {
     content: "";
     position: absolute;

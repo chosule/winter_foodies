@@ -1,50 +1,79 @@
-import TextField from "@/components/common/Input/CommonInput";
+import TextField from "@/components/ui/Input/CommonInput";
 import { AuthUI } from "../../style";
-import CommonButton from "@/components/common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
-import { TFindIdSchema, findIdSchema } from "@/components/Login/schema/index";
+import {
+  TAuthCodeSchema,
+  authCodeSchema,
+} from "@/components/Login/schema/index";
 import { zodResolver } from "@hookform/resolvers/zod";
-import modal from "@/utils/modal";
 import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
-import CommonInfoBox from "@/components/common/CommonBox/CommonInfoBox";
+import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
+import useLogin from "@/hooks/auth/useAuth";
 
 const FindId = () => {
   const modal = useContextModal();
   const router = useRouter();
+  const [dataEmail, setDataEmail] = useState();
+  const { findIdApi } = useLogin();
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
-  } = useForm<TFindIdSchema>({
-    resolver: zodResolver(findIdSchema),
+    formState: { errors, isValid, isDirty },
+  } = useForm<TAuthCodeSchema>({
+    resolver: zodResolver(authCodeSchema),
   });
 
-  const onSubmit: SubmitHandler<TFindIdSchema> = (data) => {
-    // console.log("data--->", data);
-    openAlert();
-    router.push("/login");
+  const submitPhone = () => {
+    openNotice();
   };
 
-  const onError: SubmitErrorHandler<TFindIdSchema> = (error) => {
+  useEffect(() => {
+    if (dataEmail !== undefined) {
+      openAlert(dataEmail);
+    }
+  }, [dataEmail]);
+
+  const onSubmit: SubmitHandler<TAuthCodeSchema> = (data) => {
+    findIdApi.mutate(data, {
+      onSuccess: (res) => {
+        console.log("res--->", res);
+        setDataEmail(res.email);
+        router.push("/login");
+      },
+      onError: (err) => {
+        console.log("err", err);
+      },
+    });
+  };
+
+  const onError: SubmitErrorHandler<TAuthCodeSchema> = (error) => {
     console.log("error --->", error);
   };
 
-  const openAlert = () => {
+  const openAlert = (data: TFindIdResponse) => {
     modal.openAlert({
       title: "알림",
-      message: `회원님의아이디는 \n test@naver.com 입니다. \n 로그인페이지로 이동합니다.`,
+      message: `회원님의아이디는 \n ${dataEmail}입니다. \n 로그인페이지로 이동합니다.`,
+      btnText: "확인",
+    });
+  };
+  const openNotice = () => {
+    modal.openNotice({
+      title: "알림",
+      message: `핸드폰 번호가 \n 전송되었습니다.`,
       btnText: "확인",
     });
   };
   return (
     <>
       <HeaderLayout headerTitle="아이디찾기" />
-      <AuthUI.Wrapper height="100%">
-        <AuthUI.Flex gap="26px" height="100%">
+      <AuthUI.Wrapper>
+        <AuthUI.Flex gap="26px">
           <CommonInfoBox infotitle="등록된 휴대폰 번호로 찾기" />
-          <AuthUI.Flex height="100%">
+          <AuthUI.Flex>
             <AuthUI.Flex flex="0.8">
               <AuthUI.FormWrap onSubmit={handleSubmit(onSubmit, onError)}>
                 <AuthUI.Flex gap="10px">
@@ -53,18 +82,14 @@ const FindId = () => {
                     <AuthUI.Flex gap="20px" flexDirection="initial">
                       <AuthUI.Flex>
                         <TextField
-                          {...register("findIdPhoneNumber", { required: true })}
+                          {...register("phoneNumber", {
+                            required: true,
+                          })}
                           placeholder="핸드폰번호를 입력해주세요."
-                          errorMsg={errors.findIdPhoneNumber?.message}
+                          errorMsg={errors.phoneNumber?.message}
                         />
                       </AuthUI.Flex>
-                      <CommonButton
-                        variant="contained"
-                        type="submit"
-                        name="submitbutton"
-                      >
-                        인증
-                      </CommonButton>
+                      <CommonButton variant="contained">인증</CommonButton>
                     </AuthUI.Flex>
                   </AuthUI.Flex>
 
@@ -73,15 +98,16 @@ const FindId = () => {
                     <AuthUI.Flex gap="20px" flexDirection="initial">
                       <AuthUI.Flex>
                         <TextField
-                          {...register("findIdCertiNumber", { required: true })}
+                          {...register("authCode", {
+                            required: true,
+                          })}
                           placeholder="인증번호를 입력해주세요."
-                          errorMsg={errors.findIdCertiNumber?.message}
+                          errorMsg={errors.authCode?.message}
                         />
                       </AuthUI.Flex>
                       <CommonButton
                         variant="contained"
                         type="submit"
-                        name="submitbutton"
                         disabled={!isDirty || !isValid}
                       >
                         확인

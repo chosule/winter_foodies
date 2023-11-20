@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import CommonButton from "../common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 
 type TAlertProps = {
   title?: string;
@@ -37,7 +37,7 @@ const StyledContent = styled.div`
   display: grid;
   gap: 16px;
   top: 50%;
-  left: 50%;
+  left: 70%;
   padding: 16px;
   min-width: 287px;
   max-width: 400px;

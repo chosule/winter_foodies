@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 
-const Wrapper = styled.section<Pick<CSSProperties, "gap" | "minHeight">>`
+const Wrapper = styled.div<Pick<CSSProperties, "gap" | "minHeight">>`
   display: flex;
   flex-direction: column;
   gap: ${({ gap }) => gap};
@@ -26,10 +26,14 @@ const Flex = styled.div<
   flex: ${({ flex }) => flex};
 `;
 
-const Text = styled.p<Pick<CSSProperties, "fontSize" | "textAlign">>`
+const Text = styled.p<
+  Pick<CSSProperties, "fontSize" | "textAlign" | "lineHeight" | "fontWeight">
+>`
   font-size: ${({ fontSize }) => (fontSize ? fontSize : "15px")};
   color: ${({ color }) => (color ? color : "#353535")};
   text-align: ${({ textAlign }) => (textAlign ? textAlign : "center")};
+  line-height: ${({ lineHeight }) => lineHeight};
+  font-weight: ${({ fontWeight }) => fontWeight};
 `;
 
 export const MainUI = {

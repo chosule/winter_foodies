@@ -1,18 +1,26 @@
 import styled from "@emotion/styled";
 import WarningIcon from "@/public/img/WarningIcon";
 
-const ErrorMsg = ({ errorMsg, ...rest }: { errorMsg: string }) => {
+export const ErrorMsg = ({ errorMsg, ...rest }: { errorMsg: string }) => {
   return (
     <StyleFlex>
-      <WarningIcon />
+      {/* <WarningIcon /> */}
       <StyledError {...rest}>{errorMsg}</StyledError>
     </StyleFlex>
   );
 };
 
+export const ErrorMessage = ({ errorMessage }: { errorMessage: string }) => {
+  return (
+    <StyleFlex>
+      {/* <WarningIcon /> */}
+      <StyledError>{errorMessage}</StyledError>
+    </StyleFlex>
+  );
+};
 const StyleFlex = styled.div`
   display: flex;
-  gap: 7px;
+  padding:10px 0;
 `;
 const StyledError = styled.p`
   font-size: 12px;

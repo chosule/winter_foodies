@@ -16,12 +16,10 @@ const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
       </Head>
       <StyledLayout>
         <MainLeftPc />
-        <StyledWrapper>
-          <StyledOuter>
-            <StyledContent width={width}>{children}</StyledContent>
-            <BottomNavigation />
-          </StyledOuter>
-        </StyledWrapper>
+        <StyledOuter>
+          <StyledContent width={width}>{children}</StyledContent>
+          <BottomNavigation />
+        </StyledOuter>
       </StyledLayout>
     </div>
   );
@@ -46,7 +44,8 @@ export const StyledLayout = styled.div`
 `;
 
 export const StyledOuter = styled.div`
-  width: 511px;
+  max-width: 511px;
+  width: 100%;
   border: 1px solid #e7e7e7;
   margin-left: 700px;
   position: relative;
@@ -55,7 +54,6 @@ export const StyledOuter = styled.div`
   box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
     rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 8px 30px;
   @media (max-width: 970px) {
-    width: 100%;
     margin-left: 360px;
   }
   @media (max-width: 600px) {
@@ -67,8 +65,8 @@ export const StyledContent = styled.div<TDefaultLayoutProps>`
   margin: 0 auto;
   height: 100%;
   display: flex;
-  gap: 30px;
   flex-direction: column;
+  gap: 16px;
 `;
 
 export default DefaultLayout;

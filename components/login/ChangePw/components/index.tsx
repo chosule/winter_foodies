@@ -1,34 +1,47 @@
-import CommonInfoBox from "@/components/common/CommonBox/CommonInfoBox";
+import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import { AuthUI } from "../../style";
-import TextField from "@/components/common/Input/CommonInput";
+import TextField from "@/components/ui/Input/CommonInput";
 import {
   changePasswordSchema,
   TChangePasswordSchema,
 } from "./../../schema/index";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
-import CommonButton from "@/components/common/Button/CommonButton";
+import CommonButton from "@/components/ui/Button/CommonButton";
 import { useRouter } from "next/router";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import useContextModal from "@/context/hooks/useContextModal";
+import useLogin from "@/hooks/auth/useAuth";
 
 const ChangePassword = () => {
   const router = useRouter();
   const modal = useContextModal();
+  const { changePwApi } = useLogin();
+  // console.log("router", router.query.id);
+
+  const userId = router.query.id;
+
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<TChangePasswordSchema>({
     resolver: zodResolver(changePasswordSchema),
   });
 
-  const onSubmit: SubmitHandler<TChangePasswordSchema> = (data) => {
-    console.log("data", data);
-    openAlert();
-    router.push("/login");
+  const onSubmit: SubmitHandler<TChangePasswordSchema> = () => {
+    const newPassword = getValues("changePassword");
+    const data = { newPassword, userId };
+    console.log("특정 데이터: ", data);
+    changePwApi.mutate(data, {
+      onSuccess: (res) => {
+        console.log("res", res);
+        openAlert();
+        router.push("/login");
+      },
+    });
   };
-
   const onError: SubmitErrorHandler<TChangePasswordSchema> = (error) => {
     console.log("error", error);
   };
@@ -74,7 +87,7 @@ const ChangePassword = () => {
                 </AuthUI.Flex>
               </AuthUI.Flex>
             </AuthUI.Flex>
-            <AuthUI.Flex flex="0.3">
+            <AuthUI.Flex>
               <CommonButton width="100%" variant="contained" type="submit">
                 비밀번호 변경
               </CommonButton>

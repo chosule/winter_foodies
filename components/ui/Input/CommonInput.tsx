@@ -1,10 +1,16 @@
-import ErrorMsg from "@/components/ErrorMsg/ErrorMsg";
+import { ErrorMsg, ErrorMessage } from "@/components/ErrorMsg/ErrorMsg";
 import styled from "@emotion/styled";
 import { InputHTMLAttributes, forwardRef } from "react";
 
 type TTextFieldProps = {
   placeholder?: string;
+  errorMessage?: string;
   errorMsg?: string;
+  validText?: string;
+  valid?: string;
+  isValidState?: string | undefined;
+  valueType?: string;
+  isActive?: string;
 };
 
 type TInputAttributes = InputHTMLAttributes<HTMLInputElement> & TTextFieldProps;
@@ -21,6 +27,7 @@ const TextField = forwardRef<HTMLInputElement, TInputAttributes>(
           autoComplete="off"
         />
         {props.errorMsg && <ErrorMsg errorMsg={props.errorMsg} />}
+        {!props.isValidState && <ErrorMessage errorMessage={props.validText} />}
       </StyledWrap>
     );
   }
@@ -30,7 +37,6 @@ TextField.displayName = "TextField";
 const StyledWrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
   width: 100%;
 `;
 const StyledInput = styled.input`
