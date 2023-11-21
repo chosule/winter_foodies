@@ -45,7 +45,6 @@ export const signUpSchema = z
       message: "비밀번호를 다시 재입력해주세요.",
     }),
   })
-
   .refine((data) => data.password === data.signUpPasswordChecking, {
     path: ["signUpPasswordChecking"],
     message: "새 비밀번호와 같지 않습니다.",

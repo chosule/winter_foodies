@@ -15,11 +15,14 @@ type IsValidStateType = {
 };
 
 export default function useValid(changeValue: InValidType) {
+  
   const [isValidState, setIsValidState] = useState<IsValidStateType>({
     isPhoneNumberAuthCode: null,
     isCertiCode: null,
   });
+
   const [validText, setValidText] = useState("");
+
   useEffect(() => {
     if (!changeValue.phoneNumber) {
       setValidText("");

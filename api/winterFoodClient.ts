@@ -62,24 +62,35 @@ export default class WinterFoodClient {
       .post(`/api/auth/login`, form)
       .then((res) => res.data.data as TLoginResponse);
   }
+
   // 회원가입
   async signUp(form: TSignUpRequest) {
     return this.httpClient
       .post(`/api/auth/register`, form)
       .then((res) => res.data as TSignUpResponse);
   }
+
   //아이디 찾기
   async findId(data: TFindIdRequest) {
     return this.httpClient
       .post(`/api/auth/findId`, data)
       .then((res) => res.data.data as TFindIdResponse);
   }
-  // 아이디 찾기 , 비밀번호 찾기 휴대폰 인증
-  async phoneCertification(data: TPhoneCertiRequest) {
+
+  // 1-phoneCerti 회원가입 등 가입할때 휴대폰 인증 
+  async phoneCertiSign(data: TPhoneCertiRequest) {
     return this.httpClient
-      .post(`/api/auth/sendAuthCodeFind`, { phoneNumber: data })
+      .post(`/api/auth/sendAuthCode`, { phoneNumber: data })
       .then((res) => res.data as TPhoneCertiResponse);
   }
+
+  // 2-phoneCerti 아이디찾기, 비밀번호 찾기등 가입하고 나서 찾는 휴대폰 인증
+  async phoneCertiFind(data: TPhoneCertiRequest){
+    return this.httpClient
+    .post(`/api/auth/sendAuthCodeFind`,{data})
+    .then((res) => res.data as TPhoneCertiResponse)
+  }
+
   //인증코드 전송
   async certifiCode(data) {
     return this.httpClient

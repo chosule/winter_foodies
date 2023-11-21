@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { TFindPwResponse, TFindPwRequest } from "@/types/api/findPwType";
 import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
+import { TSignUpRequest, TSignUpResponse } from "@/types/api/signUpType";
 /**
  *
  * @description
@@ -28,19 +29,32 @@ const useLogin = () => {
   });
 
   //회원가입
-  const signUpApi = useMutation((data) => client.signUp(data), {
+  const signUpApi = useMutation<TSignUpResponse,AxiosError,TSignUpRequest,TSignUpRequest>((data) => client.signUp(data), {
     onSuccess: () => queryClient.invalidateQueries(["signup"]),
   });
 
-  //핸드폰번호찾기
-  const phoneAuthApi = useMutation<
+  //1-phoneCerti 
+  const phoneCertiSignApi = useMutation<
     TPhoneCertiResponse,
     AxiosError,
     TPhoneCertiRequest,
     TPhoneCertiResponse
-  >((data) => client.phoneCertification(data), {
+  >((data) => client.phoneCertiSign(data), {
     onSuccess: () => queryClient.invalidateQueries(["phoneAuth"]),
   });
+
+
+  //2-phoneCerti
+  const phoneCertiFindApi = useMutation<
+    TPhoneCertiResponse,
+    AxiosError,
+    TPhoneCertiRequest,
+    TPhoneCertiResponse
+  >((data) => client.phoneCertiFind(data), {
+    onSuccess: () => queryClient.invalidateQueries(["phoneAuth"]),
+  });
+
+  
 
   //인증코드
   const certiAuthApi = useMutation((data) => client.certifiCode(data), {
@@ -74,7 +88,8 @@ const useLogin = () => {
 
   return {
     loginApi,
-    phoneAuthApi,
+    phoneCertiSignApi,
+    phoneCertiFindApi,
     certiAuthApi,
     findPwApi,
     changePwApi,
