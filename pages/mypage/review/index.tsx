@@ -6,7 +6,7 @@ import Rating from "@/components/ui/Rating";
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 
-const reviewPage = () => {
+const ReviewPage = () => {
   return (
     <>
       <HeaderLayout headerTitle="리뷰관리" />
@@ -66,8 +66,8 @@ const StyledText = styled.p<
   font-weight: ${({ fontWeight }) => fontWeight};
 `;
 
-reviewPage.getLayout = (page: React.ReactNode) => {
+ReviewPage.getLayout = (page: React.ReactNode) => {
   return <DefaultLayout>{page}</DefaultLayout>;
 };
 
-export default reviewPage;
+export default ReviewPage;

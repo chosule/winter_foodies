@@ -14,7 +14,7 @@ const Grid = styled.div`
 const Flex = styled.div<
   Pick<
     CSSProperties,
-    "alignItems" | "gap" | "flexDirection" | "justifyContent" | "width" | "flex"
+    "alignItems" | "gap" | "flexDirection" | "justifyContent" | "width" | "flex" | "lineHeight"
   >
 >`
   display: flex;
@@ -24,6 +24,7 @@ const Flex = styled.div<
   gap: ${({ gap }) => gap};
   width: ${({ width }) => width};
   flex: ${({ flex }) => flex};
+  line-height:${({lineHeight}) => lineHeight};
 `;
 
 const Text = styled.p<

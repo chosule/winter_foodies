@@ -29,6 +29,9 @@ import {
   TAddNewProductRequest,
   TAddNewProductResponse,
 } from "@/types/api/addNewProductType";
+import {CartDeleteRequest,CartDeleteResponse} from "@/types/api/CartDeleteType"
+import {TFavoriteStoreResponse} from "@/types/api/favoriteStoreType"
+
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
@@ -155,6 +158,12 @@ export default class WinterFoodClient {
       .get(`/api/store/menu/${id}`)
       .then((res) => res.data.data as TMenuResponse);
   }
+
+  //가게정보
+  async storeInfo(id){
+    return this.httpClient.get(`/api/store/info/${id}`).then((res) => res.data.data);
+  }
+
   //장바구니 추가 , 업데이트
   async addNewProduct(product: TAddNewProductRequest) {
     return this.httpClient
@@ -170,10 +179,10 @@ export default class WinterFoodClient {
   }
 
   // 장바구니 삭제
-  async productDelete(id) {
+  async productDelete(id : CartDeleteRequest) {
     return this.httpClient
       .delete(`/api/cart/items`, id )
-      .then((res) => res.data);
+      .then((res) => res.data as CartDeleteResponse);
   }
 
   //주문하기
@@ -182,4 +191,23 @@ export default class WinterFoodClient {
       .post(`/api/cart/order`, item)
       .then((res) => res.data);
   }
+  // 주문내역
+  async orderDetail(){
+    return this.httpClient
+    .get(`/api/mypage/orders`)
+    .then((res) => res.data.data)
+  }
+
+  //찜하기
+  async favorite(product){
+    return this.httpClient.post(`/api/store/favorite`,product)
+    .then((res) => res.data)
+  }
+
+  //찜한매장
+  async favoriteStore(){
+    return this.httpClient.get(`/api/mypage/favorite`)
+    .then((res) => res.data as TFavoriteStoreResponse);
+  }
+
 }

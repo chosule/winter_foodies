@@ -25,18 +25,18 @@ interface cartState {
 }
 
 const CartItem = ({ products }: productsProps) => {
-  const { productDeleteApi, CartOrderApi } = useCart();
+  const { productDeleteApi, cartOrderApi } = useCart();
   const router = useRouter();
   const getCartRecoil = useRecoilValue(getCartState);
   // console.log("카트조회 recoil 확인", getCartRecoil);
   const [cartData, setCartData] = useRecoilState(cartState);
-  // console.log("리코일 cartData상태확인 ", cartData);
+  console.log("리코일 cartData상태확인 ", cartData);
 
   //삭제하기
   const handleDelete = (deletedId) => {
-    console.log("삭제?", deletedId);
+      
     productDeleteApi.mutate(
-      { itemId: deletedId },
+      ({itemId: deletedId}),
       {
         onSuccess: (res) => {
           console.log("[ 삭제하기api res ]", res);
@@ -71,7 +71,7 @@ const CartItem = ({ products }: productsProps) => {
     };
     console.log("매핑", updatedCartData);
 
-    CartOrderApi.mutate(updatedCartData, {
+    cartOrderApi.mutate(updatedCartData, {
       onSuccess: (res) => {
         console.log("주문하기-->", res);
         router.push(
@@ -79,7 +79,7 @@ const CartItem = ({ products }: productsProps) => {
             pathname: "/cart/order-detail",
             query: res,
           },
-          "/query"
+          "/cart/order-detail"
         );
       },
     });
@@ -170,7 +170,7 @@ const CartItem = ({ products }: productsProps) => {
             <StyledBox
               width="100%"
               height="100px"
-              backgroundcolor="#ededed"
+              backgroundcolor="#f3f3f3"
               flexDirection="column"
               padding="10px"
             >

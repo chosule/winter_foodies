@@ -9,20 +9,25 @@ import { AiOutlineUnlock } from "react-icons/ai";
 import { MdArrowForwardIos } from "react-icons/md";
 import styled from "@emotion/styled";
 import CommonButton from "@/components/ui/Button/CommonButton";
+import { useRouter } from "next/router";
+
 
 type infoType = {
   id: number;
   icon: JSX.Element;
   infoTitle: string;
+  path:string;
 };
+
 const mypageInfos: infoType[] = [
-  { id: 1, icon: <BiLockOpen />, infoTitle: "내정보" },
-  { id: 2, icon: <AiOutlineHeart />, infoTitle: "찜한매장" },
-  { id: 3, icon: <GrNotes />, infoTitle: "리뷰관리" },
-  { id: 4, icon: <BiDollarCircle />, infoTitle: "주문내역" },
+  { id: 1, icon: <BiLockOpen />, infoTitle: "내정보" , path:'/mypage/myInfo'},
+  { id: 2, icon: <AiOutlineHeart />, infoTitle: "찜한매장",path:'mypage/favorite-stores' },
+  { id: 3, icon: <GrNotes />, infoTitle: "리뷰관리" ,path:'mypage/review'},
+  { id: 4, icon: <BiDollarCircle />, infoTitle: "주문내역" ,path:'mypage/order-rist' },
 ];
 
 const MyPage = () => {
+  const router = useRouter();
   return (
     <div>
       <MyPageUI.Flex flexDirection="column" padding="30px 0" gap="13px">
@@ -38,16 +43,16 @@ const MyPage = () => {
       </MyPageUI.Flex>
       {/*  */}
       <StyledBox justifyContent="space-between">
-        {mypageInfos.map(({ id, icon, infoTitle }) => {
+        {mypageInfos.map(({ id, icon, infoTitle ,path}) => {
           return (
             <MyPageUI.Flex key={id} alignItems="center" flexDirection="column">
-              <CommonButton
+              <StyledBtn
                 backgroundcolor="none"
-                style={{ color: "#000", fontSize: "30px" }}
-              >
-                {icon}
-              </CommonButton>
-              <MyPageUI.Text fontSize="12px">{infoTitle}</MyPageUI.Text>
+                onClick={() => router.push(path)}
+                >
+                  <div style={{ color: "#000", fontSize: "30px" }}>{icon}</div>
+                <MyPageUI.Text fontSize="12px" color="#000">{infoTitle}</MyPageUI.Text>
+              </StyledBtn>
             </MyPageUI.Flex>
           );
         })}
@@ -85,6 +90,12 @@ const StyledFlexCusotom = styled(MyPageUI.Flex)`
 const StyledCursor = styled(MyPageUI.Flex)`
   cursor: pointer;
 `;
+
+const StyledBtn = styled(CommonButton)`
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+`
 const StyledBox = styled(MyPageUI.Flex)`
   background-color: #fafafa;
   padding: 23px;
