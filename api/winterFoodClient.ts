@@ -29,8 +29,11 @@ import {
   TAddNewProductRequest,
   TAddNewProductResponse,
 } from "@/types/api/addNewProductType";
-import {CartDeleteRequest,CartDeleteResponse} from "@/types/api/CartDeleteType"
-import {TFavoriteStoreResponse} from "@/types/api/favoriteStoreType"
+import {
+  CartDeleteRequest,
+  CartDeleteResponse,
+} from "@/types/api/CartDeleteType";
+import { TFavoriteStoreResponse } from "@/types/api/favoriteStoreType";
 
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
@@ -77,18 +80,18 @@ export default class WinterFoodClient {
       .then((res) => res.data.data as TFindIdResponse);
   }
 
-  // 1-phoneCerti 회원가입 등 가입할때 휴대폰 인증 
+  // 1-phoneCerti 회원가입 등 가입할때 휴대폰 인증
   async phoneCertiSign(data: TPhoneCertiRequest) {
     return this.httpClient
-      .post(`/api/auth/sendAuthCode`, { phoneNumber: data })
+      .post(`/api/auth/sendAuthCode`, data)
       .then((res) => res.data as TPhoneCertiResponse);
   }
 
   // 2-phoneCerti 아이디찾기, 비밀번호 찾기등 가입하고 나서 찾는 휴대폰 인증
-  async phoneCertiFind(data: TPhoneCertiRequest){
+  async phoneCertiFind(data: TPhoneCertiRequest) {
     return this.httpClient
-    .post(`/api/auth/sendAuthCodeFind`,{data})
-    .then((res) => res.data as TPhoneCertiResponse)
+      .post(`/api/auth/sendAuthCodeFind`, data)
+      .then((res) => res.data as TPhoneCertiResponse);
   }
 
   //인증코드 전송
@@ -171,8 +174,10 @@ export default class WinterFoodClient {
   }
 
   //가게정보
-  async storeInfo(id){
-    return this.httpClient.get(`/api/store/info/${id}`).then((res) => res.data.data);
+  async storeInfo(id) {
+    return this.httpClient
+      .get(`/api/store/info/${id}`)
+      .then((res) => res.data.data);
   }
 
   //장바구니 추가 , 업데이트
@@ -190,9 +195,9 @@ export default class WinterFoodClient {
   }
 
   // 장바구니 삭제
-  async productDelete(id : CartDeleteRequest) {
+  async productDelete(id: CartDeleteRequest) {
     return this.httpClient
-      .delete(`/api/cart/items`, id )
+      .delete(`/api/cart/items`, id)
       .then((res) => res.data as CartDeleteResponse);
   }
 
@@ -203,22 +208,23 @@ export default class WinterFoodClient {
       .then((res) => res.data);
   }
   // 주문내역
-  async orderDetail(){
+  async orderDetail() {
     return this.httpClient
-    .get(`/api/mypage/orders`)
-    .then((res) => res.data.data)
+      .get(`/api/mypage/orders`)
+      .then((res) => res.data.data);
   }
 
   //찜하기
-  async favorite(product){
-    return this.httpClient.post(`/api/store/favorite`,product)
-    .then((res) => res.data)
+  async favorite(product) {
+    return this.httpClient
+      .post(`/api/store/favorite`, product)
+      .then((res) => res.data);
   }
 
   //찜한매장
-  async favoriteStore(){
-    return this.httpClient.get(`/api/mypage/favorite`)
-    .then((res) => res.data as TFavoriteStoreResponse);
+  async favoriteStore() {
+    return this.httpClient
+      .get(`/api/mypage/favorite`)
+      .then((res) => res.data as TFavoriteStoreResponse);
   }
-
 }

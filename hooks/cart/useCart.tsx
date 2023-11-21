@@ -43,18 +43,27 @@ const useCart = () => {
     onSuccess: () => queryClient.invalidateQueries(["orderCart"]),
   });
 
-  //주문내역 
-  const orderDetailsApi = useQuery(['getOrderDetail'], () => client.orderDetail(),{
-    staleTime:Infinity,
-  })
-  
+  //주문내역
+  const orderDetailsApi = useQuery(
+    ["getOrderDetail"],
+    () => client.orderDetail(),
+    {
+      staleTime: Infinity,
+    }
+  );
+
+  const favoriteApi = useMutation((data) => client.favoriteStore(data), {
+    onSuccess: () => queryClient.invalidateQueries(["heart"]),
+  });
+
   return {
     menuApi,
     addNewProductApi,
     getCartApi,
     productDeleteApi,
     cartOrderApi,
-    orderDetailsApi
+    orderDetailsApi,
+    favoriteApi,
   };
 };
 
