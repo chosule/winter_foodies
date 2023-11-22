@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import MenuDetailTab from "@/components/Main/components/mainMenu/MenuDetailTab";
 
-const MenuDetail = () => {
+
+const MenuDetailPage = () => {
   const router = useRouter();
   const { imgName } = router.query;
-
   return (
     <>
       <HeaderLayout headerTitle={imgName} />
@@ -15,8 +15,8 @@ const MenuDetail = () => {
   );
 };
 
-MenuDetail.getLayout = (page: React.ReactNode) => {
+MenuDetailPage.getLayout = (page: React.ReactNode) => {
   return <DefaultLayout>{page}</DefaultLayout>;
 };
 
-export default MenuDetail;
+export default MenuDetailPage;
