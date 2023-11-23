@@ -40,7 +40,7 @@ const CartQuantity = styled.p`
   width: 18px;
   height: 18px;
   border-radius: 100%;
-  text-indent: -9999px;
+
   position: absolute;
   top: -8px;
   right: -5px;

@@ -9,13 +9,14 @@ const MyCart = () => {
     getCartApi: { isLoading, isSuccess, data: products },
   } = useCart();
 
-  const [getCartData, setCartData] = useRecoilState(getCartState);
+  const [checkCartData, setCheckCartData] = useRecoilState(getCartState);
+
   if (isLoading) {
     <div>...loding중</div>;
   }
 
   if (isSuccess) {
-    setCartData(products);
+    setCheckCartData(products);
   }
 
   return (
@@ -24,7 +25,7 @@ const MyCart = () => {
         <>
           <CartUI.Flex flexDirection="column" justifyContent="space-between">
             <CartUI.Flex gap="10px" flexDirection="column">
-              <CartItem products={products} />
+              <CartItem />
               {/* ))} */}
             </CartUI.Flex>
           </CartUI.Flex>

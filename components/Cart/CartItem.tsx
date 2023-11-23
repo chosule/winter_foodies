@@ -13,7 +13,7 @@ import {
   GetCartDataDetailType,
 } from "@/types/api/getCartType";
 import { useRouter } from "next/router";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 
 type productsProps = {
   products: TGetCartResponse;
@@ -24,19 +24,43 @@ interface cartState {
   totalPrice: number;
 }
 
-const CartItem = ({ products }: productsProps) => {
+const CartItem = () => {
   const { productDeleteApi, cartOrderApi } = useCart();
   const router = useRouter();
-  const getCartRecoil = useRecoilValue(getCartState);
-  // console.log("카트조회 recoil 확인", getCartRecoil);
+  const getCart = useRecoilValue(getCartState);
+  // console.log("카트조회 recoil 확인", getCart);
   const [cartData, setCartData] = useRecoilState(cartState);
-  console.log("리코일 cartData상태확인 ", cartData);
+  // console.log("리코일 cartData상태확인 ", cartData);
+  const [checkCartData, setCheckCartData] = useRecoilState(getCartState);
+
+  const handlePlusTest = (product) => {
+    setCheckCartData((prevCheckCartData) => {
+      const cartData = prevCheckCartData?.data.map((item) => item);
+      const test = cartData.forEach((element) => {
+        console.log(element.itemId);
+      });
+      console.log("test", test);
+      const existingItemIndex = cartData.findIndex(
+        (data) => data.itemId === product.itemId
+      );
+      let newItems;
+      if (existingItemIndex >= 0) {
+        newItems = [...cartData];
+        console.log("newItems", newItems.quantity);
+        newItems[existingItemIndex] = {
+          ...newItems[existingItemIndex],
+          quantity: newItems[existingItemIndex].quantity + 1,
+        };
+      } else {
+        // console.log("test");
+      }
+    });
+  };
 
   //삭제하기
   const handleDelete = (deletedId) => {
-      
     productDeleteApi.mutate(
-      ({itemId: deletedId}),
+      { itemId: deletedId },
       {
         onSuccess: (res) => {
           console.log("[ 삭제하기api res ]", res);
@@ -146,26 +170,26 @@ const CartItem = ({ products }: productsProps) => {
         padding="10px"
       >
         <StyledImgBox
-          src={products.imageUrl}
+          src={getCart.imageUrl}
           alt="이미지"
           width={50}
           height={50}
         />
         <CartUI.Text fontSize="18px" fontWeight="600">
-          {products.storeName} 가게
+          {getCart.storeName} 가게
         </CartUI.Text>
         <CartUI.Flex flexDirection="column" alignItems="center">
           <CartUI.Text fontSize="10px" color="#fff" fontWeight="300">
             예상조리시간
           </CartUI.Text>
           <CartUI.Text fontSize="16px" color="#fff">
-            {products.cookingTime} - {products.cookingTime + 10}분
+            {getCart.cookingTime} - {getCart.cookingTime + 10}분
           </CartUI.Text>
         </CartUI.Flex>
       </StyledBox>
       {/*  */}
       <CartUI.Flex flexDirection="column" gap="15px">
-        {getCartRecoil?.data?.map((items) => (
+        {checkCartData?.data?.map((items) => (
           <div key={items.itemId}>
             <StyledBox
               width="100%"
@@ -191,9 +215,10 @@ const CartItem = ({ products }: productsProps) => {
                 </CommonButton>
               </CartUI.Flex>
               <CartUI.Flex justifyContent="space-between" alignItems="center">
+                {items.quantity}
                 <CartUI.Text>{items.price * items.quantity}원</CartUI.Text>
                 <CounterQuantity
-                  handlePlus={handlePlus}
+                  handlePlusTest={handlePlusTest}
                   handleMinus={handleMinus}
                   items={items}
                 />

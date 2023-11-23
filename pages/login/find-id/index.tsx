@@ -3,10 +3,6 @@ import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useLogin from "@/hooks/auth/useAuth";
-import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { TAuthCodeSchema, authCodeSchema } from "@/components/login/schema";
-import { TFindIdResponse } from "@/types/api/findIdType";
 import { AuthUI } from "@/components/login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
@@ -15,7 +11,6 @@ import TextField from "@/components/ui/Input/CommonInput";
 import useValid from "@/hooks/auth/useValid";
 import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
 import useAuthModal from "@/hooks/modal/useAuthModal";
-import styled from "@emotion/styled";
 
 const FindIdPage = () => {
   const modal = useContextModal();

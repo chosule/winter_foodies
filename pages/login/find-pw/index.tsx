@@ -5,17 +5,21 @@ import useAuthModal from "@/hooks/modal/useAuthModal";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TFindPasswordSchema, findPasswordSchema } from "@/components/login/schema";
+import {
+  TFindPasswordSchema,
+  findPasswordSchema,
+} from "@/components/login/schema";
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { AuthUI } from "@/components/login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import TextField from "@/components/ui/Input/CommonInput";
 import CommonButton from "@/components/ui/Button/CommonButton";
+import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
 
 const FindPwPage = () => {
   const router = useRouter();
-  const { phoneAuthApi, certiAuthApi, findPwApi } = useLogin();
+  const { phoneCertiFindApi, certiAuthApi, findPwApi } = useLogin();
   const {
     openAlert,
     openPhoneModal,
@@ -56,19 +60,22 @@ const FindPwPage = () => {
   const phoneSubmit = () => {
     if (phoneNumberIsValidState.isPhoneNumberAuthCode === true) {
       PhoneNumberCodeMutate(form.phoneNumber);
-      openPhoneModal();
       setCompleteSubmit({ ...completeSubmit, phoneComplete: true });
     } else {
       openPhoneErrorModal();
     }
   };
 
-  const PhoneNumberCodeMutate = (phoneNumber) => {
-    phoneAuthApi.mutate(phoneNumber, {
-      onSuccess: (res) => {
-        console.log("핸드폰인증 success --> ", res);
-      },
-    });
+  const PhoneNumberCodeMutate = (phoneNumber: TPhoneCertiRequest) => {
+    phoneCertiFindApi.mutate(
+      { phoneNumber },
+      {
+        onSuccess: (res) => {
+          console.log("핸드폰인증 success --> ", res);
+          openPhoneModal();
+        },
+      }
+    );
   };
 
   const authCertiSubmit = () => {
@@ -78,7 +85,6 @@ const FindPwPage = () => {
         ...completeSubmit,
         AuthCodeComplete: true,
       });
-      openAuthCodeModal();
     } else {
       openAuthCodeErrorModal();
     }
@@ -87,6 +93,7 @@ const FindPwPage = () => {
   const certiCodeMutate = (data) => {
     certiAuthApi.mutate(data, {
       onSuccess: (res) => {
+        openAuthCodeModal();
         console.log("인증코드 success ===>", res);
       },
     });
@@ -115,100 +122,95 @@ const FindPwPage = () => {
 
   return (
     <>
-    <HeaderLayout headerTitle="비밀번호 찾기" />
-    <AuthUI.Wrapper>
-      <CommonInfoBox infotitle="등록된 휴대폰 번호로 비밀번호 찾기" />
-      <AuthUI.FormWrap onSubmit={handleSubmit(onSubmit, onError)}>
-        <AuthUI.Flex gap="10px">
+      <HeaderLayout headerTitle="비밀번호 찾기" />
+      <AuthUI.Wrapper>
+        <CommonInfoBox infotitle="등록된 휴대폰 번호로 비밀번호 찾기" />
+        <AuthUI.FormWrap onSubmit={handleSubmit(onSubmit, onError)} gap="35px">
           <AuthUI.Flex gap="10px">
-            <AuthUI.Label>가입된 이메일</AuthUI.Label>
-            <AuthUI.Flex>
-              <TextField
-                {...register("email")}
-                placeholder="가입된 이메일을 입력해주세요."
-                errorMsg={errors.email?.message}
-              />
-            </AuthUI.Flex>
-          </AuthUI.Flex>
-          <AuthUI.Flex gap="10px">
-            <AuthUI.Label>이름</AuthUI.Label>
-            <AuthUI.Flex>
-              <TextField
-                {...register("username")}
-                placeholder="이름을 입력해주세요."
-                errorMsg={errors.username?.message}
-              />
-            </AuthUI.Flex>
-          </AuthUI.Flex>
-          <AuthUI.Flex gap="10px">
-            <AuthUI.Label>휴대폰 번호</AuthUI.Label>
-            <AuthUI.Flex gap="20px" flexDirection="initial">
+            <AuthUI.Flex gap="10px">
+              <AuthUI.Label>가입된 이메일</AuthUI.Label>
               <AuthUI.Flex>
                 <TextField
-                  value={form.phoneNumber}
-                  onChange={(e) =>
-                    setForm({ ...form, phoneNumber: e.target.value })
-                  }
-                  placeholder="휴대폰 번호를 입력해주세요."
-                  validText={phoneNumberValidText}
-                  valueType={"phoneAuthCode"}
-                  isValidState={phoneNumberIsValidState.isPhoneNumberAuthCode}
-                  // {...register("findPwPhoneNumber", { required: true })}
-                  // errorMsg={errors.findPw5PhoneNumber?.message}
+                  {...register("email")}
+                  placeholder="가입된 이메일을 입력해주세요."
+                  errorMsg={errors.email?.message}
                 />
               </AuthUI.Flex>
-              <CommonButton
-                variant="contained"
-                onClick={phoneSubmit}
-                isactive={
-                  phoneNumberIsValidState.isPhoneNumberAuthCode
-                    ? "false"
-                    : "true"
-                }
-              >
-                인증
-              </CommonButton>
             </AuthUI.Flex>
-          </AuthUI.Flex>
-          <AuthUI.Flex gap="10px">
-            <AuthUI.Label>인증번호</AuthUI.Label>
-            <AuthUI.Flex gap="20px" flexDirection="initial">
+            <AuthUI.Flex gap="10px">
+              <AuthUI.Label>이름</AuthUI.Label>
               <AuthUI.Flex>
                 <TextField
-                  value={form.authCode}
-                  onChange={(e) =>
-                    setForm({ ...form, authCode: e.target.value })
-                  }
-                  placeholder="인증번호를 입력해주세요."
-                  validText={certiNumberValidText}
-                  isValidState={certiNumberValidState.isCertiCode}
-                  // {...register("findPwCertiNumber", { required: true })}
-                  // errorMsg={errors.findPwCertiNumber?.message}
+                  {...register("username")}
+                  placeholder="이름을 입력해주세요."
+                  errorMsg={errors.username?.message}
                 />
               </AuthUI.Flex>
-              <div>
+            </AuthUI.Flex>
+            <AuthUI.Flex gap="10px">
+              <AuthUI.Label>휴대폰 번호</AuthUI.Label>
+              <AuthUI.Flex gap="20px" flexDirection="initial">
+                <AuthUI.Flex>
+                  <TextField
+                    value={form.phoneNumber}
+                    onChange={(e) =>
+                      setForm({ ...form, phoneNumber: e.target.value })
+                    }
+                    placeholder="휴대폰 번호를 입력해주세요."
+                    validText={phoneNumberValidText}
+                    valueType={"phoneAuthCode"}
+                    isValidState={phoneNumberIsValidState.isPhoneNumberAuthCode}
+                  />
+                </AuthUI.Flex>
                 <CommonButton
                   variant="contained"
-                  // type="submit"
-                  name="CertiSubmit"
-                  onClick={authCertiSubmit}
+                  onClick={phoneSubmit}
                   isactive={
-                    certiNumberValidState.isCertiCode ? "false" : "true"
+                    phoneNumberIsValidState.isPhoneNumberAuthCode
+                      ? "false"
+                      : "true"
                   }
-                  // disabled={!isDirty || !isValid}
                 >
-                  확인
+                  인증
                 </CommonButton>
-              </div>
+              </AuthUI.Flex>
+            </AuthUI.Flex>
+            <AuthUI.Flex gap="10px">
+              <AuthUI.Label>인증번호</AuthUI.Label>
+              <AuthUI.Flex gap="20px" flexDirection="initial">
+                <AuthUI.Flex>
+                  <TextField
+                    value={form.authCode}
+                    onChange={(e) =>
+                      setForm({ ...form, authCode: e.target.value })
+                    }
+                    placeholder="인증번호를 입력해주세요."
+                    validText={certiNumberValidText}
+                    isValidState={certiNumberValidState.isCertiCode}
+                  />
+                </AuthUI.Flex>
+                <div>
+                  <CommonButton
+                    variant="contained"
+                    // type="submit"
+                    name="CertiSubmit"
+                    onClick={authCertiSubmit}
+                    isactive={
+                      certiNumberValidState.isCertiCode ? "false" : "true"
+                    }
+                  >
+                    확인
+                  </CommonButton>
+                </div>
+              </AuthUI.Flex>
             </AuthUI.Flex>
           </AuthUI.Flex>
-        </AuthUI.Flex>
-        <CommonButton variant="contained" type="submit" width="100%">
-          비밀번호 찾기
-        </CommonButton>
-      </AuthUI.FormWrap>
-    </AuthUI.Wrapper>
-  </>
+          <CommonButton variant="contained" type="submit" width="100%">
+            비밀번호 찾기
+          </CommonButton>
+        </AuthUI.FormWrap>
+      </AuthUI.Wrapper>
+    </>
   );
 };
 

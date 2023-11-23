@@ -6,7 +6,12 @@ import { FaMinus } from "react-icons/fa6";
 import { useRecoilValue } from "recoil";
 import { cartState } from "@/recoil/atom";
 
-const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
+const CounterQuantity = ({
+  handlePlusTest,
+  handlePlus,
+  handleMinus,
+  items,
+}) => {
   const cartData = useRecoilValue(cartState);
   const cartItemFInd = cartData?.items.find(
     (cartItem) => cartItem.itemId === items?.itemId
@@ -18,7 +23,9 @@ const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
       <StyledQuantityBox gap="40px">
         <StyledButton backgroundcolor="transparent" width="0px">
           <HiPlus
-            onClick={() => handlePlus(items)}
+            onClick={() => {
+              handlePlusTest(items);
+            }}
             style={{
               width: "30px",
               height: "30px",
@@ -28,7 +35,7 @@ const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
             }}
           />
         </StyledButton>
-        {cartQuantity + 1}
+        {items.quantity}
         <StyledButton backgroundcolor="transparent" width="0px">
           <FaMinus
             onClick={() => handleMinus(items)}
