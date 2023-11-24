@@ -33,7 +33,7 @@ const MainMenu = () => {
             router.push({
               pathname: "main/menu-detail/[id]",
               query: { id: id, imgName },
-            });
+            },);
           }}
         >
           <Image src={url} alt={imgName} width="42" height="41" priority />

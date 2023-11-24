@@ -14,6 +14,7 @@ import {
 } from "@/types/api/getCartType";
 import { useRouter } from "next/router";
 import { CSSProperties, useEffect, useState } from "react";
+import { getCartDataSelector } from "@/recoil/selectors";
 
 type productsProps = {
   products: TGetCartResponse;
@@ -28,35 +29,49 @@ const CartItem = () => {
   const { productDeleteApi, cartOrderApi } = useCart();
   const router = useRouter();
   const getCart = useRecoilValue(getCartState);
-  // console.log("카트조회 recoil 확인", getCart);
-  const [cartData, setCartData] = useRecoilState(cartState);
-  // console.log("리코일 cartData상태확인 ", cartData);
+  // console.log('getCart',getCart)
+  
+  const [getCartData, setGetCartData ] = useRecoilState(getCartDataSelector);
+  const getTest = useRecoilValue(getCartDataSelector);
+
+
+  console.log('recoil 카트 데이터',getTest)
+
+  const [cartData, setCartData] = useRecoilState(cartState); //이건주문하기할때 이렇게 보내야할듯..?
+
+
+  const {getCartDataFindIndex} = useRecoilValue(getCartDataSelector);
+
   const [checkCartData, setCheckCartData] = useRecoilState(getCartState);
 
   const handlePlusTest = (product) => {
-    setCheckCartData((prevCheckCartData) => {
-      const cartData = prevCheckCartData?.data.map((item) => item);
-      const test = cartData.forEach((element) => {
-        console.log(element.itemId);
-      });
-      console.log("test", test);
-      const existingItemIndex = cartData.findIndex(
-        (data) => data.itemId === product.itemId
-      );
+    setGetCartData((prevCartData) =>{
+      console.log('prevCartData',prevCartData)
+      // const existingItemIndex = prevCartData.getCartData.findIndex((item) => {return item.itemId === product.itemId});
+      // console.log('인덱스확인하기',existingItemIndex)
+      const existingItemIndex = prevCartData.getCartData.filter((item) =>  item.itemId === product.itemId);
+      console.log('existing filter',existingItemIndex)
       let newItems;
-      if (existingItemIndex >= 0) {
-        newItems = [...cartData];
-        console.log("newItems", newItems.quantity);
-        newItems[existingItemIndex] = {
-          ...newItems[existingItemIndex],
-          quantity: newItems[existingItemIndex].quantity + 1,
-        };
-      } else {
-        // console.log("test");
+      if (existingItemIndex) {
+        newItems = prevCartData.getCartData.map((item) => {
+            return {
+              ...item,
+              quantity: item.quantity + 1
+            };
+        });
+  
+        console.log('newItems', newItems);
+      }else{
+        newItems = [...prevCartData.getCartData, {...product, quantity: 1}]
       }
-    });
+      return{
+        getCartData: newItems
+      }
+    })
+    
   };
-
+  console.log('-------?',getCartData)
+  
   //삭제하기
   const handleDelete = (deletedId) => {
     productDeleteApi.mutate(
@@ -111,16 +126,21 @@ const CartItem = () => {
 
   const handlePlus = (product: GetCartDataDetailType) => {
     setCartData((prevCartItems) => {
+      console.log('prevCartItems',prevCartItems)
       const existingItemIndex = prevCartItems?.items?.findIndex(
         (item) => item.itemId === product?.itemId
       );
+      console.log('existingItemIndex',existingItemIndex)
       let newItems;
       if (existingItemIndex >= 0) {
         newItems = [...prevCartItems.items];
+        console.log('handlePlus newItems 전==>',newItems)
+
         newItems[existingItemIndex] = {
           ...newItems[existingItemIndex],
           quantity: newItems[existingItemIndex].quantity + 1,
         };
+        console.log('handlePlus newItems 후==>',newItems)
       } else {
         newItems = [...prevCartItems?.items, { ...product, quantity: 1 }];
       }
@@ -205,12 +225,12 @@ const CartItem = () => {
                     개당 {items.price}원
                   </CartUI.Text>
                 </CartUI.Flex>
-                <CommonButton>
+                <CommonButton backgroundcolor="transparent">
                   <IoCloseSharp
                     onClick={() => {
                       handleDelete(items.itemId);
                     }}
-                    style={{ width: "20px", height: "20px" }}
+                    style={{ width: "20px", height: "20px",color:"#000" }}
                   />
                 </CommonButton>
               </CartUI.Flex>
@@ -219,6 +239,7 @@ const CartItem = () => {
                 <CartUI.Text>{items.price * items.quantity}원</CartUI.Text>
                 <CounterQuantity
                   handlePlusTest={handlePlusTest}
+                  // handlePlus={handlePlus}
                   handleMinus={handleMinus}
                   items={items}
                 />
