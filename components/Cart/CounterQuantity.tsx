@@ -21,6 +21,7 @@ const CounterQuantity = ({
   return (
     <>
       <StyledQuantityBox gap="40px">
+        <p>itemId : {items.itemId}</p>
         <StyledButton backgroundcolor="transparent" width="0px">
           <HiPlus
             onClick={() => {

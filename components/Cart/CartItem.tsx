@@ -30,48 +30,36 @@ const CartItem = () => {
   const router = useRouter();
   const getCart = useRecoilValue(getCartState);
   // console.log('getCart',getCart)
-  
-  const [getCartData, setGetCartData ] = useRecoilState(getCartDataSelector);
-  const getTest = useRecoilValue(getCartDataSelector);
 
+  const [checkCartData, setCheckCartData] = useRecoilState(getCartState); //이건 조회데이터 담아놓은거
+  const [getCartData, setGetCartData] = useRecoilState(getCartDataSelector); //조회데이터 가공해서 가져온거
+  console.log("getCartData", getCartData);
 
-  console.log('recoil 카트 데이터',getTest)
+  // console.log("recoil 카트 데이터", getTest);
 
   const [cartData, setCartData] = useRecoilState(cartState); //이건주문하기할때 이렇게 보내야할듯..?
 
-
-  const {getCartDataFindIndex} = useRecoilValue(getCartDataSelector);
-
-  const [checkCartData, setCheckCartData] = useRecoilState(getCartState);
-
   const handlePlusTest = (product) => {
-    setGetCartData((prevCartData) =>{
-      console.log('prevCartData',prevCartData)
-      // const existingItemIndex = prevCartData.getCartData.findIndex((item) => {return item.itemId === product.itemId});
-      // console.log('인덱스확인하기',existingItemIndex)
-      const existingItemIndex = prevCartData.getCartData.filter((item) =>  item.itemId === product.itemId);
-      console.log('existing filter',existingItemIndex)
+    setGetCartData((prevCartData) => {
+      console.log("prevCartData", prevCartData);
+      const existingItem = prevCartData.getCartData.find(
+        (item) => item.itemId === product.itemId
+      );
+      console.log("existingItem", existingItem);
       let newItems;
-      if (existingItemIndex) {
-        newItems = prevCartData.getCartData.map((item) => {
-            return {
-              ...item,
-              quantity: item.quantity + 1
-            };
-        });
-  
-        console.log('newItems', newItems);
-      }else{
-        newItems = [...prevCartData.getCartData, {...product, quantity: 1}]
+      if (existingItem) {
+        newItems = { ...existingItem, quantity: existingItem.quantity + 1 };
+        console.log("newItems", newItems);
+      } else {
+        newItems = [...prevCartData.getCartData, { ...product, quantity: 1 }];
       }
-      return{
-        getCartData: newItems
-      }
-    })
-    
+      return {
+        ...prevCartData,
+        getCartData: newItems,
+      };
+    });
   };
-  console.log('-------?',getCartData)
-  
+
   //삭제하기
   const handleDelete = (deletedId) => {
     productDeleteApi.mutate(
@@ -126,21 +114,21 @@ const CartItem = () => {
 
   const handlePlus = (product: GetCartDataDetailType) => {
     setCartData((prevCartItems) => {
-      console.log('prevCartItems',prevCartItems)
+      console.log("prevCartItems", prevCartItems);
       const existingItemIndex = prevCartItems?.items?.findIndex(
         (item) => item.itemId === product?.itemId
       );
-      console.log('existingItemIndex',existingItemIndex)
+      console.log("existingItemIndex", existingItemIndex);
       let newItems;
       if (existingItemIndex >= 0) {
         newItems = [...prevCartItems.items];
-        console.log('handlePlus newItems 전==>',newItems)
+        console.log("handlePlus newItems 전==>", newItems);
 
         newItems[existingItemIndex] = {
           ...newItems[existingItemIndex],
           quantity: newItems[existingItemIndex].quantity + 1,
         };
-        console.log('handlePlus newItems 후==>',newItems)
+        console.log("handlePlus newItems 후==>", newItems);
       } else {
         newItems = [...prevCartItems?.items, { ...product, quantity: 1 }];
       }
@@ -230,7 +218,7 @@ const CartItem = () => {
                     onClick={() => {
                       handleDelete(items.itemId);
                     }}
-                    style={{ width: "20px", height: "20px",color:"#000" }}
+                    style={{ width: "20px", height: "20px", color: "#000" }}
                   />
                 </CommonButton>
               </CartUI.Flex>
@@ -248,9 +236,9 @@ const CartItem = () => {
           </div>
         ))}
       </CartUI.Flex>
-      <CommonButton onClick={handleOrder} variant="contained" width="100%">
+      {/* <CommonButton onClick={handleOrder} variant="contained" width="100%">
         {cartData.totalPrice}원 주문하기
-      </CommonButton>
+      </CommonButton> */}
     </CartUI.Flex>
   );
 };
