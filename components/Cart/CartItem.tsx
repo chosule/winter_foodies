@@ -13,7 +13,7 @@ import {
   GetCartDataDetailType,
 } from "@/types/api/getCartType";
 import { useRouter } from "next/router";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useEffect, useMemo, useState } from "react";
 import { getCartDataSelector } from "@/recoil/selectors";
 
 type productsProps = {
@@ -31,35 +31,37 @@ const CartItem = () => {
   const getCart = useRecoilValue(getCartState);
   // console.log('getCart',getCart)
 
-  const [checkCartData, setCheckCartData] = useRecoilState(getCartState); //이건 조회데이터 담아놓은거
-  const [getCartData, setGetCartData] = useRecoilState(getCartDataSelector); //조회데이터 가공해서 가져온거
-  console.log("getCartData", getCartData);
+  const [cartState, setCartState] = useRecoilState(getCartState); //이건 조회데이터 담아놓은거
+  console.log("cartState", cartState);
 
   // console.log("recoil 카트 데이터", getTest);
 
-  const [cartData, setCartData] = useRecoilState(cartState); //이건주문하기할때 이렇게 보내야할듯..?
+  // const [cartData, setCartData] = useRecoilState(cartState); //이건주문하기할때 이렇게 보내야할듯..?
 
-  const handlePlusTest = (product) => {
-    setGetCartData((prevCartData) => {
-      console.log("prevCartData", prevCartData);
-      const existingItem = prevCartData.getCartData.find(
-        (item) => item.itemId === product.itemId
-      );
-      console.log("existingItem", existingItem);
-      let newItems;
-      if (existingItem) {
-        newItems = { ...existingItem, quantity: existingItem.quantity + 1 };
-        console.log("newItems", newItems);
-      } else {
-        newItems = [...prevCartData.getCartData, { ...product, quantity: 1 }];
+  //궁금점
+  //1. 왜 handleIncrementQuantity 안에 const updatedCartData를 또 만들엇는지
+
+  const handleIncrementQuantity = (itemId) => {
+    const updatedCartData = cartState.data.map((item) => {
+      if (item.itemId === itemId) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
       }
-      return {
-        ...prevCartData,
-        getCartData: newItems,
-      };
+      return item;
     });
+    setCartState({ ...cartState, data: updatedCartData });
   };
+  const totalPrice = useMemo(() => {
+    return cartState?.data?.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
+  }, [cartState.data]);
 
+  const handleOrider = () => {
+    // 주문하기 api 호출해서, cartState와 totalPrice 담아 보내기
+  };
   //삭제하기
   const handleDelete = (deletedId) => {
     productDeleteApi.mutate(
@@ -112,62 +114,6 @@ const CartItem = () => {
     });
   };
 
-  const handlePlus = (product: GetCartDataDetailType) => {
-    setCartData((prevCartItems) => {
-      console.log("prevCartItems", prevCartItems);
-      const existingItemIndex = prevCartItems?.items?.findIndex(
-        (item) => item.itemId === product?.itemId
-      );
-      console.log("existingItemIndex", existingItemIndex);
-      let newItems;
-      if (existingItemIndex >= 0) {
-        newItems = [...prevCartItems.items];
-        console.log("handlePlus newItems 전==>", newItems);
-
-        newItems[existingItemIndex] = {
-          ...newItems[existingItemIndex],
-          quantity: newItems[existingItemIndex].quantity + 1,
-        };
-        console.log("handlePlus newItems 후==>", newItems);
-      } else {
-        newItems = [...prevCartItems?.items, { ...product, quantity: 1 }];
-      }
-      const newTotalPrice = newItems.reduce(
-        (total, item) => total + item.quantity * item.price,
-        0
-      );
-      return {
-        items: newItems,
-        totalPrice: newTotalPrice,
-      };
-    });
-  };
-
-  const handleMinus = (product: GetCartDataDetailType) => {
-    setCartData((prevCartItems) => {
-      const existingItemIndex = prevCartItems?.items?.findIndex(
-        (item) => item.itemId === product?.itemId
-      );
-      let newItems;
-      if (existingItemIndex >= 0) {
-        newItems = [...prevCartItems.items];
-        newItems[existingItemIndex] = {
-          ...newItems[existingItemIndex],
-          quantity: newItems[existingItemIndex].quantity - 1,
-        };
-      } else {
-        newItems = [...prevCartItems?.items, { ...product, quantity: 1 }];
-      }
-      const newTotalPrice = newItems.reduce(
-        (total, item) => total + item.quantity * item.price,
-        0
-      );
-      return {
-        items: newItems,
-        totalPrice: newTotalPrice,
-      };
-    });
-  };
   return (
     <CartUI.Flex gap="15px" flexDirection="column">
       <StyledBox
@@ -178,26 +124,26 @@ const CartItem = () => {
         padding="10px"
       >
         <StyledImgBox
-          src={getCart.imageUrl}
+          src={cartState.imageUrl}
           alt="이미지"
           width={50}
           height={50}
         />
         <CartUI.Text fontSize="18px" fontWeight="600">
-          {getCart.storeName} 가게
+          {cartState.storeName} 가게
         </CartUI.Text>
         <CartUI.Flex flexDirection="column" alignItems="center">
           <CartUI.Text fontSize="10px" color="#fff" fontWeight="300">
             예상조리시간
           </CartUI.Text>
           <CartUI.Text fontSize="16px" color="#fff">
-            {getCart.cookingTime} - {getCart.cookingTime + 10}분
+            {cartState.cookingTime} - {cartState.cookingTime + 10}분
           </CartUI.Text>
         </CartUI.Flex>
       </StyledBox>
       {/*  */}
       <CartUI.Flex flexDirection="column" gap="15px">
-        {checkCartData?.data?.map((items) => (
+        {cartState?.data?.map((items) => (
           <div key={items.itemId}>
             <StyledBox
               width="100%"
@@ -226,9 +172,9 @@ const CartItem = () => {
                 {items.quantity}
                 <CartUI.Text>{items.price * items.quantity}원</CartUI.Text>
                 <CounterQuantity
-                  handlePlusTest={handlePlusTest}
-                  // handlePlus={handlePlus}
-                  handleMinus={handleMinus}
+                  handleIncrementQuantity={(itemId) =>
+                    handleIncrementQuantity(itemId)
+                  }
                   items={items}
                 />
               </CartUI.Flex>

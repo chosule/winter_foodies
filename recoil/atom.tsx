@@ -24,8 +24,7 @@ export const cartState = atom<CartState>({
   },
 });
 
-
-//카트 조회 담겨있는 state 
+//카트 조회 담겨있는 state
 export const getCartState = atom({
   key: `getCartState/${v1()}`,
   default: [],
@@ -35,4 +34,3 @@ export const heartState = atom({
   key: `heartState/${v1()}`,
   default: "true",
 });
-

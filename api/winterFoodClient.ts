@@ -83,7 +83,7 @@ export default class WinterFoodClient {
   // 1-phoneCerti 회원가입 등 가입할때 휴대폰 인증
   async phoneCertiSign(data: TPhoneCertiRequest) {
     return this.httpClient
-      .post(`/api/auth/sendAuthCode`, data)
+      .post(`/api/auth/sendCode`, data)
       .then((res) => res.data as TPhoneCertiResponse);
   }
 
@@ -97,7 +97,7 @@ export default class WinterFoodClient {
   //인증코드 전송
   async certifiCode(data) {
     return this.httpClient
-      .post(`/api/auth/verify`, data)
+      .post(`/api/auth/verifyCode`, data)
       .then((res) => res.data);
   }
 
