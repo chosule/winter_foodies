@@ -15,7 +15,7 @@ import { TSignUpRequest, TSignUpResponse } from "@/types/api/signUpType";
  * useMutation<TData=비동기함수 실행 결과 타입 , TError , TVariables= mutate 함수에 전달할 인자를 지정하는 타입, TContext=mutation function을 실행하기 전에 수행하는 onMutate callback함수의 return값을 지정하는 타입>
  */
 
-const useLogin = () => {
+const useAuthApi = () => {
   const queryClient = useQueryClient();
   const { client } = useProjectApi();
   // 로그인
@@ -29,11 +29,16 @@ const useLogin = () => {
   });
 
   //회원가입
-  const signUpApi = useMutation<TSignUpResponse,AxiosError,TSignUpRequest,TSignUpRequest>((data) => client.signUp(data), {
+  const signUpApi = useMutation<
+    TSignUpResponse,
+    AxiosError,
+    TSignUpRequest,
+    TSignUpRequest
+  >((data) => client.signUp(data), {
     onSuccess: () => queryClient.invalidateQueries(["signup"]),
   });
 
-  //1-phoneCerti 
+  //1-phoneCerti
   const phoneCertiSignApi = useMutation<
     TPhoneCertiResponse,
     AxiosError,
@@ -42,7 +47,6 @@ const useLogin = () => {
   >((data) => client.phoneCertiSign(data), {
     onSuccess: () => queryClient.invalidateQueries(["phoneAuth"]),
   });
-
 
   //2-phoneCerti
   const phoneCertiFindApi = useMutation<
@@ -53,8 +57,6 @@ const useLogin = () => {
   >((data) => client.phoneCertiFind(data), {
     onSuccess: () => queryClient.invalidateQueries(["phoneAuth"]),
   });
-
-  
 
   //인증코드
   const certiAuthApi = useMutation((data) => client.certifiCode(data), {
@@ -98,4 +100,4 @@ const useLogin = () => {
   };
 };
 
-export default useLogin;
+export default useAuthApi;

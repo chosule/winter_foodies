@@ -13,15 +13,15 @@ import { TLoginSchema, loginSchema } from "@/components/login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import useContextModal from "@/context/hooks/useContextModal";
-import useLogin from "@/hooks/auth/useAuth";
 import { useRecoilState } from "recoil";
 import { userState } from "@/recoil/atom";
 import { useEffect, useState } from "react";
+import useAuthApi from "@/hooks/auth/useAuth";
 
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
-  const { loginApi } = useLogin();
+  const { loginApi } = useAuthApi();
   const [token, setToken] = useState("");
   const [tokenValue, setTokenValue] = useRecoilState(userState);
   const {
