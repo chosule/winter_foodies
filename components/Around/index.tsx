@@ -7,6 +7,8 @@ import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useQuery } from "@tanstack/react-query";
 import CommonButton from "../ui/Button/CommonButton";
 import CommonInfoBox from "../ui/CommonBox/CommonInfoBox";
+import useProduct from "@/hooks/propduct/useProduct";
+import { useContextGeolocation } from "@/context/GeoLocationProvider";
 
 declare global {
   interface Window {
@@ -26,72 +28,66 @@ var imageSrc =
  */
 
 const MapContainer = () => {
-  const { handleSuccess } = useGeolocation();
+  const location = useContextGeolocation();
+
   const { client } = useProjectApi();
 
   const { data: nearSnackData, isLoading } = useQuery(["nearSnack"], () =>
     client.nearDistanceSnack(location?.latitude, location?.longitude)
   );
+  console.log("data", nearSnackData);
 
   useEffect(() => {
-    const container = document.getElementById("map");
-    if (!isLoading && nearSnackData) {
-      // 데이터 수정 및 상태 업데이트
-      const updatedMarkers = nearSnackData.map((datas) => ({
-        ...datas,
-        latitude: parseFloat(datas.latitude), // 문자열을 숫자로 변환
-        longitude: parseFloat(datas.longitude), // 문자열을 숫자로 변환
-      }));
+    const mapScript = document.createElement("script");
 
-      // Kakao 지도 API 스크립트 동적으로 로드
-      const script = document.createElement("script");
+    mapScript.async = true;
 
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}`;
-      script.async = true;
-      document.head.appendChild(script);
+    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}`;
 
-      script.onload = () => {
-        window.kakao.maps.load(() => {
-          const mainPosition = new window.kakao.maps.LatLng(
-            updatedMarkers[0].latitude, // 예시로 첫 번째 마커의 위치를 사용
-            updatedMarkers[0].longitude
-          );
+    document.head.appendChild(mapScript);
 
-          const options = {
-            center: mainPosition,
-            level: 5,
+    const onLoadKakaoMap = () => {
+      window.kakao.maps.load(() => {
+        const container = document.getElementById("map");
+
+        const options = {
+          center: new window.kakao.maps.LatLng(
+            location?.latitude,
+            location?.longitude
+          ),
+          level: 3,
+        };
+        const map = new window.kakao.maps.Map(container, options);
+
+        mapScript.addEventListener("load", onLoadKakaoMap);
+
+        if (nearSnackData.length > 0) {
+          const newNearSnackData = () => {
+            nearSnackData.forEach((data) => {
+              const lat = data.lat;
+              const lon = data.lon;
+              data.latlng = new window.kakao.maps.LatLng(lat, lon);
+''            return data;
           };
-          const map = new window.kakao.maps.Map(container, options);
-
-          var imageSize = new window.kakao.maps.Size(24, 35);
-
-          var markerImage = new window.kakao.maps.MarkerImage(
-            imageSrc,
-            imageSize
-          );
-
-          updatedMarkers.forEach((marker) => {
-            const position = new window.kakao.maps.LatLng(
-              marker.latitude,
-              marker.longitude
+          console.log("??", newNearSnackData);
+        }
+        if (nearSnackData) {
+          for (var i = 0; i < nearSnackData.length; i++) {
+            console.log(nearSnackData);
+            const imageSize = new window.kakao.maps.Size(24, 34);
+            const markerImage = new window.kakao.maps.MarkerImage(
+              imageSrc,
+              imageSize
             );
-
-            const mainMarker = new window.kakao.maps.Marker({
-              position: position,
-              image: markerImage,
-              title: marker.name,
+            const maker = new window.kakao.maps.Marker({
+              map: map,
+              position: nearSnackData[i],
             });
-            mainMarker.setMap(map);
-          });
-        });
-      };
-
-      return () => {
-        // 컴포넌트 언마운트 시 스크립트 제거
-        document.head.removeChild(script);
-      };
-    }
-  }, []);
+          }
+        }
+      });
+    };
+  }, [nearSnackData]);
 
   return (
     <>
