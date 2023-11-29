@@ -53,6 +53,7 @@ const CartItem = () => {
     });
     setCartState({ ...cartState, data: updatedCartData });
   };
+  
   const totalPrice = useMemo(() => {
     return cartState?.data?.reduce((total, item) => {
       return total + item.price * item.quantity;

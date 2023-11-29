@@ -4,13 +4,13 @@ import HeaderLayout from "@/components/layouts/HeaderLayout";
 import useCart from "@/hooks/cart/useCart";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import styled from "@emotion/styled";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { heartState } from "@/recoil/atom";
 import { FaRegHeart } from "react-icons/fa6";
 
 const MenuDetailInfoPage = () => {
+
   const router = useRouter();
   const { name, picture ,id,} = router.query;
   const {favoriteApi} = useCart();

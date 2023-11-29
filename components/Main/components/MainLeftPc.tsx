@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import MenuSearch from "./MenuSearch";
-import RearTimeSearchWords from "./RearTimeSearchWords";
 import { CSSProperties } from "react";
 import RearTimeWordsPc from "./RearTimeWordsPc";
+
 const MainLeftPc = () => {
   return (
     <StyledWrap>

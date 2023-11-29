@@ -10,6 +10,7 @@ interface CartState {
   totalPrice: number;
 }
 
+
 export const userState = atom<string | null>({
   key: `authState/${v1()}`,
   default: "",
@@ -30,7 +31,7 @@ export const getCartState = atom({
   default: [],
 });
 
-export const heartState = atom({
+export const heartState = atom<boolean>({
   key: `heartState/${v1()}`,
-  default: "true",
+  default: true,
 });

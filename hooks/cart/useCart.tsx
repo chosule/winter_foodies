@@ -44,13 +44,9 @@ const useCart = () => {
   });
 
   //주문내역
-  const orderDetailsApi = useQuery(
-    ["getOrderDetail"],
-    () => client.orderDetail(),
-    {
-      staleTime: Infinity,
-    }
-  );
+  const orderDetailsApi = useQuery(["getOrderDetail"], () => client.orderDetail(),{ 
+    staleTime: Infinity
+  });
 
   const favoriteApi = useMutation((data) => client.favoriteStore(data), {
     onSuccess: () => queryClient.invalidateQueries(["heart"]),
