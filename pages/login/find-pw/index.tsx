@@ -1,5 +1,4 @@
 import DefaultLayout from "@/components/layouts/Default";
-import useLogin from "@/hooks/auth/useAuth";
 import useValid from "@/hooks/auth/useValid";
 import useAuthModal from "@/hooks/modal/useAuthModal";
 import { useRouter } from "next/router";
@@ -16,10 +15,11 @@ import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import TextField from "@/components/ui/Input/CommonInput";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
+import useAuthApi from "@/hooks/auth/useAuth";
 
 const FindPwPage = () => {
   const router = useRouter();
-  const { phoneCertiFindApi, certiAuthApi, findPwApi } = useLogin();
+  const { phoneCertiFindApi, certiAuthApi, findPwApi } = useAuthApi();
   const {
     openAlert,
     openPhoneModal,

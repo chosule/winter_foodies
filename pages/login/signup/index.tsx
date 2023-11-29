@@ -3,7 +3,6 @@ import HeaderLayout from "@/components/layouts/HeaderLayout";
 import { AuthUI } from "@/components/login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import TextField from "@/components/ui/Input/CommonInput";
-import useLogin from "@/hooks/auth/useAuth";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TSignUpSchema, signUpSchema } from "@/components/login/schema";
@@ -12,9 +11,10 @@ import { useState } from "react";
 import useValid from "@/hooks/auth/useValid";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
+import useAuthApi from "@/hooks/auth/useAuth";
 
 const SignUpPage = () => {
-  const { signUpApi, phoneCertiSignApi, certiAuthApi } = useLogin();
+  const { signUpApi, phoneCertiSignApi, certiAuthApi } = useAuthApi();
   const {
     register,
     handleSubmit,

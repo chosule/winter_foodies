@@ -2,7 +2,6 @@ import DefaultLayout from "@/components/layouts/Default";
 import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useLogin from "@/hooks/auth/useAuth";
 import { AuthUI } from "@/components/login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
@@ -11,13 +10,14 @@ import TextField from "@/components/ui/Input/CommonInput";
 import useValid from "@/hooks/auth/useValid";
 import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
 import useAuthModal from "@/hooks/modal/useAuthModal";
+import useAuthApi from "@/hooks/auth/useAuth";
 
 const FindIdPage = () => {
   const modal = useContextModal();
   const router = useRouter();
   const [dataEmail, setDataEmail] = useState();
   const { openPhoneModal } = useAuthModal();
-  const { phoneCertiFindApi, certiAuthApi } = useLogin();
+  const { phoneCertiFindApi, certiAuthApi } = useAuthApi();
 
   const [form, setForm] = useState({
     phoneNumber: "",
