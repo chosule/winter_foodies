@@ -13,28 +13,28 @@ const MenuDetailInfoPage = () => {
 
   const router = useRouter();
   const { name, picture ,id,} = router.query;
-  const {favoriteApi} = useCart();
-  // const [isFavorite, setIsFavorite] = useState(true);
-  const [isFavorite, setIsFavorite] = useRecoilState(heartState);
+  // const {favoriteApi} = useCart();
+  // // const [isFavorite, setIsFavorite] = useState(true);
+  // const [isFavorite, setIsFavorite] = useRecoilState(heartState);
 
-  const handleClick = () =>{
-    setIsFavorite((prev) => !prev);
-    favoriteApi.mutate({
-      favorite: isFavorite,
-      storeId: id
-    },{
-      onSuccess:(res) =>{
-        console.log(res);
-      }
-    })
-  }
+  // const handleClick = () =>{
+  //   setIsFavorite((prev) => !prev);
+  //   favoriteApi.mutate({
+  //     favorite: isFavorite,
+  //     storeId: id
+  //   },{
+  //     onSuccess:(res) =>{
+  //       console.log(res);
+  //     }
+  //   })
+  // }
 
 
   return (
     <>
       <StyledHeaderWrap>
         <HeaderLayout headerTitle={name}/>
-        <StyledIcon onClick={handleClick} isFavorite={isFavorite}/>
+        {/* <StyledIcon onClick={handleClick} isFavorite={isFavorite}/> */}
       </StyledHeaderWrap>
       <Image src={picture} alt="이미지" width={70} height={70} />
       <MenuDetailInfoTab />

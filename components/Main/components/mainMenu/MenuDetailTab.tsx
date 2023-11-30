@@ -5,7 +5,7 @@ import SalesRateDetail from "./SalesRateDetail";
 import NearbyDetail from "./NearByDetail";
 import ReviesDetail from "./ReviesDetail";
 import GradeDetail from "./GradeDetail";
-
+import NearbyDetailPage from "@/pages/main/menu-detail/[id]/nearbyDetailPage"
 const MenuDetailTab = () => {
   const [current, setCurrent] = useState(0);
 
@@ -20,7 +20,7 @@ const MenuDetailTab = () => {
         <StyledTab label="리뷰 순" />
         <StyledTab label="별점 순" />
       </StyledTabs>
-      {current === 0 && <NearbyDetail />}
+      {current === 0 && <NearbyDetailPage />}
       {current === 1 && <SalesRateDetail />}
       {current === 2 && <ReviesDetail />}
       {current === 3 && <GradeDetail />}

@@ -48,9 +48,9 @@ const useCart = () => {
     staleTime: Infinity
   });
 
-  const favoriteApi = useMutation((data) => client.favoriteStore(data), {
-    onSuccess: () => queryClient.invalidateQueries(["heart"]),
-  });
+  // const favoriteApi = useMutation((data) => client.favoriteStore(data), {
+  //   onSuccess: () => queryClient.invalidateQueries(["heart"]),
+  // });
 
   return {
     menuApi,
@@ -59,7 +59,7 @@ const useCart = () => {
     productDeleteApi,
     cartOrderApi,
     orderDetailsApi,
-    favoriteApi,
+    // favoriteApi,
   };
 };
 

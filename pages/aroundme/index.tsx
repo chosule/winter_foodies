@@ -1,4 +1,5 @@
 import MapContainer from "@/components/Around";
+import Map from "@/components/Around/Map";
 import DefaultLayout, { StyledContent } from "@/components/layouts/Default";
 import styled from "@emotion/styled";
 
@@ -6,6 +7,7 @@ const AroundMePage = () => {
   return (
     <>
       <MapContainer />
+      {/* <Map/> */}
     </>
   );
 };

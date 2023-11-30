@@ -215,11 +215,11 @@ export default class WinterFoodClient {
   }
 
   //찜하기
-  async favorite(product) {
-    return this.httpClient
-      .post(`/api/store/favorite`, product)
-      .then((res) => res.data);
-  }
+  // async favorite(product) {
+  //   return this.httpClient
+  //     .post(`/api/store/favorite`, product)
+  //     .then((res) => res.data);
+  // }
 
   //찜한매장
   async favoriteStore() {
