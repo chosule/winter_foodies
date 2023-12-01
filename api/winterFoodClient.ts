@@ -14,16 +14,17 @@ import {
   TPhoneCertiRequest,
   TPhoneCertiResponse,
 } from "@/types/api/phoneCertificationType";
-import {
-  TMenuDetailRequest,
-  TMenuDetailResponse,
-} from "@/types/api/nearbyType";
+
 import {
   TNearSnackRequest,
   TNearSnackResponse,
 } from "@/types/api/nearSnackType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
-import { TMenuResponse, TMenuRequest } from "@/types/api/menuType";
+import {
+  TMenuResponse,
+  TMenuRequest,
+  MenuDetailData,
+} from "@/types/api/menuType";
 import { TGetCartResponse } from "@/types/api/getCartType";
 import {
   TAddNewProductRequest,
@@ -137,33 +138,33 @@ export default class WinterFoodClient {
   }
 
   // 메인메뉴클릭시 이동페이지 -> 가까운순
-  async mainPageNearby(id: TMenuDetailRequest) {
+  async mainPageNearby(id: number) {
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/proximity?latitude=37&longitude=127`)
 
-      .then((res) => res.data.data as TMenuDetailResponse);
+      .then((res) => res.data.data as MenuDetailData);
   }
   // 메인메뉴클릭시 이동페이지 -> 판매량순
-  async mainPageSalesRate(id: TMenuDetailRequest) {
+  async mainPageSalesRate(id: number) {
     return this.httpClient
       .get(
         `/main/menu-detail/${id}/nearby/sales-volume?latitude=37&longitude=127`
       )
-      .then((res) => res.data.data as TMenuDetailResponse);
+      .then((res) => res.data.data as MenuDetailData);
   }
   // 메인메뉴클릭시 이동페이지 -> 리뷰순
-  async mainPageReview(id: TMenuDetailRequest) {
+  async mainPageReview(id: number) {
     return this.httpClient
       .get(
         `/main/menu-detail/${id}/nearby/review-count?latitude=37&longitude=127`
       )
-      .then((res) => res.data.data as TMenuDetailResponse);
+      .then((res) => res.data.data as MenuDetailData);
   }
   // 메인메뉴클릭시 이동페이지 -> 평점순
-  async mainPageGrade(id: TMenuDetailRequest) {
+  async mainPageGrade(id: number) {
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/rating?latitude=37&longitude=127`)
-      .then((res) => res.data.data as TMenuDetailResponse);
+      .then((res) => res.data.data as MenuDetailData);
   }
 
   //메뉴판

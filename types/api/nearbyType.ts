@@ -1,7 +1,9 @@
-export type TMenuDetailRequest = {
-  id: number;
-};
-export type TMenuDetailResponse = {
+export interface MenuDetailData {
+  status?: string;
+  data: MenuDetailResponse[];
+}
+export interface MenuDetailResponse {
+  categoryName?: string;
   picture?: string;
   name?: string;
   rating?: number;
@@ -10,4 +12,5 @@ export type TMenuDetailResponse = {
   ranking?: number;
   reviewCount?: number;
   salesVolume?: number;
-};
+  id?: number;
+}

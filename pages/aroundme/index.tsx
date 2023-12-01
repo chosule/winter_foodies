@@ -7,7 +7,6 @@ const AroundMePage = () => {
   return (
     <>
       <MapContainer />
-      {/* <Map/> */}
     </>
   );
 };

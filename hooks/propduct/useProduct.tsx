@@ -32,10 +32,10 @@ export default function useProduct() {
 
   //가게 정보
   const storeInfoApi = (id) => {
-    return useQuery(['storeIndo'],() => client.storeInfo(id),{
-      staleTime:Infinity
-    })
-  }
+    return useQuery(["storeIndo"], () => client.storeInfo(id), {
+      staleTime: Infinity,
+    });
+  };
 
   // 찜하기
   // const favoriteApi = useMutation((product) => client.favorite(product),{
@@ -47,13 +47,13 @@ export default function useProduct() {
   //   staleTime: Infinity,
   // })
 
-  return { 
-    nearbyApi, 
-    salesRateApi, 
-    reviewApi, 
+  return {
+    nearbyApi,
+    salesRateApi,
+    reviewApi,
     gradeApi,
     storeInfoApi,
     // favoriteApi,
-    // favoriteStoreApi 
+    // favoriteStoreApi
   };
 }
