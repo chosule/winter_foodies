@@ -78,6 +78,7 @@ const SignUpPage = () => {
 
   const authCertiSubmit = () => {
     if (certiNumberValidState.isCertiCode === true) {
+      console.log("form", form);
       certiCodeMutate(form);
       setCompleteSubmit({
         ...completeSubmit,
