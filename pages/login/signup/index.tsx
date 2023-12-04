@@ -11,7 +11,7 @@ import { useState } from "react";
 import useValid from "@/hooks/auth/useValid";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
-import useAuthApi from "@/hooks/auth/useAuth";
+import useAuthApi from "@/hooks/auth/useLogin";
 
 const SignUpPage = () => {
   const { signUpApi, phoneCertiSignApi, certiAuthApi } = useAuthApi();

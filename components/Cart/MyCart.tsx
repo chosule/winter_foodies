@@ -4,16 +4,20 @@ import CartItem from "./CartItem";
 import { useRecoilState } from "recoil";
 import { cartState, getCartState } from "@/recoil/atom";
 import { useEffect } from "react";
+import Image from "next/image";
+import logomainIcon from "@/public/img/logomainIcon.png"
+import styled from "@emotion/styled";
 
 const MyCart = () => {
   const {
-    getCartApi: { isLoading, isSuccess, data: cartData },
+    getCartApi: { isLoading, data: cartData },
   } = useCart();
 
-  const [, setCartState] = useRecoilState(getCartState);
+  const [cartState, setCartState] = useRecoilState(getCartState);
 
   useEffect(() => {
     if (cartData) {
+      //recoil 카트조회 담기
       setCartState(cartData);
     }
   }, [cartData]);
@@ -22,20 +26,26 @@ const MyCart = () => {
 
   return (
     <>
-      {isSuccess ? (
+      {cartState.data ? (
         <>
-          <CartUI.Flex flexDirection="column" justifyContent="space-between">
-            <CartUI.Flex gap="10px" flexDirection="column">
+          <CartUI.Flex flexDirecation="column" justifyContent="space-between">
+            <CartUI.Flex gap="10px" flexDirection="column" width="100%">
               <CartItem />
-              {/* ))} */}
             </CartUI.Flex>
           </CartUI.Flex>
         </>
       ) : (
-        <div>장바구니에 상품이 담기지않았습니다.</div>
+        <StyledWrap alignItems="center" justifyContent="center" flexDirection="column" gap="30px">
+          <Image src={logomainIcon} width={148} height={100} alt="로고아이콘"/>
+          <CartUI.Text>장바구니에 상품이 담기지않았습니다.</CartUI.Text>
+        </StyledWrap>
       )}
     </>
   );
 };
+
+const StyledWrap = styled(CartUI.Flex)`
+  min-height:calc( 100vh - 300px);
+`
 
 export default MyCart;

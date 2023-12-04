@@ -35,6 +35,11 @@ import {
   CartDeleteResponse,
 } from "@/types/api/CartDeleteType";
 import { TFavoriteStoreResponse } from "@/types/api/favoriteStoreType";
+import{CertifiCodeRequest,CertifiCodeResponse} from "@/types/api/certifiCodeType"
+import {ResetPasswordRequestType,ResetPasswordResponeseType} from "@/types/api/resetPasswordType"
+import {StoreInfoRequestType , StoreResponseType} from "@/types/api/storeInfoType"
+import {OrderItemRequestType} from "@/types/api/orderItemType"
+
 
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
@@ -96,10 +101,10 @@ export default class WinterFoodClient {
   }
 
   //인증코드 전송
-  async certifiCode(data) {
+  async certifiCode(data:CertifiCodeRequest) {
     return this.httpClient
       .post(`/api/auth/verifyCode`, data)
-      .then((res) => res.data);
+      .then((res) => res.data as CertifiCodeResponse);
   }
 
   //비밀번호 찾기
@@ -109,10 +114,10 @@ export default class WinterFoodClient {
       .then((res) => res.data as TFindPwResponse);
   }
   //비밀번호 변경
-  async changePw(data) {
+  async changePw(data:ResetPasswordRequestType) {
     return this.httpClient
       .put(`/api/auth/resetPassword`, data)
-      .then((res) => res.data);
+      .then((res) => res.data as ResetPasswordResponeseType);
   }
   //가까운곳 top-5 ?
   async nearDistanceSnack(
@@ -175,10 +180,10 @@ export default class WinterFoodClient {
   }
 
   //가게정보
-  async storeInfo(id) {
+  async storeInfo(id:StoreInfoRequestType) {
     return this.httpClient
       .get(`/api/store/info/${id}`)
-      .then((res) => res.data.data);
+      .then((res) => res.data.data as StoreResponseType);
   }
 
   //장바구니 추가 , 업데이트
@@ -203,7 +208,7 @@ export default class WinterFoodClient {
   }
 
   //주문하기
-  async cartOrder(item) {
+  async cartOrder(item:OrderItemRequestType) {
     return this.httpClient
       .post(`/api/cart/order`, item)
       .then((res) => res.data);

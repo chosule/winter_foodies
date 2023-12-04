@@ -11,10 +11,11 @@ const Flex = styled.div<
     | "lineHeight"
     | "alignItems"
     | "padding"
-    | "height"
+    | "height" | "width"
   >
 >`
   display: flex;
+  width:${({width}) => width};
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
   height: ${({ height }) => (height ? height : "100%")};

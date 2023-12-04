@@ -12,7 +12,7 @@ import { AuthUI } from "@/components/login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import TextField from "@/components/ui/Input/CommonInput";
 import CommonButton from "@/components/ui/Button/CommonButton";
-import useAuthApi from "@/hooks/auth/useAuth";
+import useAuthApi from "@/hooks/auth/useLogin";
 
 const ChangePwPage = () => {
   const router = useRouter();

@@ -16,7 +16,7 @@ import useContextModal from "@/context/hooks/useContextModal";
 import { useRecoilState } from "recoil";
 import { userState } from "@/recoil/atom";
 import { useEffect, useState } from "react";
-import useAuthApi from "@/hooks/auth/useAuth";
+import useAuthApi from "@/hooks/auth/useLogin";
 
 const Login = () => {
   const modal = useContextModal();

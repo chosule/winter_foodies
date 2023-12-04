@@ -10,7 +10,7 @@ import TextField from "@/components/ui/Input/CommonInput";
 import useValid from "@/hooks/auth/useValid";
 import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
 import useAuthModal from "@/hooks/modal/useAuthModal";
-import useAuthApi from "@/hooks/auth/useAuth";
+import useAuthApi from "@/hooks/auth/useLogin";
 
 const FindIdPage = () => {
   const modal = useContextModal();
