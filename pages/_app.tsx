@@ -8,20 +8,22 @@ import { FC } from "react";
 import { globalStyle } from "@/styles/global";
 import { getTheme } from "./../styles/theme";
 import ModalProvider from "@/context/ModalProvider";
-import ReactQueryProvider from "@/context/app/ReactQueryProvider";
-import {SessionProvider} from "next-auth/react"
 import { WinterFoodApiProvider } from "@/context/hooks/useDataContextApi";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import GeoLocationProvider from "@/context/GeoLocationProvider";
 import { RecoilRoot } from "recoil";
-import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
 const MyApp: FC<AppPropsWithLayout> = ({
   Component,
-  pageProps:{session, ...pageProps },
+  pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
   const theme = getTheme();
@@ -36,24 +38,22 @@ const MyApp: FC<AppPropsWithLayout> = ({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Global styles={globalStyle} />
-      <SessionProvider session={session}>
-        <RecoilRoot>
-          <QueryClientProvider client={queryClient}>
-            <Hydrate state={pageProps.dehydratedState}>
-              <WinterFoodApiProvider>
-                <GeoLocationProvider>
-                  <ModalProvider>
-                    <ThemeProvider theme={theme}>
-                      {getLayout(<Component {...pageProps} />)}
-                    </ThemeProvider>
-                  </ModalProvider>
-                  <ReactQueryDevtools initialIsOpen={false} />
-                </GeoLocationProvider>
-              </WinterFoodApiProvider>
-            </Hydrate>
-          </QueryClientProvider>
-        </RecoilRoot>
-      </SessionProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <WinterFoodApiProvider>
+              <GeoLocationProvider>
+                <ModalProvider>
+                  <ThemeProvider theme={theme}>
+                    {getLayout(<Component {...pageProps} />)}
+                  </ThemeProvider>
+                </ModalProvider>
+                <ReactQueryDevtools initialIsOpen={false} />
+              </GeoLocationProvider>
+            </WinterFoodApiProvider>
+          </Hydrate>
+        </QueryClientProvider>
+      </RecoilRoot>
     </>
   );
 };

@@ -1,7 +1,4 @@
-import {
-  GetCartData,
-  GetCartDataDetailType,
-} from "@/types/api/getCartType";
+import { GetCartData, GetCartDataDetailType } from "@/types/api/getCartType";
 import { atom } from "recoil";
 import { v1 } from "uuid";
 
@@ -10,6 +7,10 @@ interface CartState {
   totalPrice: number;
 }
 
+export const userToken = atom({
+  key: `tokenState/${v1()}`,
+  default: "",
+});
 
 export const userState = atom<string | null>({
   key: `authState/${v1()}`,
@@ -27,9 +28,9 @@ export const orderDataState = atom<CartState>({
 
 //주문하기 후 결과 담기
 export const orderResultDataState = atom({
-  key:`orderResultState/${v1()}`,
-  default: {}
-})
+  key: `orderResultState/${v1()}`,
+  default: {},
+});
 
 //카트 조회 담겨있는 state
 export const getCartState = atom<GetCartData>({

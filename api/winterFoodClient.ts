@@ -35,11 +35,19 @@ import {
   CartDeleteResponse,
 } from "@/types/api/CartDeleteType";
 import { TFavoriteStoreResponse } from "@/types/api/favoriteStoreType";
-import{CertifiCodeRequest,CertifiCodeResponse} from "@/types/api/certifiCodeType"
-import {ResetPasswordRequestType,ResetPasswordResponeseType} from "@/types/api/resetPasswordType"
-import {StoreInfoRequestType , StoreResponseType} from "@/types/api/storeInfoType"
-import {OrderItemRequestType} from "@/types/api/orderItemType"
-
+import {
+  CertifiCodeRequest,
+  CertifiCodeResponse,
+} from "@/types/api/certifiCodeType";
+import {
+  ResetPasswordRequestType,
+  ResetPasswordResponeseType,
+} from "@/types/api/resetPasswordType";
+import {
+  StoreInfoRequestType,
+  StoreResponseType,
+} from "@/types/api/storeInfoType";
+import { OrderItemRequestType } from "@/types/api/orderItemType";
 
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
@@ -101,7 +109,7 @@ export default class WinterFoodClient {
   }
 
   //인증코드 전송
-  async certifiCode(data:CertifiCodeRequest) {
+  async certifiCode(data: CertifiCodeRequest) {
     return this.httpClient
       .post(`/api/auth/verifyCode`, data)
       .then((res) => res.data as CertifiCodeResponse);
@@ -114,7 +122,7 @@ export default class WinterFoodClient {
       .then((res) => res.data as TFindPwResponse);
   }
   //비밀번호 변경
-  async changePw(data:ResetPasswordRequestType) {
+  async changePw(data: ResetPasswordRequestType) {
     return this.httpClient
       .put(`/api/auth/resetPassword`, data)
       .then((res) => res.data as ResetPasswordResponeseType);
@@ -180,7 +188,7 @@ export default class WinterFoodClient {
   }
 
   //가게정보
-  async storeInfo(id:StoreInfoRequestType) {
+  async storeInfo(id: StoreInfoRequestType) {
     return this.httpClient
       .get(`/api/store/info/${id}`)
       .then((res) => res.data.data as StoreResponseType);
@@ -208,7 +216,7 @@ export default class WinterFoodClient {
   }
 
   //주문하기
-  async cartOrder(item:OrderItemRequestType) {
+  async cartOrder(item: OrderItemRequestType) {
     return this.httpClient
       .post(`/api/cart/order`, item)
       .then((res) => res.data);
