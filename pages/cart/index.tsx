@@ -1,6 +1,6 @@
-import DefaultLayout from "@/components/layouts/Default";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import MyCart from "@/components/Cart/MyCart";
+import AuthPrivateLayout from "@/components/layouts/AuthPrivateLayout";
 
 const CartPage = () => {
   return (
@@ -12,7 +12,7 @@ const CartPage = () => {
 };
 
 CartPage.getLayout = (page: React.ReactNode) => {
-  return <DefaultLayout>{page}</DefaultLayout>;
+  return <AuthPrivateLayout>{page}</AuthPrivateLayout>;
 };
 
 export default CartPage;

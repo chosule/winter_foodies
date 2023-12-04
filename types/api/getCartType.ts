@@ -1,16 +1,17 @@
 export interface GetCartData {
-  status: string;
-  imageUrl: string;
-  cookingTime: number;
-  storeName: string;
-  data: GetCartDataDetailType[];
+  status?: string;
+  storeName?: string;
+  imageUrl?: string;
+  cookingTime?: number;
+  itemCount?:string;
+  data?: GetCartDataDetailType[];
 }
 export interface GetCartDataDetailType {
-  itemId: string;
-  itemName: string;
-  price: number;
-  quantity: number;
-  userId: number;
+  itemId?: string;
+  itemName?: string;
+  price?: number;
+  quantity?: number;
+  userId?: number;
 }
 
-export type TGetCartResponse = GetCartData;
+

@@ -19,7 +19,9 @@ export default function useValid(changeValue: InValidType) {
     isPhoneNumberAuthCode: null,
     isCertiCode: null,
   });
+
   const [validText, setValidText] = useState("");
+
   useEffect(() => {
     if (!changeValue.phoneNumber) {
       setValidText("");

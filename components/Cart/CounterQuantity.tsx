@@ -6,19 +6,16 @@ import { FaMinus } from "react-icons/fa6";
 import { useRecoilValue } from "recoil";
 import { cartState } from "@/recoil/atom";
 
-const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
-  const cartData = useRecoilValue(cartState);
-  const cartItemFInd = cartData?.items.find(
-    (cartItem) => cartItem.itemId === items?.itemId
-  );
-  const cartQuantity = cartItemFInd?.quantity || 0;
-
+const CounterQuantity = ({ handleIncrementQuantity, items ,handleDecrementQuantity }) => {
   return (
-    <>
+    <StyledWrap>
+      <CartUI.Text>{items.quantity * items.price} 원</CartUI.Text>
       <StyledQuantityBox gap="40px">
         <StyledButton backgroundcolor="transparent" width="0px">
           <HiPlus
-            onClick={() => handlePlus(items)}
+            onClick={() => {
+              handleIncrementQuantity(items.itemId);
+            }}
             style={{
               width: "30px",
               height: "30px",
@@ -28,10 +25,10 @@ const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
             }}
           />
         </StyledButton>
-        {cartQuantity + 1}
+        {items.quantity}
         <StyledButton backgroundcolor="transparent" width="0px">
           <FaMinus
-            onClick={() => handleMinus(items)}
+            onClick={() => {handleDecrementQuantity(items.itemId)}}
             style={{
               width: "30px",
               height: "30px",
@@ -42,10 +39,14 @@ const CounterQuantity = ({ handlePlus, handleMinus, items }) => {
           />
         </StyledButton>
       </StyledQuantityBox>
-    </>
+    </StyledWrap>
   );
 };
 
+const StyledWrap = styled(CartUI.Flex)`
+  width:100%;
+  justify-content:space-between;
+`
 const StyledQuantityBox = styled(CartUI.Flex)`
   justify-content: space-between;
   align-items: center;

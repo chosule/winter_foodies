@@ -5,12 +5,31 @@ import BottomNavigation from "@/components/layouts/BottomNavigation/BottomNaviga
 import MainLeftPc from "@/components/Main/components/MainLeftPc";
 import { useRouter } from "next/router";
 import { useEffect, useLayoutEffect } from "react";
+import useContextModal from "@/context/hooks/useContextModal";
 
 type TDefaultLayoutProps = {
   children: Children;
   width?: string;
 };
-const DefaultLayout = ({ children, width }: TDefaultLayoutProps) => {
+const AuthPrivateLayout = ({ children, width }: TDefaultLayoutProps) => {
+  const router = useRouter();
+  const modal = useContextModal();
+
+  const openAlert = () => {
+    modal.openAlert({
+      title: "알림",
+      message: `로그인이 필요한 페이지 입니다. \n 로그인 후 이용부탁드립니다.`,
+      btnText: "확인",
+    });
+  };
+  useLayoutEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      router.push("/login");
+      openAlert();
+    }
+  }, [router]);
+
   return (
     <div>
       <Head>
@@ -71,4 +90,4 @@ export const StyledContent = styled.div<TDefaultLayoutProps>`
   gap: 16px;
 `;
 
-export default DefaultLayout;
+export default AuthPrivateLayout;

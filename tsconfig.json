@@ -33,7 +33,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "components/Main/style.ts",
-    "hooks/auth/useAuth.tsx"
+    "hooks/auth/useLogin.tsx"
   ],
   "exclude": ["node_modules"]
 }

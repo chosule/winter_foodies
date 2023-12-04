@@ -1,5 +1,8 @@
-export type TCertifiCodeRequest = {
-  authCode: string;
+export interface CertifiCodeRequest {
+  authCode?: string;
+  phoneNumber?:string;
 };
 
-export type TCertifiCodeResponse = {};
+export interface CertifiCodeResponse{
+  message?:string;
+}

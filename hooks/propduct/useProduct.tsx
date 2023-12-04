@@ -32,28 +32,28 @@ export default function useProduct() {
 
   //가게 정보
   const storeInfoApi = (id) => {
-    return useQuery(['storeIndo'],() => client.storeInfo(id),{
-      staleTime:Infinity
-    })
-  }
+    return useQuery(["storeIndo"], () => client.storeInfo(id), {
+      staleTime: Infinity,
+    });
+  };
 
   // 찜하기
-  const favoriteApi = useMutation((product) => client.favorite(product),{
-    onSuccess:() => queryClient.invalidateQueries(['favorites'])
-  })
+  // const favoriteApi = useMutation((product) => client.favorite(product),{
+  //   onSuccess:() => queryClient.invalidateQueries(['favorites'])
+  // })
 
-  // 찜한매장
-  const favoriteStoreApi = useQuery(['favoriteStore'], () => client.favoriteStore(),{
-    staleTime: Infinity,
-  })
+  // // 찜한매장
+  // const favoriteStoreApi = useQuery(['favoriteStore'], () => client.favoriteStore(),{
+  //   staleTime: Infinity,
+  // })
 
-  return { 
-    nearbyApi, 
-    salesRateApi, 
-    reviewApi, 
+  return {
+    nearbyApi,
+    salesRateApi,
+    reviewApi,
     gradeApi,
     storeInfoApi,
-    favoriteApi,
-    favoriteStoreApi 
+    // favoriteApi,
+    // favoriteStoreApi
   };
 }

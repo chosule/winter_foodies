@@ -1,24 +1,28 @@
-import { MainUI } from "@/components/Main/style";
-import CommonBox from "@/components/ui/CommonBox/CommonBox";
-import styled from "@emotion/styled";
-import Image from "next/image";
-import { BiSolidStar } from "react-icons/bi";
-import useProduct from "@/hooks/propduct/useProduct";
-import { TNearSnackResponse } from "@/types/api/nearSnackType";
-import uuid from "react-uuid";
 import { useRouter } from "next/router";
+import styled from "@emotion/styled";
+import { TNearSnackResponse } from "@/types/api/nearSnackType";
+import Image from "next/image";
+import { MainUI } from "@/components/Main/style";
+import { BiSolidStar } from "react-icons/bi";
+import uuid from "react-uuid";
+import CommonBox from "@/components/ui/CommonBox/CommonBox";
+import { useQuery } from "@tanstack/react-query";
+import getNearbyData from "@/context/app/ssr/getMenuDetail";
 
-const NearbyDetail = () => {
+export function NearbyDetailPage() {
   const router = useRouter();
-  const { id, detailId } = router.query;
-  const { nearbyApi } = useProduct();
 
-  const { isSuccess, isLoading, data: nearbyData } = nearbyApi(id);
-  console.log(nearbyData);
+  const { id } = router.query;
+
+  const { data: nearbyData } = useQuery({
+    queryKey: ["nearbyData"],
+    queryFn: () => getNearbyData(Number(id)),
+  });
+
   return (
     <StyledFlex flexDirection="column" gap="20px">
       {nearbyData &&
-        nearbyData.map(
+        nearbyData?.map(
           ({
             picture,
             name,
@@ -78,7 +82,7 @@ const NearbyDetail = () => {
         )}
     </StyledFlex>
   );
-};
+}
 
 const StyledFlex = styled(MainUI.Flex)`
   cursor: pointer;
@@ -89,5 +93,4 @@ const StyledBox = styled(CommonBox)`
   align-items: center;
   gap: 16px;
 `;
-
-export default NearbyDetail;
+export default NearbyDetailPage;

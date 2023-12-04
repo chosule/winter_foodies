@@ -6,6 +6,7 @@ import CommonButton from "@/components/ui/Button/CommonButton";
 import { useRouter } from "next/router";
 import useCart from "@/hooks/cart/useCart";
 import { MenuDetailData } from "@/types/api/menuType";
+import useContextModal from "@/context/hooks/useContextModal";
 
 const StoreMenuCart = () => {
   const router = useRouter();
@@ -13,7 +14,14 @@ const StoreMenuCart = () => {
   const { id, picture } = router.query;
 
   const { data: menuData } = menuApi(id);
+  const modal = useContextModal();
 
+  const openModal = () =>{
+    modal.openAlert({
+      message:"상품이 추가되었습니다 !",
+      btnText:"확인"
+    })
+  }
   const handleClick = (foodId, menuName, price): void => {
     addNewProductApi.mutate(
       {
@@ -25,6 +33,8 @@ const StoreMenuCart = () => {
       {
         onSuccess: (res) => {
           console.log("추가된거확인-->", res);
+          openModal();
+
         },
       }
     );

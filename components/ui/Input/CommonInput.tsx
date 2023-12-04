@@ -8,7 +8,7 @@ type TTextFieldProps = {
   errorMsg?: string;
   validText?: string;
   valid?: string;
-  isValidState?: string | undefined;
+  isValidState?: boolean | null;
   valueType?: string;
   isActive?: string;
 };

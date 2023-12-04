@@ -3,10 +3,8 @@ import { passwordPattern, phoneNumberPattern } from "@/core/common/regex";
 
 export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
-export type TAuthCodeSchema = z.infer<typeof authCodeSchema>;
 export type TFindPasswordSchema = z.infer<typeof findPasswordSchema>;
 export type TChangePasswordSchema = z.infer<typeof changePasswordSchema>;
-export type TSendAuthCodePhoneNumber = z.infer<typeof sendAuthCodePhoneNumber>;
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "아이디는 이메일 형식으로 입력하세요." }),
@@ -45,29 +43,10 @@ export const signUpSchema = z
       message: "비밀번호를 다시 재입력해주세요.",
     }),
   })
-
   .refine((data) => data.password === data.signUpPasswordChecking, {
     path: ["signUpPasswordChecking"],
     message: "새 비밀번호와 같지 않습니다.",
   });
-
-// 핸드폰번호 + 인증코드 스키마
-export const authCodeSchema = z.object({
-  phoneNumber: z
-    .string()
-    .min(8, { message: "핸드폰 번호를 정확히 입력해주세요." })
-    .regex(phoneNumberPattern, {
-      message: "휴대폰 번호를 정확히 입력해주세요.",
-    }),
-  authCode: z.string().nonempty("인증번호를 정확히 입력해주세요."),
-});
-
-// 핸드폰 sendAuthCode
-export const sendAuthCodePhoneNumber = z.object({
-  phoneNumber: z.string().regex(phoneNumberPattern, {
-    message: "휴대폰 번호를 정확히 입력해 주세요.",
-  }),
-});
 
 // 비밀번호 찾기
 export const findPasswordSchema = z.object({
@@ -75,6 +54,7 @@ export const findPasswordSchema = z.object({
   username: z.string().nonempty("이름을입력해주세요."),
 });
 
+//비밀번호 변경
 export const changePasswordSchema = z //
   .object({
     changePassword: z

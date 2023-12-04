@@ -9,20 +9,19 @@ import naverIcon from "@/public/img/naverIcon.png";
 import { handleKakaoLogin } from "@/hooks/auth/useKakaoApi";
 import { handleNaverLogin } from "@/hooks/auth/useNaverApi";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";
-import { TLoginSchema, loginSchema } from "@/components/Login/schema";
+import { TLoginSchema, loginSchema } from "@/components/login/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import useContextModal from "@/context/hooks/useContextModal";
-import useLogin from "@/hooks/auth/useAuth";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import useUser from "@/hooks/auth/useUserAuth";
+import { useRecoilState } from "recoil";
 import { userState } from "@/recoil/atom";
 import { useEffect, useState } from "react";
+import useAuthApi from "@/hooks/auth/useLogin";
 
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
-  const { loginApi } = useLogin();
+  const { loginApi } = useAuthApi();
   const [token, setToken] = useState("");
   const [tokenValue, setTokenValue] = useRecoilState(userState);
   const {

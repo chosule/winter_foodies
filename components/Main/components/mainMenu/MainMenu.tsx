@@ -33,10 +33,10 @@ const MainMenu = () => {
             router.push({
               pathname: "main/menu-detail/[id]",
               query: { id: id, imgName },
-            });
+            },);
           }}
         >
-          <Image src={url} alt={imgName} width="42" height="41" priority />
+          <Image src={url} alt={imgName} width="45" height="41" priority />
           <StyledButtonText>{imgName}</StyledButtonText>
         </StyledButton>
       ))}
@@ -56,14 +56,14 @@ const StyledButtonText = styled.p`
   color: #747474;
 `;
 const StyledButton = styled(CommonButton)`
-  width: 70%;
+  width: 80%;
   height: 94px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
   gap: 8px;
   background-color: #fff;
-  border: 2px solid #704f38;
+  border: 1px solid #ededed;
 `;
 
 export default MainMenu;

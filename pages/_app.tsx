@@ -8,19 +8,22 @@ import { FC } from "react";
 import { globalStyle } from "@/styles/global";
 import { getTheme } from "./../styles/theme";
 import ModalProvider from "@/context/ModalProvider";
-import ReactQueryProvider from "@/context/app/ReactQueryProvider";
 import { WinterFoodApiProvider } from "@/context/hooks/useDataContextApi";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import GeoLocationProvider from "@/context/GeoLocationProvider";
 import { RecoilRoot } from "recoil";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
 const MyApp: FC<AppPropsWithLayout> = ({
   Component,
-  pageProps,
+  pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
   const theme = getTheme();
@@ -37,16 +40,18 @@ const MyApp: FC<AppPropsWithLayout> = ({
       <Global styles={globalStyle} />
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
-          <WinterFoodApiProvider>
-            <GeoLocationProvider>
-              <ModalProvider>
-                <ThemeProvider theme={theme}>
-                  {getLayout(<Component {...pageProps} />)}
-                </ThemeProvider>
-              </ModalProvider>
-              <ReactQueryDevtools initialIsOpen={false} />
-            </GeoLocationProvider>
-          </WinterFoodApiProvider>
+          <Hydrate state={pageProps.dehydratedState}>
+            <WinterFoodApiProvider>
+              <GeoLocationProvider>
+                <ModalProvider>
+                  <ThemeProvider theme={theme}>
+                    {getLayout(<Component {...pageProps} />)}
+                  </ThemeProvider>
+                </ModalProvider>
+                <ReactQueryDevtools initialIsOpen={false} />
+              </GeoLocationProvider>
+            </WinterFoodApiProvider>
+          </Hydrate>
         </QueryClientProvider>
       </RecoilRoot>
     </>

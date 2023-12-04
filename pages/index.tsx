@@ -1,8 +1,8 @@
 import { NextPageWithLayout } from "@/types/commons";
-import Main from "@/components/Main/components/index";
 import DefaultLayout from "@/components/layouts/Default";
+import MainPage from "@/pages/main";
 
-const PageIndex: NextPageWithLayout<{}> = () => <Main />;
+const PageIndex: NextPageWithLayout<{}> = () => <MainPage />;
 
 PageIndex.getLayout = (page: React.ReactNode) => (
   <DefaultLayout>{page}</DefaultLayout>
