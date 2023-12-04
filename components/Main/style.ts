@@ -1,11 +1,14 @@
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 
-const Wrapper = styled.div<Pick<CSSProperties, "gap" | "minHeight">>`
+const Wrapper = styled.div<
+  Pick<CSSProperties, "gap" | "minHeight" | "marginTop">
+>`
   display: flex;
   flex-direction: column;
   gap: ${({ gap }) => gap};
   min-height: ${({ minHeight }) => minHeight};
+  margin-top: ${({ marginTop }) => marginTop};
 `;
 const Grid = styled.div`
   display: grid;
@@ -14,7 +17,13 @@ const Grid = styled.div`
 const Flex = styled.div<
   Pick<
     CSSProperties,
-    "alignItems" | "gap" | "flexDirection" | "justifyContent" | "width" | "flex" | "lineHeight"
+    | "alignItems"
+    | "gap"
+    | "flexDirection"
+    | "justifyContent"
+    | "width"
+    | "flex"
+    | "lineHeight"
   >
 >`
   display: flex;
@@ -24,7 +33,7 @@ const Flex = styled.div<
   gap: ${({ gap }) => gap};
   width: ${({ width }) => width};
   flex: ${({ flex }) => flex};
-  line-height:${({lineHeight}) => lineHeight};
+  line-height: ${({ lineHeight }) => lineHeight};
 `;
 
 const Text = styled.p<

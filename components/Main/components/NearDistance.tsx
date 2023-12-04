@@ -15,7 +15,7 @@ const NearDistance = () => {
     client.nearDistanceSnack(location?.latitude, location?.longitude)
   );
   return (
-    <MainUI.Wrapper gap="17px" minHeight="537px">
+    <MainUI.Wrapper gap="25px" minHeight="408px" marginTop="30px">
       <MainUI.Flex gap="10px" alignItems="center">
         <MainUI.Text fontSize="16px" fontWeight="600">
           나와 가장 가까운 간식
@@ -39,7 +39,6 @@ const NearDistance = () => {
                   flexGrow="0.9"
                   backgroundcolor="#fff"
                 >
-                  {/* <img src={nearSnack.img} alt="이미지" /> */}
                   <MainUI.Flex flex="1" justifyContent="center" width="100%">
                     <MainUI.Text fontSize="15px">{name}</MainUI.Text>
                   </MainUI.Flex>
