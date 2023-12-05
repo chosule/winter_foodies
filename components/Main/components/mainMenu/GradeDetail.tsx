@@ -2,11 +2,11 @@ import { MainUI } from "@/components/Main/style";
 import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import useProduct from "@/hooks/propduct/useProduct";
 import Image from "next/image";
-import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import { BiSolidStar } from "react-icons/bi";
 import uuid from "react-uuid";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
+import { MenuDetailData } from "@/types/api/menuType";
 
 const GradeDetail = () => {
   const { gradeApi } = useProduct();
@@ -24,7 +24,7 @@ const GradeDetail = () => {
           rating,
           address,
           distance,
-        }: TNearSnackResponse) => (
+        }: MenuDetailData) => (
           <StyledBox
             key={uuid()}
             width="100%"

@@ -48,9 +48,10 @@ const useCart = () => {
     staleTime: Infinity
   });
 
-  // const favoriteApi = useMutation((data) => client.favoriteStore(data), {
-  //   onSuccess: () => queryClient.invalidateQueries(["heart"]),
-  // });
+  //찜하기
+  const favoriteApi = useMutation((data) => client.favorite(data), {
+    onSuccess: () => queryClient.invalidateQueries(["heart"]),
+  });
 
   return {
     menuApi,
@@ -59,7 +60,7 @@ const useCart = () => {
     productDeleteApi,
     cartOrderApi,
     orderDetailsApi,
-    // favoriteApi,
+    favoriteApi,
   };
 };
 

@@ -50,7 +50,7 @@ const StoreMenuCart = () => {
         <MainUI.Flex gap="20px" flexDirection="column" key={foodId}>
           <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
             <StyledText fontWeight="600">{menuName}</StyledText>
-            <StyledText fontWeight="600">{price}</StyledText>
+            <StyledText fontWeight="600">{price} 원</StyledText>
             <CartBtn backgroundcolor="#fff" height="55px">
               <CartBtnOuter>
                 <BsCartPlus

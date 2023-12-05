@@ -16,14 +16,12 @@ import {
 } from "@/types/api/phoneCertificationType";
 
 import {
-  TNearSnackRequest,
-  TNearSnackResponse,
+  TNearSnackRequest
 } from "@/types/api/nearSnackType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
 import {
-  TMenuResponse,
   TMenuRequest,
-  MenuDetailData,
+  TMenuResponse,
 } from "@/types/api/menuType";
 import { TGetCartResponse } from "@/types/api/getCartType";
 import {
@@ -155,7 +153,7 @@ export default class WinterFoodClient {
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/proximity?latitude=37&longitude=127`)
 
-      .then((res) => res.data.data as MenuDetailData);
+      .then((res) => res.data.data as TMenuResponse);
   }
   // 메인메뉴클릭시 이동페이지 -> 판매량순
   async mainPageSalesRate(id: number) {
@@ -163,7 +161,7 @@ export default class WinterFoodClient {
       .get(
         `/main/menu-detail/${id}/nearby/sales-volume?latitude=37&longitude=127`
       )
-      .then((res) => res.data.data as MenuDetailData);
+      .then((res) => res.data.data as TMenuResponse);
   }
   // 메인메뉴클릭시 이동페이지 -> 리뷰순
   async mainPageReview(id: number) {
@@ -171,13 +169,13 @@ export default class WinterFoodClient {
       .get(
         `/main/menu-detail/${id}/nearby/review-count?latitude=37&longitude=127`
       )
-      .then((res) => res.data.data as MenuDetailData);
+      .then((res) => res.data.data as TMenuResponse);
   }
   // 메인메뉴클릭시 이동페이지 -> 평점순
   async mainPageGrade(id: number) {
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/rating?latitude=37&longitude=127`)
-      .then((res) => res.data.data as MenuDetailData);
+      .then((res) => res.data.data as TMenuResponse);
   }
 
   //메뉴판
@@ -229,11 +227,11 @@ export default class WinterFoodClient {
   }
 
   //찜하기
-  // async favorite(product) {
-  //   return this.httpClient
-  //     .post(`/api/store/favorite`, product)
-  //     .then((res) => res.data);
-  // }
+  async favorite(product) {
+    return this.httpClient
+      .post(`/api/store/favorite`, product)
+      .then((res) => res.data);
+  }
 
   //찜한매장
   async favoriteStore() {
