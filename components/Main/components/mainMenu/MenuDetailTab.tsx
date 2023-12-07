@@ -2,10 +2,9 @@ import { Tab, Tabs, Box } from "@mui/material";
 import styled from "@emotion/styled";
 import { SyntheticEvent, useState } from "react";
 import SalesRateDetail from "./SalesRateDetail";
-import NearbyDetail from "./NearByDetail";
 import ReviesDetail from "./ReviesDetail";
 import GradeDetail from "./GradeDetail";
-import NearbyDetailPage from "@/pages/main/menu-detail/[id]/nearbyDetailPage"
+import NearbyDetailPage from "@/pages/main/menu-detail/[id]/nearbyDetailPage";
 const MenuDetailTab = () => {
   const [current, setCurrent] = useState(0);
 
