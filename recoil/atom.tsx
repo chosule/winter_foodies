@@ -33,12 +33,12 @@ export const orderResultDataState = atom({
 });
 
 //카트 조회 담겨있는 state
-export const getCartState = atom<GetCartData>({
+export const getCartState = atom({
   key: `getCartState/${v1()}`,
   default: [],
 });
 
 export const heartState = atom<boolean>({
-  key: `heartState/${v1()}`,
-  default: true,
+  key: `heartState`,
+  default: false,
 });

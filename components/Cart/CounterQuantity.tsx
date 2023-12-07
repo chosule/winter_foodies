@@ -3,8 +3,6 @@ import { CartUI } from "./style";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import { HiPlus } from "react-icons/hi";
 import { FaMinus } from "react-icons/fa6";
-import { useRecoilValue } from "recoil";
-import { cartState } from "@/recoil/atom";
 
 const CounterQuantity = ({ handleIncrementQuantity, items ,handleDecrementQuantity }) => {
   return (

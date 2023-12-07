@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { CSSProperties } from "react";
 
 const Wrapper = styled.section<
-  Pick<CSSProperties, "alignItems" | "justifyContent" | "height">
+  Pick<CSSProperties, "alignItems" | "justifyContent" | "height" | "minHeight">
 >`
   display: flex;
   flex-direction: column;
@@ -10,6 +10,7 @@ const Wrapper = styled.section<
   justify-content: ${({ justifyContent }) => justifyContent};
   gap: 32px;
   height: ${({ height }) => (height ? height : "auto")};
+  min-height:${({minHeight}) => minHeight};
   width: 100%;
 `;
 const Flex = styled.div<

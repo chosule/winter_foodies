@@ -4,9 +4,9 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { BiSolidStar } from "react-icons/bi";
 import useProduct from "@/hooks/propduct/useProduct";
-import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import uuid from "react-uuid";
 import { useRouter } from "next/router";
+import { MenuDetailData } from "@/types/api/menuType";
 
 const SalesRateDetail = () => {
   const router = useRouter();
@@ -23,7 +23,7 @@ const SalesRateDetail = () => {
           rating,
           address,
           distance,
-        }: TNearSnackResponse) => (
+        }: MenuDetailData) => (
           <StyledBox
             key={uuid()}
             width="100%"

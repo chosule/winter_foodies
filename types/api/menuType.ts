@@ -1,14 +1,19 @@
 export interface MenuData {
-  storeName: string;
-  rating: number;
-  favorites: boolean;
-  imageUrl: string;
-  data: MenuDetailData[];
+  status?:string;
+  data?: MenuDetailData[];
 }
 export interface MenuDetailData {
-  foodId: string;
-  menuName: string;
-  price: number;
+  categoryName?: string;
+  picture?: string;
+  name?: string;
+  rating?: number;
+  address?: string;
+  distance?: number;
+  ranking?: number;
+  reviewCount?: number;
+  salesVolume?: number;
+  favorite?: boolean;
+  id?:number;
 }
 export type TMenuResponse = MenuData;
 

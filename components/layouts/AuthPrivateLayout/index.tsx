@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import BottomNavigation from "@/components/layouts/BottomNavigation/BottomNavigation";
 import MainLeftPc from "@/components/Main/components/MainLeftPc";
 import { useRouter } from "next/router";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import useContextModal from "@/context/hooks/useContextModal";
 
 type TDefaultLayoutProps = {
@@ -22,7 +22,7 @@ const AuthPrivateLayout = ({ children, width }: TDefaultLayoutProps) => {
       btnText: "확인",
     });
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
       router.push("/login");

@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { TNearSnackResponse } from "@/types/api/nearSnackType";
 import Image from "next/image";
 import { MainUI } from "@/components/Main/style";
 import { BiSolidStar } from "react-icons/bi";
@@ -8,6 +7,7 @@ import uuid from "react-uuid";
 import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import { useQuery } from "@tanstack/react-query";
 import getNearbyData from "@/context/app/ssr/getMenuDetail";
+import { MenuDetailData } from "@/types/api/menuType";
 
 export function NearbyDetailPage() {
   const router = useRouter();
@@ -18,6 +18,7 @@ export function NearbyDetailPage() {
     queryKey: ["nearbyData"],
     queryFn: () => getNearbyData(Number(id)),
   });
+
 
   return (
     <StyledFlex flexDirection="column" gap="20px">
@@ -30,7 +31,8 @@ export function NearbyDetailPage() {
             address,
             distance,
             id,
-          }: TNearSnackResponse) => (
+            favorite
+          }: MenuDetailData) => (
             <StyledBox
               key={uuid()}
               width="100%"
@@ -39,7 +41,7 @@ export function NearbyDetailPage() {
               onClick={() => {
                 router.push({
                   pathname: "/main/menu-detail/[id]/[detailId]",
-                  query: { id: id, detailId: name, name, picture },
+                  query: { id: id, favorite, detailId: name, name, picture,address},
                 });
               }}
             >

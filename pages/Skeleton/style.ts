@@ -1,21 +1,29 @@
+import { keyframes } from "@emotion/css";
 import styled from "@emotion/styled";
 
 const Wrap = styled.div`
   position:relative;
-  height: 100vh;
-  background-color:pink;
+  height: 100%;
   width:100%;
-  ::after{
-    content:"",
-    position:absolute;
-    top:0;
-    left:0;
-    width:300px;
-    height:100vh;
-    background-color: red;
-    z-index:9999;    
-  
-  }
+  min-height:calc( 100vh - 214px);
+
+}
 `;
 
-export const SkeletonUI = { Wrap } as const;
+const Virtual = styled.div`
+&:after { 
+  content: " ";
+  position: absolute;
+  top: -117px;
+  left: -26px;
+  width: 112%;
+  height: 100vh;
+  opacity: .8;
+  background-color: rgb(0 0 0 / 65%);
+  z-index:4;
+}
+`
+
+
+
+export const SkeletonUI = { Wrap,Virtual } as const;
