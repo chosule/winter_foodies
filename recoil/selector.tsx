@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { getCartState, heartState } from "./atom";
+import { getCartState } from "./atom";
 
 export const getCartSelector = selector({
   key: "cartDatSelector",
@@ -9,12 +9,6 @@ export const getCartSelector = selector({
   },
 });
 
-export const getHeartState = selector({
-  key: "heartStateTrueOrFalse",
-  get: ({ get }) => {
-    const getState = get(heartState);
-    return getState;
-  },
-});
+
 
 export default selector;

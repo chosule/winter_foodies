@@ -1,26 +1,37 @@
 import MenuDetailInfoTab from "@/components/Main/components/mainMenu/MenuDetatilInfoTab";
-import DefaultLayout from "@/components/layouts/Default";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
-import useCart from "@/hooks/cart/useCart";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { heartState } from "@/recoil/atom";
-import { FaRegHeart } from "react-icons/fa6";
 import AuthPrivateLayout from "@/components/layouts/AuthPrivateLayout";
-import { useEffect } from "react";
-import HeartState from "@/components/Main/components/mainMenuDetailInfo/HeartState";
+import useCart from "@/hooks/cart/useCart";
+import { FaRegHeart } from "react-icons/fa6";
 
 const MenuDetailInfoPage = () => {
   const { query } = useRouter();
   const { name, picture, favorite, id } = query;
-  console.log("query?", query);
+    // state => state변경했다 => 컴포넌트 리렌더 => state가 바뀐값이
+
+  const { favoriteApi } = useCart();
+  
+  const handleClick= () => {
+    favoriteApi.mutate(
+      {
+        favorite: !favorite, 
+        storeId: (Number(id)),
+      },
+      {
+        onSuccess: (res) => {
+          console.log("찜하기결과값 --> ", res);
+        },
+      }
+    );
+  };
   return (
     <>
       <StyledHeaderWrap>
         <HeaderLayout headerTitle={name} />
-        <HeartState favorite={favorite} id={id} />
+        <StyledIcon onClick={handleClick} />
       </StyledHeaderWrap>
       <Image src={picture} alt="이미지" width={70} height={70} />
       <MenuDetailInfoTab />
@@ -30,6 +41,14 @@ const MenuDetailInfoPage = () => {
 
 const StyledHeaderWrap = styled.div`
   position: relative;
+`;
+
+const StyledIcon = styled(FaRegHeart) `
+  position: absolute;
+  right: 0;
+  top: 38px;
+  z-index: 2;
+
 `;
 
 MenuDetailInfoPage.getLayout = (page: React.ReactNode) => {

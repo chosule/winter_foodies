@@ -38,6 +38,8 @@ export function NearbyDetailPage() {
               backgroundcolor="#f3f3f3"
               height="70px"
               onClick={() => {
+                console.log('favorite11111', favorite,)
+
                 router.push({
                   pathname: "/main/menu-detail/[id]/[detailId]",
                   query: {

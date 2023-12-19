@@ -8,32 +8,23 @@ import CommonButton from "@/components/ui/Button/CommonButton";
 import { getCartState, orderDataState, orderResultDataState } from "@/recoil/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import CounterQuantity from "./CounterQuantity";
-import {
-  GetCartData,
-} from "@/types/api/getCartType";
 import { useRouter } from "next/router";
 import { CSSProperties,useEffect,useMemo } from "react";
+import { CartDeleteRequest } from "@/types/api/CartDeleteType";
 import { getCartSelector } from "@/recoil/selector";
 
-
-
-// interface cartState {
-//   items: GetCartDataDetailType[];
-//   totalPrice: number;
-// }
-
-type Props = {  
-  itemId: number
-}
 
 const CartItem = () => {
   const { productDeleteApi, cartOrderApi } = useCart();
   const router = useRouter();
   
   //이건 조회데이터 담아놓은거
-  const [cartState, setCartState] = useRecoilState<GetCartData>(getCartState); 
+  const [cartState, setCartState] = useRecoilState(getCartState); 
   console.log('cartState',cartState);
   
+const test= useRecoilValue(getCartSelector);
+console.log('test?',test)
+
   //주문하기 보낼때 상태
   const [orderState, setOrderState] = useRecoilState(orderDataState);
 
@@ -55,7 +46,7 @@ const CartItem = () => {
   };
 
   const handleDecrementQuantity = (itemId:number) => {
-    const updatedCartData = cartState.data.map((item) => {
+    const updatedCartData = cartState?.data?.map((item) => {
       if (item.itemId === itemId) {
         const newQuantity = item.quantity - 1;
         return {
@@ -77,27 +68,29 @@ const CartItem = () => {
 
 
   //삭제하기
-  const handleDelete = (itemId:Props) => {
+  const handleDelete = (id:string) => {
+    const itemId = id.toString() ?? '';
+    console.log('itemId?',itemId)
     productDeleteApi.mutate(
-      { itemId },
+      {itemId},
       {
         onSuccess: (res) => {
-          console.log("[ 삭제하기api res ]", res);
+          console.log(" 삭제하기 res값 ", res);
+          // console.log('cartState 삭제후',cartState);
+          // setCartData((prevCartItems) => {
+          //   const updatedItems = prevCartItems.items.filter(
+          //     (item) => item.itemId !== deletedId
+          //   );
+          //   const newTotalPrice = updatedItems.reduce(
+          //     (total, item) => total + item.quantity * item.price,
+          //     0
+          //   );
 
-          setCartData((prevCartItems) => {
-            const updatedItems = prevCartItems.items.filter(
-              (item) => item.itemId !== deletedId
-            );
-            const newTotalPrice = updatedItems.reduce(
-              (total, item) => total + item.quantity * item.price,
-              0
-            );
-
-            return {
-              items: updatedItems,
-              totalPrice: newTotalPrice,
-            };
-          });
+          //   return {
+          //     items: updatedItems,
+          //     totalPrice: newTotalPrice,
+          //   };
+          // });
         },
       }
     );

@@ -5,6 +5,9 @@ import {
 } from "@/types/api/addNewProductType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import {FavoriteRequest, FavoriteResponse} from "@/types/api/favoriteType"
+import { CartDeleteRequest, CartDeleteResponse } from "@/types/api/CartDeleteType";
+import { OrderItemRequestType, OrderResultData } from "@/types/api/getCartType";
 
 const useCart = () => {
   const { client } = useProjectApi();
@@ -34,12 +37,12 @@ const useCart = () => {
   });
 
   // 카트삭제
-  const productDeleteApi = useMutation((id) => client.productDelete(id), {
+  const productDeleteApi = useMutation<CartDeleteResponse,AxiosError,CartDeleteRequest,CartDeleteResponse>((id) => client.productDelete(id), {
     onSuccess: () => queryClient.invalidateQueries(["deleteCart"]),
   });
 
   // 주문하기
-  const cartOrderApi = useMutation((item) => client.cartOrder(item), {
+  const cartOrderApi = useMutation<OrderResultData,AxiosError,OrderItemRequestType,OrderResultData>((item) => client.cartOrder(item), {
     onSuccess: () => queryClient.invalidateQueries(["orderCart"]),
   });
 
@@ -49,7 +52,7 @@ const useCart = () => {
   });
 
   //찜하기
-  const favoriteApi = useMutation((data) => client.favorite(data), {
+  const favoriteApi = useMutation<FavoriteResponse,AxiosError,FavoriteRequest,FavoriteResponse>((data) => client.favorite(data), {
     onSuccess: () => queryClient.invalidateQueries(["heart"]),
   });
 

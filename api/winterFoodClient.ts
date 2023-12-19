@@ -15,15 +15,12 @@ import {
   TPhoneCertiResponse,
 } from "@/types/api/phoneCertificationType";
 
-import {
-  TNearSnackRequest
-} from "@/types/api/nearSnackType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
 import {
   TMenuRequest,
   TMenuResponse,
 } from "@/types/api/menuType";
-import { TGetCartResponse } from "@/types/api/getCartType";
+import {FavoriteResponse,FavoriteRequest} from "@/types/api/favoriteType"
 import {
   TAddNewProductRequest,
   TAddNewProductResponse,
@@ -45,7 +42,7 @@ import {
   StoreInfoRequestType,
   StoreResponseType,
 } from "@/types/api/storeInfoType";
-import { OrderItemRequestType } from "@/types/api/orderItemType";
+import { OrderItemRequestType, OrderResultData } from "@/types/api/getCartType";
 
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
@@ -207,9 +204,9 @@ export default class WinterFoodClient {
   }
 
   // 장바구니 삭제
-  async productDelete(id: CartDeleteRequest) {
+  async productDelete(itemId: CartDeleteRequest) {
     return this.httpClient
-      .delete(`/api/cart/items`, id)
+      .delete(`/api/cart/items`, {itemId})
       .then((res) => res.data as CartDeleteResponse);
   }
 
@@ -217,20 +214,20 @@ export default class WinterFoodClient {
   async cartOrder(item: OrderItemRequestType) {
     return this.httpClient
       .post(`/api/cart/order`, item)
-      .then((res) => res.data);
+      .then((res) => res.data as OrderResultData);
   }
   // 주문내역
   async orderDetail() {
     return this.httpClient
       .get(`/api/mypage/orders`)
-      .then((res) => res.data.data);
+      .then((res) => res.data.data as OrderResultData[]);
   }
 
   //찜하기
-  async favorite(product) {
+  async favorite(product:FavoriteRequest) {
     return this.httpClient
       .post(`/api/store/favorite`, product)
-      .then((res) => res.data);
+      .then((res) => res.data as FavoriteResponse);
   }
 
   //찜한매장
