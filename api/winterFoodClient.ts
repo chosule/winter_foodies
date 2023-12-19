@@ -16,11 +16,8 @@ import {
 } from "@/types/api/phoneCertificationType";
 
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
-import {
-  TMenuRequest,
-  TMenuResponse,
-} from "@/types/api/menuType";
-import {FavoriteResponse,FavoriteRequest} from "@/types/api/favoriteType"
+import { TMenuRequest, TMenuResponse } from "@/types/api/menuType";
+import { FavoriteResponse, FavoriteRequest } from "@/types/api/favoriteType";
 import {
   TAddNewProductRequest,
   TAddNewProductResponse,
@@ -206,7 +203,7 @@ export default class WinterFoodClient {
   // 장바구니 삭제
   async productDelete(itemId: CartDeleteRequest) {
     return this.httpClient
-      .delete(`/api/cart/items`, {itemId})
+      .delete(`/api/cart/items`, { data: itemId })
       .then((res) => res.data as CartDeleteResponse);
   }
 
@@ -224,7 +221,7 @@ export default class WinterFoodClient {
   }
 
   //찜하기
-  async favorite(product:FavoriteRequest) {
+  async favorite(product: FavoriteRequest) {
     return this.httpClient
       .post(`/api/store/favorite`, product)
       .then((res) => res.data as FavoriteResponse);
