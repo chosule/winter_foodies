@@ -13,15 +13,14 @@ import { useEffect } from "react";
 import HeartState from "@/components/Main/components/mainMenuDetailInfo/HeartState";
 
 const MenuDetailInfoPage = () => {
-  const {query} = useRouter();
-  const { name, picture, favorite,id} = query;
- 
-
+  const { query } = useRouter();
+  const { name, picture, favorite, id } = query;
+  console.log("query?", query);
   return (
     <>
       <StyledHeaderWrap>
         <HeaderLayout headerTitle={name} />
-        <HeartState favorite={favorite} id={id}/>
+        <HeartState favorite={favorite} id={id} />
       </StyledHeaderWrap>
       <Image src={picture} alt="이미지" width={70} height={70} />
       <MenuDetailInfoTab />

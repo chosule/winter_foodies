@@ -6,7 +6,7 @@ import { BiSolidStar } from "react-icons/bi";
 import uuid from "react-uuid";
 import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import { useQuery } from "@tanstack/react-query";
-import getNearbyData from "@/context/app/ssr/getMenuDetail";
+import getNearbyData from "@/context/libs/ssr/getMenuDetail";
 import { MenuDetailData } from "@/types/api/menuType";
 
 export function NearbyDetailPage() {
@@ -19,7 +19,6 @@ export function NearbyDetailPage() {
     queryFn: () => getNearbyData(Number(id)),
   });
 
-
   return (
     <StyledFlex flexDirection="column" gap="20px">
       {nearbyData &&
@@ -31,7 +30,7 @@ export function NearbyDetailPage() {
             address,
             distance,
             id,
-            favorite
+            favorite,
           }: MenuDetailData) => (
             <StyledBox
               key={uuid()}
@@ -41,7 +40,14 @@ export function NearbyDetailPage() {
               onClick={() => {
                 router.push({
                   pathname: "/main/menu-detail/[id]/[detailId]",
-                  query: { id: id, favorite, detailId: name, name, picture,address},
+                  query: {
+                    id: id,
+                    favorite,
+                    detailId: name,
+                    name,
+                    picture,
+                    address,
+                  },
                 });
               }}
             >
