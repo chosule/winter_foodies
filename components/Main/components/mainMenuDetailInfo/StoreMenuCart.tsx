@@ -10,10 +10,12 @@ import useContextModal from "@/context/hooks/useContextModal";
 
 const StoreMenuCart = () => {
   const router = useRouter();
+
   const { menuApi, addNewProductApi } = useCart();
   const { id, picture } = router.query;
 
   const { data: menuData } = menuApi(id);
+  
   const modal = useContextModal();
 
   const openModal = () =>{
@@ -34,7 +36,6 @@ const StoreMenuCart = () => {
         onSuccess: (res) => {
           console.log("추가된거확인-->", res);
           openModal();
-
         },
       }
     );

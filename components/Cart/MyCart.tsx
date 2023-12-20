@@ -2,7 +2,7 @@ import { CartUI } from "./style";
 import useCart from "@/hooks/cart/useCart";
 import CartItem from "./CartItem";
 import { useRecoilState } from "recoil";
-import { cartState, getCartState } from "@/recoil/atom";
+import { getCartState } from "@/recoil/atom";
 import { useEffect } from "react";
 import Image from "next/image";
 import logomainIcon from "@/public/img/logomainIcon.png"
@@ -18,7 +18,6 @@ const MyCart = () => {
 
   useEffect(() => {
     if (cartData) {
-      //recoil 카트조회 담기
       setCartState(cartData);
     }
   }, [cartData]);

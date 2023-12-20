@@ -17,6 +17,7 @@ import { CSSProperties, useEffect, useMemo } from "react";
 import { CartDeleteRequest } from "@/types/api/CartDeleteType";
 import { cartDeletedState } from "@/recoil/selector";
 import uuid from "react-uuid";
+import useContextModal from "@/context/hooks/useContextModal";
 const CartItem = () => {
   const { productDeleteApi, cartOrderApi } = useCart();
   const router = useRouter();
@@ -33,6 +34,14 @@ const CartItem = () => {
   // const deletedCart = useRecoilValue(cartDeletedState(165));
   // console.log("deletedCartData", deletedCart);
 
+  const modal = useContextModal();
+
+  const alertModal = () => {
+    modal.openAlert({
+      message:"장바구니에 상품이 없어 다시 메뉴페이지로 이동합니다.",
+      btnText:"확인"
+    })
+  }
   const getCartDeletedState = useRecoilCallback(
     ({ snapshot }) => async (itemId:string) => {
       const deletedCart = await snapshot.getPromise(cartDeletedState(itemId));
@@ -82,22 +91,18 @@ const CartItem = () => {
       { itemId },
       {
         onSuccess: async(res) => {
-          // setDeletedCart(itemId)
-          console.log(" 삭제하기 res값 ", res);
-          console.log('itemId',itemId)
             const deletedCart =  await getCartDeletedState(id);
-            console.log('deleteCart',deletedCart)
             setCartState({...cartState, data:deletedCart})
             if (deletedCart.length === 0) {
-              
+              alertModal();
+              router.back();
+
             }
         
         },
       }
     );
   };
-
-
 
   useEffect(() => {
     setOrderState((prevState) => ({

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
+import CommonBox from "../ui/CommonBox/CommonBox";
 
 const Wrapper = styled.div<
   Pick<CSSProperties, "gap" | "minHeight" | "marginTop">
@@ -46,9 +47,23 @@ const Text = styled.p<
   font-weight: ${({ fontWeight }) => fontWeight};
 `;
 
+
+const CustomFlex = styled(Flex)`
+  cursor: pointer;
+  padding-top: 15px;
+`;
+
+const CustomBox = styled(CommonBox)`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
 export const MainUI = {
   Wrapper,
   Flex,
   Text,
   Grid,
+  CustomFlex,
+  CustomBox
 } as const;
