@@ -216,7 +216,7 @@ export default class WinterFoodClient {
   async orderDetail() {
     return this.httpClient
       .get(`/api/mypage/orders`)
-      .then((res) => res.data.data as OrderResultData[]);
+      .then((res) => res.data as OrderResultData[]);
   }
 
   //찜하기

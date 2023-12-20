@@ -47,7 +47,7 @@ const useCart = () => {
   });
 
   //주문내역
-  const orderDetailsApi = useQuery(["getOrderDetail"], () => client.orderDetail(),{ 
+  const orderDetailsApi = useQuery(["getOrderList"], () => client.orderDetail(),{ 
     staleTime: Infinity
   });
 
