@@ -3,8 +3,6 @@ import { Children } from "@/types/commons";
 import styled from "@emotion/styled";
 import BottomNavigation from "@/components/layouts/BottomNavigation/BottomNavigation";
 import MainLeftPc from "@/components/Main/components/MainLeftPc";
-import { useRouter } from "next/router";
-import { useEffect, useLayoutEffect } from "react";
 
 type TDefaultLayoutProps = {
   children: Children;

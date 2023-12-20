@@ -1,11 +1,12 @@
 import { Tab, Tabs, Box } from "@mui/material";
 import styled from "@emotion/styled";
 import { SyntheticEvent, useState } from "react";
-import SalesRateDetail from "./SalesRateDetail";
-import NearbyDetail from "./NearByDetail";
-import ReviesDetail from "./ReviesDetail";
-import GradeDetail from "./GradeDetail";
-import NearbyDetailPage from "@/pages/main/menu-detail/[id]/nearbyDetailPage"
+import SalesRateDetailPage from "@/pages/main/menu-detail/[id]/salesRateDetailPage"
+import NearbyDetailPage from "@/pages/main/menu-detail/[id]/nearbyDetailPage";
+import ReviesDetailPage from "@/pages/main/menu-detail/[id]/nearbyDetailPage";
+import GradeDetailPage from "@/pages/main/menu-detail/[id]/gradeDetailPage";
+
+
 const MenuDetailTab = () => {
   const [current, setCurrent] = useState(0);
 
@@ -21,9 +22,9 @@ const MenuDetailTab = () => {
         <StyledTab label="별점 순" />
       </StyledTabs>
       {current === 0 && <NearbyDetailPage />}
-      {current === 1 && <SalesRateDetail />}
-      {current === 2 && <ReviesDetail />}
-      {current === 3 && <GradeDetail />}
+      {current === 1 && <SalesRateDetailPage />}
+      {current === 2 && <ReviesDetailPage />}
+      {current === 3 && <GradeDetailPage />}
     </StyledBox>
   );
 };

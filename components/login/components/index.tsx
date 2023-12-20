@@ -62,7 +62,7 @@ const Login = () => {
   }, [onSubmit]);
 
   return (
-    <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%">
+    <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%" minHeight="calc( 100vh - 97px)">
       <Image src={mainLogoIcon} alt="아이콘" width={300} height={278} />
       <AuthUI.FormWrap
         onSubmit={handleSubmit(onSubmit, onError)}

@@ -1,11 +1,7 @@
-import { GetCartData, GetCartDataDetailType } from "@/types/api/getCartType";
+import { GetCartData, OrderItemRequestType, OrderResultData } from "@/types/api/getCartType";
 import { atom } from "recoil";
 import { v1 } from "uuid";
 
-interface CartState {
-  items: GetCartDataDetailType[];
-  totalPrice: number;
-}
 
 export const userToken = atom({
   key: `tokenState/${v1()}`,
@@ -18,7 +14,7 @@ export const userState = atom<string | null>({
 });
 
 //주문하기 보낼때
-export const orderDataState = atom<CartState>({
+export const orderDataState = atom<OrderItemRequestType>({
   key: `orderData/${v1()}`,
   default: {
     items: [],
@@ -35,10 +31,6 @@ export const orderResultDataState = atom({
 //카트 조회 담겨있는 state
 export const getCartState = atom<GetCartData>({
   key: `getCartState/${v1()}`,
-  default: [],
+  default: [] ,
 });
 
-export const heartState = atom<boolean>({
-  key: `heartState/${v1()}`,
-  default: true,
-});

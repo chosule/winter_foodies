@@ -1,11 +1,15 @@
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
+import CommonBox from "../ui/CommonBox/CommonBox";
 
-const Wrapper = styled.div<Pick<CSSProperties, "gap" | "minHeight">>`
+const Wrapper = styled.div<
+  Pick<CSSProperties, "gap" | "minHeight" | "marginTop">
+>`
   display: flex;
   flex-direction: column;
   gap: ${({ gap }) => gap};
   min-height: ${({ minHeight }) => minHeight};
+  margin-top: ${({ marginTop }) => marginTop};
 `;
 const Grid = styled.div`
   display: grid;
@@ -14,7 +18,13 @@ const Grid = styled.div`
 const Flex = styled.div<
   Pick<
     CSSProperties,
-    "alignItems" | "gap" | "flexDirection" | "justifyContent" | "width" | "flex" | "lineHeight"
+    | "alignItems"
+    | "gap"
+    | "flexDirection"
+    | "justifyContent"
+    | "width"
+    | "flex"
+    | "lineHeight"
   >
 >`
   display: flex;
@@ -24,7 +34,7 @@ const Flex = styled.div<
   gap: ${({ gap }) => gap};
   width: ${({ width }) => width};
   flex: ${({ flex }) => flex};
-  line-height:${({lineHeight}) => lineHeight};
+  line-height: ${({ lineHeight }) => lineHeight};
 `;
 
 const Text = styled.p<
@@ -37,9 +47,23 @@ const Text = styled.p<
   font-weight: ${({ fontWeight }) => fontWeight};
 `;
 
+
+const CustomFlex = styled(Flex)`
+  cursor: pointer;
+  padding-top: 15px;
+`;
+
+const CustomBox = styled(CommonBox)`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
 export const MainUI = {
   Wrapper,
   Flex,
   Text,
   Grid,
+  CustomFlex,
+  CustomBox
 } as const;

@@ -1,7 +1,7 @@
 export interface CartDeleteRequest {
-  itemId?: string;
+  itemId: string;
 }
 
 export interface CartDeleteResponse {
-  success?: boolean;
+  success: boolean;
 }

@@ -5,7 +5,7 @@ import { MainUI } from "../style";
 import { useQuery } from "@tanstack/react-query";
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { useContextGeolocation } from "@/context/GeoLocationProvider";
-import { TNearSnackResponse } from "@/types/api/nearSnackType";
+import { MenuDetailData } from "@/types/api/menuType";
 
 const NearDistance = () => {
   const location = useContextGeolocation();
@@ -15,7 +15,7 @@ const NearDistance = () => {
     client.nearDistanceSnack(location?.latitude, location?.longitude)
   );
   return (
-    <MainUI.Wrapper gap="17px" minHeight="537px">
+    <MainUI.Wrapper gap="25px" minHeight="408px" marginTop="30px">
       <MainUI.Flex gap="10px" alignItems="center">
         <MainUI.Text fontSize="16px" fontWeight="600">
           나와 가장 가까운 간식
@@ -27,7 +27,7 @@ const NearDistance = () => {
       <MainUI.Flex flexDirection="column" gap="15px">
         {nearSnackData &&
           nearSnackData.map(
-            ({ ranking, name, distance }: TNearSnackResponse) => (
+            ({ ranking, name, distance }: MenuDetailData) => (
               <MainUI.Flex key={ranking} justifyContent="space-between">
                 <StyleBox color="#fff" justifyContent="center">
                   {ranking}
@@ -39,7 +39,6 @@ const NearDistance = () => {
                   flexGrow="0.9"
                   backgroundcolor="#fff"
                 >
-                  {/* <img src={nearSnack.img} alt="이미지" /> */}
                   <MainUI.Flex flex="1" justifyContent="center" width="100%">
                     <MainUI.Text fontSize="15px">{name}</MainUI.Text>
                   </MainUI.Flex>

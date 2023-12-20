@@ -10,10 +10,12 @@ import useContextModal from "@/context/hooks/useContextModal";
 
 const StoreMenuCart = () => {
   const router = useRouter();
+
   const { menuApi, addNewProductApi } = useCart();
   const { id, picture } = router.query;
 
   const { data: menuData } = menuApi(id);
+  
   const modal = useContextModal();
 
   const openModal = () =>{
@@ -34,7 +36,6 @@ const StoreMenuCart = () => {
         onSuccess: (res) => {
           console.log("추가된거확인-->", res);
           openModal();
-
         },
       }
     );
@@ -50,7 +51,7 @@ const StoreMenuCart = () => {
         <MainUI.Flex gap="20px" flexDirection="column" key={foodId}>
           <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
             <StyledText fontWeight="600">{menuName}</StyledText>
-            <StyledText fontWeight="600">{price}</StyledText>
+            <StyledText fontWeight="600">{price} 원</StyledText>
             <CartBtn backgroundcolor="#fff" height="55px">
               <CartBtnOuter>
                 <BsCartPlus

@@ -15,17 +15,9 @@ import {
   TPhoneCertiResponse,
 } from "@/types/api/phoneCertificationType";
 
-import {
-  TNearSnackRequest,
-  TNearSnackResponse,
-} from "@/types/api/nearSnackType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
-import {
-  TMenuResponse,
-  TMenuRequest,
-  MenuDetailData,
-} from "@/types/api/menuType";
-import { TGetCartResponse } from "@/types/api/getCartType";
+import { TMenuRequest, TMenuResponse } from "@/types/api/menuType";
+import { FavoriteResponse, FavoriteRequest } from "@/types/api/favoriteType";
 import {
   TAddNewProductRequest,
   TAddNewProductResponse,
@@ -47,7 +39,7 @@ import {
   StoreInfoRequestType,
   StoreResponseType,
 } from "@/types/api/storeInfoType";
-import { OrderItemRequestType } from "@/types/api/orderItemType";
+import { OrderItemRequestType, OrderResultData } from "@/types/api/getCartType";
 
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
@@ -154,8 +146,7 @@ export default class WinterFoodClient {
   async mainPageNearby(id: number) {
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/proximity?latitude=37&longitude=127`)
-
-      .then((res) => res.data.data as MenuDetailData);
+      .then((res) => res.data as TMenuResponse);
   }
   // 메인메뉴클릭시 이동페이지 -> 판매량순
   async mainPageSalesRate(id: number) {
@@ -163,7 +154,7 @@ export default class WinterFoodClient {
       .get(
         `/main/menu-detail/${id}/nearby/sales-volume?latitude=37&longitude=127`
       )
-      .then((res) => res.data.data as MenuDetailData);
+      .then((res) => res.data as TMenuResponse);
   }
   // 메인메뉴클릭시 이동페이지 -> 리뷰순
   async mainPageReview(id: number) {
@@ -171,13 +162,13 @@ export default class WinterFoodClient {
       .get(
         `/main/menu-detail/${id}/nearby/review-count?latitude=37&longitude=127`
       )
-      .then((res) => res.data.data as MenuDetailData);
+      .then((res) => res.data as TMenuResponse);
   }
   // 메인메뉴클릭시 이동페이지 -> 평점순
   async mainPageGrade(id: number) {
     return this.httpClient
       .get(`/main/menu-detail/${id}/nearby/rating?latitude=37&longitude=127`)
-      .then((res) => res.data.data as MenuDetailData);
+      .then((res) => res.data as TMenuResponse);
   }
 
   //메뉴판
@@ -209,9 +200,9 @@ export default class WinterFoodClient {
   }
 
   // 장바구니 삭제
-  async productDelete(id: CartDeleteRequest) {
+  async productDelete(itemId: CartDeleteRequest) {
     return this.httpClient
-      .delete(`/api/cart/items`, id)
+      .delete(`/api/cart/items`, { data: itemId })
       .then((res) => res.data as CartDeleteResponse);
   }
 
@@ -219,21 +210,21 @@ export default class WinterFoodClient {
   async cartOrder(item: OrderItemRequestType) {
     return this.httpClient
       .post(`/api/cart/order`, item)
-      .then((res) => res.data);
+      .then((res) => res.data as OrderResultData);
   }
   // 주문내역
   async orderDetail() {
     return this.httpClient
       .get(`/api/mypage/orders`)
-      .then((res) => res.data.data);
+      .then((res) => res.data.data as OrderResultData[]);
   }
 
   //찜하기
-  // async favorite(product) {
-  //   return this.httpClient
-  //     .post(`/api/store/favorite`, product)
-  //     .then((res) => res.data);
-  // }
+  async favorite(product: FavoriteRequest) {
+    return this.httpClient
+      .post(`/api/store/favorite`, product)
+      .then((res) => res.data as FavoriteResponse);
+  }
 
   //찜한매장
   async favoriteStore() {
