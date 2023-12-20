@@ -41,7 +41,7 @@ export default function SectionPartUi({picture, name,address,distance,rating, ..
                 </MainUI.Flex>
                 <MainUI.Flex width="60px" gap="3px" alignItems="center">
                     <BiSolidStar style={{ color: "#DD8037", fontSize: "15px" }} />
-                    <MainUI.Text fontSize="10px">{rating}</MainUI.Text>
+                    <MainUI.Text marginTop="4px" fontSize="12px">{rating}</MainUI.Text>
                 </MainUI.Flex>
             </MainUI.Flex>
         </>
