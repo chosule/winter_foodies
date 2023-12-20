@@ -1,20 +1,17 @@
 import { selector, selectorFamily } from "recoil";
-import { getCartState } from "./atom";
+import { getCartState, getOrderListDataState } from "./atom";
 
 export const cartDeletedState = selectorFamily({
   key: "getCartSelector",
   get:
     (itemId) =>
-    ({ get }) =>
-     {
+    ({ get }) => {
       const getData = get(getCartState);
-      const getDatafilter = getData?.data?.filter((item) => item.itemId !== itemId)
+      const getDatafilter = getData?.data?.filter(
+        (item) => item.itemId !== itemId
+      );
       return getDatafilter;
     },
 });
-
-
-
-
 
 export default selector;

@@ -1,7 +1,10 @@
-import { GetCartData, OrderItemRequestType, OrderResultData } from "@/types/api/getCartType";
+import {
+  GetCartData,
+  OrderItemRequestType,
+  OrderResultData,
+} from "@/types/api/getCartType";
 import { atom } from "recoil";
 import { v1 } from "uuid";
-
 
 export const userToken = atom({
   key: `tokenState/${v1()}`,
@@ -31,6 +34,5 @@ export const orderResultDataState = atom({
 //카트 조회 담겨있는 state
 export const getCartState = atom<GetCartData>({
   key: `getCartState/${v1()}`,
-  default: [] ,
+  default: [],
 });
-

@@ -38,16 +38,17 @@ const CartItem = () => {
 
   const alertModal = () => {
     modal.openAlert({
-      message:"장바구니에 상품이 없어 다시 메뉴페이지로 이동합니다.",
-      btnText:"확인"
-    })
-  }
+      message: "장바구니에 상품이 없어 다시 메뉴페이지로 이동합니다.",
+      btnText: "확인",
+    });
+  };
   const getCartDeletedState = useRecoilCallback(
-    ({ snapshot }) => async (itemId:string) => {
-      const deletedCart = await snapshot.getPromise(cartDeletedState(itemId));
-      console.log('deltetCart??',deletedCart)
-      return deletedCart
-    }
+    ({ snapshot }) =>
+      async (itemId: string) => {
+        const deletedCart = await snapshot.getPromise(cartDeletedState(itemId));
+        console.log("deltetCart??", deletedCart);
+        return deletedCart;
+      }
   );
 
   const handleIncrementQuantity = (itemId: number) => {
@@ -90,15 +91,13 @@ const CartItem = () => {
     productDeleteApi.mutate(
       { itemId },
       {
-        onSuccess: async(res) => {
-            const deletedCart =  await getCartDeletedState(id);
-            setCartState({...cartState, data:deletedCart})
-            if (deletedCart.length === 0) {
-              alertModal();
-              router.back();
-
-            }
-        
+        onSuccess: async (res) => {
+          const deletedCart = await getCartDeletedState(id);
+          setCartState({ ...cartState, data: deletedCart });
+          if (deletedCart.length === 0) {
+            alertModal();
+            router.back();
+          }
         },
       }
     );
@@ -214,7 +213,7 @@ const CartItem = () => {
             {totalPrice}원 주문하기
           </CommonButton>
         </CartUI.Flex>
-      ) }
+      )}
     </>
   );
 };

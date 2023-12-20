@@ -39,7 +39,11 @@ import {
   StoreInfoRequestType,
   StoreResponseType,
 } from "@/types/api/storeInfoType";
-import { OrderItemRequestType, OrderResultData } from "@/types/api/getCartType";
+import {
+  OrderItemRequestType,
+  OrderResultData,
+  OrderResultResponse,
+} from "@/types/api/getCartType";
 
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
@@ -216,7 +220,7 @@ export default class WinterFoodClient {
   async orderDetail() {
     return this.httpClient
       .get(`/api/mypage/orders`)
-      .then((res) => res.data as OrderResultData[]);
+      .then((res) => res.data as OrderResultResponse);
   }
 
   //찜하기
