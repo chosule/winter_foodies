@@ -10,12 +10,12 @@ import {
   orderDataState,
   orderResultDataState,
 } from "@/recoil/atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
 import CounterQuantity from "./CounterQuantity";
 import { useRouter } from "next/router";
 import { CSSProperties, useEffect, useMemo } from "react";
 import { CartDeleteRequest } from "@/types/api/CartDeleteType";
-import { getCartSelector } from "@/recoil/selector";
+import { cartDeletedState } from "@/recoil/selector";
 import uuid from "react-uuid";
 const CartItem = () => {
   const { productDeleteApi, cartOrderApi } = useCart();
@@ -30,10 +30,16 @@ const CartItem = () => {
   //주문하기 후 내역보여줄 atom 담기
   const [, setOrderResultState] = useRecoilState(orderResultDataState);
 
-  // const deletedCartData = useRecoilState(getCartSelector);
-  const deletedCartData = useRecoilValue(getCartSelector);
+  // const deletedCart = useRecoilValue(cartDeletedState(165));
+  // console.log("deletedCartData", deletedCart);
 
-  console.log("deletedCartData", deletedCartData);
+  const getCartDeletedState = useRecoilCallback(
+    ({ snapshot }) => async (itemId:string) => {
+      const deletedCart = await snapshot.getPromise(cartDeletedState(itemId));
+      console.log('deltetCart??',deletedCart)
+      return deletedCart
+    }
+  );
 
   const handleIncrementQuantity = (itemId: number) => {
     const updatedCartData = cartState.data.map((item) => {
@@ -75,29 +81,23 @@ const CartItem = () => {
     productDeleteApi.mutate(
       { itemId },
       {
-        onSuccess: (res) => {
+        onSuccess: async(res) => {
+          // setDeletedCart(itemId)
           console.log(" 삭제하기 res값 ", res);
-          deletedCartData(itemId);
-          // setCartState((prevCartItems) => {
-          //   return {
-          //     ...prevCartItems,
-          //     data: deletedCartData,
-          //   };
-          // });
-          // setCartState((prevCartItems) => {
-          //   // const updatedItems = prevCartItems?.data?.filter(
-          //   //   (item) => item.itemId !== itemId
-          //   // );
-          //   // console.log("prev?", prevCartItems);
-          //   return {
-          //     ...prevCartItems,
-          //     data: deletedCartData,
-          //   };
-          // });
+          console.log('itemId',itemId)
+            const deletedCart =  await getCartDeletedState(id);
+            console.log('deleteCart',deletedCart)
+            setCartState({...cartState, data:deletedCart})
+            if (deletedCart.length === 0) {
+              
+            }
+        
         },
       }
     );
   };
+
+
 
   useEffect(() => {
     setOrderState((prevState) => ({
@@ -209,7 +209,7 @@ const CartItem = () => {
             {totalPrice}원 주문하기
           </CommonButton>
         </CartUI.Flex>
-      )}
+      ) }
     </>
   );
 };
