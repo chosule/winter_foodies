@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 import CommonButton from "@/components/ui/Button/CommonButton";
 
-type TAlertProps = {
+type AlertProps = {
   title?: string;
   message?: string;
   btnText?: string;
   close?: () => void;
 };
-const Alert = ({ title, message, btnText, close }: TAlertProps) => {
+const Alert = ({ title, message, btnText, close }: AlertProps) => {
   return (
     <StyledWrap>
       <StyledOverlay onClick={close}></StyledOverlay>

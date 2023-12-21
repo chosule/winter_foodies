@@ -40,6 +40,10 @@ const useContextModal = () => {
   const openAlert = (props: ModalProps) => {
     openModal({ ...props, type: "ALERT" });
   };
+
+  const openReviewRegist = (props:ModalProps) =>{
+    openModal({...props, type:"REVIEW"})
+  }
   const openNotice = (props: ModalProps) => {
     openModal({ ...props, type: "ALERT" });
   };
@@ -49,6 +53,7 @@ const useContextModal = () => {
     closeModal,
     openAlert,
     openNotice,
+    openReviewRegist
   };
 };
 

@@ -5,17 +5,18 @@ import styled from "@emotion/styled";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import { useRouter } from "next/router";
 import useCart from "@/hooks/cart/useCart";
-import { MenuDetailData } from "@/types/api/menuType";
+import { MenuDetailData, menuList } from "@/types/api/menuType";
 import useContextModal from "@/context/hooks/useContextModal";
+import Skeleton from "@/pages/Skeleton/Skeleton";
+
 
 const StoreMenuCart = () => {
   const router = useRouter();
 
   const { menuApi, addNewProductApi } = useCart();
-  const { id, picture } = router.query;
+  const { id, picture, } = router.query;
+  const { data: menuData ,isLoading} = menuApi(Number(id));
 
-  const { data: menuData } = menuApi(id);
-  
   const modal = useContextModal();
 
   const openModal = () =>{
@@ -41,13 +42,11 @@ const StoreMenuCart = () => {
     );
   };
 
-  if (!menuData || !menuData.menu) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return <Skeleton/>;
 
   return (
     <MainUI.Flex gap="30px" flexDirection="column">
-      {menuData.menu.map(({ foodId, menuName, price }: MenuDetailData) => (
+      {menuData?.data?.menu.map(({ foodId, menuName, price }:menuList) => (
         <MainUI.Flex gap="20px" flexDirection="column" key={foodId}>
           <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
             <StyledText fontWeight="600">{menuName}</StyledText>

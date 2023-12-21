@@ -1,4 +1,5 @@
 import Alert from "@/components/Popup/Alert";
+import ReviewRegist from "@/components/Popup/ReviewRegist";
 import { Modals, ModalProps } from "@/context/types/modalProps";
 import { useState } from "react";
 import { createContext, ReactNode } from "react";
@@ -32,6 +33,8 @@ const ModalProvider = ({ children }: TModalProvider) => {
         switch (modal.type) {
           case "ALERT":
             return <Alert key={modal.key} {...modal}></Alert>;
+          case "REVIEW":
+            return <ReviewRegist key={modal.key}>{...modal}</ReviewRegist>
           default:
             return <Alert key={modal.key} {...modal}></Alert>;
         }

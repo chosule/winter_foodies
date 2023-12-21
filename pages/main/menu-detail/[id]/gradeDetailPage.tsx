@@ -50,6 +50,7 @@ const GradeDetailPage = () => {
               name,
               picture,
               address,
+              rating
             },
           });
         }}

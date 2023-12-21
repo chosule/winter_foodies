@@ -47,6 +47,7 @@ const ReviesDetailPage = () => {
                 name,
                 picture,
                 address,
+                rating
               },
             });
           }}

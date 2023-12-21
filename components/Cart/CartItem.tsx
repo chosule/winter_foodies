@@ -18,6 +18,8 @@ import { CartDeleteRequest } from "@/types/api/CartDeleteType";
 import { cartDeletedState } from "@/recoil/selector";
 import uuid from "react-uuid";
 import useContextModal from "@/context/hooks/useContextModal";
+
+
 const CartItem = () => {
   const { productDeleteApi, cartOrderApi } = useCart();
   const router = useRouter();
@@ -38,7 +40,7 @@ const CartItem = () => {
 
   const alertModal = () => {
     modal.openAlert({
-      message: "장바구니에 상품이 없어 다시 메뉴페이지로 이동합니다.",
+      message: "장바구니에 상품이 없어 메뉴페이지로 이동합니다.",
       btnText: "확인",
     });
   };
@@ -133,7 +135,7 @@ const CartItem = () => {
   return (
     <>
       {cartState && (
-        <CartUI.Flex gap="15px" flexDirection="column">
+        <CartUI.Flex gap="30px" flexDirection="column">
           <StyledBox
             width="100%"
             justifyContent="space-between"
@@ -167,8 +169,8 @@ const CartItem = () => {
               <div key={uuid()}>
                 <StyledBox
                   width="100%"
-                  height="100px"
-                  backgroundcolor="#f3f3f3"
+                  height="116px"
+                  backgroundcolor="#fff"
                   flexDirection="column"
                   padding="10px"
                 >
@@ -209,8 +211,8 @@ const CartItem = () => {
               </div>
             ))}
           </StyledCustomBox>
-          <CommonButton onClick={handleOrder} variant="contained" width="100%">
-            {totalPrice}원 주문하기
+          <CommonButton onClick={handleOrder} variant="contained" width="100%" height="47px">
+            <CartUI.Text color="#fff" fontSize="16px">{totalPrice}원 주문하기</CartUI.Text>
           </CommonButton>
         </CartUI.Flex>
       )}
@@ -219,7 +221,7 @@ const CartItem = () => {
 };
 
 const StyledCustomBox = styled(CartUI.Flex)`
-  min-height: calc(100vh - 398px);
+  min-height: calc(100vh - 423px);
 `;
 const StyledBox = styled(CommonBox)<
   Pick<
@@ -232,6 +234,7 @@ const StyledBox = styled(CommonBox)<
   flex-direction: ${({ flexDirection }) => flexDirection};
   align-items: ${({ alignItems }) => alignItems};
   padding: ${({ padding }) => padding};
+  border:1px solid #dd8037;
 `;
 
 const StyledImgBox = styled(Image)`

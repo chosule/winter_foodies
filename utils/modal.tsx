@@ -9,6 +9,7 @@ type Props = {
   component?: () => JSX.Element;
 };
 
+
 const modal = {
   open: (Component: (props: Props) => JSX.Element, props: Props) => {
     const defaultProps = {

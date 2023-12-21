@@ -6,8 +6,8 @@ import { keyframes } from "@emotion/css";
 import { CSSProperties } from "react";
 
 type Props = {
-  height: string;
-  top:string
+  height?: string;
+  top?:string
 }
 
 const Skeleton = ({height,top}:Props) => {

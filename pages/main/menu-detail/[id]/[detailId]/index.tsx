@@ -9,9 +9,9 @@ import { FaRegHeart } from "react-icons/fa6";
 
 const MenuDetailInfoPage = () => {
   const { query } = useRouter();
-  const { name, picture, favorite, id } = query;
+  const { name, picture, favorite, id ,rating} = query;
     // state => state변경했다 => 컴포넌트 리렌더 => state가 바뀐값이
-
+  console.log('query?',rating)
   const { favoriteApi } = useCart();
   
   const handleClick= () => {
@@ -30,7 +30,7 @@ const MenuDetailInfoPage = () => {
   return (
     <>
       <StyledHeaderWrap>
-        <HeaderLayout headerTitle={name} />
+        <HeaderLayout headerTitle={name} storeRating={rating} />
         <StyledIcon onClick={handleClick} />
       </StyledHeaderWrap>
       <Image src={picture} alt="이미지" width={70} height={70} />

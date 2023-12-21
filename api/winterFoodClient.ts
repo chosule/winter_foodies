@@ -176,10 +176,10 @@ export default class WinterFoodClient {
   }
 
   //메뉴판
-  async menu(id: TMenuRequest) {
+  async menu(id: number) {
     return this.httpClient
       .get(`/api/store/menu/${id}`)
-      .then((res) => res.data.data as TMenuResponse);
+      .then((res) => res.data as TMenuResponse);
   }
 
   //가게정보

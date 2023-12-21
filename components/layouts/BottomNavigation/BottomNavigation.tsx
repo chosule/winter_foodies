@@ -61,10 +61,6 @@ const routes = [
 ];
 
 const BottomNavigation = () => {
-  const { client } = useProjectApi();
-  // const { data: products } = useQuery(["carts"], () => client.getCart());
-
-  // console.log("??---> ", products);
   const pathname = usePathname();
   return (
     <NaviUI.NavWrap>

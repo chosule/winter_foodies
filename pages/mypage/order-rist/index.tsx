@@ -5,18 +5,22 @@ import useCart from "@/hooks/cart/useCart";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { MyPageUI } from "@/components/Mypage/style";
+import useDateFormat from "@/hooks/useDateFormat";
+import StarRating from "@/components/Main/components/Ui/StarRating";
+import Skeleton from "@/pages/Skeleton/Skeleton";
 
 const OrderListPage = () => {
   const {
-    orderDetailsApi: { isSuccess, data: orderDatas },
+    orderDetailsApi: { isLoading ,data: orderDatas },
   } = useCart();
 
-  console.log("주문내역 api", orderDatas);
+  if(isLoading) return <Skeleton/>
+  
   return (
     <>
       <HeaderLayout headerTitle="주문내역" />
 
-      {orderDatas ? (
+      {orderDatas && (
         <>
           {orderDatas?.data?.map(
             ({
@@ -42,32 +46,31 @@ const OrderListPage = () => {
                 />
                 <MyPageUI.Flex gap="6px" flexDirection="column">
                   <MyPageUI.Flex gap="10px" alignItems="center">
-                    <MyPageUI.Text fontWeight="600">{storeName}</MyPageUI.Text>
-                    <MyPageUI.Text fontSize="12px">{storeRating}</MyPageUI.Text>
+                    <MyPageUI.Text fontWeight="600" fontSize="13px">{storeName}</MyPageUI.Text>
+                    <StarRating storeRating={storeRating}/>
+                    
                   </MyPageUI.Flex>
-                  <MyPageUI.Text fontSize="14px">{orderTime}</MyPageUI.Text>
+                  <MyPageUI.Text fontSize="12px" color="gray">{useDateFormat(orderTime)}</MyPageUI.Text>
                   <MyPageUI.Flex gap="10px">
                     {items.map((item, index) => (
                       <MyPageUI.Flex gap="5px" key={index}>
-                        <MyPageUI.Text fontSize="14px">
+                        <MyPageUI.Text fontSize="12px">
                           {item.itemName}
                         </MyPageUI.Text>
-                        <MyPageUI.Text fontSize="14px">
+                        <MyPageUI.Text fontSize="12px">
                           {item.quantity}개
                         </MyPageUI.Text>
                       </MyPageUI.Flex>
                     ))}
                   </MyPageUI.Flex>
-                  <MyPageUI.Text fontSize="14px" fontWeight="600">
-                    {totalPrice}원
+                  <MyPageUI.Text fontSize="12px" fontWeight="600">
+                    {totalPrice} 원
                   </MyPageUI.Text>
                 </MyPageUI.Flex>
               </StyledBox>
             )
           )}
         </>
-      ) : (
-        <div>ddff</div>
       )}
     </>
   );

@@ -33,7 +33,7 @@ const StyledBox = styled.div<
   Pick<TCommonBoxProps, "width" | "height"> & { backgroundColor?: string }
 >`
   width: ${({ width }) => (width ? width : "55px")};
-  height: ${({ height }) => (height ? height : "55px")};
+  height: ${({ height }) => (height ? height : "65px")};
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : "#DD8037"};
   border-radius: 10px;

@@ -18,7 +18,6 @@ export function NearbyDetailPage() {
     queryKey: ["nearbyData"],
     queryFn: () => getNearbyData(Number(id)),
   });
-
   if (isLoading) return <Skeleton height="120vh" top="-167px"/>
 
   return (
@@ -49,6 +48,7 @@ export function NearbyDetailPage() {
                     detailId: name,
                     name,
                     picture,
+                    rating,
                     address,
                   },
                 });
