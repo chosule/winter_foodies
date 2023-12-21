@@ -97,10 +97,12 @@ const StyledBtn = styled(CommonButton)`
   gap:5px;
 `
 const StyledBox = styled(MyPageUI.Flex)`
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 23px;
   border-radius: 10px;
   position:relative;
+  height:150px;
+  align-items:center;
   &::after{
     position: absolute;
     top:0;

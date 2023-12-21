@@ -34,7 +34,7 @@ const ModalProvider = ({ children }: TModalProvider) => {
           case "ALERT":
             return <Alert key={modal.key} {...modal}></Alert>;
           case "REVIEW":
-            return <ReviewRegist key={modal.key}>{...modal}</ReviewRegist>
+            return <ReviewRegist key={modal.key} {...modal}></ReviewRegist>;
           default:
             return <Alert key={modal.key} {...modal}></Alert>;
         }

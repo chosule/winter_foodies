@@ -1,12 +1,23 @@
 import styled from "@emotion/styled";
+import Modal from "react-modal"
+import CommonButton from "../ui/Button/CommonButton";
 
-export default function ReviewRegist() {
-     
+Modal.setAppElement("#__next");
+
+
+export default function ReviewRegist({storeNames,onClose}) {
      return(
           <div>
                <StyledOverlay/>
                <StyledContent>
-                    <textarea placeholder="리뷰를 입력해주세요."></textarea>
+                    <div>
+                         <div>
+                              <p>{storeNames}</p>
+
+                         </div>
+                         <StyledTextarea placeholder="리뷰를 입력해주세요."/>
+                         <CommonButton onClick={onClose}>등록하기</CommonButton>
+                    </div>
                </StyledContent>
           </div>
      )
@@ -23,6 +34,12 @@ const StyledOverlay = styled.div`
   background-color: rgb(0 0 0 / 65%);
 `;
 
+
+const StyledTextarea = styled.textarea`
+     border:none;
+     padding:10px;
+
+`
 const StyledContent = styled.div`
   position: fixed;
   display: grid;
