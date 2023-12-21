@@ -1,23 +1,34 @@
 import styled from "@emotion/styled";
 import Modal from "react-modal"
 import CommonButton from "../ui/Button/CommonButton";
+import { FaStar } from 'react-icons/fa';
 
 Modal.setAppElement("#__next");
 
 
-export default function ReviewRegist({storeNames,onClose}) {
+export default function ReviewRegist({storeNames,onClose,isOpen}) {
+     const handleStarClick =  () =>{
+
+     }
      return(
           <div>
                <StyledOverlay/>
-               <StyledContent>
-                    <div>
+               <StyledContent isOpen={isOpen}>
+                    <StyledFlex>
                          <div>
                               <p>{storeNames}</p>
-
+                              <div>
+                                   {[...Array(5)].map((_,index) =>(
+                                        <FaStar
+                                             key={index}
+                                             onClick={() => handleStarClick}
+                                        />
+                                   ))}
+                              </div>
                          </div>
                          <StyledTextarea placeholder="리뷰를 입력해주세요."/>
                          <CommonButton onClick={onClose}>등록하기</CommonButton>
-                    </div>
+                    </StyledFlex>
                </StyledContent>
           </div>
      )
@@ -34,6 +45,12 @@ const StyledOverlay = styled.div`
   background-color: rgb(0 0 0 / 65%);
 `;
 
+const StyledFlex = styled.div`
+     display:flex;
+     align-items:center;
+     flex-direction:column;
+     height:100%;
+`
 
 const StyledTextarea = styled.textarea`
      border:none;
