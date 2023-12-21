@@ -30,13 +30,13 @@ const StyledModalWrap = styled(Modal)`
   height: 178px;
   width: 359px;
   border-radius: 17px;
-  background-color: #fcce8a;
+  background-color: #fff;
   border: 1px solid #ddd;
   position: fixed;
   top: 50%;
   left: 50%;
   display: flex;
-  margin-left:13em;
+  margin-left: 13em;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;

@@ -4,10 +4,10 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head/>
+        <Head />
         <body>
-          <div id="modal"></div>
           <Main />
+          <div id="modal"></div>
           <NextScript />
         </body>
       </Html>

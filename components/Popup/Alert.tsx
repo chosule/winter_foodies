@@ -43,7 +43,7 @@ const StyledContent = styled.div`
   max-width: 400px;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #f3f3f3;
+  background-color: #fff;
   transform: translate(-50%, -50%);
   z-index: 1000;
 `;
