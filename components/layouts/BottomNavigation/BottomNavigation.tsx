@@ -17,13 +17,11 @@ import CartStatus from "@/components/Cart/CartStatus";
 import { userState, userToken } from "@/recoil/atom";
 import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
+import useUserAuth from "@/hooks/auth/useUserAuth";
 
-const navName = [
-  {home:"홈"}
-]
 const routes = [
   {
-    text: navName[0].home,
+    text: "홈",
     img: {
       default: <HomeIcon />,
       active: <HomeIconActive />,
@@ -62,24 +60,21 @@ const routes = [
       active: <LoginIconActive />,
     },
     path: "/login",
-    tokenState:false,
+    tokenState: false,
   },
 ];
 
 const BottomNavigation = () => {
-  const token = useRecoilValue(userState)
+  const token = useRecoilValue(userState);
   const pathname = usePathname();
   const [loginText, setLoginText] = useState(routes[4]);
-
-
-  useEffect(() =>{
-      if (token) {
-         setLoginText((prev) => ({...prev , text:"로그아웃", path:"/logout"}));
-      } else {
-        setLoginText((prev) => ({ ...prev, text: "로그인", path: "/login" }));
-
-      }
-  },[token])
+  useEffect(() => {
+    if (token) {
+      setLoginText((prev) => ({ ...prev, text: "로그아웃", path: "/logout" }));
+    } else {
+      setLoginText((prev) => ({ ...prev, text: "로그인", path: "/login" }));
+    }
+  }, [token]);
   return (
     <>
       <NaviUI.NavWrap>
@@ -92,7 +87,7 @@ const BottomNavigation = () => {
               <Link key={text} href={paths} passHref>
                 <NaviUI.NavItem>
                   {isActive ? img.active : img.default}
-                  <NaviUI.Text isActive={isActive} >{buttonText}</NaviUI.Text>
+                  <NaviUI.Text isActive={isActive}>{buttonText}</NaviUI.Text>
                   {cartStatus && <CartStatus />}
                 </NaviUI.NavItem>
               </Link>
@@ -100,7 +95,6 @@ const BottomNavigation = () => {
           })}
         </NaviUI.Nav>
       </NaviUI.NavWrap>
-    
     </>
   );
 };

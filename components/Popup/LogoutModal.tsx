@@ -1,23 +1,38 @@
+import useUserAuth from "@/hooks/auth/useUserAuth";
 import { ModalUI } from "./style";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-type Props ={
-    close?:() => void;
-}
+type Props = {
+  close?: () => void;
+  title: string;
+  btnText: string;
+  message: string;
+};
 
-export default function LogoutModal({close,title,btnText,message}:Props) {
-    
-     return(
-        <>
-            <ModalUI.Overlay/>
-            <ModalUI.Content>
-                <ModalUI.Title>로그아웃</ModalUI.Title>
-                <ModalUI.Title></ModalUI.Title>
-                <ModalUI.Message>{message}</ModalUI.Message>
-                <>
-                    <ModalUI.ConfirmBtn>{btnText}</ModalUI.ConfirmBtn>
-                    <ModalUI.ConfirmBtn>아니요</ModalUI.ConfirmBtn>
-                </>
-            </ModalUI.Content>
-        </>
-     )
+export default function LogoutModal({ close, title, btnText, message }: Props) {
+  const router = useRouter();
+  const { logout } = useUserAuth();
+
+  useEffect(() => {
+    router.push("/");
+  }, [logout]);
+  return (
+    <>
+      <ModalUI.Overlay />
+      <ModalUI.Content>
+        <ModalUI.Title color="#000">로그아웃</ModalUI.Title>
+        <ModalUI.Title></ModalUI.Title>
+        <ModalUI.Message>{message}</ModalUI.Message>
+        <ModalUI.Flex gap="10px" onClick={close}>
+          <ModalUI.ConfirmBtn onClick={logout}>
+            <ModalUI.Title>예</ModalUI.Title>
+          </ModalUI.ConfirmBtn>
+          <ModalUI.ConfirmBtn>
+            <ModalUI.Title>아니요</ModalUI.Title>
+          </ModalUI.ConfirmBtn>
+        </ModalUI.Flex>
+      </ModalUI.Content>
+    </>
+  );
 }

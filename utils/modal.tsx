@@ -11,7 +11,6 @@ type Props = {
   component?: () => JSX.Element;
 };
 
-
 const modal = {
   open: (Component: (props: Props) => JSX.Element, props: Props) => {
     const defaultProps = {
@@ -42,15 +41,14 @@ const modal = {
   },
 
   //review regist
-  openReviewRegist:(props:Props) =>{
+  openReviewRegist: (props: Props) => {
     modal.open(ReviewRegist, props);
-  }
-  
-  //logout
-  logoutModal:(props:Props) => {
-    modal.open(LogoutModal,props)
-  }
-};
+  },
 
+  //logout
+  logoutModal: (props: Props) => {
+    modal.open(LogoutModal, props);
+  },
+};
 
 export default modal;

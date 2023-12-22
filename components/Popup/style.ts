@@ -55,17 +55,17 @@ const Text = styled.p<Pick<CSSProperties, "fontWeight" | "fontSize">>`
   font-weight: ${({ fontWeight }) => fontWeight};
 `;
 
-
 const Title = styled.h3`
   text-align: center;
+  color: ${({ color }) => (color ? color : "#fff")};
 `;
 
 const ConfirmBtn = styled(CommonButton)`
   flex: 1;
-  height: 24px;
   border-radius: 4px;
   cursor: pointer;
   height: 36px;
+  background-color: #dd8037;
 `;
 
 const Message = styled.p`
@@ -75,4 +75,12 @@ const Message = styled.p`
   font-size: 13px;
   white-space: pre-line;
 `;
-export const ModalUI = { Content, Flex, Overlay, Text ,Title,ConfirmBtn,Message};
+export const ModalUI = {
+  Content,
+  Flex,
+  Overlay,
+  Text,
+  Title,
+  ConfirmBtn,
+  Message,
+};

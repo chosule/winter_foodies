@@ -41,16 +41,16 @@ const useContextModal = () => {
     openModal({ ...props, type: "ALERT" });
   };
 
-  const openReviewRegist = (props:ModalProps) =>{
-    openModal({...props, type:"REVIEW"})
-  }
+  const openReviewRegist = (props: ModalProps) => {
+    openModal({ ...props, type: "REVIEW" });
+  };
   const openNotice = (props: ModalProps) => {
     openModal({ ...props, type: "ALERT" });
   };
-  
-  const logoutModal = (props:ModalProps) =>{
-    openModal({...props, type:"LOGOUT_MODAL"})
-  }
+
+  const logoutModal = (props: ModalProps) => {
+    openModal({ ...props, type: "CONFIRM" });
+  };
 
   return {
     openModal,
@@ -58,7 +58,7 @@ const useContextModal = () => {
     openAlert,
     openNotice,
     openReviewRegist,
-    logoutModal
+    logoutModal,
   };
 };
 

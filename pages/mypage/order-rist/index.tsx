@@ -9,28 +9,24 @@ import useDateFormat from "@/hooks/useDateFormat";
 import StarRating from "@/components/Main/components/Ui/StarRating";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import CommonButton from "@/components/ui/Button/CommonButton";
-import {useRouter} from "next/router"
+import { useRouter } from "next/router";
 import useContextModal from "@/context/hooks/useContextModal";
-
 
 const OrderListPage = () => {
   const router = useRouter();
   const modal = useContextModal();
 
   const {
-    orderDetailsApi: { isLoading ,data: orderDatas },
+    orderDetailsApi: { isLoading, data: orderDatas },
   } = useCart();
 
-  if(isLoading) return <Skeleton/>
-  
+  if (isLoading) return <Skeleton />;
 
-  const openReview = (storeName) =>{
-    console.log('store',storeName)
+  const openReview = (storeName: string) => {
     modal.openReviewRegist({
-      storeNames:`${storeName}`
-    })
-  }
-  
+      storeNames: `${storeName}`,
+    });
+  };
 
   return (
     <>
@@ -49,10 +45,10 @@ const OrderListPage = () => {
                 totalPrice,
               }) => (
                 <StyledBox
-                key={id}
-                width="100%"
-                backgroundcolor="#fff"
-                height="100%"
+                  key={id}
+                  width="100%"
+                  backgroundcolor="#fff"
+                  height="100%"
                 >
                   <MyPageUI.Flex gap="10px">
                     <StyledImage
@@ -63,11 +59,14 @@ const OrderListPage = () => {
                     />
                     <MyPageUI.Flex gap="6px" flexDirection="column">
                       <MyPageUI.Flex gap="10px" alignItems="center">
-                        <MyPageUI.Text fontWeight="600" fontSize="13px">{storeName}</MyPageUI.Text>
-                        <StarRating storeRating={storeRating}/>
-                        
+                        <MyPageUI.Text fontWeight="600" fontSize="13px">
+                          {storeName}
+                        </MyPageUI.Text>
+                        <StarRating storeRating={storeRating} />
                       </MyPageUI.Flex>
-                      <MyPageUI.Text fontSize="12px" color="gray">{useDateFormat(orderTime)}</MyPageUI.Text>
+                      <MyPageUI.Text fontSize="12px" color="gray">
+                        {useDateFormat(orderTime)}
+                      </MyPageUI.Text>
                       <MyPageUI.Flex gap="10px">
                         {items.map((item, index) => (
                           <MyPageUI.Flex gap="5px" key={index}>
@@ -86,11 +85,15 @@ const OrderListPage = () => {
                     </MyPageUI.Flex>
                   </MyPageUI.Flex>
                   <StyledBtn width="100%" backgroundcolor="none">
-                    <MyPageUI.Text onClick ={() => openReview(storeName)}color="#dd8037">리뷰 작성하기</MyPageUI.Text>
+                    <MyPageUI.Text
+                      onClick={() => openReview(storeName)}
+                      color="#dd8037"
+                    >
+                      리뷰 작성하기
+                    </MyPageUI.Text>
                   </StyledBtn>
                 </StyledBox>
-                
-                )
+              )
             )}
           </>
         )}
@@ -100,9 +103,9 @@ const OrderListPage = () => {
 };
 
 const StyledBtn = styled(CommonButton)`
-  border:1px solid #dd8037;
-  border-radius:10px;
-`
+  border: 1px solid #dd8037;
+  border-radius: 10px;
+`;
 const StyledImage = styled(Image)`
   border-radius: 13px;
 `;
@@ -110,8 +113,8 @@ const StyledImage = styled(Image)`
 const StyledBox = styled(CommonBox)`
   padding: 18px;
   display: flex;
-  flex-direction:column;
-  gap:24px;
+  flex-direction: column;
+  gap: 24px;
 `;
 
 OrderListPage.getLayout = (page: React.ReactNode) => {

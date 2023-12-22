@@ -18,7 +18,7 @@ const Popup = ({ children, isOpen, onClose, title }: TPopupProps) => {
       <StyledModalWrap isOpen={isOpen}>
         <StyledText fontWeight="600">{title}</StyledText>
         <StyledText>{children}</StyledText>
-        <StyledButton onClick={onClose} backgroundColor="#853C0D" width="80%">
+        <StyledButton onClick={onClose} backgroundcolor="#853C0D" width="80%">
           확인
         </StyledButton>
       </StyledModalWrap>

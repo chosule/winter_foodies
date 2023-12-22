@@ -1,6 +1,11 @@
 import { userState } from "@/recoil/atom";
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from "recoil";
 
 /**
  * @description
@@ -16,17 +21,17 @@ const useUserAuth = () => {
   const resetUserInfo = useResetRecoilState(userState);
   const [user, setUser] = useRecoilState(userState);
 
-  const login = (token:string) =>{
-    const accessToken = localStorage.setItem("accessToken",token);
+  const login = (token: string) => {
+    const accessToken = localStorage.setItem("accessToken", token);
     setUser(accessToken);
-    console.log('user???',user)
-  }
+    console.log("user???", user);
+  };
 
-  const logout = () =>{
-    resetUserInfo();
+  const logout = () => {
     localStorage.removeItem("accessToken");
-  }
- 
+    resetUserInfo();
+  };
+
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
   //     const accessToken = localStorage.getItem("accessToken");
@@ -38,9 +43,7 @@ const useUserAuth = () => {
   //   }
   // }, []);
 
-  return { user,  resetUserInfo , logout, login};
+  return { user, resetUserInfo, logout, login };
 };
 
 export default useUserAuth;
-
-
