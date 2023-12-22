@@ -17,13 +17,14 @@ import { useRecoilState } from "recoil";
 import { userState } from "@/recoil/atom";
 import { useEffect, useState } from "react";
 import useAuthApi from "@/hooks/auth/useLogin";
+import useUserAuth from "@/hooks/auth/useUserAuth";
 
 const Login = () => {
   const modal = useContextModal();
   const router = useRouter();
   const { loginApi } = useAuthApi();
-  const [token, setToken] = useState("");
-  const [tokenValue, setTokenValue] = useRecoilState(userState);
+  const [, setToken] = useRecoilState(userState);
+
   const {
     register,
     handleSubmit,
@@ -34,10 +35,11 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
     loginApi.mutate(data, {
-      onSuccess: (res) => {
-        const accessToken = res?.accessToken;
-        setToken(accessToken);
-        openAlert();
+      onSuccess:(res) => {
+         const accessToken =  res?.accessToken;
+          localStorage.setItem("accessToken",accessToken);
+          setToken(accessToken);
+         openAlert();
         router.push("/main");
       },
     });
@@ -54,12 +56,12 @@ const Login = () => {
     });
   };
 
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem("accessToken", token);
-      setTokenValue(token);
-    }
-  }, [onSubmit]);
+  // useEffect(() => {
+  //   if (token) {
+  //     localStorage.setItem("accessToken", token);
+  //     setTokenValue(token);
+  //   }
+  // }, [onSubmit]);
 
   return (
     <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%" minHeight="calc( 100vh - 97px)">

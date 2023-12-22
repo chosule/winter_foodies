@@ -65,6 +65,5 @@ const StyledButton = styled(CommonButton)`
   margin-bottom:20px;
   border-radius:11px;
   min-width:50px;
-
 `;
 export default MenuSearch;

@@ -1,10 +1,11 @@
 import { Button, ButtonProps, styled } from "@mui/material";
+import { CSSProperties } from "react";
 
 type CommonButtonProps = {
   width?: string;
   height?: string;
   backgroundcolor?: string;
-  isactive?: string;
+  isactive?: () => void;
 };
 
 const CommonButton = ({
@@ -13,17 +14,17 @@ const CommonButton = ({
   variant = "text",
   width,
   height,
-  backgroundcolor,
   isactive,
+  backgroundcolor,
   ...rest
 }: ButtonProps & CommonButtonProps) => {
   return (
     <StyledButton
       variant={variant}
       color={color}
+      backgroundcolor={backgroundcolor}
       width={width}
       height={height}
-      backgroundcolor={backgroundcolor}
       isactive={isactive}
       {...rest}
     >
@@ -32,11 +33,11 @@ const CommonButton = ({
   );
 };
 
-const StyledButton = styled(Button)<CommonButtonProps>`
+const StyledButton = styled(Button)<Pick<CSSProperties,"height" | "width" | "borderRadius" | "backgroundColor">>`
   width: ${({ width }) => (width ? width : "47px")};
   height: ${({ height }) => (height ? height : "45px")};
-  background-color: ${({ backgroundcolor }) =>
-    backgroundcolor ? backgroundcolor : "#DD8037"};
   color: #fff;
+  border-radius:10px;
+  background-color:${({backgroundcolor}) => backgroundcolor};
 `;
 export default CommonButton;

@@ -10,11 +10,10 @@ import {
   orderDataState,
   orderResultDataState,
 } from "@/recoil/atom";
-import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilCallback, useRecoilState } from "recoil";
 import CounterQuantity from "./CounterQuantity";
 import { useRouter } from "next/router";
 import { CSSProperties, useEffect, useMemo } from "react";
-import { CartDeleteRequest } from "@/types/api/CartDeleteType";
 import { cartDeletedState } from "@/recoil/selector";
 import uuid from "react-uuid";
 import useContextModal from "@/context/hooks/useContextModal";

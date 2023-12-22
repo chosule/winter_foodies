@@ -106,6 +106,7 @@ const SignUpPage = () => {
         email: data.email,
         password: data.password,
         username: data.username,
+        
       },
       {
         onSuccess: (res) => {

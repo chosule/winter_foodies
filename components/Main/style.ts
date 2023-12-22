@@ -59,6 +59,7 @@ const CustomBox = styled(CommonBox)`
   display: flex;
   align-items: center;
   gap: 16px;
+  background-color:#fff;
 `;
 
 export const MainUI = {

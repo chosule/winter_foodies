@@ -14,7 +14,7 @@ const Alert = ({ title, message, btnText, close }: AlertProps) => {
       <StyledContent>
         <StyledTitle>{title}</StyledTitle>
         <StyledMessage>{message}</StyledMessage>
-        <StyledConfirmBtn onClick={close} width="100%">
+        <StyledConfirmBtn onClick={close} width="100%" backgroundcolor="#dd8037">
           <StyledTitle>{btnText}</StyledTitle>
         </StyledConfirmBtn>
       </StyledContent>

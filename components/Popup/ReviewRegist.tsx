@@ -6,11 +6,17 @@ import { useState } from "react";
 import { ModalUI } from "./style";
 import Image from "next/image";
 import { CiImageOn } from "react-icons/ci";
+import { IoClose } from "react-icons/io5";
 import { TiDelete } from "react-icons/ti";
 
 Modal.setAppElement("#__next");
 
-export default function ReviewRegist({ storeNames, onClose, isOpen }) {
+type Props = {
+     storeNames?:string;
+     close?:() => void;
+     isOpen?:boolean;
+}
+export default function ReviewRegist({ storeNames, isOpen ,close}:Props) {
   const [rating, setRating] = useState(0);
 
   const [file, setFile] = useState();
@@ -25,15 +31,18 @@ export default function ReviewRegist({ storeNames, onClose, isOpen }) {
     }
   };
 
-  const handleStarClick = (index) => {
+  const handleStarClick = (index:number) => {
     console.log("index", index);
     setRating(index + 1);
   };
+
+
   return (
     <div>
       <ModalUI.Overlay />
       <ModalUI.Content isOpen={isOpen} minWidth="400px" padding="40px">
         <StyledForm>
+          <StyledCloseIcon onClick={close} />
           <ModalUI.Text fontWeight="600" fontSize="20px">
             {storeNames}
           </ModalUI.Text>
@@ -75,7 +84,9 @@ export default function ReviewRegist({ storeNames, onClose, isOpen }) {
               </StyledWrap>
             )}
           </StyledFlex>
-          <CommonButton onClick={onClose}>등록하기</CommonButton>
+          <CommonButton width="100%" backgroundcolor="#dd8037">
+               <p>등록하기</p>
+          </CommonButton>
         </StyledForm>
       </ModalUI.Content>
     </div>
@@ -83,7 +94,7 @@ export default function ReviewRegist({ storeNames, onClose, isOpen }) {
 }
 
 const StyledFlex = styled(ModalUI.Flex)`
-  margin-left: 30px;
+  margin-left: 9px;
   align-self: start;
 `;
 const StyledWrap = styled.div`
@@ -116,11 +127,21 @@ const StyledFileInputContainer = styled.label`
   overflow: hidden;
   cursor: pointer;
 `;
+
+const StyledCloseIcon = styled(TiDelete)`
+  position:absolute;
+  right:-32px;
+  top:-31px;
+  cursor:pointer;
+  font-size:32px;
+  color:#dd8037;
+`
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  position:relative;
 `;
 
 const StyledFileInputLabel = styled.span`

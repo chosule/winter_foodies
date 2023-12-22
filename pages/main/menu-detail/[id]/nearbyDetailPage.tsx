@@ -36,7 +36,6 @@ export function NearbyDetailPage() {
             <MainUI.CustomBox
               key={uuid()}
               width="100%"
-              backgroundcolor="#f3f3f3"
               height="70px"
               onClick={() => {
                 console.log('favorite11111', favorite,)
