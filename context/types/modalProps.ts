@@ -7,6 +7,7 @@ export type ModalProps = {
   close?: () => void;
   confirm?: () => void;
   component?: () => JSX.Element;
+  storeName?:string;
 };
 
 export type Modals = Map<string, ModalProps>;

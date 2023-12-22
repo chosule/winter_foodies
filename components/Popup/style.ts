@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
+import CommonButton from "../ui/Button/CommonButton";
 
 const Flex = styled.div<
   Pick<
@@ -53,4 +54,25 @@ const Text = styled.p<Pick<CSSProperties, "fontWeight" | "fontSize">>`
   font-size: ${({ fontSize }) => fontSize};
   font-weight: ${({ fontWeight }) => fontWeight};
 `;
-export const ModalUI = { Content, Flex, Overlay, Text };
+
+
+const Title = styled.h3`
+  text-align: center;
+`;
+
+const ConfirmBtn = styled(CommonButton)`
+  flex: 1;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 36px;
+`;
+
+const Message = styled.p`
+  color: #353535;
+  font-weight: 300;
+  text-align: center;
+  font-size: 13px;
+  white-space: pre-line;
+`;
+export const ModalUI = { Content, Flex, Overlay, Text ,Title,ConfirmBtn,Message};

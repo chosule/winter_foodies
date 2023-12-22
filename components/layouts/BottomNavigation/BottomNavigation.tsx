@@ -14,13 +14,9 @@ import Link from "next/link";
 import { NaviUI } from "./style";
 import { usePathname } from "next/navigation";
 import CartStatus from "@/components/Cart/CartStatus";
-import { useQuery } from "@tanstack/react-query";
-import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { userState, userToken } from "@/recoil/atom";
 import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
-import useContextModal from "@/context/hooks/useContextModal";
-import useUserAuth from "@/hooks/auth/useUserAuth";
 
 const navName = [
   {home:"홈"}

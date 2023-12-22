@@ -1,4 +1,6 @@
 import Alert from "@/components/Popup/Alert";
+import LogoutModal from "@/components/Popup/LogoutModal";
+import ReviewRegist from "@/components/Popup/ReviewRegist";
 import ReactDOM from "react-dom/client";
 
 type Props = {
@@ -38,6 +40,17 @@ const modal = {
   openNotice: (props: Props) => {
     modal.open(Alert, props);
   },
+
+  //review regist
+  openReviewRegist:(props:Props) =>{
+    modal.open(ReviewRegist, props);
+  }
+  
+  //logout
+  logoutModal:(props:Props) => {
+    modal.open(LogoutModal,props)
+  }
 };
+
 
 export default modal;

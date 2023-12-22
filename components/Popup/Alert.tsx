@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import CommonButton from "@/components/ui/Button/CommonButton";
+import { ModalUI } from "./style";
 
 type AlertProps = {
   title?: string;
@@ -13,9 +14,9 @@ const Alert = ({ title, message, btnText, close }: AlertProps) => {
       <StyledOverlay onClick={close}></StyledOverlay>
       <StyledContent>
         <StyledTitle>{title}</StyledTitle>
-        <StyledMessage>{message}</StyledMessage>
+        <ModalUI.Message>{message}</ModalUI.Message>
         <StyledConfirmBtn onClick={close} width="100%" backgroundcolor="#dd8037">
-          <StyledTitle>{btnText}</StyledTitle>
+          <ModalUI.Title>{btnText}</ModalUI.Title>
         </StyledConfirmBtn>
       </StyledContent>
     </StyledWrap>
@@ -50,13 +51,7 @@ const StyledContent = styled.div`
 const StyledTitle = styled.h3`
   text-align: center;
 `;
-const StyledMessage = styled.p`
-  color: #353535;
-  font-weight: 300;
-  text-align: center;
-  font-size: 13px;
-  white-space: pre-line;
-`;
+
 const StyledConfirmBtn = styled(CommonButton)`
   flex: 1;
   height: 24px;

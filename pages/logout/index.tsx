@@ -5,10 +5,10 @@ import { useEffect } from "react";
 export default function LogoutPage() {
      const modal = useContextModal();
      const openLogoutModal = () =>{
-        modal.openAlert({
+        modal.logoutModal({
             title:"로그아웃",
             message:"로그아웃 하시겠습니까?",
-            btnText:"예"
+            btnText:"예",
         })
      }
 

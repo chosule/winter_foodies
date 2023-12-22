@@ -47,13 +47,18 @@ const useContextModal = () => {
   const openNotice = (props: ModalProps) => {
     openModal({ ...props, type: "ALERT" });
   };
+  
+  const logoutModal = (props:ModalProps) =>{
+    openModal({...props, type:"LOGOUT_MODAL"})
+  }
 
   return {
     openModal,
     closeModal,
     openAlert,
     openNotice,
-    openReviewRegist
+    openReviewRegist,
+    logoutModal
   };
 };
 
