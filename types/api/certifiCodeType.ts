@@ -1,8 +1,8 @@
 export interface CertifiCodeRequest {
-  authCode?: string;
-  phoneNumber?:string;
-};
+  authCode: string;
+  phoneNumber: string;
+}
 
-export interface CertifiCodeResponse{
-  message?:string;
+export interface CertifiCodeResponse {
+  message: string;
 }

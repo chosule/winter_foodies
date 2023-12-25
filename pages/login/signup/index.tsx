@@ -12,9 +12,12 @@ import useValid from "@/hooks/auth/useValid";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
 import useAuthApi from "@/hooks/auth/useLogin";
+import { CertifiCodeRequest } from "@/types/api/certifiCodeType";
+import { useRouter } from "next/router";
 
 const SignUpPage = () => {
   const { signUpApi, phoneCertiSignApi, certiAuthApi } = useAuthApi();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -26,8 +29,10 @@ const SignUpPage = () => {
     openPhoneModal,
     openPhoneErrorModal,
     phoneAuthError404,
+    phoneAuthError409,
     openAuthCodeModal,
     openAuthCodeErrorModal,
+    signUpModal,
     openAuthCodeCompleteModal,
   } = useAuthModal();
 
@@ -60,25 +65,21 @@ const SignUpPage = () => {
   };
 
   const PhoneNumberCodeMutate = (phoneNumber: TPhoneCertiRequest) => {
-    phoneCertiSignApi.mutate(
-      { phoneNumber },
-      {
-        onSuccess: (res) => {
-          openPhoneModal();
-        },
-        onError: (err) => {
-          console.log(err);
-          if (err.response?.status === 404) {
-            phoneAuthError404();
-          }
-        },
-      }
-    );
+    phoneCertiSignApi.mutate(phoneNumber, {
+      onSuccess: (res) => {
+        openPhoneModal(res.authCode);
+      },
+      onError: (err) => {
+        console.log(err);
+        if (err.response?.status === 404) {
+          phoneAuthError404();
+        }
+      },
+    });
   };
 
   const authCertiSubmit = () => {
     if (certiNumberValidState.isCertiCode === true) {
-      console.log("form", form);
       certiCodeMutate(form);
       setCompleteSubmit({
         ...completeSubmit,
@@ -90,13 +91,16 @@ const SignUpPage = () => {
     }
   };
 
-  const certiCodeMutate = (data) => {
+  const certiCodeMutate = (data: CertifiCodeRequest) => {
     certiAuthApi.mutate(data, {
       onSuccess: (res) => {
-        console.log("res", res);
+        console.log("res");
       },
       onError: (err) => {
         console.log("err", err);
+        if (err.response?.status === 409) {
+          phoneAuthError404();
+        }
       },
     });
   };
@@ -106,11 +110,17 @@ const SignUpPage = () => {
         email: data.email,
         password: data.password,
         username: data.username,
-        
+        phoneNumber: form.phoneNumber,
       },
       {
         onSuccess: (res) => {
-          console.log("res", res);
+          signUpModal();
+          router.push("/");
+        },
+        onError: (err) => {
+          if (err.response?.status === 409) {
+            phoneAuthError409();
+          }
         },
       }
     );

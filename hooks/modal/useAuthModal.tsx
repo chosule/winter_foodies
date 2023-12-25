@@ -10,10 +10,10 @@ const useAuthModal = () => {
     });
   };
 
-  const openPhoneModal = () => {
+  const openPhoneModal = (authCode) => {
     modal.openNotice({
       title: "알림",
-      message: "핸드폰 번호가 전송되었습니다.",
+      message: `임시 인증코드는 ${authCode}입니다.`,
       btnText: "확인",
     });
   };
@@ -53,14 +53,29 @@ const useAuthModal = () => {
       btnText: "확인",
     });
   };
+  const phoneAuthError409 = () => {
+    modal.openNotice({
+      title: "알림",
+      message: "이미 회원가입이 되어있습니다. 로그인해주시기 바랍니다.",
+      btnText: "확인",
+    });
+  };
+  const signUpModal = () => {
+    modal.openNotice({
+      message: "회원가입이 완료되어 메인페이지로 이동합니다.",
+      btnText: "확인",
+    });
+  };
   return {
     openAlert,
+    signUpModal,
     openPhoneModal,
     openPhoneErrorModal,
     openAuthCodeModal,
     openAuthCodeErrorModal,
     openAuthCodeCompleteModal,
     phoneAuthError404,
+    phoneAuthError409,
   };
 };
 

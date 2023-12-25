@@ -9,6 +9,10 @@ import { AxiosError } from "axios";
 import { TFindPwResponse, TFindPwRequest } from "@/types/api/findPwType";
 import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
 import { TSignUpRequest, TSignUpResponse } from "@/types/api/signUpType";
+import {
+  CertifiCodeRequest,
+  CertifiCodeResponse,
+} from "@/types/api/certifiCodeType";
 /**
  *
  * @description
@@ -59,7 +63,12 @@ const useAuthApi = () => {
   });
 
   //인증코드
-  const certiAuthApi = useMutation((data) => client.certifiCode(data), {
+  const certiAuthApi = useMutation<
+    CertifiCodeResponse,
+    AxiosError,
+    CertifiCodeRequest,
+    CertifiCodeResponse
+  >((data) => client.certifiCode(data), {
     onSuccess: () => queryClient.invalidateQueries(["certiAuth"]),
   });
 
