@@ -9,22 +9,22 @@ import { MenuDetailData, menuList } from "@/types/api/menuType";
 import useContextModal from "@/context/hooks/useContextModal";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 
-
 const StoreMenuCart = () => {
   const router = useRouter();
 
   const { menuApi, addNewProductApi } = useCart();
-  const { id, picture, } = router.query;
-  const { data: menuData ,isLoading} = menuApi(Number(id));
+  const { id, picture } = router.query;
+  const { data: menuData, isLoading } = menuApi(Number(id));
 
   const modal = useContextModal();
 
-  const openModal = () =>{
+  const openModal = () => {
     modal.openAlert({
-      message:"상품이 추가되었습니다 !",
-      btnText:"확인"
-    })
-  }
+      message: "상품이 추가되었습니다 !",
+      btnText: "확인",
+    });
+  };
+
   const handleClick = (foodId, menuName, price): void => {
     addNewProductApi.mutate(
       {
@@ -42,13 +42,17 @@ const StoreMenuCart = () => {
     );
   };
 
-  if (isLoading) return <Skeleton/>;
+  if (isLoading) return <Skeleton />;
 
   return (
-    <MainUI.Flex gap="30px" flexDirection="column">
-      {menuData?.data?.menu.map(({ foodId, menuName, price }:menuList) => (
+    <MainUI.Flex
+      gap="30px"
+      flexDirection="column"
+      minHeight="calc( 100vh - 259px)"
+    >
+      {menuData?.data?.menu.map(({ foodId, menuName, price }: menuList) => (
         <MainUI.Flex gap="20px" flexDirection="column" key={foodId}>
-          <StyledBox width="100%" height="72px" backgroundcolor="#f3f3f3">
+          <StyledBox width="100%" height="72px" backgroundcolor="#fff">
             <StyledText fontWeight="600">{menuName}</StyledText>
             <StyledText fontWeight="600">{price} 원</StyledText>
             <CartBtn backgroundcolor="#fff" height="55px">

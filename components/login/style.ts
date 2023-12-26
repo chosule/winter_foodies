@@ -10,7 +10,7 @@ const Wrapper = styled.section<
   justify-content: ${({ justifyContent }) => justifyContent};
   gap: 32px;
   height: ${({ height }) => (height ? height : "auto")};
-  min-height:${({minHeight}) => minHeight};
+  min-height: ${({ minHeight }) => minHeight};
   width: 100%;
 `;
 const Flex = styled.div<
@@ -23,6 +23,7 @@ const Flex = styled.div<
     | "justifyContent"
     | "flex"
     | "height"
+    | "minHeight"
   >
 >`
   display: flex;
@@ -34,6 +35,7 @@ const Flex = styled.div<
   justify-content: ${({ justifyContent }) => justifyContent};
   flex: ${({ flex }) => flex};
   height: ${({ height }) => height};
+  min-height: ${({ minHeight }) => minHeight};
 `;
 const FormWrap = styled.form<
   Pick<CSSProperties, "height" | "flex" | "minHeight" | "gap">

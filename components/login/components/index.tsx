@@ -15,9 +15,7 @@ import { useRouter } from "next/router";
 import useContextModal from "@/context/hooks/useContextModal";
 import { useRecoilState } from "recoil";
 import { userState } from "@/recoil/atom";
-import { useEffect, useState } from "react";
 import useAuthApi from "@/hooks/auth/useLogin";
-import useUserAuth from "@/hooks/auth/useUserAuth";
 
 const Login = () => {
   const modal = useContextModal();
@@ -35,11 +33,11 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<TLoginSchema> = (data) => {
     loginApi.mutate(data, {
-      onSuccess:(res) => {
-         const accessToken =  res?.accessToken;
-          localStorage.setItem("accessToken",accessToken);
-          setToken(accessToken);
-         openAlert();
+      onSuccess: (res) => {
+        const accessToken = res?.accessToken;
+        localStorage.setItem("accessToken", accessToken);
+        setToken(accessToken);
+        openAlert();
         router.push("/main");
       },
     });
@@ -64,7 +62,12 @@ const Login = () => {
   // }, [onSubmit]);
 
   return (
-    <AuthUI.Wrapper alignItems="center" justifyContent="center" height="100%" minHeight="calc( 100vh - 97px)">
+    <AuthUI.Wrapper
+      alignItems="center"
+      justifyContent="center"
+      height="100%"
+      minHeight="calc( 100vh - 97px)"
+    >
       <Image src={mainLogoIcon} alt="아이콘" width={300} height={278} />
       <AuthUI.FormWrap
         onSubmit={handleSubmit(onSubmit, onError)}
@@ -125,7 +128,12 @@ const Login = () => {
         </StyledLinkText>
       </AuthUI.Flex>
       {/*  */}
-      <AuthUI.Flex flexDirection="column" alignItems="center" gap="10px">
+      <AuthUI.Flex
+        flexDirection="column"
+        alignItems="center"
+        gap="10px"
+        minHeight="100px"
+      >
         <AuthUI.Text fontSize="10px">
           SNS계정으로 간편 로그인/회원가입
         </AuthUI.Text>

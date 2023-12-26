@@ -7,11 +7,11 @@ import { FaHeart } from "react-icons/fa";
 import StarRating from "../Main/components/Ui/StarRating";
 
 type Props = {
-  headerTitle:string 
-  storeRating?:number
-}
+  headerTitle: string;
+  storeRating?: number;
+};
 
-const HeaderLayout = ({ headerTitle ,storeRating}:Props) => {
+const HeaderLayout = ({ headerTitle, storeRating }: Props) => {
   const router = useRouter();
 
   return (
@@ -24,8 +24,9 @@ const HeaderLayout = ({ headerTitle ,storeRating}:Props) => {
         />
         {headerTitle && <StyleText>{headerTitle}</StyleText>}
         <StyledRating>
-          {storeRating && <StarRating storeRating={storeRating}/>}
+          {storeRating && <StarRating storeRating={storeRating} />}
         </StyledRating>
+
         {/* <StyledFavorites>
           {favorites && <button onClick={onClick}><StyledHeartIcons isFavorite={isFavorite}/></button>}
         </StyledFavorites> */}
@@ -34,12 +35,10 @@ const HeaderLayout = ({ headerTitle ,storeRating}:Props) => {
   );
 };
 
-
 const StyledFavorites = styled.div`
-  position:absolute;
-  right:0;
-
-`
+  position: absolute;
+  right: 0;
+`;
 const StyledWrap = styled.section`
   position: relative;
   min-height: 100px;
@@ -73,10 +72,9 @@ const StyleButton = styled(CommonButton)`
   transform: translate(0, -50%);
 `;
 const StyledRating = styled.div`
-  position:absolute;
-  right:33%;
-
-`
+  position: absolute;
+  right: 33%;
+`;
 const StyleText = styled.p`
   text-align: center;
   position: absolute;
