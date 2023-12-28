@@ -5,7 +5,7 @@ npm i
 npm run dev
 ```
 
-------
+---
 
 
 ## 📌 tool 
@@ -16,7 +16,7 @@ npm run dev
 style : emotion, styled-component , mui
 및 zod , react-hook-form 
 
---------
+---
 
 ## 📌 주요기능
 1. login (회원가입 / 아이디찾기 / 비밀번호찾기)
