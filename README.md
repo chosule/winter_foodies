@@ -20,6 +20,8 @@ style : emotion, styled-component , mui
 4. store정보 (메뉴판, 가게정보, 리뷰정보)
 5. mypage (찜한매장, 주문내역)
 
+
+
 ## 📌 기능 설명 
 
 ### 1. 각각 메뉴들 선택후 장바구니에 추가
