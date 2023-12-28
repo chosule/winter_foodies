@@ -25,8 +25,8 @@ style : emotion, styled-component , mui
 ## 📌 구현  
 
 ### 1. 메인
-![2023-12-28 13 32 54](https://github.com/chosule/winter_foodies/assets/89799325/6f3f0308-8546-4d35-8a55-802c6137ca67)
 
+![2023-12-28 13 32 54 (1)](https://github.com/chosule/winter_foodies/assets/89799325/660aea64-aed2-4325-814f-0b1c8aba1324)
 
 ### 2. 로그인
 ![ezgif com-video-to-gif-converter (2)](https://github.com/chosule/winter_foodies/assets/89799325/91482b54-4ed6-4423-8d53-3263f79982f2)
