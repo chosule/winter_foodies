@@ -5,7 +5,7 @@ npm i
 npm run dev
 ```
 
-## 📌 tool 
+## 📌 적용기술
 
 라이브러리 : react
 프레임워크 : nextjs (page router)
@@ -22,12 +22,21 @@ style : emotion, styled-component , mui
 
 
 
-## 📌 기능 설명 
+## 📌 구현  
 
-### 1. 각각 메뉴들 선택후 장바구니에 추가
+### 1. 메인
+![2023-12-28 13 32 54](https://github.com/chosule/winter_foodies/assets/89799325/6f3f0308-8546-4d35-8a55-802c6137ca67)
+
+
+### 2. 로그인
+![ezgif com-video-to-gif-converter (2)](https://github.com/chosule/winter_foodies/assets/89799325/91482b54-4ed6-4423-8d53-3263f79982f2)
+
+
+### 3. 각각 메뉴들 선택후 장바구니에 추가
 ![ezgif com-video-to-gif-converter](https://github.com/chosule/winter_foodies/assets/89799325/27397302-b780-46ec-b28f-0b032aa81730)
 
-### 2. 장바구니 수량 추가 및 삭제
+
+### 4. 장바구니 수량 추가 및 삭제
 ![ezgif com-video-to-gif-converter (1)](https://github.com/chosule/winter_foodies/assets/89799325/f8904438-a3cc-4b90-9beb-58d02150e173)
 
 
