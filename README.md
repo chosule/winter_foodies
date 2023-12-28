@@ -1,17 +1,21 @@
 ## 📌 설치 및 실행
+
 ```js
 npm i 
 npm run dev
 ```
+
 ------
 
 
 ## 📌 tool 
+
 라이브러리 : react
 프레임워크 : nextjs (page router)
 상태관리 : tanstack query , recoil
 style : emotion, styled-component , mui
 및 zod , react-hook-form 
+
 --------
 
 ## 📌 주요기능
