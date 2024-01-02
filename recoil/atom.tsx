@@ -3,6 +3,7 @@ import {
   OrderItemRequestType,
   OrderResultData,
 } from "@/types/api/getCartType";
+import { TMenuResponse } from "@/types/api/menuType";
 import { atom } from "recoil";
 import { v1 } from "uuid";
 
@@ -35,4 +36,10 @@ export const orderResultDataState = atom({
 export const getCartState = atom<GetCartData>({
   key: `getCartState/${v1()}`,
   default: [],
+});
+
+//가까운순
+export const nearbyDataState = atom<TMenuResponse>({
+  key: `nearDataState/${v1()}`,
+  default: {},
 });

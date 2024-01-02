@@ -8,6 +8,7 @@ import { useProjectApi } from "@/context/hooks/useDataContextApi";
 export function MenuDetailPage() {
   const router = useRouter();
   const { imgName } = router.query;
+
   return (
     <>
       <HeaderLayout headerTitle={imgName} />

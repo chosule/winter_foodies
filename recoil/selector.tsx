@@ -1,5 +1,5 @@
 import { selector, selectorFamily } from "recoil";
-import { getCartState, getOrderListDataState } from "./atom";
+import { getCartState, nearbyDataState } from "./atom";
 
 export const cartDeletedState = selectorFamily({
   key: "getCartSelector",
@@ -12,6 +12,25 @@ export const cartDeletedState = selectorFamily({
       );
       return getDatafilter;
     },
+});
+
+// export const favoriteStata = selectorFamily({
+//   key: "getFavoriteState",
+//   get:
+//     (id) =>
+//     ({ get }) => {
+//       const getFavorite = get(nearbyDataState);
+//       return getFavorite?.data?.find((item) => item.id === id);
+//       // return matchingId.favorite;
+//     },
+// });
+
+export const favoriteStata = selector({
+  key: "getFavoriteState",
+  get: ({ get }) => {
+    const getFavorite = get(nearbyDataState);
+    return getFavorite;
+  },
 });
 
 export default selector;

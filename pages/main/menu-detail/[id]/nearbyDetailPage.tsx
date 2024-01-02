@@ -8,17 +8,28 @@ import getNearbyData from "@/context/libs/ssr/getMenuDetail";
 import { MenuDetailData } from "@/types/api/menuType";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { nearbyDataState } from "@/recoil/atom";
+import Link from "next/link";
 
 export function NearbyDetailPage() {
   const router = useRouter();
+  console.log("router 쿼리", router);
+  const [, setNearbyState] = useRecoilState(nearbyDataState);
 
   const { id } = router.query;
 
-  const { data: nearbyData ,isLoading} = useQuery({
+  const { data: nearbyData, isLoading } = useQuery({
     queryKey: ["nearbyData"],
     queryFn: () => getNearbyData(Number(id)),
   });
-  if (isLoading) return <Skeleton height="120vh" top="-167px"/>
+
+  useEffect(() => {
+    setNearbyState(nearbyData);
+  }, [nearbyData]);
+
+  if (isLoading) return <Skeleton height="120vh" top="-167px" />;
 
   return (
     <MainUI.CustomFlex flexDirection="column" gap="20px">
@@ -38,7 +49,7 @@ export function NearbyDetailPage() {
               width="100%"
               height="70px"
               onClick={() => {
-                console.log('favorite11111', favorite,)
+                console.log("favorite11111", favorite);
                 router.push({
                   pathname: "/main/menu-detail/[id]/[detailId]",
                   query: {
@@ -53,13 +64,18 @@ export function NearbyDetailPage() {
                 });
               }}
             >
-            <SectionPartUi picture={picture} name={name} address={address} distance={distance} rating={rating}/>
+              <SectionPartUi
+                picture={picture}
+                name={name}
+                address={address}
+                distance={distance}
+                rating={rating}
+              />
             </MainUI.CustomBox>
           )
         )}
     </MainUI.CustomFlex>
   );
 }
-
 
 export default NearbyDetailPage;

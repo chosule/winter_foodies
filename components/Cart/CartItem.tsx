@@ -18,22 +18,19 @@ import { cartDeletedState } from "@/recoil/selector";
 import uuid from "react-uuid";
 import useContextModal from "@/context/hooks/useContextModal";
 
-
 const CartItem = () => {
   const { productDeleteApi, cartOrderApi } = useCart();
   const router = useRouter();
 
   //이건 조회데이터 담아놓은거
   const [cartState, setCartState] = useRecoilState(getCartState);
-  console.log("cartState", cartState);
+  // console.log("cartState", cartState);
+
   //주문하기 보낼때 상태
   const [orderState, setOrderState] = useRecoilState(orderDataState);
 
   //주문하기 후 내역보여줄 atom 담기
   const [, setOrderResultState] = useRecoilState(orderResultDataState);
-
-  // const deletedCart = useRecoilValue(cartDeletedState(165));
-  // console.log("deletedCartData", deletedCart);
 
   const modal = useContextModal();
 
@@ -47,7 +44,6 @@ const CartItem = () => {
     ({ snapshot }) =>
       async (itemId: string) => {
         const deletedCart = await snapshot.getPromise(cartDeletedState(itemId));
-        console.log("deltetCart??", deletedCart);
         return deletedCart;
       }
   );
@@ -210,8 +206,15 @@ const CartItem = () => {
               </div>
             ))}
           </StyledCustomBox>
-          <CommonButton onClick={handleOrder} variant="contained" width="100%" height="47px">
-            <CartUI.Text color="#fff" fontSize="16px">{totalPrice}원 주문하기</CartUI.Text>
+          <CommonButton
+            onClick={handleOrder}
+            variant="contained"
+            width="100%"
+            height="47px"
+          >
+            <CartUI.Text color="#fff" fontSize="16px">
+              {totalPrice}원 주문하기
+            </CartUI.Text>
           </CommonButton>
         </CartUI.Flex>
       )}
@@ -233,7 +236,7 @@ const StyledBox = styled(CommonBox)<
   flex-direction: ${({ flexDirection }) => flexDirection};
   align-items: ${({ alignItems }) => alignItems};
   padding: ${({ padding }) => padding};
-  border:1px solid #dd8037;
+  border: 1px solid #dd8037;
 `;
 
 const StyledImgBox = styled(Image)`
