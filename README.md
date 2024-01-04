@@ -1,19 +1,23 @@
-## 📌 설치 및 실행
+## WinterFoodies 프로젝트
+>길거리 간식들을 찾아 메뉴들을 선택하고 주문까지 할수있는 서비스를 만들었습니다.
+- 인원 : FE 및 디자인: 김초슬 인원 1명 / BE : 1명
+- 기간 : 약 3개월 (23/10 ~)
+
+### 설치 및 실행
 
 ```js
 npm i 
 npm run dev
 ```
 
-## 📌 적용기술
-
+### 적용기술
 라이브러리 : react
 프레임워크 : nextjs (page router)
 상태관리 : tanstack query , recoil
 style : emotion, styled-component , mui
 및 zod , react-hook-form 
 
-## 📌 주요기능
+### 주요기능
 1. login (회원가입 / 아이디찾기 / 비밀번호찾기)
 2. main
 3. cart (장바구니 담기, 조회, 장바구니 추가 및 삭제)
@@ -22,7 +26,7 @@ style : emotion, styled-component , mui
 
 
 
-## 📌 구현  
+### 구현  
 
 ### 1. 메인
 
