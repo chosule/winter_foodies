@@ -11,7 +11,7 @@ npm run dev
 ```
 
 ### 적용기술
-라이브러리 : react
+>라이브러리 : react
 프레임워크 : nextjs (page router)
 상태관리 : tanstack query , recoil
 style : emotion, styled-component , mui
