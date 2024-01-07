@@ -35,8 +35,8 @@ const Login = () => {
     loginApi.mutate(data, {
       onSuccess: (res) => {
         const accessToken = res?.accessToken;
-        localStorage.setItem("accessToken", accessToken);
-        setToken(accessToken);
+        localStorage.setItem("accessToken", accessToken || "");
+        setToken(accessToken || "");
         openAlert();
         router.push("/main");
       },

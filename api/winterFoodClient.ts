@@ -14,9 +14,9 @@ import {
   TPhoneCertiRequest,
   TPhoneCertiResponse,
 } from "@/types/api/phoneCertificationType";
-
+import { DetailMenuType } from "@/types/api/detailmenuType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
-import { TMenuRequest, TMenuResponse } from "@/types/api/menuType";
+import { TMenuResponse } from "@/types/api/menuType";
 import { FavoriteResponse, FavoriteRequest } from "@/types/api/favoriteType";
 import {
   TAddNewProductRequest,
@@ -25,7 +25,7 @@ import {
 import {
   CartDeleteRequest,
   CartDeleteResponse,
-} from "@/types/api/CartDeleteType";
+} from "@/types/api/cartDeleteType";
 import { TFavoriteStoreResponse } from "@/types/api/favoriteStoreType";
 import {
   CertifiCodeRequest,
@@ -40,9 +40,11 @@ import {
   StoreResponseType,
 } from "@/types/api/storeInfoType";
 import {
+  GetCartData,
   OrderItemRequestType,
+  OrderResultAllData,
+  OrderResultAllResponse,
   OrderResultData,
-  OrderResultResponse,
 } from "@/types/api/getCartType";
 
 export default class WinterFoodClient {
@@ -124,10 +126,7 @@ export default class WinterFoodClient {
       .then((res) => res.data as ResetPasswordResponeseType);
   }
   //가까운곳 top-5 ?
-  async nearDistanceSnack(
-    lat: TNearSnackRequest["lat"],
-    lon: TNearSnackRequest["lon"]
-  ) {
+  async nearDistanceSnack(lat: number, lon: number) {
     return this.httpClient
       .get(`/api/main/snacks?lat=${lat}&lon=${lon}`)
       .then((res) => res.data.data);
@@ -179,7 +178,7 @@ export default class WinterFoodClient {
   async menu(id: number) {
     return this.httpClient
       .get(`/api/store/menu/${id}`)
-      .then((res) => res.data as TMenuResponse);
+      .then((res) => res.data as DetailMenuType);
   }
 
   //가게정보
@@ -200,7 +199,7 @@ export default class WinterFoodClient {
   async getCart() {
     return this.httpClient
       .get(`/api/cart/items`)
-      .then((res) => res.data as TGetCartResponse);
+      .then((res) => res.data as GetCartData);
   }
 
   // 장바구니 삭제
@@ -220,7 +219,7 @@ export default class WinterFoodClient {
   async orderDetail() {
     return this.httpClient
       .get(`/api/mypage/orders`)
-      .then((res) => res.data as OrderResultResponse);
+      .then((res) => res.data as OrderResultAllResponse);
   }
 
   //찜하기

@@ -8,14 +8,16 @@ import useCart from "@/hooks/cart/useCart";
 import { MenuDetailData, menuList } from "@/types/api/menuType";
 import useContextModal from "@/context/hooks/useContextModal";
 import Skeleton from "@/pages/Skeleton/Skeleton";
+import { MenuType } from "@/types/api/detailmenuType";
 
+type Props = MenuType;
 const StoreMenuCart = () => {
   const router = useRouter();
 
   const { menuApi, addNewProductApi } = useCart();
   const { id, picture } = router.query;
   const { data: menuData, isLoading } = menuApi(Number(id));
-
+  console.log("menuData", menuData);
   const modal = useContextModal();
 
   const openModal = () => {
@@ -25,13 +27,12 @@ const StoreMenuCart = () => {
     });
   };
 
-  const handleClick = (foodId, menuName, price): void => {
+  const handleClick = (item): void => {
+    const { foodId, ...rest } = item;
     addNewProductApi.mutate(
       {
+        ...rest,
         itemId: foodId,
-        itemName: menuName,
-        quantity: 1,
-        price: price,
       },
       {
         onSuccess: (res) => {
@@ -50,11 +51,11 @@ const StoreMenuCart = () => {
       flexDirection="column"
       minHeight="calc( 100vh - 259px)"
     >
-      {menuData?.data?.menu.map(({ foodId, menuName, price }: menuList) => (
-        <MainUI.Flex gap="20px" flexDirection="column" key={foodId}>
+      {menuData?.data?.menu.map((item) => (
+        <MainUI.Flex gap="20px" flexDirection="column" key={item.foodId}>
           <StyledBox width="100%" height="72px" backgroundcolor="#fff">
-            <StyledText fontWeight="600">{menuName}</StyledText>
-            <StyledText fontWeight="600">{price} 원</StyledText>
+            <StyledText fontWeight="600">{item.menuName}</StyledText>
+            <StyledText fontWeight="600">{item.price} 원</StyledText>
             <CartBtn backgroundcolor="#fff" height="55px">
               <CartBtnOuter>
                 <BsCartPlus
@@ -63,7 +64,7 @@ const StoreMenuCart = () => {
                 <StyledText
                   fontSize="10px"
                   fontWeight="600"
-                  onClick={() => handleClick(foodId, menuName, price)}
+                  onClick={() => handleClick(item)}
                 >
                   추가하기
                 </StyledText>

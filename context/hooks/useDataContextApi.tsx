@@ -9,9 +9,10 @@ export type TDataApiContext = {
   client: WinterFoodClient;
 };
 
-export const DataApiContext = createContext<TDataApiContext | undefined>(
-  undefined
-);
+export const DataApiContext = createContext<TDataApiContext>({
+  client: new WinterFoodClient(),
+});
+
 //원래 코드엿음
 // export const DataApiContext = createContext<TDataApiContext>({});
 

@@ -14,7 +14,7 @@ import Link from "next/link";
 import { NaviUI } from "./style";
 import { usePathname } from "next/navigation";
 import CartStatus from "@/components/Cart/CartStatus";
-import { userState, userToken } from "@/recoil/atom";
+import { userState } from "@/recoil/atom";
 import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import useUserAuth from "@/hooks/auth/useUserAuth";

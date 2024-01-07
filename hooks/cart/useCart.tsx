@@ -9,11 +9,11 @@ import { FavoriteRequest, FavoriteResponse } from "@/types/api/favoriteType";
 import {
   CartDeleteRequest,
   CartDeleteResponse,
-} from "@/types/api/CartDeleteType";
+} from "@/types/api/cartDeleteType";
 import {
   OrderItemRequestType,
+  OrderResultAllResponse,
   OrderResultData,
-  OrderResultResponse,
 } from "@/types/api/getCartType";
 
 const useCart = () => {
@@ -64,7 +64,7 @@ const useCart = () => {
   });
 
   //주문내역
-  const orderDetailsApi = useQuery<OrderResultResponse>(
+  const orderDetailsApi = useQuery<OrderResultAllResponse>(
     ["getOrderList"],
     () => client.orderDetail(),
     {

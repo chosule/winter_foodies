@@ -24,7 +24,7 @@ const CartItem = () => {
 
   //이건 조회데이터 담아놓은거
   const [cartState, setCartState] = useRecoilState(getCartState);
-  // console.log("cartState", cartState);
+  console.log("cartState", cartState);
 
   //주문하기 보낼때 상태
   const [orderState, setOrderState] = useRecoilState(orderDataState);
@@ -182,7 +182,7 @@ const CartItem = () => {
                     <CommonButton backgroundcolor="transparent">
                       <IoCloseSharp
                         onClick={() => {
-                          handleDelete(items.itemId);
+                          handleDelete(`${items.itemId}`);
                         }}
                         style={{ width: "20px", height: "20px", color: "#000" }}
                       />
@@ -193,12 +193,8 @@ const CartItem = () => {
                     alignItems="center"
                   >
                     <CounterQuantity
-                      handleIncrementQuantity={(itemId) =>
-                        handleIncrementQuantity(itemId)
-                      }
-                      handleDecrementQuantity={(itemId) =>
-                        handleDecrementQuantity(itemId)
-                      }
+                      handleIncrement={handleIncrementQuantity}
+                      handleDecrement={handleDecrementQuantity}
                       items={items}
                     />
                   </CartUI.Flex>

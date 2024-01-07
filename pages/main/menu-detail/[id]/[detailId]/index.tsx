@@ -71,7 +71,7 @@ const MenuDetailInfoPage = () => {
   return (
     <>
       <StyledHeaderWrap>
-        <HeaderLayout headerTitle={name} storeRating={rating} />
+        <HeaderLayout headerTitle={`${name}`} storeRating={`${rating}`} />
         <StyledIcon onClick={handleClick} test={test} />
       </StyledHeaderWrap>
       <Image src={picture} alt="이미지" width={70} height={70} />
