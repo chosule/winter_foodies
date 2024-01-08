@@ -14,30 +14,31 @@ export const cartDeletedState = selectorFamily({
     },
 });
 
-
 export const favoriteState = selectorFamily({
   key: "favoriteState",
-  get: (id) =>  ({ get }) => {
-    const nearbyState = get(nearbyDataState);
-    const findId = nearbyState?.data?.filter((item) => {
-      item.id == id
-    });
-    // console.log('findid',findId[0].favorite)
-    return findId;
-    // return findId[0].favorite
-  },
-  set: (id) => ({ set, get }, newValue) => {
-    const nearbyState = get(nearbyDataState);
-    const updatedData = nearbyState?.data?.map((item) => {
-      if (item.id === id) {
-        return { ...item, favorite: newValue };
-      }
-      return item;
-    });
+  get:
+    (id) =>
+    ({ get }) => {
+      const nearbyState = get(nearbyDataState);
+      // const findId = nearbyState?.data?.filter((item) => {
+      //   return item.id == id;
+      // });
+      // return findId;
+      // // return findId[0].favorite
+    },
+  set:
+    (id) =>
+    ({ set, get }, newValue) => {
+      const nearbyState = get(nearbyDataState);
+      const updatedData = nearbyState?.data?.map((item) => {
+        if (item.id == id) {
+          return { ...item, favorite: newValue };
+        }
+        return item;
+      });
 
-    set(nearbyDataState, { ...nearbyDataState, data: updatedData });
-  },
+      set(nearbyDataState, { ...nearbyDataState, data: updatedData });
+    },
 });
-
 
 export default selector;

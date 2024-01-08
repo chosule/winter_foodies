@@ -13,22 +13,12 @@ import { favoriteState } from "@/recoil/selector";
 import { useParams } from "next/navigation";
 
 const MenuDetailInfoPage = () => {
-  const router= useRouter();
   const { query } = useRouter();
   const { favoriteApi } = useCart();
   const { name, picture, favorite, id, rating } = query;
 
-  // const favoriteSlector = useRecoilValue(favoriteStata);
-  // console.log("test셀렉터", favoriteSlector);
-
-  // const [test, setTest] = useRecoilState(heartState);
   const [test, setTest] = useRecoilState(favoriteState(id));
-
-  const [nearbyDataStateTest, setNearbyDataStateTest] =
-    useRecoilState(nearbyDataState);
-
-  const nearbyData = useRecoilValue(nearbyDataState)
-  // console.log('nearby',nearbyData)
+  // const testSelector = useRecoilValue(favoriteState(id));
 
   const matchDataState = useRecoilCallback(
     ({ snapshot }) =>
@@ -38,7 +28,6 @@ const MenuDetailInfoPage = () => {
       }
   );
 
-      
   const handleClick = () => {
     favoriteApi.mutate(
       {
@@ -46,35 +35,24 @@ const MenuDetailInfoPage = () => {
         storeId: Number(id),
       },
       {
-        onSuccess: async(res) => {
+        onSuccess: async (res) => {
           console.log("결과값담기", res);
-          // console.log('id?',id)
-          const matchData = await matchDataState(id);
-          setTest(!matchData);
-          console.log('matchData',test)
-          // setTest(res.data.isFavorite);
+          console.log("res isfavorite", res.data.isFavorite);
+          setTest(res.data.isFavorite);
         },
       }
     );
   };
-  useEffect(() =>{
-    console.log('tesT?',test)
 
-  },[test])
-
-  // useEffect(() => {
-  //   const heartStateHandlerData = () => {
-  //     const favoriteFind = nearbyState?.data?.find((item) => item.id == id);
-  //     return favoriteFind?.favorite;
-  //   };
-  //   setTest(heartStateHandlerData);
-  // }, [handleClick]);
+  useEffect(() => {
+    console.log("matchData", test);
+  }, [handleClick]);
 
   return (
     <>
       <StyledHeaderWrap>
         <HeaderLayout headerTitle={`${name}`} storeRating={`${rating}`} />
-        <StyledIcon onClick={handleClick}  test={favoriteState[id]}/>
+        <StyledIcon onClick={handleClick} test={favoriteState[id]} />
       </StyledHeaderWrap>
       <Image src={picture} alt="이미지" width={70} height={70} />
       <MenuDetailInfoTab />
@@ -91,7 +69,7 @@ const StyledIcon = styled(FaRegHeart)`
   right: 0;
   top: 38px;
   z-index: 2;
-  color:${({test}) => test ? "#000" : "orange"}
+  color: ${({ test }) => (test ? "#000" : "orange")};
 `;
 
 MenuDetailInfoPage.getLayout = (page: React.ReactNode) => {
