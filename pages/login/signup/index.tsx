@@ -10,10 +10,10 @@ import useAuthModal from "@/hooks/modal/useAuthModal";
 import { useState } from "react";
 import useValid from "@/hooks/auth/useValid";
 import CommonButton from "@/components/ui/Button/CommonButton";
-import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
 import useAuthApi from "@/hooks/auth/useLogin";
 import { CertifiCodeRequest } from "@/types/api/certifiCodeType";
 import { useRouter } from "next/router";
+import { Form } from "../find-id";
 
 const SignUpPage = () => {
   const { signUpApi, phoneCertiSignApi, certiAuthApi } = useAuthApi();
@@ -33,10 +33,9 @@ const SignUpPage = () => {
     openAuthCodeModal,
     openAuthCodeErrorModal,
     signUpModal,
-    openAuthCodeCompleteModal,
   } = useAuthModal();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<Form>({
     phoneNumber: "",
     authCode: "",
   });
@@ -64,10 +63,10 @@ const SignUpPage = () => {
     }
   };
 
-  const PhoneNumberCodeMutate = (phoneNumber: TPhoneCertiRequest) => {
+  const PhoneNumberCodeMutate = (phoneNumber: string) => {
     phoneCertiSignApi.mutate(phoneNumber, {
       onSuccess: (res) => {
-        openPhoneModal(res.authCode);
+        openPhoneModal(res.authCode || "");
       },
       onError: (err) => {
         console.log(err);

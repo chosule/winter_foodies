@@ -8,18 +8,21 @@ import HeaderLayout from "@/components/layouts/HeaderLayout";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import TextField from "@/components/ui/Input/CommonInput";
 import useValid from "@/hooks/auth/useValid";
-import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
 import useAuthModal from "@/hooks/modal/useAuthModal";
 import useAuthApi from "@/hooks/auth/useLogin";
 
+export type Form ={
+  phoneNumber:string;
+  authCode:string;
+}
+
 const FindIdPage = () => {
   const modal = useContextModal();
-  const router = useRouter();
-  const [dataEmail, setDataEmail] = useState();
+  const [dataEmail, ] = useState();
   const { openPhoneModal } = useAuthModal();
   const { phoneCertiFindApi, certiAuthApi } = useAuthApi();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<Form>({
     phoneNumber: "",
     authCode: "",
   });
@@ -58,13 +61,13 @@ const FindIdPage = () => {
     }
   };
 
-  const phoneNumberCodeMutate = (phoneNumber: TPhoneCertiRequest) => {
+  const phoneNumberCodeMutate = (phoneNumber:string) => {
     phoneCertiFindApi.mutate(
-      { phoneNumber },
+      phoneNumber,
       {
         onSuccess: (res) => {
-          openPhoneModal();
           console.log("핸드폰인증코드res", res);
+          openPhoneModal(res.authCode || "");
         },
         onError: (err) => {
           console.log("핸드폰인증코드err", err);
@@ -75,7 +78,6 @@ const FindIdPage = () => {
 
   const authCertiSubmit = () => {
     if (certiNumberValidState.isCertiCode === true) {
-      console.log(form);
       certiCodeMutate(form);
       setCompleteSubmit({ ...completeSubmit, authCodeComplete: true });
     } else {
@@ -83,8 +85,8 @@ const FindIdPage = () => {
     }
   };
 
-  const certiCodeMutate = (authCode) => {
-    certiAuthApi.mutate(authCode, {
+  const certiCodeMutate = (form:Form) => {
+    certiAuthApi.mutate(form, {
       onSuccess: (res) => {
         console.log("인증코드res", res);
         setForm({ ...form, authCode: "", phoneNumber: "" });
@@ -95,7 +97,7 @@ const FindIdPage = () => {
     });
   };
 
-  const openAlert = () => {
+  const openAlert = (dataEmail:string) => {
     modal.openAlert({
       title: "알림",
       message: `회원님의아이디는 \n ${dataEmail}입니다. \n 로그인페이지로 이동합니다.`,
@@ -117,7 +119,6 @@ const FindIdPage = () => {
           <CommonInfoBox infotitle="등록된 휴대폰 번호로 찾기" />
           <AuthUI.Flex>
             <AuthUI.Flex flex="0.8">
-              {/* <AuthUI.FormWrap onSubmit={handleSubmit(onSubmit, onError)}> */}
               <AuthUI.FormWrap>
                 <AuthUI.Flex gap="10px">
                   <AuthUI.Flex gap="10px">
@@ -125,9 +126,6 @@ const FindIdPage = () => {
                     <AuthUI.Flex gap="20px" flexDirection="initial">
                       <AuthUI.Flex>
                         <TextField
-                          // {...register("phoneNumber", {
-                          //   required: true,
-                          // })}
                           onChange={(e) =>
                             setForm({ ...form, phoneNumber: e.target.value })
                           }
@@ -137,7 +135,6 @@ const FindIdPage = () => {
                           isValidState={
                             phoneNumberIsValidState.isPhoneNumberAuthCode
                           }
-                          // errorMsg={errors.phoneNumber?.message}
                         />
                       </AuthUI.Flex>
                       <CommonButton variant="contained" onClick={phoneSubmit}>
@@ -157,18 +154,12 @@ const FindIdPage = () => {
                           value={form.authCode}
                           validText={certiNumberValidText}
                           isValidState={certiNumberValidState.isCertiCode}
-                          // {...register("authCode", {
-                          //   required: true,
-                          // })}
-                          // errorMsg={errors.authCode?.message}
                         />
                       </AuthUI.Flex>
                       <CommonButton
                         variant="contained"
                         onClick={authCertiSubmit}
                         disabled={!phoneNumberAuthenticated}
-                        // type="submit"
-                        // disabled={!isDirty || !isValid}
                       >
                         확인
                       </CommonButton>

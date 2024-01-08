@@ -7,33 +7,38 @@ import AuthPrivateLayout from "@/components/layouts/AuthPrivateLayout";
 import useCart from "@/hooks/cart/useCart";
 import { FaRegHeart } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-import HeartStatus from "@/components/Main/components/Ui/HeartStatus";
-import getNearbyData from "@/context/libs/ssr/getMenuDetail";
-import { useQuery } from "@tanstack/react-query";
 import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
-import { nearbyDataState } from "@/recoil/atom";
-import { favoriteStata } from "@/recoil/selector";
+import { heartState, nearbyDataState } from "@/recoil/atom";
+import { favoriteState } from "@/recoil/selector";
+import { useParams } from "next/navigation";
 
 const MenuDetailInfoPage = () => {
+  const router= useRouter();
   const { query } = useRouter();
   const { favoriteApi } = useCart();
   const { name, picture, favorite, id, rating } = query;
-  const [test, setTest] = useState();
-  // state => state변경했다 => 컴포넌트 리렌더 => state가 바뀐값이
 
-  const favoriteSlector = useRecoilValue(favoriteStata);
+  // const favoriteSlector = useRecoilValue(favoriteStata);
   // console.log("test셀렉터", favoriteSlector);
 
-  const nearbyState = useRecoilValue(nearbyDataState);
-  // console.log("nearbyState", nearbyState);
+  // const [test, setTest] = useRecoilState(heartState);
+  const [test, setTest] = useRecoilState(favoriteState(id));
 
   const [nearbyDataStateTest, setNearbyDataStateTest] =
     useRecoilState(nearbyDataState);
 
-  // const getFavorite = useRecoilCallback(({ snapshot }) => async (id) => {
-  //   return await snapshot.getPromise(favoriteStata(id));
-  // });
+  const nearbyData = useRecoilValue(nearbyDataState)
+  // console.log('nearby',nearbyData)
 
+  const matchDataState = useRecoilCallback(
+    ({ snapshot }) =>
+      async (itemId: number) => {
+        const matchFavorite = await snapshot.getPromise(favoriteState(itemId));
+        return matchFavorite;
+      }
+  );
+
+      
   const handleClick = () => {
     favoriteApi.mutate(
       {
@@ -41,24 +46,21 @@ const MenuDetailInfoPage = () => {
         storeId: Number(id),
       },
       {
-        onSuccess: (res) => {
+        onSuccess: async(res) => {
           console.log("결과값담기", res);
+          // console.log('id?',id)
+          const matchData = await matchDataState(id);
+          setTest(!matchData);
+          console.log('matchData',test)
+          // setTest(res.data.isFavorite);
         },
       }
     );
   };
+  useEffect(() =>{
+    console.log('tesT?',test)
 
-  useEffect(() => {
-    console.log("nearbyState", nearbyState);
-  }, []);
-  useEffect(() => {
-    setNearbyDataStateTest((prev) => {
-      console.log("id?", id);
-      return prev?.data?.find((item) => item.id == id);
-    });
-  }, [nearbyState]);
-  console.log("nearbyTest", nearbyDataStateTest);
-  //여기서 가져온걸로 뿌려주기 !!!
+  },[test])
 
   // useEffect(() => {
   //   const heartStateHandlerData = () => {
@@ -72,7 +74,7 @@ const MenuDetailInfoPage = () => {
     <>
       <StyledHeaderWrap>
         <HeaderLayout headerTitle={`${name}`} storeRating={`${rating}`} />
-        <StyledIcon onClick={handleClick} test={test} />
+        <StyledIcon onClick={handleClick}  test={favoriteState[id]}/>
       </StyledHeaderWrap>
       <Image src={picture} alt="이미지" width={70} height={70} />
       <MenuDetailInfoTab />
@@ -89,7 +91,7 @@ const StyledIcon = styled(FaRegHeart)`
   right: 0;
   top: 38px;
   z-index: 2;
-  color: ${({ test }) => (test ? "orange" : "#000")};
+  color:${({test}) => test ? "#000" : "orange"}
 `;
 
 MenuDetailInfoPage.getLayout = (page: React.ReactNode) => {

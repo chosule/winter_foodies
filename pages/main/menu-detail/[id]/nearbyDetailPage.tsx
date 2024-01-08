@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
 import { MainUI } from "@/components/Main/style";
 import uuid from "react-uuid";
-import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import { useQuery } from "@tanstack/react-query";
 import getNearbyData from "@/context/libs/ssr/getMenuDetail";
 import { MenuDetailData } from "@/types/api/menuType";
@@ -11,19 +9,17 @@ import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { nearbyDataState } from "@/recoil/atom";
-import Link from "next/link";
 
 export function NearbyDetailPage() {
   const router = useRouter();
-  console.log("router 쿼리", router);
   const [, setNearbyState] = useRecoilState(nearbyDataState);
 
   const { id } = router.query;
-
   const { data: nearbyData, isLoading } = useQuery({
     queryKey: ["nearbyData"],
-    queryFn: () => getNearbyData(Number(id)),
+  queryFn: () => getNearbyData(Number(id)),
   });
+
 
   useEffect(() => {
     setNearbyState(nearbyData);
@@ -49,7 +45,7 @@ export function NearbyDetailPage() {
               width="100%"
               height="70px"
               onClick={() => {
-                console.log("favorite11111", favorite);
+                // console.log("favorite11111", favorite);
                 router.push({
                   pathname: "/main/menu-detail/[id]/[detailId]",
                   query: {

@@ -5,19 +5,17 @@ import styled from "@emotion/styled";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import { useRouter } from "next/router";
 import useCart from "@/hooks/cart/useCart";
-import { MenuDetailData, menuList } from "@/types/api/menuType";
 import useContextModal from "@/context/hooks/useContextModal";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import { MenuType } from "@/types/api/detailmenuType";
 
-type Props = MenuType;
+
 const StoreMenuCart = () => {
   const router = useRouter();
 
   const { menuApi, addNewProductApi } = useCart();
   const { id, picture } = router.query;
   const { data: menuData, isLoading } = menuApi(Number(id));
-  console.log("menuData", menuData);
   const modal = useContextModal();
 
   const openModal = () => {
@@ -27,12 +25,13 @@ const StoreMenuCart = () => {
     });
   };
 
-  const handleClick = (item): void => {
+  const handleClick = (item:any): void => {
     const { foodId, ...rest } = item;
     addNewProductApi.mutate(
       {
         ...rest,
         itemId: foodId,
+        quantity:1,
       },
       {
         onSuccess: (res) => {

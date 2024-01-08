@@ -2,49 +2,81 @@ import styled from "@emotion/styled";
 import Modal from "react-modal";
 import CommonButton from "../ui/Button/CommonButton";
 import { FaStar } from "react-icons/fa";
-import { useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ModalUI } from "./style";
 import Image from "next/image";
 import { CiImageOn } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
 import { TiDelete } from "react-icons/ti";
+import useCart from "@/hooks/cart/useCart";
+import { ModalProps } from "@/context/types/modalProps";
 
 Modal.setAppElement("#__next");
 
-type Props = {
-     storeNames?:string;
-     close?:() => void;
-     isOpen?:boolean;
+type Form = {
+  image:string;
+  textarea:string
 }
-export default function ReviewRegist({ storeNames, isOpen ,close}:Props) {
+export default function ReviewRegist({ storeName, isOpen ,close,id}:ModalProps) {
   const [rating, setRating] = useState(0);
 
   const [file, setFile] = useState();
 
-  const handleChange = (e) => {
-    const { name, files } = e.target;
+  const [formData , setFormData] = useState<Form>({
+    image:"",
+    textarea:""
+  })
+  const {reviewWriteApi} = useCart();
+  
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | any>) => {
+    const { name, files ,value} = e.target;
+    console.log('value',value)
     if (name === "file") {
       setFile(files && files[0]);
-      console.log("files?", files[0]);
       return;
     }
+
+    setFormData((prev) =>({
+      ...prev,
+      [name]:value
+    }))
+    console.log('form',formData)
   };
 
   const handleStarClick = (index:number) => {
-    console.log("index", index);
+    // console.log("index", index);
     setRating(index + 1);
   };
+
+  const onSubmit = (e) =>{
+    e.preventDefault();
+
+    console.log('formData',formData)
+    // const formDataToSend = new FormData();
+    // Object.entries(formData).forEach(([key,value]) =>{
+    //   formDataToSend.append(key,value)
+    // })
+    const formDataSend = new FormData();
+    formDataSend.append("image",formData.image);
+    reviewWriteApi.mutate(
+      formDataSend,
+      {
+        onSuccess:(res) => {
+        console.log('res?',res)
+      }
+    })
+  }
 
 
   return (
     <div>
       <ModalUI.Overlay />
       <ModalUI.Content isOpen={isOpen} minWidth="400px" padding="40px">
-        <StyledForm>
+        <StyledForm onSubmit={onSubmit}>
           <StyledCloseIcon onClick={close} />
           <ModalUI.Text fontWeight="600" fontSize="20px">
-            {storeNames}
+            {storeName}
           </ModalUI.Text>
           <StyledGradeContainer>
             {[...Array(5)].map((_, index) => (
@@ -55,13 +87,18 @@ export default function ReviewRegist({ storeNames, isOpen ,close}:Props) {
               />
             ))}
           </StyledGradeContainer>
-          <StyledTextarea placeholder="리뷰를 입력해주세요." />
+          <StyledTextarea 
+              placeholder="리뷰를 입력해주세요." 
+              type="textarea"
+              name="textarea"
+              onChange={handleChange}
+          />
           <StyledFlex gap="10px">
             <StyledFileInputContainer>
               <StyledFileInput
                 type="file"
                 accept="image/*"
-                name="file"
+                name="image"
                 onChange={handleChange}
                 required
               />
@@ -84,7 +121,7 @@ export default function ReviewRegist({ storeNames, isOpen ,close}:Props) {
               </StyledWrap>
             )}
           </StyledFlex>
-          <CommonButton width="100%" backgroundcolor="#dd8037">
+          <CommonButton type="submit" width="100%" backgroundcolor="#dd8037">
                <p>등록하기</p>
           </CommonButton>
         </StyledForm>
@@ -162,7 +199,7 @@ const StyledGrade = styled(FaStar)<{ filled: boolean }>`
   font-size: 23px;
 `;
 
-const StyledTextarea = styled.textarea`
+const StyledTextarea = styled.input`
   border: none;
   width: 300px;
   height: 300px;

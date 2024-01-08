@@ -1,8 +1,4 @@
 
-export interface StoreInfoRequestType{
-    id:number
-}
-
 export interface StoreInfoData {
     address: string,
     ownerComment: string,

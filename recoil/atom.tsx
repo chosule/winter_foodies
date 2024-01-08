@@ -41,10 +41,16 @@ export const getCartState = atom<GetCartData>({
 });
 
 //가까운순
-export const nearbyDataState = atom<TMenuResponse>({
+export const nearbyDataState = atom<TMenuResponse | undefined>({
   key: `nearDataState/${v1()}`,
   default: {
     status: "",
     data: [],
   },
 });
+
+
+export const heartState = atom({
+  key:`heartState/${v1()}`,
+  default:""
+})

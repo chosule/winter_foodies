@@ -8,6 +8,8 @@ export type ModalProps = {
   confirm?: () => void;
   component?: () => JSX.Element;
   storeName?:string;
+  isOpen?:() => void;
+  id?:number;
 };
 
 export type Modals = Map<string, ModalProps>;

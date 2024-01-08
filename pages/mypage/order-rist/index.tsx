@@ -9,22 +9,22 @@ import useDateFormat from "@/hooks/useDateFormat";
 import StarRating from "@/components/Main/components/Ui/StarRating";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import CommonButton from "@/components/ui/Button/CommonButton";
-import { useRouter } from "next/router";
 import useContextModal from "@/context/hooks/useContextModal";
 
 const OrderListPage = () => {
-  const router = useRouter();
   const modal = useContextModal();
 
   const {
     orderDetailsApi: { isLoading, data: orderDatas },
   } = useCart();
 
+  console.log('orderData',orderDatas)
   if (isLoading) return <Skeleton />;
 
-  const openReview = (storeName: string) => {
+  const openReview = (storeName: string, id:number) => {
     modal.openReviewRegist({
-      storeNames: `${storeName}`,
+      storeName: `${storeName}`,
+      id: id
     });
   };
 
@@ -86,7 +86,7 @@ const OrderListPage = () => {
                   </MyPageUI.Flex>
                   <StyledBtn width="100%" backgroundcolor="none">
                     <MyPageUI.Text
-                      onClick={() => openReview(storeName)}
+                      onClick={() => openReview(storeName,id)}
                       color="#dd8037"
                     >
                       리뷰 작성하기

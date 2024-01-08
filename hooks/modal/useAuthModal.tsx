@@ -10,7 +10,7 @@ const useAuthModal = () => {
     });
   };
 
-  const openPhoneModal = (authCode) => {
+  const openPhoneModal = (authCode:string) => {
     modal.openNotice({
       title: "알림",
       message: `임시 인증코드는 ${authCode}입니다.`,

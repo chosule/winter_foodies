@@ -31,7 +31,7 @@ export default function useProduct() {
   // };
 
   // //가게 정보
-  const storeInfoApi = (id) => {
+  const storeInfoApi = (id:number) => {
     return useQuery(["storeIndo"], () => client.storeInfo(id), {
       staleTime: Infinity,
     });

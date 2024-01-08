@@ -22,10 +22,10 @@ const CommonButton = ({
     <StyledButton
       variant={variant}
       color={color}
-      backgroundcolor={backgroundcolor}
+      backgroundColor={backgroundcolor}
       width={width}
       height={height}
-      isactive={isactive}
+      isActive={isactive}
       {...rest}
     >
       {children}

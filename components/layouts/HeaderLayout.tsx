@@ -1,14 +1,11 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import CommonButton from "@/components/ui/Button/CommonButton";
-import { FaRegHeart } from "react-icons/fa";
-import useCart from "@/hooks/cart/useCart";
-import { FaHeart } from "react-icons/fa";
 import StarRating from "../Main/components/Ui/StarRating";
 
 type Props = {
   headerTitle: string;
-  storeRating?: number;
+  storeRating?: string;
 };
 
 const HeaderLayout = ({ headerTitle, storeRating }: Props) => {

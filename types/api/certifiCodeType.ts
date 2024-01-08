@@ -4,5 +4,5 @@ export interface CertifiCodeRequest {
 }
 
 export interface CertifiCodeResponse {
-  message: string;
+  error: string;
 }

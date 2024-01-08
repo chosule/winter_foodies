@@ -182,7 +182,7 @@ const CartItem = () => {
                     <CommonButton backgroundcolor="transparent">
                       <IoCloseSharp
                         onClick={() => {
-                          handleDelete(`${items.itemId}`);
+                          handleDelete(items.itemId);
                         }}
                         style={{ width: "20px", height: "20px", color: "#000" }}
                       />
