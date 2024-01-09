@@ -26,4 +26,15 @@ export async function getGradeData(id:number){
   return res;
 }
 
+export async function getHeartStore() {
+  try {
+    const winterFoodClient = new WinterFoodClient();
+    const res = await winterFoodClient.favoriteStore();
+    return res;
+  } catch (error) {
+    console.error(error);
+    return { error: "error" };
+  }
+}
+
 export default getNearbyData;

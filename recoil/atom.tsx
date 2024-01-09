@@ -1,7 +1,6 @@
 import {
   GetCartData,
   OrderItemRequestType,
-  OrderResultData,
 } from "@/types/api/getCartType";
 import { TMenuResponse } from "@/types/api/menuType";
 import { atom } from "recoil";

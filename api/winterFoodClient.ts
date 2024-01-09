@@ -44,7 +44,6 @@ import {
   OrderResultData,
 } from "@/types/api/getCartType";
 import {ReviewWriteForm} from "@/types/api/reviewWriteType";
-
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
@@ -59,11 +58,13 @@ export default class WinterFoodClient {
     });
     // Add request interceptor
     this.httpClient.interceptors.request.use((config) => {
-      const accessToken = localStorage.getItem("accessToken");
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      } else {
-        localStorage.removeItem("accessToken");
+      if (typeof window !== "undefined") {
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+        } else {
+          localStorage.removeItem("accessToken");
+        }
       }
       return config;
     });

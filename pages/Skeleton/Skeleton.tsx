@@ -53,7 +53,7 @@ const StyledImage = styled(Image)`
   z-index:10;
   position:absolute;
   left:39%;
-  top:40%;
+  top:20%;
 `
 
 const StyledDotAnimation = keyframes`
@@ -75,7 +75,7 @@ const StyledDot = styled.div<{left:string}>`
   border-radius: 50%;
   position: absolute;
   left: ${({left}) => left};
-  top: 52%;
+  top: 29%;
   z-index:5;
   animation: ${StyledDotAnimation} 1s 0s infinite linear alternate;
 `;

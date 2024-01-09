@@ -45,7 +45,6 @@ export function NearbyDetailPage() {
               width="100%"
               height="70px"
               onClick={() => {
-                // console.log("favorite11111", favorite);
                 router.push({
                   pathname: "/main/menu-detail/[id]/[detailId]",
                   query: {
