@@ -10,14 +10,14 @@ import {
   orderDataState,
   orderResultDataState,
 } from "@/recoil/atom";
-import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilCallback, useRecoilState } from "recoil";
 import CounterQuantity from "./CounterQuantity";
 import { useRouter } from "next/router";
 import { CSSProperties, useEffect, useMemo } from "react";
-import { CartDeleteRequest } from "@/types/api/CartDeleteType";
 import { cartDeletedState } from "@/recoil/selector";
 import uuid from "react-uuid";
 import useContextModal from "@/context/hooks/useContextModal";
+
 const CartItem = () => {
   const { productDeleteApi, cartOrderApi } = useCart();
   const router = useRouter();
@@ -25,29 +25,27 @@ const CartItem = () => {
   //이건 조회데이터 담아놓은거
   const [cartState, setCartState] = useRecoilState(getCartState);
   console.log("cartState", cartState);
+
   //주문하기 보낼때 상태
   const [orderState, setOrderState] = useRecoilState(orderDataState);
 
   //주문하기 후 내역보여줄 atom 담기
   const [, setOrderResultState] = useRecoilState(orderResultDataState);
 
-  // const deletedCart = useRecoilValue(cartDeletedState(165));
-  // console.log("deletedCartData", deletedCart);
-
   const modal = useContextModal();
 
   const alertModal = () => {
     modal.openAlert({
-      message:"장바구니에 상품이 없어 다시 메뉴페이지로 이동합니다.",
-      btnText:"확인"
-    })
-  }
+      message: "장바구니에 상품이 없어 메뉴페이지로 이동합니다.",
+      btnText: "확인",
+    });
+  };
   const getCartDeletedState = useRecoilCallback(
-    ({ snapshot }) => async (itemId:string) => {
-      const deletedCart = await snapshot.getPromise(cartDeletedState(itemId));
-      console.log('deltetCart??',deletedCart)
-      return deletedCart
-    }
+    ({ snapshot }) =>
+      async (itemId: string) => {
+        const deletedCart = await snapshot.getPromise(cartDeletedState(itemId));
+        return deletedCart;
+      }
   );
 
   const handleIncrementQuantity = (itemId: number) => {
@@ -90,15 +88,13 @@ const CartItem = () => {
     productDeleteApi.mutate(
       { itemId },
       {
-        onSuccess: async(res) => {
-            const deletedCart =  await getCartDeletedState(id);
-            setCartState({...cartState, data:deletedCart})
-            if (deletedCart.length === 0) {
-              alertModal();
-              router.back();
-
-            }
-        
+        onSuccess: async (res) => {
+          const deletedCart = await getCartDeletedState(id);
+          setCartState({ ...cartState, data: deletedCart });
+          if (deletedCart.length === 0) {
+            alertModal();
+            router.back();
+          }
         },
       }
     );
@@ -134,7 +130,7 @@ const CartItem = () => {
   return (
     <>
       {cartState && (
-        <CartUI.Flex gap="15px" flexDirection="column">
+        <CartUI.Flex gap="30px" flexDirection="column">
           <StyledBox
             width="100%"
             justifyContent="space-between"
@@ -168,8 +164,8 @@ const CartItem = () => {
               <div key={uuid()}>
                 <StyledBox
                   width="100%"
-                  height="100px"
-                  backgroundcolor="#f3f3f3"
+                  height="116px"
+                  backgroundcolor="#fff"
                   flexDirection="column"
                   padding="10px"
                 >
@@ -197,12 +193,8 @@ const CartItem = () => {
                     alignItems="center"
                   >
                     <CounterQuantity
-                      handleIncrementQuantity={(itemId) =>
-                        handleIncrementQuantity(itemId)
-                      }
-                      handleDecrementQuantity={(itemId) =>
-                        handleDecrementQuantity(itemId)
-                      }
+                      handleIncrement={handleIncrementQuantity}
+                      handleDecrement={handleDecrementQuantity}
                       items={items}
                     />
                   </CartUI.Flex>
@@ -210,17 +202,24 @@ const CartItem = () => {
               </div>
             ))}
           </StyledCustomBox>
-          <CommonButton onClick={handleOrder} variant="contained" width="100%">
-            {totalPrice}원 주문하기
+          <CommonButton
+            onClick={handleOrder}
+            variant="contained"
+            width="100%"
+            height="47px"
+          >
+            <CartUI.Text color="#fff" fontSize="16px">
+              {totalPrice}원 주문하기
+            </CartUI.Text>
           </CommonButton>
         </CartUI.Flex>
-      ) }
+      )}
     </>
   );
 };
 
 const StyledCustomBox = styled(CartUI.Flex)`
-  min-height: calc(100vh - 398px);
+  min-height: calc(100vh - 423px);
 `;
 const StyledBox = styled(CommonBox)<
   Pick<
@@ -233,6 +232,7 @@ const StyledBox = styled(CommonBox)<
   flex-direction: ${({ flexDirection }) => flexDirection};
   align-items: ${({ alignItems }) => alignItems};
   padding: ${({ padding }) => padding};
+  border: 1px solid #dd8037;
 `;
 
 const StyledImgBox = styled(Image)`

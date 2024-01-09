@@ -36,7 +36,6 @@ const SalesRateDetail = () => {
           <MainUI.CustomBox
               key={uuid()}
               width="100%"
-              backgroundcolor="#f3f3f3"
               height="70px"
               onClick={() => {
                 router.push({
@@ -48,6 +47,7 @@ const SalesRateDetail = () => {
                     name,
                     picture,
                     address,
+                    rating
                   },
                 });
               }}

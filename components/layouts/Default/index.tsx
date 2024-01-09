@@ -47,6 +47,7 @@ export const StyledOuter = styled.div`
   max-width: 511px;
   width: 100%;
   border: 1px solid #e7e7e7;
+  background-color:#f6f6f6;
   margin-left: 700px;
   position: relative;
   overflow: hidden;

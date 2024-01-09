@@ -25,6 +25,7 @@ const Flex = styled.div<
     | "width"
     | "flex"
     | "lineHeight"
+    | "minHeight"
   >
 >`
   display: flex;
@@ -35,20 +36,22 @@ const Flex = styled.div<
   width: ${({ width }) => width};
   flex: ${({ flex }) => flex};
   line-height: ${({ lineHeight }) => lineHeight};
+  min-height: ${({ minHeight }) => minHeight};
 `;
 
 const Text = styled.p<
-  Pick<CSSProperties, "fontSize" | "textAlign" | "lineHeight" | "fontWeight" | "marginTop">
+  Pick<
+    CSSProperties,
+    "fontSize" | "textAlign" | "lineHeight" | "fontWeight" | "marginTop"
+  >
 >`
   font-size: ${({ fontSize }) => (fontSize ? fontSize : "15px")};
   color: ${({ color }) => (color ? color : "#353535")};
   text-align: ${({ textAlign }) => (textAlign ? textAlign : "center")};
   line-height: ${({ lineHeight }) => lineHeight};
   font-weight: ${({ fontWeight }) => fontWeight};
-  margin-top:${({marginTop}) => marginTop};
-
+  margin-top: ${({ marginTop }) => marginTop};
 `;
-
 
 const CustomFlex = styled(Flex)`
   cursor: pointer;
@@ -59,6 +62,7 @@ const CustomBox = styled(CommonBox)`
   display: flex;
   align-items: center;
   gap: 16px;
+  background-color: #fff;
 `;
 
 export const MainUI = {
@@ -67,5 +71,5 @@ export const MainUI = {
   Text,
   Grid,
   CustomFlex,
-  CustomBox
+  CustomBox,
 } as const;

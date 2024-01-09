@@ -15,7 +15,7 @@ const NearDistance = () => {
     client.nearDistanceSnack(location?.latitude, location?.longitude)
   );
   return (
-    <MainUI.Wrapper gap="25px" minHeight="408px" marginTop="30px">
+    <MainUI.Wrapper gap="25px" minHeight="478px" marginTop="30px">
       <MainUI.Flex gap="10px" alignItems="center">
         <MainUI.Text fontSize="16px" fontWeight="600">
           나와 가장 가까운 간식
@@ -28,8 +28,8 @@ const NearDistance = () => {
         {nearSnackData &&
           nearSnackData.map(
             ({ ranking, name, distance }: MenuDetailData) => (
-              <MainUI.Flex key={ranking} justifyContent="space-between">
-                <StyleBox color="#fff" justifyContent="center">
+              <MainUI.Flex key={ranking} justifyContent="space-between" alignItems="center">
+                <StyleBox color="#fff" justifyContent="center" width="38px" height="36px">
                   {ranking}
                 </StyleBox>
                 <StyledBoxCustom
@@ -74,7 +74,7 @@ const StyleBox = styled(CommonBox)<
 `;
 
 const StyledBoxCustom = styled(StyleBox)`
-  border: 1px solid #e7e7e7;
+  border: 1px solid #dd8037;
 `;
 
 export default NearDistance;

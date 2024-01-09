@@ -36,7 +36,7 @@ const MainMenu = () => {
             },);
           }}
         >
-          <Image src={url} alt={imgName} width="45" height="41" priority />
+            <Image src={url} alt={imgName} width="55" height="55" priority />
           <StyledButtonText>{imgName}</StyledButtonText>
         </StyledButton>
       ))}
@@ -49,6 +49,7 @@ const StyledBoxWrap = styled.div`
   grid-template-columns: 3fr 3fr 3fr;
   justify-items: center;
   width: 100%;
+  margin:44px 0;
   gap: 28px;
 `;
 const StyledButtonText = styled.p`
@@ -62,8 +63,7 @@ const StyledButton = styled(CommonButton)`
   flex-direction: column;
   border-radius: 20px;
   gap: 8px;
-  background-color: #fff;
-  border: 1px solid #ededed;
+  background:transparent;
 `;
 
 export default MainMenu;

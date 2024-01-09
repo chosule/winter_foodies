@@ -14,8 +14,8 @@ import { AuthUI } from "@/components/login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import TextField from "@/components/ui/Input/CommonInput";
 import CommonButton from "@/components/ui/Button/CommonButton";
-import { TPhoneCertiRequest } from "@/types/api/phoneCertificationType";
 import useAuthApi from "@/hooks/auth/useLogin";
+import { Form } from "../find-id";
 
 const FindPwPage = () => {
   const router = useRouter();
@@ -34,7 +34,7 @@ const FindPwPage = () => {
     AuthCodeComplete: false,
   });
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<Form>({
     phoneNumber: "",
     authCode: "",
   });
@@ -66,13 +66,13 @@ const FindPwPage = () => {
     }
   };
 
-  const PhoneNumberCodeMutate = (phoneNumber: TPhoneCertiRequest) => {
+  const PhoneNumberCodeMutate = (phoneNumber: string) => {
     phoneCertiFindApi.mutate(
-      { phoneNumber },
+      phoneNumber ,
       {
         onSuccess: (res) => {
           console.log("핸드폰인증 success --> ", res);
-          openPhoneModal();
+          openPhoneModal(res.authCode || "");
         },
       }
     );
@@ -90,7 +90,7 @@ const FindPwPage = () => {
     }
   };
 
-  const certiCodeMutate = (data) => {
+  const certiCodeMutate = (data:Form) => {
     certiAuthApi.mutate(data, {
       onSuccess: (res) => {
         openAuthCodeModal();

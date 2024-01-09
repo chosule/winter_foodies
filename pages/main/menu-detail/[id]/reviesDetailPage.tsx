@@ -35,7 +35,6 @@ const ReviesDetailPage = () => {
           <MainUI.CustomBox
           key={uuid()}
           width="100%"
-          backgroundcolor="#f3f3f3"
           height="70px"
           onClick={() => {
             router.push({
@@ -47,6 +46,7 @@ const ReviesDetailPage = () => {
                 name,
                 picture,
                 address,
+                rating
               },
             });
           }}

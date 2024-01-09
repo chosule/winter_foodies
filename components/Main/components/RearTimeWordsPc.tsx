@@ -21,7 +21,6 @@ const RearTimeWordsPc = () => {
       {MOCK_DATA.map((snack) => (
         <StyledBoxBtn
           key={snack.id}
-          backgroundcolor="transparent"
           width="0"
           height="0"
         >
@@ -37,10 +36,10 @@ const StyledFlexCustom = styled(MainUI.Flex)`
 `;
 
 const StyledBoxBtn = styled(CommonButton)`
-  border-radius: 40px;
+  border-radius: 10px;
   padding: 15px;
   color: #000;
-  border: 1px solid #ddd;
+  border:1px solid #dd8037;
 `;
 
 export default RearTimeWordsPc;

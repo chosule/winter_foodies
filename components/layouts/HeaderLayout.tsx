@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import CommonButton from "@/components/ui/Button/CommonButton";
-import { FaRegHeart } from "react-icons/fa";
-import useCart from "@/hooks/cart/useCart";
-import { FaHeart } from "react-icons/fa";
+import StarRating from "../Main/components/Ui/StarRating";
 
+type Props = {
+  headerTitle: string;
+  storeRating?: string;
+};
 
-const HeaderLayout = ({ headerTitle }) => {
+const HeaderLayout = ({ headerTitle, storeRating }: Props) => {
   const router = useRouter();
 
   return (
@@ -18,6 +20,10 @@ const HeaderLayout = ({ headerTitle }) => {
           }}
         />
         {headerTitle && <StyleText>{headerTitle}</StyleText>}
+        <StyledRating>
+          {storeRating && <StarRating storeRating={storeRating} />}
+        </StyledRating>
+
         {/* <StyledFavorites>
           {favorites && <button onClick={onClick}><StyledHeartIcons isFavorite={isFavorite}/></button>}
         </StyledFavorites> */}
@@ -26,12 +32,10 @@ const HeaderLayout = ({ headerTitle }) => {
   );
 };
 
-
 const StyledFavorites = styled.div`
-  position:absolute;
-  right:0;
-
-`
+  position: absolute;
+  right: 0;
+`;
 const StyledWrap = styled.section`
   position: relative;
   min-height: 100px;
@@ -44,7 +48,7 @@ const StyledOuter = styled.div`
   width: 100%;
   max-width: 460px;
   z-index: 1;
-  background-color: #fff;
+  background-color: #f6f6f6;
   position: fixed;
   top: 0;
   display: flex;
@@ -64,7 +68,10 @@ const StyleButton = styled(CommonButton)`
   left: 0;
   transform: translate(0, -50%);
 `;
-
+const StyledRating = styled.div`
+  position: absolute;
+  right: 33%;
+`;
 const StyleText = styled.p`
   text-align: center;
   position: absolute;

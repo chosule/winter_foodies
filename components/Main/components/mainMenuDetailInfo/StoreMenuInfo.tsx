@@ -12,8 +12,7 @@ const StoreMenuInfo = () => {
   const router = useRouter();
   const {id} = router.query;
   const {storeInfoApi} = useProduct();
-  const {isSuccess, data: storeInfo} = storeInfoApi(id);
-  console.log(storeInfo)
+  const {isSuccess, data: storeInfo} = storeInfoApi(Number(id));
 
   return (
     <>
@@ -45,7 +44,7 @@ const StoreMenuInfo = () => {
             <AiOutlineSmile />
             <MainUI.Flex>
               <MainUI.Text>
-                조리 시간이 빠르니 주문하시고 바로 찾으러 오세요
+                {storeInfo.ownerComment}
               </MainUI.Text>
             </MainUI.Flex>
           </StyledInfoBox>

@@ -40,11 +40,11 @@ const StyledWrap = styled.div`
   width: 100%;
 `;
 const StyledInput = styled.input`
-  background-color: #fafafa;
+  background-color: #fff;
   width: 100%;
   border-radius: 10px;
-  border: 1px solid #d7d7d7;
-  padding: 13px 52px 13px 11px;
+  border: 1px solid #dd8037;
+  padding: 17px 52px 17px 11px;
 
   &::placeholder {
     color: #d7d7d7;

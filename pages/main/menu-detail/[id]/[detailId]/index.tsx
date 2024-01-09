@@ -6,32 +6,53 @@ import styled from "@emotion/styled";
 import AuthPrivateLayout from "@/components/layouts/AuthPrivateLayout";
 import useCart from "@/hooks/cart/useCart";
 import { FaRegHeart } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
+import { heartState, nearbyDataState } from "@/recoil/atom";
+import { favoriteState } from "@/recoil/selector";
+import { useParams } from "next/navigation";
 
 const MenuDetailInfoPage = () => {
   const { query } = useRouter();
-  const { name, picture, favorite, id } = query;
-    // state => state변경했다 => 컴포넌트 리렌더 => state가 바뀐값이
-
   const { favoriteApi } = useCart();
-  
-  const handleClick= () => {
+  const { name, picture, favorite, id, rating } = query;
+
+  const [test, setTest] = useRecoilState(favoriteState(id));
+  // const testSelector = useRecoilValue(favoriteState(id));
+
+  const matchDataState = useRecoilCallback(
+    ({ snapshot }) =>
+      async (itemId: number) => {
+        const matchFavorite = await snapshot.getPromise(favoriteState(itemId));
+        return matchFavorite;
+      }
+  );
+
+  const handleClick = () => {
     favoriteApi.mutate(
       {
-        favorite: !favorite, 
-        storeId: (Number(id)),
+        // favorite: !favorite,
+        storeId: Number(id),
       },
       {
-        onSuccess: (res) => {
-          console.log("찜하기결과값 --> ", res);
+        onSuccess: async (res) => {
+          console.log("결과값담기", res);
+          console.log("res isfavorite", res.data.isFavorite);
+          setTest(res.data.isFavorite);
         },
       }
     );
   };
+
+  useEffect(() => {
+    console.log("matchData", test);
+  }, [handleClick]);
+
   return (
     <>
       <StyledHeaderWrap>
-        <HeaderLayout headerTitle={name} />
-        <StyledIcon onClick={handleClick} />
+        <HeaderLayout headerTitle={`${name}`} storeRating={`${rating}`} />
+        <StyledIcon onClick={handleClick} test={favoriteState[id]} />
       </StyledHeaderWrap>
       <Image src={picture} alt="이미지" width={70} height={70} />
       <MenuDetailInfoTab />
@@ -43,12 +64,12 @@ const StyledHeaderWrap = styled.div`
   position: relative;
 `;
 
-const StyledIcon = styled(FaRegHeart) `
+const StyledIcon = styled(FaRegHeart)`
   position: absolute;
   right: 0;
   top: 38px;
   z-index: 2;
-
+  color: ${({ test }) => (test ? "#000" : "orange")};
 `;
 
 MenuDetailInfoPage.getLayout = (page: React.ReactNode) => {

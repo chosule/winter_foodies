@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { MainUI } from "../style";
 import { useState, useEffect, CSSProperties } from "react";
+import CommonBox from "@/components/ui/CommonBox/CommonBox";
 
 type TMockData = {
   id: number;
@@ -44,23 +45,25 @@ const RearTimeSearchWords = () => {
                 display: index === currentItem ? "flex" : "none",
               }}
             >
-              <StyledText color="#353535">{item.id}</StyledText>
+              <StyledRankingOuter width="26px" height="27px">
+                <StyledText color="#fff" fontSize="14px">{item.id}</StyledText>
+              </StyledRankingOuter>
               <StyledText color="#353535">{item.name}</StyledText>
               <StyledImgWrap>
                 {item.img && (
                   <img
                     src={item.img}
                     alt={item.img}
-                    width="33px"
-                    height="34px"
+                    width="40px"
+                    height="40px"
                   />
                 )}
               </StyledImgWrap>
-              {item.title && (
-                <StyledText color="#DD8037" fontSize="8px">
+              {/* {item.title && (
+                <StyledText color="#DD8037" fontSize="10px">
                   {item.title}
                 </StyledText>
-              )}
+              )} */}
             </StyledItemLi>
           ))}
         </StyledItemUl>
@@ -76,15 +79,16 @@ const StyledItemWrap = styled.div`
 const StyledImgWrap = styled.div`
   position: absolute;
   top: -12px;
-  left: 90px;
+  left: 67px;
 `;
 const StyledItemUl = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;
-  border: 1px solid #ddd;
+  border: 1px solid #dd8037;
   border-radius: 10px;
-  padding: 13px 18px;
+  padding: 14px 18px;
+  background:#fff;
 `;
 
 const StyledText = styled.p<Pick<CSSProperties, "fontSize" | "color">>`
@@ -96,7 +100,15 @@ const StyledItemLi = styled.li`
   display: flex;
   font-size: 16px;
   gap: 10px;
+  align-items:center;
   position: relative;
 `;
 
+
+const StyledRankingOuter = styled(CommonBox)`
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+`
 export default RearTimeSearchWords;

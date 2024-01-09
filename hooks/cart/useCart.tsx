@@ -5,9 +5,16 @@ import {
 } from "@/types/api/addNewProductType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import {FavoriteRequest, FavoriteResponse} from "@/types/api/favoriteType"
-import { CartDeleteRequest, CartDeleteResponse } from "@/types/api/CartDeleteType";
-import { OrderItemRequestType, OrderResultData } from "@/types/api/getCartType";
+import { FavoriteRequest, FavoriteResponse } from "@/types/api/favoriteType";
+import {
+  CartDeleteRequest,
+  CartDeleteResponse,
+} from "@/types/api/cartDeleteType";
+import {
+  OrderItemRequestType,
+  OrderResultAllResponse,
+  OrderResultData,
+} from "@/types/api/getCartType";
 
 const useCart = () => {
   const { client } = useProjectApi();
@@ -37,24 +44,47 @@ const useCart = () => {
   });
 
   // 카트삭제
-  const productDeleteApi = useMutation<CartDeleteResponse,AxiosError,CartDeleteRequest,CartDeleteResponse>((id) => client.productDelete(id), {
+  const productDeleteApi = useMutation<
+    CartDeleteResponse,
+    AxiosError,
+    CartDeleteRequest,
+    CartDeleteResponse
+  >((id) => client.productDelete(id), {
     onSuccess: () => queryClient.invalidateQueries(["deleteCart"]),
   });
 
   // 주문하기
-  const cartOrderApi = useMutation<OrderResultData,AxiosError,OrderItemRequestType,OrderResultData>((item) => client.cartOrder(item), {
+  const cartOrderApi = useMutation<
+    OrderResultData,
+    AxiosError,
+    OrderItemRequestType,
+    OrderResultData
+  >((item) => client.cartOrder(item), {
     onSuccess: () => queryClient.invalidateQueries(["orderCart"]),
   });
 
   //주문내역
-  const orderDetailsApi = useQuery(["getOrderList"], () => client.orderDetail(),{ 
-    staleTime: Infinity
-  });
+  const orderDetailsApi = useQuery<OrderResultAllResponse>(
+    ["getOrderList"],
+    () => client.orderDetail(),
+    {
+      staleTime: Infinity,
+    }
+  );
 
   //찜하기
-  const favoriteApi = useMutation<FavoriteResponse,AxiosError,FavoriteRequest,FavoriteResponse>((data) => client.favorite(data), {
+  const favoriteApi = useMutation<
+    FavoriteResponse,
+    AxiosError,
+    FavoriteRequest,
+    FavoriteResponse
+  >((data) => client.favorite(data), {
     onSuccess: () => queryClient.invalidateQueries(["heart"]),
   });
+
+  const reviewWriteApi = useMutation((formData) => client.reviewWrite(formData),{
+    onSuccess: () => queryClient.invalidateQueries(['reviewWrite'])
+  })
 
   return {
     menuApi,
@@ -64,6 +94,7 @@ const useCart = () => {
     cartOrderApi,
     orderDetailsApi,
     favoriteApi,
+    reviewWriteApi
   };
 };
 

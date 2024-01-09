@@ -3,8 +3,18 @@ import { CartUI } from "./style";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import { HiPlus } from "react-icons/hi";
 import { FaMinus } from "react-icons/fa6";
+import { GetCartDataDetailType } from "@/types/api/getCartType";
 
-const CounterQuantity = ({ handleIncrementQuantity, items ,handleDecrementQuantity }) => {
+type Props = {
+  handleIncrement: (itemId: number) => void;
+  handleDecrement: (itemId: number) => void;
+  items: GetCartDataDetailType;
+};
+const CounterQuantity = ({
+  handleDecrement,
+  items,
+  handleIncrement,
+}: Props) => {
   return (
     <StyledWrap>
       <CartUI.Text>{items.quantity * items.price} 원</CartUI.Text>
@@ -12,27 +22,29 @@ const CounterQuantity = ({ handleIncrementQuantity, items ,handleDecrementQuanti
         <StyledButton backgroundcolor="transparent" width="0px">
           <HiPlus
             onClick={() => {
-              handleIncrementQuantity(items.itemId);
+              handleIncrement(items.itemId);
             }}
             style={{
-              width: "30px",
-              height: "30px",
+              width: "26px",
+              height: "26px",
               padding: "5px",
-              background: "#fff",
               borderRadius: "100%",
+              border: "1px solid #dd8037",
             }}
           />
         </StyledButton>
         {items.quantity}
         <StyledButton backgroundcolor="transparent" width="0px">
           <FaMinus
-            onClick={() => {handleDecrementQuantity(items.itemId)}}
+            onClick={() => {
+              handleDecrement(items.itemId);
+            }}
             style={{
-              width: "30px",
-              height: "30px",
+              width: "26px",
+              height: "26px",
               padding: "5px",
-              background: "#fff",
               borderRadius: "100%",
+              border: "1px solid #dd8037",
             }}
           />
         </StyledButton>
@@ -42,9 +54,10 @@ const CounterQuantity = ({ handleIncrementQuantity, items ,handleDecrementQuanti
 };
 
 const StyledWrap = styled(CartUI.Flex)`
-  width:100%;
-  justify-content:space-between;
-`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
 const StyledQuantityBox = styled(CartUI.Flex)`
   justify-content: space-between;
   align-items: center;

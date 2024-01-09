@@ -1,12 +1,12 @@
-import styled from "@emotion/styled";
 import { MainUI } from "../../style";
-import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import Image from "next/image";
-import { BiSolidStar } from "react-icons/bi";
+import StarRating from "./StarRating";
+import useConverterMeter from "@/hooks/useConverterMeter";
+import { MenuDetailData } from "@/types/api/menuType";
 
 
-export default function SectionPartUi({picture, name,address,distance,rating, ...rest}) {
-     
+
+export default function SectionPartUi({picture, name,address,distance,rating}:MenuDetailData) {
      return(
         <>
             <div>
@@ -20,9 +20,8 @@ export default function SectionPartUi({picture, name,address,distance,rating, ..
             </div>
             <MainUI.Flex
                 alignItems="center"
-                flex="1"
+                flex="0.9"
                 justifyContent="space-between"
-                {...rest}
             >
                 <MainUI.Flex flexDirection="column" alignItems="start">
                 <MainUI.Text>{name}</MainUI.Text>
@@ -35,14 +34,11 @@ export default function SectionPartUi({picture, name,address,distance,rating, ..
                     color="#747474"
                     lineHeight="1.8"
                     >
-                    {distance}m
+                    {useConverterMeter(distance)}km
                     </MainUI.Text>
                 </MainUI.Flex>
                 </MainUI.Flex>
-                <MainUI.Flex width="60px" gap="3px" alignItems="center">
-                    <BiSolidStar style={{ color: "#DD8037", fontSize: "15px" }} />
-                    <MainUI.Text marginTop="4px" fontSize="12px">{rating}</MainUI.Text>
-                </MainUI.Flex>
+                <StarRating storeRating={rating}/>
             </MainUI.Flex>
         </>
      )

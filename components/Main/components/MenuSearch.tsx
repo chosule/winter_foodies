@@ -6,7 +6,6 @@ import styled from "@emotion/styled";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import useModal from "@/hooks/useModal";
 import useContextModal from "@/context/hooks/useContextModal";
 
 type TMenuData = {
@@ -55,7 +54,7 @@ const MenuSearch = () => {
         placeholder="9가지의 길거리 메뉴를 검색해보세요 !"
         onChange={getValue}
       />
-      <StyledButton variant="contained" onClick={searchWordFilter} />
+      <StyledButton variant="contained" onClick={searchWordFilter} height="56px"/>
     </MainUI.Flex>
   );
 };
@@ -63,5 +62,8 @@ const StyledButton = styled(CommonButton)`
   background-image: url(/img/searchImg.png);
   background-repeat: no-repeat;
   background-position: center;
+  margin-bottom:20px;
+  border-radius:11px;
+  min-width:50px;
 `;
 export default MenuSearch;

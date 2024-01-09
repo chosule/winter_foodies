@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, Axios } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { TLoginResponse, TLoginRequest } from "../types/api/loginType";
 import {
   TKakaoLoginRequest,
@@ -11,12 +11,11 @@ import {
 } from "@/types/api/naverLoginType";
 import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
 import {
-  TPhoneCertiRequest,
   TPhoneCertiResponse,
 } from "@/types/api/phoneCertificationType";
-
+import { DetailMenuType } from "@/types/api/detailmenuType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
-import { TMenuRequest, TMenuResponse } from "@/types/api/menuType";
+import { TMenuResponse } from "@/types/api/menuType";
 import { FavoriteResponse, FavoriteRequest } from "@/types/api/favoriteType";
 import {
   TAddNewProductRequest,
@@ -25,7 +24,7 @@ import {
 import {
   CartDeleteRequest,
   CartDeleteResponse,
-} from "@/types/api/CartDeleteType";
+} from "@/types/api/cartDeleteType";
 import { TFavoriteStoreResponse } from "@/types/api/favoriteStoreType";
 import {
   CertifiCodeRequest,
@@ -36,10 +35,15 @@ import {
   ResetPasswordResponeseType,
 } from "@/types/api/resetPasswordType";
 import {
-  StoreInfoRequestType,
-  StoreResponseType,
+  StoreInfoData,
 } from "@/types/api/storeInfoType";
-import { OrderItemRequestType, OrderResultData } from "@/types/api/getCartType";
+import {
+  GetCartData,
+  OrderItemRequestType,
+  OrderResultAllResponse,
+  OrderResultData,
+} from "@/types/api/getCartType";
+import {ReviewWriteForm} from "@/types/api/reviewWriteType";
 
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
@@ -87,16 +91,16 @@ export default class WinterFoodClient {
   }
 
   // 1-phoneCerti 회원가입 등 가입할때 휴대폰 인증
-  async phoneCertiSign(data: TPhoneCertiRequest) {
+  async phoneCertiSign(phoneNumber: string) {
     return this.httpClient
-      .post(`/api/auth/sendCode`, data)
+      .post(`/api/auth/sendCode`, { phoneNumber })
       .then((res) => res.data as TPhoneCertiResponse);
   }
 
   // 2-phoneCerti 아이디찾기, 비밀번호 찾기등 가입하고 나서 찾는 휴대폰 인증
-  async phoneCertiFind(data: TPhoneCertiRequest) {
+  async phoneCertiFind(phoneNumber: string) {
     return this.httpClient
-      .post(`/api/auth/sendAuthCodeFind`, data)
+      .post(`/api/auth/sendAuthCodeFind`, { phoneNumber })
       .then((res) => res.data as TPhoneCertiResponse);
   }
 
@@ -120,10 +124,7 @@ export default class WinterFoodClient {
       .then((res) => res.data as ResetPasswordResponeseType);
   }
   //가까운곳 top-5 ?
-  async nearDistanceSnack(
-    lat: TNearSnackRequest["lat"],
-    lon: TNearSnackRequest["lon"]
-  ) {
+  async nearDistanceSnack(lat: number, lon: number) {
     return this.httpClient
       .get(`/api/main/snacks?lat=${lat}&lon=${lon}`)
       .then((res) => res.data.data);
@@ -172,17 +173,17 @@ export default class WinterFoodClient {
   }
 
   //메뉴판
-  async menu(id: TMenuRequest) {
+  async menu(id: number) {
     return this.httpClient
       .get(`/api/store/menu/${id}`)
-      .then((res) => res.data.data as TMenuResponse);
+      .then((res) => res.data as DetailMenuType);
   }
 
   //가게정보
-  async storeInfo(id: StoreInfoRequestType) {
+  async storeInfo(id: number) {
     return this.httpClient
       .get(`/api/store/info/${id}`)
-      .then((res) => res.data.data as StoreResponseType);
+      .then((res) => res.data.data as StoreInfoData);
   }
 
   //장바구니 추가 , 업데이트
@@ -196,7 +197,7 @@ export default class WinterFoodClient {
   async getCart() {
     return this.httpClient
       .get(`/api/cart/items`)
-      .then((res) => res.data as TGetCartResponse);
+      .then((res) => res.data as GetCartData);
   }
 
   // 장바구니 삭제
@@ -216,7 +217,7 @@ export default class WinterFoodClient {
   async orderDetail() {
     return this.httpClient
       .get(`/api/mypage/orders`)
-      .then((res) => res.data as OrderResultData[]);
+      .then((res) => res.data as OrderResultAllResponse);
   }
 
   //찜하기
@@ -231,5 +232,16 @@ export default class WinterFoodClient {
     return this.httpClient
       .get(`/api/mypage/favorite`)
       .then((res) => res.data as TFavoriteStoreResponse);
+  }
+
+  //리뷰작성하기
+  async reviewWrite(form:ReviewWriteForm){
+    return this.httpClient
+    .patch(`/api/mypage/review/1`,form,{
+      headers:{
+        'Content-Type':'multipart/form-data'
+      },
+    })
+    .then((res) => res.data)
   }
 }
