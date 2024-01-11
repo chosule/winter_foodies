@@ -11,11 +11,11 @@ npm run dev
 ```
 
 ### 2.적용기술
->라이브러리 : react
+- 라이브러리 : react
 - 프레임워크 : nextjs (page router)
 - 상태관리 : tanstack query , recoil
 - style : emotion, styled-component , mui
-- 및 zod , react-hook-form 
+- 및 zod , react-hook-form 등등
 
 ### 3.주요기능
 1. login (회원가입 / 아이디찾기 / 비밀번호찾기)
