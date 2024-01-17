@@ -2,6 +2,8 @@ export const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=
 
 export const handleNaverLogin = () => {
   window.location.href = naverURL;
+  const code = new URL(window.location.href).searchParams.get("code");
+  console.log("code", code);
 };
 
 export default { naverURL, handleNaverLogin };

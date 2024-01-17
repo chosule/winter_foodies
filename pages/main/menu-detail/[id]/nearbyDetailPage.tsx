@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { MainUI } from "@/components/Main/style";
 import uuid from "react-uuid";
 import { useQuery } from "@tanstack/react-query";
-import getNearbyData from "@/context/libs/ssr/getMenuDetail";
+import getNearbyData from "@/libs/productApi";
 import { MenuDetailData } from "@/types/api/menuType";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
@@ -17,9 +17,8 @@ export function NearbyDetailPage() {
   const { id } = router.query;
   const { data: nearbyData, isLoading } = useQuery({
     queryKey: ["nearbyData"],
-  queryFn: () => getNearbyData(Number(id)),
+    queryFn: () => getNearbyData(Number(id)),
   });
-
 
   useEffect(() => {
     setNearbyState(nearbyData);
