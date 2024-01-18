@@ -4,21 +4,25 @@ import HeaderLayout from "@/components/layouts/HeaderLayout";
 import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { FavoriteStoreType } from "@/types/api/favoriteStoreType";
+import { FavoriteStoreType, TFavoriteStoreResponse } from "@/types/api/favoriteStoreType";
 import useConverterMeter from "@/hooks/useConverterMeter";
 import { FaStar } from "react-icons/fa";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import { getHeartStore } from "@/libs/productApi";
 
+
+
 export async function getServerSideProps() {
-  const heartStorePosts = await getHeartStore();
-  return { props: { heartStorePosts } };
+  const posts = await getHeartStore();
+  return { props: { 
+    posts
+  }};
 }
-const FavoriteStoresPage = (props) => {
+const FavoriteStoresPage = (props:TFavoriteStoreResponse) => {
   const { data: stores, isSuccess } = useQuery(
     ["heartStorePosts"],
     getHeartStore,
-    { initialData: props.heartStorePosts }
+    props.posts
   );
 
   return (

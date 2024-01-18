@@ -30,10 +30,10 @@ export async function getHeartStore() {
   try {
     const winterFoodClient = new WinterFoodClient();
     const res = await winterFoodClient.favoriteStore();
+    console.log('res?',res)
     return res;
   } catch (error) {
-    console.error(error);
-    return { error: "error" };
+    console.error('error?',error);
   }
 }
 
