@@ -8,26 +8,39 @@ const removeUndefinedForNextJsSerializing = <T,>(props: T): T =>
     Object.entries(props).filter(([, value]) => value !== undefined)
   ) as T;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const posts = await getPosts();
   const data = JSON.stringify(posts);
   return {
-    props: removeUndefinedForNextJsSerializing({
-      data,
-    }),
+    // props: removeUndefinedForNextJsSerializing({
+    //   posts,
+    // }),
+    props:{posts}
   };
 }
 
 const PostsPage = (props) => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading ,isError} = useQuery({
     queryKey: ["posts"],
     queryFn: getPosts,
     initialData: props.posts,
   });
 
-  if (isLoading || !data) return <div>is Loading.. </div>;
 
-  return <div>{JSON.stringify(data)}</div>;
+  if (isLoading || !data) return <div>is Loading.. </div>;
+  if (isError) {
+    return <div>에러</div>;
+  }
+//   return <div>{data.data.map((item) => item.storeName)}</div>;
+return (
+    <>
+        {data && ( 
+            <>
+                <div>{data?.data?.map((item) => item.storeName)}</div>
+            </>
+        )}
+    </>
+)
 };
 
 const StyledFlex = styled.div`

@@ -1,4 +1,5 @@
 import WinterFoodClient from "@/api/winterFoodClient";
+import removeUndefinedForNextJsSerializing from "@/hooks/removeUndefinedForNextJsSerializing";
 
 export async function getNearbyData(id: number) {
   const winterFoodClient = new WinterFoodClient();
@@ -30,10 +31,17 @@ export async function getHeartStore() {
   try {
     const winterFoodClient = new WinterFoodClient();
     const res = await winterFoodClient.favoriteStore();
-    console.log('res?',res)
+
+    if (!res || Object.keys(res).length === 0) {
+      throw new Error("No data received from the server");
+    }
+
+    // const posts = removeUndefinedForNextJsSerializing(res);
     return res;
+
   } catch (error) {
-    console.error('error?',error);
+      console.error("안나면이상한 에러",error);
+      return {};
   }
 }
 
