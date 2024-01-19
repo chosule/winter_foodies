@@ -3,18 +3,11 @@ import styled from "@emotion/styled";
 import getPosts from "../../api/getpost";
 import { deleteUndefined } from "@/hooks/useDeleteUndefined";
 
-const removeUndefinedForNextJsSerializing = <T,>(props: T): T =>
-  Object.fromEntries(
-    Object.entries(props).filter(([, value]) => value !== undefined)
-  ) as T;
 
 export async function getServerSideProps() {
   const posts = await getPosts();
   const data = JSON.stringify(posts);
   return {
-    // props: removeUndefinedForNextJsSerializing({
-    //   posts,
-    // }),
     props:{posts}
   };
 }
