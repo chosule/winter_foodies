@@ -1,5 +1,5 @@
 import WinterFoodClient from "@/api/winterFoodClient";
-import removeUndefinedForNextJsSerializing from "@/hooks/removeUndefinedForNextJsSerializing";
+import removeUndefinedForNextJsSerializing from "@/hooks/useRemoveUndefinedSerializing";
 
 export async function getNearbyData(id: number) {
   const winterFoodClient = new WinterFoodClient();
@@ -7,21 +7,19 @@ export async function getNearbyData(id: number) {
   return res;
 }
 
-
-export async function getSalesRateData(id:number){
+export async function getSalesRateData(id: number) {
   const winterFoodClient = new WinterFoodClient();
   const res = await winterFoodClient.mainPageSalesRate(id);
   return res;
 }
 
-export async function getReviewData(id:number){
+export async function getReviewData(id: number) {
   const winterFoodClient = new WinterFoodClient();
   const res = await winterFoodClient.mainPageReview(id);
   return res;
 }
 
-
-export async function getGradeData(id:number){
+export async function getGradeData(id: number) {
   const winterFoodClient = new WinterFoodClient();
   const res = await winterFoodClient.mainPageGrade(id);
   return res;
@@ -38,10 +36,9 @@ export async function getHeartStore() {
 
     // const posts = removeUndefinedForNextJsSerializing(res);
     return res;
-
   } catch (error) {
-      console.error("안나면이상한 에러",error);
-      return {};
+    console.error("안나면이상한 에러", error);
+    return {};
   }
 }
 
