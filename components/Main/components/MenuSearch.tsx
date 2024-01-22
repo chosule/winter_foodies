@@ -54,16 +54,20 @@ const MenuSearch = () => {
         placeholder="9가지의 길거리 메뉴를 검색해보세요 !"
         onChange={getValue}
       />
-      <StyledButton variant="contained" onClick={searchWordFilter} height="56px"/>
+      <StyledButton
+        variant="contained"
+        onClick={searchWordFilter}
+        height="56px"
+      />
     </MainUI.Flex>
   );
 };
 const StyledButton = styled(CommonButton)`
-  background-image: url(/img/searchImg.png);
+  background-image: url("/img/searchImg.png");
   background-repeat: no-repeat;
   background-position: center;
-  margin-bottom:20px;
-  border-radius:11px;
-  min-width:50px;
+  margin-bottom: 20px;
+  border-radius: 11px;
+  min-width: 50px;
 `;
 export default MenuSearch;
