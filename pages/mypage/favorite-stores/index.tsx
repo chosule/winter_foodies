@@ -4,7 +4,7 @@ import HeaderLayout from "@/components/layouts/HeaderLayout";
 import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { FavoriteStoreType, TFavoriteStoreResponse } from "@/types/api/favoriteStoreType";
+import { FavoriteStoreData, FavoriteStoreType, TFavoriteStoreResponse } from "@/types/api/favoriteStoreType";
 import useConverterMeter from "@/hooks/useConverterMeter";
 import { FaStar } from "react-icons/fa";
 import { QueryClient, useQuery } from "@tanstack/react-query";
@@ -13,11 +13,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useEffect } from "react";
 
 
-type Props = {
-    posts:FavoriteStoreType[]
-}
-
-export const getServerSideProps:GetServerSideProps<{posts:FavoriteStoreType}> = async () => {
+export const getServerSideProps:GetServerSideProps = async () => {
   const posts = await getHeartStore();
   return {
     props: {
@@ -25,30 +21,19 @@ export const getServerSideProps:GetServerSideProps<{posts:FavoriteStoreType}> = 
     },
   };
 };
-const FavoriteStoresPage = (props:Props) => {
+const FavoriteStoresPage = (props:any) => {
   const { data: stores, isSuccess,isLoading } = useQuery({
     queryKey:["heartStorePosts"],
     queryFn:getHeartStore,
     initialData: props.posts,
+
   });
 
   if (isLoading || !stores) return <div>is Loading.. </div>;
 
-  useEffect(() =>{
-    console.log('??',stores.data)
-  },[stores])
-
   return (
     <>
       <HeaderLayout headerTitle="찜한매장" />
-      {stores && (
-        <>
-        
-          {stores?.data?.map((item) => (
-            item.rating
-          ))}
-        </>
-      )}
       {isSuccess ? (
         <>
           {stores?.data?.map(

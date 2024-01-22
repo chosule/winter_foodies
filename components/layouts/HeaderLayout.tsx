@@ -5,12 +5,11 @@ import StarRating from "../Main/components/Ui/StarRating";
 
 type Props = {
   headerTitle: string;
-  storeRating?: string;
+  storeRating?: number;
 };
 
 const HeaderLayout = ({ headerTitle, storeRating }: Props) => {
   const router = useRouter();
-
   return (
     <StyledWrap>
       <StyledOuter>
@@ -23,10 +22,6 @@ const HeaderLayout = ({ headerTitle, storeRating }: Props) => {
         <StyledRating>
           {storeRating && <StarRating storeRating={storeRating} />}
         </StyledRating>
-
-        {/* <StyledFavorites>
-          {favorites && <button onClick={onClick}><StyledHeartIcons isFavorite={isFavorite}/></button>}
-        </StyledFavorites> */}
       </StyledOuter>
     </StyledWrap>
   );

@@ -17,21 +17,21 @@ type Form = {
   image:string;
   textarea:string
 }
-export default function ReviewRegist({ storeName, isOpen ,close,id}:ModalProps) {
+export default function ReviewRegist({ storeName, isOpen ,close}:ModalProps) {
   const [rating, setRating] = useState(0);
 
-  const [file, setFile] = useState();
+  const [file, setFile] = useState<File | "">();
 
   const [formData , setFormData] = useState<Form>({
     image:"",
     textarea:""
   })
-  const {reviewWriteApi} = useCart();
+  // const {reviewWriteApi} = useCart();
   
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | any>) => {
     const { name, files ,value} = e.target;
-    console.log('value',value)
+    // console.log('value',value)
     if (name === "file") {
       setFile(files && files[0]);
       return;
@@ -41,7 +41,7 @@ export default function ReviewRegist({ storeName, isOpen ,close,id}:ModalProps) 
       ...prev,
       [name]:value
     }))
-    console.log('form',formData)
+    // console.log('form',formData)
   };
 
   const handleStarClick = (index:number) => {
@@ -49,7 +49,7 @@ export default function ReviewRegist({ storeName, isOpen ,close,id}:ModalProps) 
     setRating(index + 1);
   };
 
-  const onSubmit = (e) =>{
+  const onSubmit = (e:React.FormEvent) =>{
     e.preventDefault();
 
     console.log('formData',formData)
@@ -57,22 +57,24 @@ export default function ReviewRegist({ storeName, isOpen ,close,id}:ModalProps) 
     // Object.entries(formData).forEach(([key,value]) =>{
     //   formDataToSend.append(key,value)
     // })
-    const formDataSend = new FormData();
-    formDataSend.append("image",formData.image);
-    reviewWriteApi.mutate(
-      formDataSend,
-      {
-        onSuccess:(res) => {
-        console.log('res?',res)
-      }
-    })
+
+
+    // const formDataSend = new FormData();
+    // formDataSend.append("image",formData.image);
+    // reviewWriteApi.mutate(
+    //   formDataSend,
+    //   {
+    //     onSuccess:(res) => {
+    //     console.log('res?',res)
+    //   }
+    // })
   }
 
 
   return (
     <div>
       <ModalUI.Overlay />
-      <ModalUI.Content isOpen={isOpen} minWidth="400px" padding="40px">
+      <ModalUI.Content minWidth="400px" padding="40px">
         <StyledForm onSubmit={onSubmit}>
           <StyledCloseIcon onClick={close} />
           <ModalUI.Text fontWeight="600" fontSize="20px">

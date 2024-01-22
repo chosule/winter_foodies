@@ -12,4 +12,10 @@ export type ModalProps = {
   id?:number;
 };
 
+
+export type ReviewModalProps = {
+  storeName:string;
+  isOpen:() => void;
+  close:() => void;
+}
 export type Modals = Map<string, ModalProps>;

@@ -2,7 +2,7 @@ import { BiSolidStar } from "react-icons/bi";
 import styled from "@emotion/styled";
 
 type Props = {
-    storeRating?: string
+    storeRating?: number
 }
 export default function StarRating({storeRating}:Props) {
      return(

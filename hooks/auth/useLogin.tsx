@@ -1,7 +1,6 @@
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { TLoginRequest, TLoginResponse } from "@/types/api/loginType";
 import {
-  TPhoneCertiRequest,
   TPhoneCertiResponse,
 } from "@/types/api/phoneCertificationType";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,6 +12,9 @@ import {
   CertifiCodeRequest,
   CertifiCodeResponse,
 } from "@/types/api/certifiCodeType";
+import {TChangePwResponse,TChangePwRequest} from "@/types/api/passwordChangeType"
+
+
 /**
  *
  * @description
@@ -46,7 +48,7 @@ const useAuthApi = () => {
   const phoneCertiSignApi = useMutation<
     TPhoneCertiResponse,
     AxiosError,
-    TPhoneCertiRequest,
+    string,
     TPhoneCertiResponse
   >((data) => client.phoneCertiSign(data), {
     onSuccess: () => queryClient.invalidateQueries(["phoneAuth"]),
@@ -56,7 +58,7 @@ const useAuthApi = () => {
   const phoneCertiFindApi = useMutation<
     TPhoneCertiResponse,
     AxiosError,
-    TPhoneCertiRequest,
+    string,
     TPhoneCertiResponse
   >((data) => client.phoneCertiFind(data), {
     onSuccess: () => queryClient.invalidateQueries(["phoneAuth"]),
@@ -83,7 +85,7 @@ const useAuthApi = () => {
   });
 
   //비밀번호 바꾸기
-  const changePwApi = useMutation((data) => client.changePw(data), {
+  const changePwApi = useMutation<TChangePwResponse,AxiosError,TChangePwRequest,TChangePwResponse>((data) => client.changePw(data), {
     onSuccess: () => queryClient.invalidateQueries(["changePw"]),
   });
 

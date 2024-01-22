@@ -10,15 +10,14 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { nearbyDataState } from "@/recoil/atom";
 import WinterFoodClient from "@/api/winterFoodClient";
+import { GetStaticProps } from "next";
 
 
 
-export async function getStaticProps() {
-  // const client = new WinterFoodClient();
-  // const post = await client.mainPageNearby(id);
+export const getStaticProps:GetStaticProps= async() => {
   const router = useRouter();
   const { id } = router.query;
-  const post = await getNearbyData(id);
+  const post = await getNearbyData(Number(id));
   return {
     props: {
       post
@@ -26,26 +25,13 @@ export async function getStaticProps() {
   }
 }
 
-export function NearbyDetailPage({post:initialData}) {
-  console.log('post?',initialData)
+export function NearbyDetailPage(props:any) {
   const router = useRouter();
   const [, setNearbyState] = useRecoilState(nearbyDataState);
 
   const { id } = router.query;
-  const { data:nearbyData ,isLoading} = useQuery( ['nearbyPosts'], () => getNearbyData(id),{
-    initialData
-  })
+  const { data:nearbyData ,isLoading} = useQuery( ['nearbyPosts'], () => getNearbyData(Number(id)),props.post)
 
-  // const { data: nearbyData, isSuccess ,isLoading} = useQuery(
-  //   ["near"],getNearbyData,
-  //     initialData: props.posts 
-    
-  // );
-
-  // const { data: nearbyData, isLoading } = useQuery({
-  //   queryKey: ["nearbyData"],
-  //   queryFn: () => getNearbyData(Number(id)),
-  // });
 
   useEffect(() => {
     setNearbyState(nearbyData);

@@ -82,9 +82,9 @@ const useCart = () => {
     onSuccess: () => queryClient.invalidateQueries(["heart"]),
   });
 
-  const reviewWriteApi = useMutation((formData) => client.reviewWrite(formData),{
-    onSuccess: () => queryClient.invalidateQueries(['reviewWrite'])
-  })
+  // const reviewWriteApi = useMutation((formData) => client.reviewWrite(formData),{
+  //   onSuccess: () => queryClient.invalidateQueries(['reviewWrite'])
+  // })
 
   return {
     menuApi,
@@ -94,7 +94,7 @@ const useCart = () => {
     cartOrderApi,
     orderDetailsApi,
     favoriteApi,
-    reviewWriteApi
+    // reviewWriteApi
   };
 };
 

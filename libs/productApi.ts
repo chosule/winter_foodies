@@ -2,27 +2,67 @@ import WinterFoodClient from "@/api/winterFoodClient";
 import removeUndefinedForNextJsSerializing from "@/hooks/useRemoveUndefinedSerializing";
 
 export async function getNearbyData(id: number) {
-  const winterFoodClient = new WinterFoodClient();
-  const res = await winterFoodClient.mainPageNearby(id);
-  return res;
+  try{
+    const winterFoodClient = new WinterFoodClient();
+    const res = await winterFoodClient.mainPageNearby(id);
+    if (!res || Object.keys(res).length === 0) {
+      throw new Error("No data received from the server");
+    }
+
+    const posts = removeUndefinedForNextJsSerializing(res);
+    console.log('posts',posts)
+    return posts;
+  }catch(error){
+    console.log('error',error)
+  }
 }
 
 export async function getSalesRateData(id: number) {
-  const winterFoodClient = new WinterFoodClient();
-  const res = await winterFoodClient.mainPageSalesRate(id);
-  return res;
+  try{
+    const winterFoodClient = new WinterFoodClient();
+    const res = await winterFoodClient.mainPageSalesRate(id);
+    if (!res || Object.keys(res).length === 0) {
+      throw new Error("No data received from the server");
+    }
+
+    const posts = removeUndefinedForNextJsSerializing(res);
+    console.log('posts',posts)
+    return posts;
+  }catch(error){
+    console.log('error',error)
+  }
 }
 
 export async function getReviewData(id: number) {
-  const winterFoodClient = new WinterFoodClient();
-  const res = await winterFoodClient.mainPageReview(id);
-  return res;
+  try{
+    const winterFoodClient = new WinterFoodClient();
+    const res = await winterFoodClient.mainPageReview(id);
+    if (!res || Object.keys(res).length === 0) {
+      throw new Error("No data received from the server");
+    }
+
+    const posts = removeUndefinedForNextJsSerializing(res);
+    console.log('posts',posts)
+    return posts;
+  }catch(error){
+    console.log('error',error)
+  }
 }
 
 export async function getGradeData(id: number) {
-  const winterFoodClient = new WinterFoodClient();
-  const res = await winterFoodClient.mainPageGrade(id);
-  return res;
+  try{
+    const winterFoodClient = new WinterFoodClient();
+    const res = await winterFoodClient.mainPageGrade(id);
+    if (!res || Object.keys(res).length === 0) {
+      throw new Error("No data received from the server");
+    }
+
+    const posts = removeUndefinedForNextJsSerializing(res);
+    console.log('posts',posts)
+    return posts;
+  }catch(error){
+    console.log('error',error)
+  }
 }
 
 export async function getHeartStore() {
@@ -37,7 +77,7 @@ export async function getHeartStore() {
     const posts = removeUndefinedForNextJsSerializing(res);
     return posts;
   } catch (error) {
-    // console.error("안나면이상한 에러", error);
+    // console.error("찜한매장error", error);
     return {};
   }
 }

@@ -8,15 +8,29 @@ import { useQuery } from "@tanstack/react-query";
 import { getSalesRateData } from "@/libs/productApi";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
+import { GetStaticProps } from "next";
 
-const SalesRateDetail = () => {
+
+export const getStaticProps:GetStaticProps = async() =>{
+  const router = useRouter();
+  const {id} = router.query;
+  const posts = await getSalesRateData(Number(id));
+  return {
+    props:{
+      posts
+    }
+  }
+}
+
+
+const SalesRateDetail = (props:any) => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: salesData, isLoading } = useQuery({
-    queryKey: ["rateData"],
-    queryFn: () => getSalesRateData(Number(id)),
-  });
+  const { data: salesData, isLoading } = useQuery(['salesbyPosts'],
+    () => getSalesRateData(Number(id)),
+    props.posts
+  );
 
   if (isLoading) return <Skeleton height="120vh" top="-167px" />;
 
