@@ -34,10 +34,10 @@ export async function getHeartStore() {
       throw new Error("No data received from the server");
     }
 
-    // const posts = removeUndefinedForNextJsSerializing(res);
-    return res;
+    const posts = removeUndefinedForNextJsSerializing(res);
+    return posts;
   } catch (error) {
-    console.error("안나면이상한 에러", error);
+    // console.error("안나면이상한 에러", error);
     return {};
   }
 }

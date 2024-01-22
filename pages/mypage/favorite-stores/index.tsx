@@ -9,11 +9,15 @@ import useConverterMeter from "@/hooks/useConverterMeter";
 import { FaStar } from "react-icons/fa";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { getHeartStore } from "@/libs/productApi";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useEffect } from "react";
 
 
+type Props = {
+    posts:FavoriteStoreType[]
+}
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps:GetServerSideProps<{posts:FavoriteStoreType}> = async () => {
   const posts = await getHeartStore();
   return {
     props: {
@@ -21,30 +25,37 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   };
 };
-const FavoriteStoresPage = (props) => {
-  const { data: stores, isSuccess,isLoading,isError } = useQuery({
+const FavoriteStoresPage = (props:Props) => {
+  const { data: stores, isSuccess,isLoading } = useQuery({
     queryKey:["heartStorePosts"],
     queryFn:getHeartStore,
-    initialData:props.posts,
+    initialData: props.posts,
   });
 
   if (isLoading || !stores) return <div>is Loading.. </div>;
-  
-  if (isError) {
-    return <div>에러</div>;
-  }
-  
+
+  useEffect(() =>{
+    console.log('??',stores.data)
+  },[stores])
+
   return (
     <>
       <HeaderLayout headerTitle="찜한매장" />
-      {stores?.data?.map((item) => item.address)}
+      {stores && (
+        <>
+        
+          {stores?.data?.map((item) => (
+            item.rating
+          ))}
+        </>
+      )}
       {isSuccess ? (
         <>
           {stores?.data?.map(
             ({
               pictureUrl,
               address,
-              distance,
+              distance, 
               rating,
               storeName,
               id,
