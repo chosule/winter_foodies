@@ -1,6 +1,6 @@
 import DefaultLayout from "@/components/layouts/Default";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
-import { AuthUI } from "@/components/login/style";
+import { AuthUI } from "@/components/Login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import TextField from "@/components/ui/Input/CommonInput";
 import { useForm, SubmitErrorHandler, SubmitHandler } from "react-hook-form";

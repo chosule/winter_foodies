@@ -8,7 +8,7 @@ import {
   changePasswordSchema,
 } from "@/components/login/schema";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
-import { AuthUI } from "@/components/login/style";
+import { AuthUI } from "@/components/Login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import TextField from "@/components/ui/Input/CommonInput";
 import CommonButton from "@/components/ui/Button/CommonButton";
@@ -33,7 +33,7 @@ const ChangePwPage = () => {
 
   const onSubmit: SubmitHandler<TChangePasswordSchema> = () => {
     const newPassword = getValues("changePassword");
-    console.log('newPassword',newPassword)
+    console.log("newPassword", newPassword);
     const data = { newPassword, userId };
     console.log("특정 데이터: ", data);
     changePwApi.mutate(data, {

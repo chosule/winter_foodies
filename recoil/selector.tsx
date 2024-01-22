@@ -1,5 +1,6 @@
 import { selector, selectorFamily } from "recoil";
 import { getCartState, nearbyDataState } from "./atom";
+import { MenuDetailData } from "@/types/api/menuType";
 
 export const cartDeletedState = selectorFamily({
   key: "getCartSelector",
@@ -14,7 +15,7 @@ export const cartDeletedState = selectorFamily({
     },
 });
 
-export const favoriteState = selectorFamily<boolean , number>({
+export const favoriteState = selectorFamily<boolean, number>({
   key: "favoriteState",
   get:
     (id) =>
@@ -29,7 +30,7 @@ export const favoriteState = selectorFamily<boolean , number>({
     (id) =>
     ({ set, get }, newValue) => {
       const nearbyState = get(nearbyDataState);
-      console.log('nearbystate',nearbyState)
+      console.log("nearbystate", nearbyState);
       const updatedData = nearbyState?.data?.map((item) => {
         if (item.id == id) {
           return { ...item, favorite: newValue };
@@ -37,7 +38,10 @@ export const favoriteState = selectorFamily<boolean , number>({
         return item;
       });
 
-      set(nearbyDataState, { ...nearbyDataState, data: updatedData });
+      set(nearbyDataState, {
+        ...nearbyDataState,
+        data: updatedData as MenuDetailData[],
+      });
     },
 });
 

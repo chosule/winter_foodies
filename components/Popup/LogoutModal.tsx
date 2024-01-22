@@ -2,10 +2,14 @@ import useUserAuth from "@/hooks/auth/useUserAuth";
 import { ModalUI } from "./style";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { ModalProps } from "@/context/types/modalProps";
+import { ModalPropsPartial } from "@/utils/modal";
 
+type ModalProps = {
+  message?: string;
+  close?: () => void;
+};
 
-export default function LogoutModal({ close, title, btnText, message }:ModalProps) {
+export default function LogoutModal({ close, message }: ModalProps) {
   const router = useRouter();
   const { logout } = useUserAuth();
 

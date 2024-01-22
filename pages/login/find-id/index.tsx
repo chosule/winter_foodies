@@ -2,7 +2,7 @@ import DefaultLayout from "@/components/layouts/Default";
 import useContextModal from "@/context/hooks/useContextModal";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { AuthUI } from "@/components/login/style";
+import { AuthUI } from "@/components/Login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
 import CommonButton from "@/components/ui/Button/CommonButton";
@@ -11,14 +11,14 @@ import useValid from "@/hooks/auth/useValid";
 import useAuthModal from "@/hooks/modal/useAuthModal";
 import useAuthApi from "@/hooks/auth/useLogin";
 
-export type Form ={
-  phoneNumber:string;
-  authCode:string;
-}
+export type Form = {
+  phoneNumber: string;
+  authCode: string;
+};
 
 const FindIdPage = () => {
   const modal = useContextModal();
-  const [dataEmail, ] = useState();
+  const [dataEmail] = useState();
   const { openPhoneModal } = useAuthModal();
   const { phoneCertiFindApi, certiAuthApi } = useAuthApi();
 
@@ -61,19 +61,16 @@ const FindIdPage = () => {
     }
   };
 
-  const phoneNumberCodeMutate = (phoneNumber:string) => {
-    phoneCertiFindApi.mutate(
-      phoneNumber,
-      {
-        onSuccess: (res) => {
-          console.log("핸드폰인증코드res", res);
-          openPhoneModal(res.authCode || "");
-        },
-        onError: (err) => {
-          console.log("핸드폰인증코드err", err);
-        },
-      }
-    );
+  const phoneNumberCodeMutate = (phoneNumber: string) => {
+    phoneCertiFindApi.mutate(phoneNumber, {
+      onSuccess: (res) => {
+        console.log("핸드폰인증코드res", res);
+        openPhoneModal(res.authCode || "");
+      },
+      onError: (err) => {
+        console.log("핸드폰인증코드err", err);
+      },
+    });
   };
 
   const authCertiSubmit = () => {
@@ -85,7 +82,7 @@ const FindIdPage = () => {
     }
   };
 
-  const certiCodeMutate = (form:Form) => {
+  const certiCodeMutate = (form: Form) => {
     certiAuthApi.mutate(form, {
       onSuccess: (res) => {
         console.log("인증코드res", res);
@@ -97,7 +94,7 @@ const FindIdPage = () => {
     });
   };
 
-  const openAlert = (dataEmail:string) => {
+  const openAlert = (dataEmail: string) => {
     modal.openAlert({
       title: "알림",
       message: `회원님의아이디는 \n ${dataEmail}입니다. \n 로그인페이지로 이동합니다.`,

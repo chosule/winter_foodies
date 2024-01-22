@@ -10,9 +10,7 @@ import {
   TNaverLoginResponse,
 } from "@/types/api/naverLoginType";
 import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
-import {
-  TPhoneCertiResponse,
-} from "@/types/api/phoneCertificationType";
+import { TPhoneCertiResponse } from "@/types/api/phoneCertificationType";
 import { DetailMenuType } from "@/types/api/detailmenuType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
 import { TMenuResponse } from "@/types/api/menuType";
@@ -33,17 +31,16 @@ import {
 import {
   ResetPasswordRequestType,
   ResetPasswordResponeseType,
+  ResetPwType,
 } from "@/types/api/resetPasswordType";
-import {
-  StoreInfoData,
-} from "@/types/api/storeInfoType";
+import { StoreInfoData } from "@/types/api/storeInfoType";
 import {
   GetCartData,
   OrderItemRequestType,
   OrderResultAllResponse,
   OrderResultData,
 } from "@/types/api/getCartType";
-import {ReviewWriteForm} from "@/types/api/reviewWriteType";
+import { ReviewWriteForm } from "@/types/api/reviewWriteType";
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
@@ -117,7 +114,7 @@ export default class WinterFoodClient {
       .then((res) => res.data as TFindPwResponse);
   }
   //비밀번호 변경
-  async changePw(data: ResetPasswordRequestType) {
+  async changePw(data: ResetPwType) {
     return this.httpClient
       .put(`/api/auth/resetPassword`, data)
       .then((res) => res.data as ResetPasswordResponeseType);
@@ -232,15 +229,15 @@ export default class WinterFoodClient {
       .get(`/api/mypage/favorite`)
       .then((res) => res.data as TFavoriteStoreResponse);
   }
- 
+
   //리뷰작성하기
-  async reviewWrite(form:ReviewWriteForm){
+  async reviewWrite(form: ReviewWriteForm) {
     return this.httpClient
-    .patch(`/api/mypage/review/1`,form,{
-      headers:{
-        'Content-Type':'multipart/form-data'
-      },
-    })
-    .then((res) => res.data)
+      .patch(`/api/mypage/review/1`, form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => res.data);
   }
 }

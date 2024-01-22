@@ -12,7 +12,8 @@ export interface MenuDetailData {
   ranking?: number;
   reviewCount?: number;
   salesVolume?: number;
-  favorite?: boolean;
+  favorite: boolean;
   id?: number;
 }
-export type TMenuResponse = MenuData;
+export type TMenuResponse = Partial<MenuData>;
+export type MenuDetailDataPartial = Partial<MenuDetailData>;

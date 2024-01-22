@@ -22,7 +22,7 @@ const MenuDetailInfoPage = () => {
         storeId: Number(id),
       },
       {
-        onSuccess:  (res) => {
+        onSuccess: (res) => {
           setFavorite(res.data.isFavorite);
         },
       }
@@ -32,8 +32,8 @@ const MenuDetailInfoPage = () => {
   return (
     <>
       <StyledHeaderWrap>
-        <HeaderLayout headerTitle={`${name}`} storeRating={`${rating}`} />
-        <StyledIcon onClick={handleClick}  favorite={favorite}/>
+        <HeaderLayout headerTitle={`${name}`} storeRating={Number(rating)} />
+        <StyledIcon onClick={handleClick} favorite={favorite} />
       </StyledHeaderWrap>
       <Image src={String(picture)} alt="이미지" width={70} height={70} />
       <MenuDetailInfoTab />
@@ -45,12 +45,12 @@ const StyledHeaderWrap = styled.div`
   position: relative;
 `;
 
-const StyledIcon = styled(FaRegHeart)<{favorite:boolean}>`
+const StyledIcon = styled(FaRegHeart)<{ favorite: boolean }>`
   position: absolute;
   right: 0;
   top: 38px;
   z-index: 2;
-  color:${({favorite}) => favorite ? "orange" : "#000"};
+  color: ${({ favorite }) => (favorite ? "orange" : "#000")};
 `;
 
 MenuDetailInfoPage.getLayout = (page: React.ReactNode) => {

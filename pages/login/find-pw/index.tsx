@@ -10,7 +10,7 @@ import {
 } from "@/components/login/schema";
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import HeaderLayout from "@/components/layouts/HeaderLayout";
-import { AuthUI } from "@/components/login/style";
+import { AuthUI } from "@/components/Login/style";
 import CommonInfoBox from "@/components/ui/CommonBox/CommonInfoBox";
 import TextField from "@/components/ui/Input/CommonInput";
 import CommonButton from "@/components/ui/Button/CommonButton";
@@ -67,15 +67,12 @@ const FindPwPage = () => {
   };
 
   const PhoneNumberCodeMutate = (phoneNumber: string) => {
-    phoneCertiFindApi.mutate(
-      phoneNumber ,
-      {
-        onSuccess: (res) => {
-          console.log("핸드폰인증 success --> ", res);
-          openPhoneModal(res.authCode || "");
-        },
-      }
-    );
+    phoneCertiFindApi.mutate(phoneNumber, {
+      onSuccess: (res) => {
+        console.log("핸드폰인증 success --> ", res);
+        openPhoneModal(res.authCode || "");
+      },
+    });
   };
 
   const authCertiSubmit = () => {
@@ -90,7 +87,7 @@ const FindPwPage = () => {
     }
   };
 
-  const certiCodeMutate = (data:Form) => {
+  const certiCodeMutate = (data: Form) => {
     certiAuthApi.mutate(data, {
       onSuccess: (res) => {
         openAuthCodeModal();
@@ -107,7 +104,7 @@ const FindPwPage = () => {
           openAlert();
           router.push({
             pathname: `/login/change-pw`,
-            query: res,
+            query: res as any,
           });
         },
       });

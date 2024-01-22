@@ -18,13 +18,13 @@ const OrderListPage = () => {
     orderDetailsApi: { isLoading, data: orderDatas, isSuccess },
   } = useCart();
 
-  console.log('orderData',orderDatas)
+  console.log("orderData", orderDatas);
   if (isLoading) return <Skeleton />;
 
-  const openReview = (storeName: string, id:number) => {
+  const openReview = (storeName: string, id: number) => {
     modal.openReviewRegist({
       storeName: `${storeName}`,
-      id: id
+      id: id,
     });
   };
 
@@ -32,7 +32,7 @@ const OrderListPage = () => {
     <>
       <HeaderLayout headerTitle="주문내역" />
       {orderDatas && orderDatas.data.length > 0 ? (
-          <MyPageUI.Flex flexDirection="column" gap="30px">
+        <MyPageUI.Flex flexDirection="column" gap="30px">
           {orderDatas && (
             <>
               {orderDatas?.data?.map(
@@ -87,7 +87,7 @@ const OrderListPage = () => {
                     </MyPageUI.Flex>
                     <StyledBtn width="100%" backgroundcolor="none">
                       <MyPageUI.Text
-                        onClick={() => openReview(storeName,id)}
+                        onClick={() => openReview(storeName, id)}
                         color="#dd8037"
                       >
                         리뷰 작성하기
@@ -99,10 +99,9 @@ const OrderListPage = () => {
             </>
           )}
         </MyPageUI.Flex>
-      ) :(
+      ) : (
         <div>데이터 없슴</div>
       )}
-      
     </>
   );
 };

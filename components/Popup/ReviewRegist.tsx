@@ -9,55 +9,59 @@ import { CiImageOn } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
 import { TiDelete } from "react-icons/ti";
 import useCart from "@/hooks/cart/useCart";
-import { ModalProps } from "@/context/types/modalProps";
+import { ModalPropsPartial } from "@/utils/modal";
 
 Modal.setAppElement("#__next");
 
 type Form = {
-  image:string;
-  textarea:string
-}
-export default function ReviewRegist({ storeName, isOpen ,close}:ModalProps) {
+  image: string;
+  textarea: string;
+};
+type ReviewRegistProps = {
+  storeName?: string;
+  close?: () => void;
+};
+export default function ReviewRegist({ storeName, close }: ReviewRegistProps) {
   const [rating, setRating] = useState(0);
 
   const [file, setFile] = useState<File | "">();
 
-  const [formData , setFormData] = useState<Form>({
-    image:"",
-    textarea:""
-  })
+  const [formData, setFormData] = useState<Form>({
+    image: "",
+    textarea: "",
+  });
   // const {reviewWriteApi} = useCart();
-  
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | any>) => {
-    const { name, files ,value} = e.target;
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | any>
+  ) => {
+    const { name, files, value } = e.target;
     // console.log('value',value)
     if (name === "file") {
       setFile(files && files[0]);
       return;
     }
 
-    setFormData((prev) =>({
+    setFormData((prev) => ({
       ...prev,
-      [name]:value
-    }))
+      [name]: value,
+    }));
     // console.log('form',formData)
   };
 
-  const handleStarClick = (index:number) => {
+  const handleStarClick = (index: number) => {
     // console.log("index", index);
     setRating(index + 1);
   };
 
-  const onSubmit = (e:React.FormEvent) =>{
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log('formData',formData)
+    console.log("formData", formData);
     // const formDataToSend = new FormData();
     // Object.entries(formData).forEach(([key,value]) =>{
     //   formDataToSend.append(key,value)
     // })
-
 
     // const formDataSend = new FormData();
     // formDataSend.append("image",formData.image);
@@ -68,8 +72,7 @@ export default function ReviewRegist({ storeName, isOpen ,close}:ModalProps) {
     //     console.log('res?',res)
     //   }
     // })
-  }
-
+  };
 
   return (
     <div>
@@ -89,11 +92,11 @@ export default function ReviewRegist({ storeName, isOpen ,close}:ModalProps) {
               />
             ))}
           </StyledGradeContainer>
-          <StyledTextarea 
-              placeholder="리뷰를 입력해주세요." 
-              type="textarea"
-              name="textarea"
-              onChange={handleChange}
+          <StyledTextarea
+            placeholder="리뷰를 입력해주세요."
+            type="textarea"
+            name="textarea"
+            onChange={handleChange}
           />
           <StyledFlex gap="10px">
             <StyledFileInputContainer>
@@ -124,7 +127,7 @@ export default function ReviewRegist({ storeName, isOpen ,close}:ModalProps) {
             )}
           </StyledFlex>
           <CommonButton type="submit" width="100%" backgroundcolor="#dd8037">
-               <p>등록하기</p>
+            <p>등록하기</p>
           </CommonButton>
         </StyledForm>
       </ModalUI.Content>
@@ -168,19 +171,19 @@ const StyledFileInputContainer = styled.label`
 `;
 
 const StyledCloseIcon = styled(TiDelete)`
-  position:absolute;
-  right:-32px;
-  top:-31px;
-  cursor:pointer;
-  font-size:32px;
-  color:#dd8037;
-`
+  position: absolute;
+  right: -32px;
+  top: -31px;
+  cursor: pointer;
+  font-size: 32px;
+  color: #dd8037;
+`;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  position:relative;
+  position: relative;
 `;
 
 const StyledFileInputLabel = styled.span`

@@ -1,8 +1,6 @@
 import { useProjectApi } from "@/context/hooks/useDataContextApi";
 import { TLoginRequest, TLoginResponse } from "@/types/api/loginType";
-import {
-  TPhoneCertiResponse,
-} from "@/types/api/phoneCertificationType";
+import { TPhoneCertiResponse } from "@/types/api/phoneCertificationType";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { TFindPwResponse, TFindPwRequest } from "@/types/api/findPwType";
@@ -12,8 +10,11 @@ import {
   CertifiCodeRequest,
   CertifiCodeResponse,
 } from "@/types/api/certifiCodeType";
-import {TChangePwResponse,TChangePwRequest} from "@/types/api/passwordChangeType"
-
+import {
+  TChangePwResponse,
+  TChangePwRequest,
+} from "@/types/api/passwordChangeType";
+import { ResetPwType } from "@/types/api/resetPasswordType";
 
 /**
  *
@@ -85,7 +86,12 @@ const useAuthApi = () => {
   });
 
   //비밀번호 바꾸기
-  const changePwApi = useMutation<TChangePwResponse,AxiosError,TChangePwRequest,TChangePwResponse>((data) => client.changePw(data), {
+  const changePwApi = useMutation<
+    TChangePwResponse,
+    AxiosError,
+    ResetPwType,
+    TChangePwResponse
+  >((data) => client.changePw(data), {
     onSuccess: () => queryClient.invalidateQueries(["changePw"]),
   });
 

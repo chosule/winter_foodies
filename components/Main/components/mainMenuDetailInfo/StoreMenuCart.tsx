@@ -9,7 +9,6 @@ import useContextModal from "@/context/hooks/useContextModal";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import { MenuType } from "@/types/api/detailmenuType";
 
-
 const StoreMenuCart = () => {
   const router = useRouter();
 
@@ -25,13 +24,13 @@ const StoreMenuCart = () => {
     });
   };
 
-  const handleClick = (item:any): void => {
+  const handleClick = (item: any): void => {
     const { foodId, ...rest } = item;
     addNewProductApi.mutate(
       {
         ...rest,
         itemId: foodId,
-        quantity:1,
+        quantity: 1,
       },
       {
         onSuccess: (res) => {
@@ -42,7 +41,7 @@ const StoreMenuCart = () => {
     );
   };
 
-  if (isLoading) return <Skeleton height="120vh" top="-285px"/>;
+  if (isLoading) return <Skeleton height="120vh" top="-285px" />;
 
   return (
     <MainUI.Flex

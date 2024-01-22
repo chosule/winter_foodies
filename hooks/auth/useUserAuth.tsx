@@ -16,34 +16,21 @@ import {
  */
 
 const useUserAuth = () => {
-  // const setUserAccessToken = useSetRecoilState(userState);
   const userStateValue = useRecoilValue(userState);
   const resetUserInfo = useResetRecoilState(userState);
   const [user, setUser] = useRecoilState(userState);
 
-  const login = (token: string) => {
-    const accessToken = localStorage.setItem("accessToken", token);
-    setUser(accessToken);
-    console.log("user???", user);
-  };
+  // const login = (token: string) => {
+  //   const accessToken = localStorage.setItem("accessToken", token);
+  //   setUser(token);
+  // };
 
   const logout = () => {
     localStorage.removeItem("accessToken");
     resetUserInfo();
   };
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const accessToken = localStorage.getItem("accessToken");
-  //     if (userAccessToken === accessToken) {
-  //       setUserAccessToken(accessToken);
-  //     } else {
-  //       resetUserInfo();
-  //     }
-  //   }
-  // }, []);
-
-  return { user, resetUserInfo, logout, login };
+  return { user, resetUserInfo, logout };
 };
 
 export default useUserAuth;

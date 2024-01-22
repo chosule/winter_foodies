@@ -1,10 +1,13 @@
 import {
   GetCartData,
   OrderItemRequestType,
+  OrderResultData,
 } from "@/types/api/getCartType";
 import { TMenuResponse } from "@/types/api/menuType";
 import { atom } from "recoil";
 import { v1 } from "uuid";
+
+type OrderResult = Partial<OrderResultData>;
 
 export const userState = atom<string>({
   key: `authState/${v1()}`,
@@ -21,7 +24,7 @@ export const orderDataState = atom<OrderItemRequestType>({
 });
 
 //주문하기 후 결과 담기
-export const orderResultDataState = atom({
+export const orderResultDataState = atom<OrderResult>({
   key: `orderResultState/${v1()}`,
   default: {},
 });
@@ -48,8 +51,7 @@ export const nearbyDataState = atom<TMenuResponse | undefined>({
   },
 });
 
-
 export const heartState = atom({
-  key:`heartState/${v1()}`,
-  default:""
-})
+  key: `heartState/${v1()}`,
+  default: "",
+});

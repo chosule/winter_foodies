@@ -6,29 +6,40 @@ import { useQuery } from "@tanstack/react-query";
 import { getReviewData } from "@/libs/productApi";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 
-export const getStaticProps:GetStaticProps = async() =>{
+export const getStaticProps: GetStaticProps = async () => {
   const router = useRouter();
-  const {id} = router.query;
+  const { id } = router.query;
   const posts = await getReviewData(Number(id));
   return {
-    props:{
-      posts
-    }
-  }
-}
+    props: {
+      posts,
+    },
+  };
+};
 
-const ReviesDetailPage = (props:any) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const data = await getReviewData(Number(id));
+  return {
+    paths: [{ params: { id } }],
+    fallback: false,
+  };
+};
+
+const ReviesDetailPage = (props: any) => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: reviewData, isLoading } = useQuery(['reviewData'],
-  () => getReviewData(Number(id)),
-  props.posts
-);
+  const { data: reviewData, isLoading } = useQuery(
+    ["reviewData"],
+    () => getReviewData(Number(id)),
+    props.posts
+  );
 
-  if (isLoading) return <Skeleton height="120vh" top="-167px"/>
+  if (isLoading) return <Skeleton height="120vh" top="-167px" />;
 
   return (
     <MainUI.CustomFlex flexDirection="column" gap="20px">
@@ -43,26 +54,32 @@ const ReviesDetailPage = (props:any) => {
           distance,
         }: MenuDetailData) => (
           <MainUI.CustomBox
-          key={uuid()}
-          width="100%"
-          height="70px"
-          onClick={() => {
-            router.push({
-              pathname: "/main/menu-detail/[id]/[detailId]",
-              query: {
-                id: id,
-                favorite,
-                detailId: name,
-                name,
-                picture,
-                address,
-                rating
-              },
-            });
-          }}
-        >
-        <SectionPartUi picture={picture} name={name} address={address} distance={distance} rating={rating}/>
-        </MainUI.CustomBox>
+            key={uuid()}
+            width="100%"
+            height="70px"
+            onClick={() => {
+              router.push({
+                pathname: "/main/menu-detail/[id]/[detailId]",
+                query: {
+                  id: id,
+                  favorite,
+                  detailId: name,
+                  name,
+                  picture,
+                  address,
+                  rating,
+                },
+              });
+            }}
+          >
+            <SectionPartUi
+              picture={picture}
+              name={name}
+              address={address}
+              distance={distance}
+              rating={rating}
+            />
+          </MainUI.CustomBox>
         )
       )}
     </MainUI.CustomFlex>

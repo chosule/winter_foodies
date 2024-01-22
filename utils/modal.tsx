@@ -1,20 +1,22 @@
 import Alert from "@/components/Popup/Alert";
 import LogoutModal from "@/components/Popup/LogoutModal";
 import ReviewRegist from "@/components/Popup/ReviewRegist";
-import { ReviewModalProps } from "@/context/types/modalProps";
 import ReactDOM from "react-dom/client";
 
-type BasicProps = {
+type Props = {
   isOpen?: boolean;
   title?: string;
   message?: string;
   btnText?: string;
-  storeName?:string;
-  id?:number;
+  storeName?: string;
+  id?: number;
+  close?: any;
   component?: () => JSX.Element;
 };
 
-type Props = BasicProps extends ReviewModalProps;
+export type ModalPropsPartial = Partial<Props>;
+
+// type Props = BasicProps | ModalPropsPartial;
 
 const modal = {
   open: (Component: (props: Props) => JSX.Element, props: Props) => {
@@ -46,12 +48,12 @@ const modal = {
   },
 
   //review regist
-  openReviewRegist: (props: ReviewModalProps) => {
+  openReviewRegist: (props: ModalPropsPartial) => {
     modal.open(ReviewRegist, props);
   },
 
   //logout
-  logoutModal: (props: Props) => {
+  logoutModal: (props: ModalPropsPartial) => {
     modal.open(LogoutModal, props);
   },
 };

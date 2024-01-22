@@ -7,15 +7,9 @@ export type ModalProps = {
   close?: () => void;
   confirm?: () => void;
   component?: () => JSX.Element;
-  storeName?:string;
-  isOpen?:() => void;
-  id?:number;
+  storeName?: string;
+  isOpen?: () => void;
+  id?: number;
 };
 
-
-export type ReviewModalProps = {
-  storeName:string;
-  isOpen:() => void;
-  close:() => void;
-}
 export type Modals = Map<string, ModalProps>;

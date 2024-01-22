@@ -67,14 +67,18 @@ const routes = [
 const BottomNavigation = () => {
   const token = useRecoilValue(userState);
   const pathname = usePathname();
+
   const [loginText, setLoginText] = useState(routes[4]);
+
   useEffect(() => {
+    const token = localStorage.getItem("accessToken");
     if (token) {
       setLoginText((prev) => ({ ...prev, text: "로그아웃", path: "/logout" }));
     } else {
       setLoginText((prev) => ({ ...prev, text: "로그인", path: "/login" }));
     }
   }, [token]);
+
   return (
     <>
       <NaviUI.NavWrap>

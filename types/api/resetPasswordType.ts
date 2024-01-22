@@ -1,10 +1,11 @@
+export type ResetPwType = Partial<ResetPasswordRequestType>;
 
 export interface ResetPasswordRequestType {
-    userId?:string;
-    newPassword?:string;
+  userId?: number;
+  newPassword?: string;
 }
 
-export interface ResetPasswordResponeseType{
-    status:string;
-    data:string;
+export interface ResetPasswordResponeseType {
+  status: string;
+  data: string;
 }
