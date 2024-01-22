@@ -20,7 +20,7 @@ const ChangePwPage = () => {
   const { changePwApi } = useAuthApi();
   // console.log("router", router.query.id);
 
-  const userId = router.query.id;
+  const userId = 1;
 
   const {
     register,
@@ -33,6 +33,7 @@ const ChangePwPage = () => {
 
   const onSubmit: SubmitHandler<TChangePasswordSchema> = () => {
     const newPassword = getValues("changePassword");
+    console.log('newPassword',newPassword)
     const data = { newPassword, userId };
     console.log("특정 데이터: ", data);
     changePwApi.mutate(data, {

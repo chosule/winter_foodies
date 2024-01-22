@@ -45,6 +45,8 @@ export interface OrderResultAllResponse {
   data: OrderResultAllData[];
 }
 
+
+
 export interface OrderResultAllData {
   id: number;
   storeId: number;

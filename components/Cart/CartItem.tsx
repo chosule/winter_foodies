@@ -24,7 +24,6 @@ const CartItem = () => {
 
   //이건 조회데이터 담아놓은거
   const [cartState, setCartState] = useRecoilState(getCartState);
-  console.log("cartState", cartState);
 
   //주문하기 보낼때 상태
   const [orderState, setOrderState] = useRecoilState(orderDataState);
@@ -89,8 +88,10 @@ const CartItem = () => {
       { itemId },
       {
         onSuccess: async (res) => {
+          console.log('res?',res)
           const deletedCart = await getCartDeletedState(id);
           setCartState({ ...cartState, data: deletedCart });
+          console.log('결과값보기',cartState)
           if (deletedCart.length === 0) {
             alertModal();
             router.back();
@@ -182,7 +183,7 @@ const CartItem = () => {
                     <CommonButton backgroundcolor="transparent">
                       <IoCloseSharp
                         onClick={() => {
-                          handleDelete(items.itemId);
+                          handleDelete(String(items.itemId));
                         }}
                         style={{ width: "20px", height: "20px", color: "#000" }}
                       />

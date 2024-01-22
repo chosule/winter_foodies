@@ -1,4 +1,4 @@
-import { Modals, ModalProps } from "@/context/types/modalProps";
+import { Modals, ModalProps, ReviewModalProps } from "@/context/types/modalProps";
 import { useContext } from "react";
 import { ModalContext } from "../ModalProvider";
 
@@ -41,7 +41,7 @@ const useContextModal = () => {
     openModal({ ...props, type: "ALERT" });
   };
 
-  const openReviewRegist = (props: ModalProps) => {
+  const openReviewRegist = (props: ReviewModalProps) => {
     openModal({ ...props, type: "REVIEW" });
   };
   const openNotice = (props: ModalProps) => {

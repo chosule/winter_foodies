@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import Script from "next/script";
-import { FC } from "react";
+import React, { FC } from "react";
 import { globalStyle } from "@/styles/global";
 import { getTheme } from "./../styles/theme";
 import ModalProvider from "@/context/ModalProvider";
@@ -27,7 +27,8 @@ const MyApp: FC<AppPropsWithLayout> = ({
 }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
   const theme = getTheme();
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
+  const [queryClient] = React.useState(() => new QueryClient())
 
   return (
     <>

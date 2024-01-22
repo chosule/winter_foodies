@@ -1,11 +1,11 @@
 export interface FavoriteRequest{
-    favorite:boolean;
-    storeId:number
+    favorite?:boolean;
+    storeId:number;
 }
 
 export interface FavoriteResponse{
     status:string;
-    data: FavoriteData[];
+    data: FavoriteData;
 }
 
 export type FavoriteData = {

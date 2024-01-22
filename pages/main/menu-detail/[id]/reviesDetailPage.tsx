@@ -1,22 +1,32 @@
 import { MainUI } from "@/components/Main/style";
-import CommonBox from "@/components/ui/CommonBox/CommonBox";
 import uuid from "react-uuid";
-import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { MenuDetailData } from "@/types/api/menuType";
 import { useQuery } from "@tanstack/react-query";
-import { getReviewData } from "@/context/libs/ssr/getMenuDetail";
+import { getReviewData } from "@/libs/productApi";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
+import { GetStaticProps } from "next";
 
-const ReviesDetailPage = () => {
+export const getStaticProps:GetStaticProps = async() =>{
+  const router = useRouter();
+  const {id} = router.query;
+  const posts = await getReviewData(Number(id));
+  return {
+    props:{
+      posts
+    }
+  }
+}
+
+const ReviesDetailPage = (props:any) => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: reviewData ,isLoading} = useQuery({
-    queryKey: ["reviewData"],
-    queryFn: () => getReviewData(Number(id)),
-  });
+  const { data: reviewData, isLoading } = useQuery(['reviewData'],
+  () => getReviewData(Number(id)),
+  props.posts
+);
 
   if (isLoading) return <Skeleton height="120vh" top="-167px"/>
 

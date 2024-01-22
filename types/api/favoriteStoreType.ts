@@ -4,11 +4,11 @@ export interface FavoriteStoreData {
 }
 
 export interface FavoriteStoreType {
-    id?:number,
-    storeName?:string,
-    address?:string,
-    distance?:number,
-    rating?:number,
-    pictureUrl?:string
+    id:number,
+    storeName:string,
+    address:string,
+    distance:number,
+    rating:number,
+    pictureUrl:string
 }
 export type TFavoriteStoreResponse = FavoriteStoreData;

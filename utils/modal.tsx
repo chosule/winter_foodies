@@ -1,15 +1,20 @@
 import Alert from "@/components/Popup/Alert";
 import LogoutModal from "@/components/Popup/LogoutModal";
 import ReviewRegist from "@/components/Popup/ReviewRegist";
+import { ReviewModalProps } from "@/context/types/modalProps";
 import ReactDOM from "react-dom/client";
 
-type Props = {
+type BasicProps = {
   isOpen?: boolean;
   title?: string;
   message?: string;
   btnText?: string;
+  storeName?:string;
+  id?:number;
   component?: () => JSX.Element;
 };
+
+type Props = BasicProps extends ReviewModalProps;
 
 const modal = {
   open: (Component: (props: Props) => JSX.Element, props: Props) => {
@@ -41,7 +46,7 @@ const modal = {
   },
 
   //review regist
-  openReviewRegist: (props: Props) => {
+  openReviewRegist: (props: ReviewModalProps) => {
     modal.open(ReviewRegist, props);
   },
 

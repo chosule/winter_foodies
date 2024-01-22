@@ -44,26 +44,25 @@ import {
   OrderResultData,
 } from "@/types/api/getCartType";
 import {ReviewWriteForm} from "@/types/api/reviewWriteType";
-
 export default class WinterFoodClient {
   httpClient: AxiosInstance;
 
   constructor() {
-    //기본설정
     this.httpClient = axios.create({
       baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
       headers: {
         "Content-Type": "application/json",
-        withCredentials: "true",
+        withCredentials: true,
       },
     });
-    // Add request interceptor
     this.httpClient.interceptors.request.use((config) => {
-      const accessToken = localStorage.getItem("accessToken");
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      } else {
-        localStorage.removeItem("accessToken");
+      if (typeof window !== "undefined") {
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+        } else {
+          localStorage.removeItem("accessToken");
+        }
       }
       return config;
     });
@@ -233,7 +232,7 @@ export default class WinterFoodClient {
       .get(`/api/mypage/favorite`)
       .then((res) => res.data as TFavoriteStoreResponse);
   }
-
+ 
   //리뷰작성하기
   async reviewWrite(form:ReviewWriteForm){
     return this.httpClient

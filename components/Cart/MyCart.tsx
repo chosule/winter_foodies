@@ -18,6 +18,7 @@ const MyCart = () => {
 
   useEffect(() => {
     if (cartData) {
+      console.log('cartState?',cartState)
       setCartState(cartData);
     }
   }, [cartData]);

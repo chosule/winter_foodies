@@ -42,7 +42,7 @@ const StoreMenuCart = () => {
     );
   };
 
-  if (isLoading) return <Skeleton />;
+  if (isLoading) return <Skeleton height="120vh" top="-285px"/>;
 
   return (
     <MainUI.Flex

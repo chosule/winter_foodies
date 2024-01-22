@@ -1,24 +1,36 @@
 import { useRouter } from "next/router";
 import { MainUI } from "@/components/Main/style";
 import uuid from "react-uuid";
-import { useQuery } from "@tanstack/react-query";
-import getNearbyData from "@/context/libs/ssr/getMenuDetail";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+import getNearbyData from "@/libs/productApi";
 import { MenuDetailData } from "@/types/api/menuType";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { nearbyDataState } from "@/recoil/atom";
+import WinterFoodClient from "@/api/winterFoodClient";
+import { GetStaticProps } from "next";
 
-export function NearbyDetailPage() {
+
+
+export const getStaticProps:GetStaticProps= async() => {
+  const router = useRouter();
+  const { id } = router.query;
+  const post = await getNearbyData(Number(id));
+  return {
+    props: {
+      post
+    },
+  }
+}
+
+export function NearbyDetailPage(props:any) {
   const router = useRouter();
   const [, setNearbyState] = useRecoilState(nearbyDataState);
 
   const { id } = router.query;
-  const { data: nearbyData, isLoading } = useQuery({
-    queryKey: ["nearbyData"],
-  queryFn: () => getNearbyData(Number(id)),
-  });
+  const { data:nearbyData ,isLoading} = useQuery( ['nearbyPosts'], () => getNearbyData(Number(id)),props.post)
 
 
   useEffect(() => {
@@ -45,7 +57,6 @@ export function NearbyDetailPage() {
               width="100%"
               height="70px"
               onClick={() => {
-                // console.log("favorite11111", favorite);
                 router.push({
                   pathname: "/main/menu-detail/[id]/[detailId]",
                   query: {

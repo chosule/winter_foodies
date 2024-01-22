@@ -3,6 +3,7 @@ export const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${pro
 export const handleKakaoLogin = () => {
   window.location.href = kakaoURL;
   const code = new URL(window.location.href).searchParams.get("code");
+  console.log("code", code);
 };
 
 export default { kakaoURL, handleKakaoLogin };

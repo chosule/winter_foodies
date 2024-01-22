@@ -14,22 +14,22 @@ export const cartDeletedState = selectorFamily({
     },
 });
 
-export const favoriteState = selectorFamily({
+export const favoriteState = selectorFamily<boolean , number>({
   key: "favoriteState",
   get:
     (id) =>
     ({ get }) => {
       const nearbyState = get(nearbyDataState);
-      // const findId = nearbyState?.data?.filter((item) => {
-      //   return item.id == id;
-      // });
-      // return findId;
-      // // return findId[0].favorite
+      const findItem = nearbyState?.data?.find((item) => {
+        return item.id == id;
+      });
+      return findItem?.favorite || false;
     },
   set:
     (id) =>
     ({ set, get }, newValue) => {
       const nearbyState = get(nearbyDataState);
+      console.log('nearbystate',nearbyState)
       const updatedData = nearbyState?.data?.map((item) => {
         if (item.id == id) {
           return { ...item, favorite: newValue };

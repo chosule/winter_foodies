@@ -5,7 +5,7 @@ type CommonButtonProps = {
   width?: string;
   height?: string;
   backgroundcolor?: string;
-  isactive?: () => void;
+  isactive?: string;
 };
 
 const CommonButton = ({
@@ -25,7 +25,7 @@ const CommonButton = ({
       backgroundColor={backgroundcolor}
       width={width}
       height={height}
-      isActive={isactive}
+      // isActive={isactive}
       {...rest}
     >
       {children}
@@ -38,6 +38,6 @@ const StyledButton = styled(Button)<Pick<CSSProperties,"height" | "width" | "bor
   height: ${({ height }) => (height ? height : "45px")};
   color: #fff;
   border-radius:10px;
-  background-color:${({backgroundcolor}) => backgroundcolor};
+  background-color:${({backgroundColor}) => backgroundColor};
 `;
 export default CommonButton;
