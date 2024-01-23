@@ -6,7 +6,8 @@ import MenuDetailTab from "@/components/Main/components/mainMenu/MenuDetailTab";
 export function MenuDetailPage() {
   const router = useRouter();
   const { imgName } = router.query;
-  console.log("router ddd", router.query.id);
+  console.log('router?',router)
+  
   return (
     <>
       <HeaderLayout headerTitle={`${imgName}`} />

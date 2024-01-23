@@ -10,7 +10,6 @@ export async function getNearbyData(id: number) {
     }
 
     const posts = removeUndefinedForNextJsSerializing(res);
-    console.log('posts',posts)
     return posts;
   }catch(error){
     console.log('error',error)
@@ -26,7 +25,6 @@ export async function getSalesRateData(id: number) {
     }
 
     const posts = removeUndefinedForNextJsSerializing(res);
-    console.log('posts',posts)
     return posts;
   }catch(error){
     console.log('error',error)
@@ -42,7 +40,6 @@ export async function getReviewData(id: number) {
     }
 
     const posts = removeUndefinedForNextJsSerializing(res);
-    console.log('posts',posts)
     return posts;
   }catch(error){
     console.log('error',error)
@@ -58,7 +55,6 @@ export async function getGradeData(id: number) {
     }
 
     const posts = removeUndefinedForNextJsSerializing(res);
-    console.log('posts',posts)
     return posts;
   }catch(error){
     console.log('error',error)

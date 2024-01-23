@@ -8,26 +8,30 @@ import Skeleton from "@/pages/Skeleton/Skeleton";
 import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
 import { GetStaticPaths, GetStaticProps } from "next";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const posts = await getReviewData(Number(id));
-  return {
-    props: {
-      posts,
-    },
-  };
-};
+// export const getStaticProps: GetStaticProps = async () => {
+//   const router = useRouter();
+//   const { id } = router.query;
+//   const posts = await getReviewData(Number(id));
+//   return {
+//     props: {
+//       posts,
+//     },
+//   };
+// };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const data = await getReviewData(Number(id));
-  return {
-    paths: [{ params: { id } }],
-    fallback: false,
-  };
-};
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const router = useRouter();
+//   const { id } = router.query;
+//   const nearData = await getReviewData(Number(id));
+//   const dataPaths = nearData?.data?.map((item) => ({
+//     params: { id: String(item.id) },
+//   })) || [];
+  
+//   return {
+//     paths:dataPaths ,
+//     fallback: false,
+//   };
+// };
 
 const ReviesDetailPage = (props: any) => {
   const router = useRouter();

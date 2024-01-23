@@ -22,23 +22,13 @@ const buttonImages: ButtonImage[] = [
   { id: 9, imgName: "국화빵", url: "/img/icon8.png" },
 ];
 const MainMenu = () => {
-  const router = useRouter();
   return (
     <StyledBoxWrap>
       {buttonImages.map(({ url, id, imgName }) => (
-        <StyledButton
-          key={id}
-          backgroundcolor="#dd803721"
-          onClick={() => {
-            router.push({
-              pathname: "main/menu-detail/[id]",
-              query: { id: id, imgName },
-            },);
-          }}
-        >
+          <StyledLink href={`main/menu-detail/${id}`} key={id}>
             <Image src={url} alt={imgName} width="55" height="55" priority />
-          <StyledButtonText>{imgName}</StyledButtonText>
-        </StyledButton>
+            <StyledButtonText>{imgName}</StyledButtonText>
+          </StyledLink>
       ))}
     </StyledBoxWrap>
   );
@@ -56,14 +46,12 @@ const StyledButtonText = styled.p`
   font-size: 15px;
   color: #747474;
 `;
-const StyledButton = styled(CommonButton)`
-  width: 80%;
-  height: 94px;
+const StyledLink = styled(Link)`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  gap: 8px;
-  background:transparent;
+  align-items:center;
+  gap: 13px;
 `;
 
 export default MainMenu;

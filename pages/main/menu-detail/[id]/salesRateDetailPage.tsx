@@ -11,16 +11,16 @@ import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
 import { GetStaticProps } from "next";
 
 
-export const getStaticProps:GetStaticProps = async() =>{
-  const router = useRouter();
-  const {id} = router.query;
-  const posts = await getSalesRateData(Number(id));
-  return {
-    props:{
-      posts
-    }
-  }
-}
+// export const getStaticProps:GetStaticProps = async() =>{
+//   const router = useRouter(); 
+//   const {id} = router.query;
+//   const posts = await getSalesRateData(Number(id));
+//   return {
+//     props:{
+//       posts
+//     }
+//   }
+// }
 
 
 const SalesRateDetail = (props:any) => {

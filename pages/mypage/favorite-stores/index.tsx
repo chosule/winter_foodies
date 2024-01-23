@@ -22,13 +22,15 @@ export const getServerSideProps:GetServerSideProps = async () => {
   };
 };
 const FavoriteStoresPage = (props:any) => {
+  
   const { data: stores, isSuccess,isLoading } = useQuery({
     queryKey:["heartStorePosts"],
     queryFn:getHeartStore,
     initialData: props.posts,
-
   });
 
+  console.log('props posts',props.posts)
+  
   if (isLoading || !stores) return <div>is Loading.. </div>;
 
   return (
