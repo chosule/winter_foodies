@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -45,6 +45,6 @@
     "eslint": "^8.48.0",
     "eslint-config-next": "^13.4.19",
     "react-hook-form": "^7.46.1",
-    "typescript": "^5.3.3"
+    "typescript": "^4.9.5"
   }
 }

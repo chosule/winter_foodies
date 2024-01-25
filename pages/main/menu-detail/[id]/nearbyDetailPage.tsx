@@ -7,7 +7,7 @@ import { MenuDetailData, TMenuResponse } from "@/types/api/menuType";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { nearbyDataState } from "@/recoil/atom";
 import WinterFoodClient from "@/api/winterFoodClient";
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";

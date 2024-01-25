@@ -182,6 +182,13 @@ export default class WinterFoodClient {
       .then((res) => res.data.data as StoreInfoData);
   }
 
+  //리뷰정보
+  async storeReviewInfo(id:number){
+    return this.httpClient
+    .get(`/api/store/review/${id}`)
+    .then((res) => res.data.data)
+  }
+
   //장바구니 추가 , 업데이트
   async addNewProduct(product: TAddNewProductRequest) {
     return this.httpClient
@@ -241,3 +248,5 @@ export default class WinterFoodClient {
       .then((res) => res.data);
   }
 }
+
+

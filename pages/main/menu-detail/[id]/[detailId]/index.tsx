@@ -46,11 +46,12 @@ const StyledHeaderWrap = styled.div`
 `;
 
 const StyledIcon = styled(FaRegHeart)<{ favorite: boolean }>`
-  position: absolute;
-  right: 0;
+  position: fixed;
+  right: 60px;
   top: 38px;
   z-index: 2;
   color: ${({ favorite }) => (favorite ? "orange" : "#000")};
+
 `;
 
 MenuDetailInfoPage.getLayout = (page: React.ReactNode) => {

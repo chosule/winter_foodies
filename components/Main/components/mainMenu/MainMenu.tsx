@@ -25,12 +25,13 @@ const MainMenu = () => {
   return (
     <StyledBoxWrap>
       {buttonImages.map(({ url, id, imgName }) => (
-          <StyledLink href={`main/menu-detail/${id}`} key={id}>
+          <Link href={`main/menu-detail/${id}`} key={id}>
             <Image src={url} alt={imgName} width="55" height="55" priority />
             <StyledButtonText>{imgName}</StyledButtonText>
-          </StyledLink>
+          </Link>
       ))}
     </StyledBoxWrap>
+      
   );
 };
 
@@ -46,12 +47,14 @@ const StyledButtonText = styled.p`
   font-size: 15px;
   color: #747474;
 `;
-const StyledLink = styled(Link)`
+const StyledButton = styled(CommonButton)`
+  width: 80%;
+  height: 94px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  align-items:center;
-  gap: 13px;
+  gap: 8px;
+  background:transparent;
 `;
 
 export default MainMenu;

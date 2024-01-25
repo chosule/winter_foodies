@@ -4,6 +4,7 @@ import { SyntheticEvent, useState } from "react";
 import StoreMenu from "../mainMenuDetailInfo/StoreMenuCart";
 import StoreMenuInfo from "../mainMenuDetailInfo/StoreMenuInfo";
 import StoreMenuCart from "../mainMenuDetailInfo/StoreMenuCart";
+import StoreReviews from "../mainMenuDetailInfo/StoreReviews";
 
 const MenuDetailInfoTab = () => {
   const [current, setCurrent] = useState(0);
@@ -20,7 +21,7 @@ const MenuDetailInfoTab = () => {
       </StyledTabs>
       {current === 0 && <StoreMenuCart />}
       {current === 1 && <StoreMenuInfo />}
-      {current === 2 && <div>리뷰 탭</div>}
+      {current === 2 && <StoreReviews/>}
     </StyledBox>
   );
 };

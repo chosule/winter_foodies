@@ -19,9 +19,11 @@ const StyledWrap = styled.div`
     display:flex;
     align-items:center;
     gap:3px;
+    margin-left:10px;
 `
 
 const StyledText = styled.p`
     font-size:11px;
-    margin-top:3px;
+    margin-right:-10px;
+    line-height:3;
 `

@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output:'export',
   experimental: {
     appDir: true,
   },
@@ -18,7 +19,7 @@ const nextConfig = {
       "media.istockphoto.com",
       "cdn.pixabay.com",
       "via.placeholder.com"
-    ],
+    ],   
   },
 };
 

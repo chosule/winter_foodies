@@ -28,6 +28,13 @@ const useCart = () => {
     });
   };
 
+  //리뷰정보
+  const reviewInfo = (id:number) =>{
+    return useQuery(['getReviews'], () => client.storeReviewInfo(id),{
+      staleTime:Infinity
+    })
+  }
+
   // 카트 추가 or 업데이트
   const addNewProductApi = useMutation<
     TAddNewProductResponse,
@@ -82,9 +89,11 @@ const useCart = () => {
     onSuccess: () => queryClient.invalidateQueries(["heart"]),
   });
 
+
   // const reviewWriteApi = useMutation((formData) => client.reviewWrite(formData),{
   //   onSuccess: () => queryClient.invalidateQueries(['reviewWrite'])
   // })
+  
 
   return {
     menuApi,
@@ -94,6 +103,7 @@ const useCart = () => {
     cartOrderApi,
     orderDetailsApi,
     favoriteApi,
+    reviewInfo,
     // reviewWriteApi
   };
 };
