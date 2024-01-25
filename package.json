@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build && next export && next-export-optimize-images",
     "start": "next start",
     "lint": "next lint"
   },
@@ -16,12 +16,13 @@
     "@mui/lab": "^5.0.0-alpha.143",
     "@mui/material": "^5.14.8",
     "@mui/x-date-pickers": "^6.12.1",
+    "@prismicio/client": "^7.3.1",
     "@tanstack/react-query": "^4.35.3",
     "@tanstack/react-query-devtools": "^4.35.3",
     "axios": "^1.6.5",
-    "circular-json": "^0.5.9",
     "next": "^14.0.3",
     "next-auth": "^4.24.5",
+    "node-fetch": "^2.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
@@ -32,6 +33,7 @@
     "react-uuid": "^2.0.0",
     "recoil": "^0.7.7",
     "sharp": "^0.33.2",
+    "url-loader": "^4.1.1",
     "uuid": "^9.0.1",
     "zod": "^3.22.2"
   },
@@ -44,7 +46,12 @@
     "@types/uuid": "^9.0.6",
     "eslint": "^8.48.0",
     "eslint-config-next": "^13.4.19",
+    "next-export-optimize-images": "^3.2.0",
     "react-hook-form": "^7.46.1",
     "typescript": "^4.9.5"
+  },
+  "overrides": {
+    "@antv/g-base": "0.5.11",
+    "@antv/path-util": "2.0.15"
   }
 }

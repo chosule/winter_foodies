@@ -6,7 +6,7 @@ export interface MenuDetailData {
   categoryName?: string;
   picture: string;
   name: string;
-  rating: number;
+  rating: string;
   address: string;
   distance: number;
   ranking?: number;

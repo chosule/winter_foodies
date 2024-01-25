@@ -6,9 +6,6 @@ import { nearbyDataState } from "@/recoil/atom";
 import { useRecoilValue } from "recoil";
 
 export function MenuDetailPage() {
-  const router = useRouter();
-  const { imgName } = router.query;
-  console.log('router?',router.query)
   const data = useRecoilValue(nearbyDataState);
   return (
     <>

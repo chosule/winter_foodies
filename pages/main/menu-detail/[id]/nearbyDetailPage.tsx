@@ -35,8 +35,7 @@ export function NearbyDetailPage(props:any) {
     queryKey:["nearbyPosts"],
     queryFn:() => getNearbyData(Number(id)),
     initialData:props.posts
-  }
-  );
+  });
 
   useEffect(() => {
     setNearbyState(nearbyData);

@@ -1,3 +1,5 @@
+export {};
+
 const arrowIcon = () => {
   return (
     <svg

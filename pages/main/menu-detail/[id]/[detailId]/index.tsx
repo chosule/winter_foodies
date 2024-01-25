@@ -13,7 +13,7 @@ const MenuDetailInfoPage = () => {
   const { query } = useRouter();
   const { favoriteApi } = useCart();
   const { name, picture, id, rating } = query;
-
+  console.log('type',typeof(rating))
   const [favorite, setFavorite] = useRecoilState(favoriteState(Number(id)));
 
   const handleClick = () => {
@@ -28,14 +28,14 @@ const MenuDetailInfoPage = () => {
       }
     );
   };
-
+  const StringImg = String(picture);
   return (
     <>
       <StyledHeaderWrap>
-        <HeaderLayout headerTitle={`${name}`} storeRating={Number(rating)} />
+        <HeaderLayout headerTitle={`${name}`} storeRating={rating} />
         <StyledIcon onClick={handleClick} favorite={favorite} />
       </StyledHeaderWrap>
-      <Image src={String(picture)} alt="이미지" width={70} height={70} />
+      <Image src={StringImg} alt="이미지" width={70} height={70} />
       <MenuDetailInfoTab />
     </>
   );

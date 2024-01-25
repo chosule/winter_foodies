@@ -4,7 +4,6 @@ import { AuthUI } from "../style";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import styled from "@emotion/styled";
 import mainLogoIcon from "@/public/img/mainLogoIcon.png";
-import kakaoIcon from "@/public/img/kakaoIcon.png";
 import naverIcon from "@/public/img/naverIcon.png";
 import { handleKakaoLogin } from "@/hooks/auth/useKakaoApi";
 import { handleNaverLogin } from "@/hooks/auth/useNaverApi";
@@ -16,6 +15,7 @@ import useContextModal from "@/context/hooks/useContextModal";
 import { useRecoilState } from "recoil";
 import { userState } from "@/recoil/atom";
 import useAuthApi from "@/hooks/auth/useLogin";
+import kakaoIcon from "@/public/img/kakaoIcon.png"
 
 const Login = () => {
   const modal = useContextModal();

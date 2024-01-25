@@ -1,10 +1,8 @@
 import { BiSolidStar } from "react-icons/bi";
 import styled from "@emotion/styled";
 
-type Props = {
-    storeRating?: number
-}
-export default function StarRating({storeRating}:Props) {
+
+export default function StarRating({storeRating}:{storeRating:string}) {
      return(
         <StyledWrap>
             <BiSolidStar style={{color:"#dd8037"}}/>

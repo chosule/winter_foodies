@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  output:'export',
+const withExportImages = require('next-export-optimize-images');
+
+const nextConfig = withExportImages({
   experimental: {
     appDir: true,
   },
@@ -21,6 +22,6 @@ const nextConfig = {
       "via.placeholder.com"
     ],   
   },
-};
+})
 
 module.exports = nextConfig;
