@@ -18,14 +18,25 @@ npm run dev
 - 및 zod , react-hook-form 등등
 
 ### 3.주요기능
-1. login (회원가입 / 아이디찾기 / 비밀번호찾기)
-2. main
-3. cart (장바구니 담기, 조회, 장바구니 추가 및 삭제)
-4. store정보 (메뉴판, 가게정보, 리뷰정보)
-5. mypage (찜한매장, 주문내역)
+데이터 관리
+  - api를 받아오기 위한 공간인 winterFoodClient.ts 에서 각각 api를 axios를 사용해 비동기적으로 받아옴.
+  - 새로운 winterFoodClient 인스턴스를 생성해주고 _app.tsx 에서 children으로 감싸 전역적으로 사용가능하게 구현.
+  - 데이터관리를 위해 reqct-query사용 (GET은 useQuery / POST,DELETE는 대부분 useMutation 으로 받아오기)
+  - 
+  - 
+1. login (로그인 / 회원가입 / 아이디찾기 / 비밀번호찾기)
+   구현설명
+   - zod 와 react hook form 라이브러리를 이용해 유효성 검사 로직 구현
+   - zod로 구현한 form안에 submit이 여러개인 이슈로 인하여 useValid.tsx 생성해 useStats를 이용한 유효성 검사로 `리팩토링`
+    
+3. main
+   - 
+5. cart (장바구니 담기, 조회, 장바구니 추가 및 삭제)
+6. store정보 (메뉴판, 가게정보, 리뷰정보)
+7. mypage (찜한매장, 주문내역)
 
 
-
+!!
 ### 4.구현  
 
 #### 1-1) 메인
