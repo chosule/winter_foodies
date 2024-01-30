@@ -63,7 +63,7 @@ const OrderListPage = () => {
                           <MyPageUI.Text fontWeight="600" fontSize="13px">
                             {storeName}
                           </MyPageUI.Text>
-                          <StarRating storeRating={storeRating} />
+                          <StarRating storeRating={`${storeRating}`} />
                         </MyPageUI.Flex>
                         <MyPageUI.Text fontSize="12px" color="gray">
                           {useDateFormat(orderTime)}

@@ -13,7 +13,6 @@ const MenuDetailInfoPage = () => {
   const { query } = useRouter();
   const { favoriteApi } = useCart();
   const { name, picture, id, rating } = query;
-  console.log('type',typeof(rating))
   const [favorite, setFavorite] = useRecoilState(favoriteState(Number(id)));
 
   const handleClick = () => {
@@ -28,14 +27,15 @@ const MenuDetailInfoPage = () => {
       }
     );
   };
+  console.log("picture", picture);
   const StringImg = String(picture);
   return (
     <>
       <StyledHeaderWrap>
-        <HeaderLayout headerTitle={`${name}`} storeRating={rating} />
+        <HeaderLayout headerTitle={`${name}`} storeRating={String(rating)} />
         <StyledIcon onClick={handleClick} favorite={favorite} />
       </StyledHeaderWrap>
-      <Image src={StringImg} alt="이미지" width={70} height={70} />
+      {/* <Image src={StringImg} alt="이미지" width={70} height={70} /> */}
       <MenuDetailInfoTab />
     </>
   );
@@ -51,7 +51,6 @@ const StyledIcon = styled(FaRegHeart)<{ favorite: boolean }>`
   top: 38px;
   z-index: 2;
   color: ${({ favorite }) => (favorite ? "orange" : "#000")};
-
 `;
 
 MenuDetailInfoPage.getLayout = (page: React.ReactNode) => {

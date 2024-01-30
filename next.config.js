@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const withExportImages = require('next-export-optimize-images');
+const withExportImages = require("next-export-optimize-images");
 
 const nextConfig = withExportImages({
   experimental: {
@@ -19,9 +19,9 @@ const nextConfig = withExportImages({
       "mblogthumb-phinf.pstatic.net",
       "media.istockphoto.com",
       "cdn.pixabay.com",
-      "via.placeholder.com"
-    ],   
+      "via.placeholder.com",
+    ],
   },
-})
+});
 
 module.exports = nextConfig;

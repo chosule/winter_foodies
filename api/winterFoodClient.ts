@@ -11,7 +11,7 @@ import {
 } from "@/types/api/naverLoginType";
 import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
 import { TPhoneCertiResponse } from "@/types/api/phoneCertificationType";
-import { DetailMenuType } from "@/types/api/detailmenuType";
+import { DetailMenuType } from "@/types/api/detailMenuType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
 import { TMenuResponse } from "@/types/api/menuType";
 import { FavoriteResponse, FavoriteRequest } from "@/types/api/favoriteType";
@@ -183,10 +183,10 @@ export default class WinterFoodClient {
   }
 
   //리뷰정보
-  async storeReviewInfo(id:number){
+  async storeReviewInfo(id: number) {
     return this.httpClient
-    .get(`/api/store/review/${id}`)
-    .then((res) => res.data.data)
+      .get(`/api/store/review/${id}`)
+      .then((res) => res.data.data);
   }
 
   //장바구니 추가 , 업데이트
@@ -248,5 +248,3 @@ export default class WinterFoodClient {
       .then((res) => res.data);
   }
 }
-
-

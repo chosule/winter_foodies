@@ -5,8 +5,8 @@ import StarRating from "../Main/components/Ui/StarRating";
 import { MenuDetailData } from "@/types/api/menuType";
 
 type Props = {
-  headerTitle: string;
-  storeRating:string;
+  headerTitle?: string;
+  storeRating?: string;
 };
 
 const HeaderLayout = ({ headerTitle, storeRating }: Props) => {
