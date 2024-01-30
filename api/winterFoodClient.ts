@@ -11,7 +11,7 @@ import {
 } from "@/types/api/naverLoginType";
 import { TFindIdRequest, TFindIdResponse } from "@/types/api/findIdType";
 import { TPhoneCertiResponse } from "@/types/api/phoneCertificationType";
-import { DetailMenuType } from "@/types/api/detailMenuType";
+import { DetailMenuType } from "@/types/api/detailmenuType";
 import { TFindPwRequest, TFindPwResponse } from "@/types/api/findPwType";
 import { TMenuResponse } from "@/types/api/menuType";
 import { FavoriteResponse, FavoriteRequest } from "@/types/api/favoriteType";
