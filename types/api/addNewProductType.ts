@@ -1,4 +1,4 @@
-import { MenuType } from "./detailmenuType";
+import { MenuType } from "./detailMenuType";
 
 export type TAddNewProductRequest = MenuType;
 

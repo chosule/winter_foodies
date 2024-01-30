@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import useCart from "@/hooks/cart/useCart";
 import useContextModal from "@/context/hooks/useContextModal";
 import Skeleton from "@/pages/Skeleton/Skeleton";
-import { MenuType } from "@/types/api/detailmenuType";
+import { MenuType } from "@/types/api/detailMenuType";
 
 const StoreMenuCart = () => {
   const router = useRouter();
