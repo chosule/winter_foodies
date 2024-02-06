@@ -1,16 +1,15 @@
 import { useRouter } from "next/router";
 import { MainUI } from "@/components/Main/style";
 import uuid from "react-uuid";
-import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import getNearbyData from "@/libs/productApi";
-import { MenuDetailData, TMenuResponse } from "@/types/api/menuType";
+import { MenuDetailData } from "@/types/api/menuType";
 import Skeleton from "@/pages/Skeleton/Skeleton";
 import SectionPartUi from "@/components/Main/components/Ui/SectionPartUI";
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState} from "recoil";
 import { nearbyDataState } from "@/recoil/atom";
-import WinterFoodClient from "@/api/winterFoodClient";
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 
 
 

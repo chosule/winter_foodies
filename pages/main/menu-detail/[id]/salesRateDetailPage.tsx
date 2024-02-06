@@ -1,6 +1,4 @@
 import { MainUI } from "@/components/Main/style";
-import CommonBox from "@/components/ui/CommonBox/CommonBox";
-import styled from "@emotion/styled";
 import uuid from "react-uuid";
 import { useRouter } from "next/router";
 import { MenuDetailData } from "@/types/api/menuType";

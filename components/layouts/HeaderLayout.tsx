@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import CommonButton from "@/components/ui/Button/CommonButton";
 import StarRating from "../Main/components/Ui/StarRating";
-import { MenuDetailData } from "@/types/api/menuType";
 
 type Props = {
   headerTitle?: string;
