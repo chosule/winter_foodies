@@ -24,11 +24,18 @@ npm run dev
 
 - api를 받아오기 위한 공간인 winterFoodClient.ts 에서 각각 api를 axios를 사용해 비동기적으로 받아옴.
 - 새로운 winterFoodClient 인스턴스를 생성해주고 _app.tsx 에서 children으로 감싸 전역적으로 사용가능하게 구현.
-- 데이터관리를 위해 reqct-query사용 (GET은 useQuery / POST,DELETE는 대부분 useMutation 으로 받아오기)   
+- 데이터관리를 위해 reqct-query사용 (GET은 useQuery / POST,DELETE는 대부분 useMutation 으로 받아오기)
+- nextjs에서 요청시 렌더링(SSR)하기 위해 React Query에서 데이터들을 프리페치 하여 initialData을 사용하여 적용. 그리고 나서 nextjs의 GetServerSideProps을 사용하여 전달.
 
 📝 **recoil을 이용한 상태관리**
 - atom생성하여 전역적으로 상태를 분리해야하는 경우 상태관리 atom으로 적용
 
+📝 **Style**
+
+- css-in-js인 emotion을 사용.
+- 크게 컴포넌트들을 Login/ main/ Mypage / Cart / Around 부분으로 나누고 그안에서 공통된 style 컴포넌트를 만들어 카테고리 디렉토리별로 공통된 style을 적용하고 각 세부 컴포넌트에서 약간의 다른 style일 경우 컴포넌트 아래의 공통된 style을 가져와 적용.
+
+  
 📝 **login page** (로그인 / 회원가입 / 아이디찾기 / 비밀번호찾기)
 - zod 와 react hook form 라이브러리를 이용해 유효성 검사 로직 구현.
 - zod shema.tsx 생성해 유효성에 따른 에러메세지 구현. 
