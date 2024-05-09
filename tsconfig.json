@@ -32,8 +32,8 @@
     "**/*.*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/Main/style.ts",
-    "hooks/auth/useLogin.tsx"
+    "src/components/Main/style.ts",
+    "src/hooks/auth/useLogin.tsx"
   ],
   "exclude": ["node_modules"]
 }
