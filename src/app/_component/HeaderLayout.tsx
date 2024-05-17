@@ -1,29 +1,29 @@
-// import { useRouter } from "next/navigation";
-// import StarRating from "../ui/StarRating";
+import { useRouter } from "next/navigation";
+import StarRating from "./StarRating";
+import { FaArrowLeft } from "react-icons/fa";
 
-// type Props = {
-//   headerTitle?: string;
-//   storeRating?: string;
-// };
+type Props = {
+  headerTitle: string;
+  storeRating?: string;
+};
 
-// const HeaderLayout = ({ headerTitle, storeRating }: Props) => {
-//   const router = useRouter();
-//   return (
-//     <section className="relative min-h-[100px] h-[100px] w-full max-w-[511px]">
-//       <div className="min-h-[100px] w-full max-w-[460px] z-[1] bg-[#f6f6f6] fixed top-0 flex items-center justify-between">
-//         <button
-//           className="header-btn"
-//           onClick={() => {
-//             router.back();
-//           }}
-//         />
-//         {headerTitle && <p>{headerTitle}</p>}
-//         <div className="absolute right-[33%]">
-//           {storeRating && <StarRating storeRating={storeRating} />}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
+const HeaderLayout = ({ headerTitle, storeRating }: Props) => {
+  const router = useRouter();
+  return (
+    <div className="w-full grid grid-cols-3 items-center h-[77px]">
+      <button
+        onClick={() => {
+          router.back();
+        }}
+      >
+        <FaArrowLeft />
+      </button>
+      <div className="flex items-center">
+        {headerTitle && <p className="text-[20px] font-bold">{headerTitle}</p>}
+        {storeRating && <StarRating storeRating={storeRating} />}
+      </div>
+    </div>
+  );
+};
 
-// export default HeaderLayout;
+export default HeaderLayout;
