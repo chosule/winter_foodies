@@ -12,13 +12,13 @@ const projectApp = express.Router();
 const db = admin.firestore();
 const menuDetailCollection = "menu-detail";
 
-projectApp.get(`/menu-detail`, async (req, res) => {
+projectApp.get(`/menu-detail/:menuId`, async (req, res) => {
   try {
     const menuDetailDoc = await db
       .collection(menuDetailCollection)
-      .doc(req.query.menuId)
+      .doc(req.params.menuId)
       .get();
-    res.status(200).send({ id: menuDetailDoc.id, ...menuDetailDoc.data() });
+    res.status(200).send({ result: "success", ...menuDetailDoc.data() });
   } catch (error) {
     res.status(400).send("데이터 불러오기 실패");
   }

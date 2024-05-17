@@ -10,12 +10,18 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "18"
+    "node": "20"
   },
   "main": "index.js",
   "dependencies": {
+    "and": "^0.0.3",
+    "cache": "^3.0.0",
+    "clean": "^4.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
     "firebase-admin": "^12.1.0",
-    "firebase-functions": "^5.0.0"
+    "firebase-functions": "^5.0.0",
+    "npm": "^10.7.0"
   },
   "devDependencies": {
     "eslint": "^8.15.0",
