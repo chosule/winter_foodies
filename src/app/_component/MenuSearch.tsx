@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import TextField from "./TextField";
+
 import Button from "./Button";
 import { IoSearch } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import TextField from "./TextField";
 
 type TMenuData = {
   id: number;
@@ -46,7 +47,7 @@ const MenuSearch = () => {
       <TextField
         placeholder="9가지의 길거리 메뉴를 검색해보세요 !"
         onChange={getValue}
-        className="w-full h-[40px] border-cyan-950"
+        className="w-full h-[40px]"
       />
       <Button
         className="w-[50px] h-[40px] flex items-center justify-center"
