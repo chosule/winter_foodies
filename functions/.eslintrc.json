@@ -1,0 +1,11 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "object-curly-newline": "off",
+    "quote-props": "off",
+    "object-curly-spacing": "off",
+    "new-cap": "off",
+    "indent": "off",
+    "@typescript-eslint/object-curly-spacing": "off"
+  }
+}
