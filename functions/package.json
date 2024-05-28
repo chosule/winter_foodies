@@ -17,6 +17,7 @@
     "and": "^0.0.3",
     "cache": "^3.0.0",
     "clean": "^4.0.2",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "firebase-admin": "^12.1.0",
