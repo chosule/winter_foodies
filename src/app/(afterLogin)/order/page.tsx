@@ -1,93 +1,57 @@
 "use client";
-import { Button } from "@/src/components/ui/Button";
-import CommonBox from "@/src/components/ui/Box";
-import useContextModal from "@/src/context/hooks/useContextModal";
-import useCart from "@/src/hooks/cart/useCart";
-import { orderResultDataState } from "@/src/recoil/atom";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
-import { useRecoilValue } from "recoil";
+import getOrder from "./_lib/getOrder";
 
 const orderDetailPage = () => {
   const router = useRouter();
-  const modal = useContextModal();
+  const { data } = getOrder();
+  const totalPrice = data?.data.reduce((acc, item) => acc + item.totalPrice, 0);
 
-  const {
-    orderDetailsApi: { isSuccess, data: orderData },
-  } = useCart();
-
-  // console.log('주문내역 api', orderData)
-
-  //주문하기 후 내역보여줄 atom
-  const orderResultState = useRecoilValue(orderResultDataState);
-
-  console.log("orderResultState", orderResultState);
-
-  const openModal = () => {
-    modal.openAlert({
-      title: "알림",
-      message: "주문이 완료되어 메인페이지로 이동합니다.",
-      btnText: "확인",
-    });
-  };
-
-  const completeOrder = () => {
-    openModal();
-    router.push("/");
-  };
-
+  console.log(new Date());
   return (
-    <>
-      {orderResultState ? (
-        <>
-          <div className="flex flex-col justify-center gap-[56px]">
-            <div className="flex flex-col items-center gap-[20px]">
-              <IoCheckmarkCircleOutline className="text-[52px]" />
-              <div>
-                <p className="text-center text-[20px] font-[600]">
-                  주문이 완료되었습니다!
-                </p>
-                <p className="text-center text-15px">{`예상 조리시간에 맞춰 \n 방문하시는것을 추천드립니다.`}</p>
-              </div>
-            </div>
-            <CommonBox width="100%" height="100%" bg="#f3f3f3">
-              <div className="flex flex-col p-[20px] gap-[20px]">
-                <p className="text-center">주문내역</p>
-                <ul className="order-ul">
-                  <li>주문일자</li>
-                  <li>{orderResultState.orderTime}</li>
-                  <li>상호명</li>
-                  <li>{orderResultState.storeName}</li>
-                  <li>예상조리시간</li>
-                  <li>10분 - 20분</li>
-                </ul>
-                {/*  */}
-                <ul className="order-ul">
-                  <li>어묵 4개</li>
-                  <li>2000원</li>
-                  <li>붕어빵 4개</li>
-                  <li>2800원</li>
-                </ul>
-                {/*  */}
-                <ul className="order-ul">
-                  <li>결제금액</li>
-                  <li>{orderResultState.totalPrice}</li>
-                </ul>
-              </div>
-            </CommonBox>
-            <div>
-              <Button width="100%" onClick={completeOrder}>
-                확인완료
-              </Button>
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div>주문이 정상적으로 이루어지지않았습니다.</div>
-        </>
-      )}
-    </>
+    <div className="flex flex-col justify-center gap-[56px]">
+      <div className="flex flex-col items-center gap-[20px]">
+        <IoCheckmarkCircleOutline className="text-[52px] text-color-orange" />
+        <div>
+          <p className="text-center text-[20px] font-[600]">
+            주문이 완료되었습니다!
+          </p>
+          <p className="text-center text-15px">{`예상 조리시간에 맞춰 \n 방문하시는것을 추천드립니다.`}</p>
+        </div>
+      </div>
+      <div className="flex flex-col p-[20px] bg-color-white rounded-md">
+        <p className="font-medium text-[17px]">주문내역</p>
+        <ul className="grid grid-cols-2 gap-1 border-t py-[20px]">
+          <li>주문일자</li>
+          <li>12.33</li>
+          <li>상호명</li>
+          <li>{data?.store}</li>
+          <li>예상조리시간</li>
+          <li>10분 - 20분</li>
+        </ul>
+        {/*  */}
+        <div className="border-t py-[20px]">
+          {data?.data.map((list, i) => (
+            <ul key={`order${i}`} className="grid grid-cols-2 gap-1 ">
+              <li>{list.id}</li>
+              <li>{list.price}원</li>
+            </ul>
+          ))}
+        </div>
+        {/*  */}
+        <ul className="grid grid-cols-2 gap-1 border-t pt-[20px]">
+          <li>결제금액</li>
+          <li>총 {totalPrice}원</li>
+        </ul>
+      </div>
+      <button
+        onClick={() => router.push("/")}
+        className="bg-color-orange py-3 rounded-md text-color-white font-medium"
+      >
+        확인완료
+      </button>
+    </div>
   );
 };
 
