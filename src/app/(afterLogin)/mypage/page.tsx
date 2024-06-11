@@ -1,3 +1,4 @@
+"use client";
 import { BiLockOpen } from "react-icons/bi";
 import { AiOutlineHeart } from "react-icons/ai";
 import { GrNotes } from "react-icons/gr";
@@ -5,19 +6,10 @@ import { BiDollarCircle } from "react-icons/bi";
 import { PiSpeakerHigh } from "react-icons/pi";
 import { AiOutlineUnlock } from "react-icons/ai";
 import { MdArrowForwardIos } from "react-icons/md";
-import { Button } from "@/src/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { useRecoilValue } from "recoil";
-import { userState } from "@/src/recoil/atom";
+import { signOut, useSession } from "next-auth/react";
 
-type infoType = {
-  id: number;
-  icon: JSX.Element;
-  infoTitle: string;
-  path: string;
-};
-
-const mypageInfos: infoType[] = [
+const mypageInfos = [
   { id: 1, icon: <BiLockOpen />, infoTitle: "내정보", path: "/mypage/myInfo" },
   {
     id: 2,
@@ -36,29 +28,28 @@ const mypageInfos: infoType[] = [
 
 const MyPage = () => {
   const router = useRouter();
-  const handleLogout = () => {
-    router.push("/logout");
-  };
-  const user = useRecoilValue(userState);
+  const { data } = useSession();
   return (
-    <div>
-      <div className="flex flex-col p-[30px] gap-[13px]">
-        <div className="flex items-center gap-[10px]">
-          <p className="text-[19px]">안녕하세요 !</p>
+    <div className="px-8">
+      <div className="flex flex-col gap-[10px] my-[20px]">
+        <div className="flex flex-col">
+          <p className="text-[19px] whitespace-pre-line">안녕하세요 !</p>
           <p className="text-[19px] font-[800]">붕어러버님</p>
         </div>
         <p className="text-[13px] text-[#747474]">test@naver.com</p>
       </div>
       {/*  */}
-      <div className="flex justify-between">
+      <div className="flex justify-between bg-color-white p-5 rounded-md">
         {mypageInfos.map(({ id, icon, infoTitle, path }) => {
           return (
-            <div className="flex flex-col items-center" key={id}>
-              <Button bg="none" onClick={() => router.push(path)}>
-                <div className="text-black text-[30px]">{icon}</div>
-                <p className="text-12px text-black">{infoTitle}</p>
-              </Button>
-            </div>
+            <button
+              key={id}
+              className="flex flex-col items-center gap-2"
+              onClick={() => router.push(path)}
+            >
+              <div className="text-black text-[30px]">{icon}</div>
+              <p className="text-sm text-black">{infoTitle}</p>
+            </button>
           );
         })}
       </div>
@@ -71,11 +62,11 @@ const MyPage = () => {
           </div>
           <MdArrowForwardIos />
         </div>
-        {user && (
+        {data && (
           <div className="flex cursor-pointer w-full justify-between">
             <div className="flex items-center gap-[15px]">
               <AiOutlineUnlock className="text-[25px]" />
-              <p onClick={handleLogout}>로그아웃하기</p>
+              <p onClick={() => router.push("/logout")}>로그아웃하기</p>
             </div>
             <MdArrowForwardIos />
           </div>

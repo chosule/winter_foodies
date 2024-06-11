@@ -3,39 +3,58 @@ import Button from "@/app/_component/Button";
 import Image from "next/image";
 import logo from "../../../../public/img/new-fish.png";
 import Link from "next/link";
-import { useFormState, useFormStatus } from "react-dom";
-import onSubmit from "./_lib/login";
-
-function showMessage(message: string | null) {
-  if (message === "no_id") {
-    return "아이디가 일치하지 않습니다.";
-  }
-  if (message === "no_password") {
-    return "비밀번호가 일치하지 않습니다.";
-  }
-  if (message === "user_exists") {
-    return "이미 가입되어있는 아이디 입니다.";
-  }
-  return "";
-}
+import { FormEventHandler, useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [state, formAction] = useFormState(onSubmit, { message: null });
-  const { pending } = useFormStatus();
+  const [login, setLogin] = useState<{ id: string; password: number }>({
+    id: "",
+    password: 0,
+  });
+  const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await signIn("credentials", {
+        username: login.id,
+        password: login.password,
+        redirect: false,
+      });
+      if (result?.error) {
+        setMessage("아이디와 비밀번호가 일치하지않습니다.");
+      } else {
+        setMessage("");
+        router.push("/");
+      }
+    } catch (err) {
+      console.log("err", err);
+      setMessage("다시 로그인 해 주세요.");
+    }
+  };
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>
+  ) => {
+    const { value, name } = e.target;
+    setLogin((prev) => ({ ...prev, [name]: value }));
+  };
   return (
-    <div className="grid grid-rows-2">
+    <div className="grid grid-rows-2 px-8">
       <div className="self-end justify-self-center">
-        {/* <Image src={logo} alt="아이콘" width={200} height={200} /> */}
+        <Image src={logo} alt="아이콘" width={200} height={200} />
       </div>
       <div className="flex flex-col gap-[9px]">
-        <form action={formAction} className="w-full">
-          <div className="flex gap-[70px] w-fill flex-col">
+        <form onSubmit={onSubmit} className="w-full">
+          <div className="flex gap-[40px] w-fill flex-col">
             <div className="flex-col flex gap-[10px]">
               <div className="flex gap-[10px] flex-col">
                 <label htmlFor="id" className="text-sm font-medium">
                   아이디
                 </label>
                 <input
+                  onChange={onChange}
                   type="text"
                   name="id"
                   placeholder="아이디를 입력해 주세요."
@@ -47,6 +66,7 @@ export default function LoginPage() {
                   비밀번호
                 </label>
                 <input
+                  onChange={onChange}
                   type="password"
                   name="password"
                   placeholder="비밀번호를 입력해 주세요."
@@ -54,12 +74,10 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            <div className="text-[red] font-medium">
-              {showMessage(state?.message as string)}
-            </div>
+            <div className="text-[red] font-medium">{message}</div>
             <Button
-              disabled={pending}
               type="submit"
+              disabled={!login.id || !login.password}
               className="h-[40px] text-color-white font-medium"
             >
               로그인
