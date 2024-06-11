@@ -23,7 +23,7 @@ pipeline {
                     DOCKER_IMAGE = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${env.ECR_REPOSITORY_NAME}:${env.BUILD_ID}"
                 }
                 sh """
-                $(aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin ${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com)
+                \$(aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin ${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com)
                 docker build -t ${DOCKER_IMAGE} .
                 docker push ${DOCKER_IMAGE}
                 """
