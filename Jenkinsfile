@@ -21,10 +21,10 @@ pipeline {
 
         stage('Setup Docker Buildx') {
             steps {
-                sh '''
-                docker buildx create --name mybuilder --use
-                docker buildx inspect --bootstrap
-                '''
+                script {
+                    sh 'docker buildx create --name mybuilder --use'
+                    sh 'docker buildx inspect --bootstrap'
+                }
             }
         }
 
@@ -34,7 +34,7 @@ pipeline {
                     DOCKER_IMAGE = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${env.ECR_REPOSITORY_NAME}:${env.BUILD_ID}"
                 }
                 sh '''
-                \$(aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com)
+                aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
                 docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_IMAGE} --push .
                 '''
             }
