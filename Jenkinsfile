@@ -8,6 +8,8 @@ pipeline {
         ECS_SERVICE_NAME = 'winter-foodies-service'
         DOCKER_IMAGE = ''
         AWS_ACCOUNT_ID = '851725480061'  
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     }
 
     stages {
@@ -17,16 +19,24 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Setup Docker Buildx') {
+            steps {
+                sh '''
+                docker buildx create --name mybuilder --use
+                docker buildx inspect --bootstrap
+                '''
+            }
+        }
+
+        stage('Build and Push Docker Image') {
             steps {
                 script {
                     DOCKER_IMAGE = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${env.ECR_REPOSITORY_NAME}:${env.BUILD_ID}"
                 }
-                sh """
-                \$(aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin ${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com)
-                docker build -t ${DOCKER_IMAGE} .
-                docker push ${DOCKER_IMAGE}
-                """
+                sh '''
+                \$(aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com)
+                docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_IMAGE} --push .
+                '''
             }
         }
 
