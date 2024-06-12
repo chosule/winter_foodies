@@ -9,7 +9,7 @@ pipeline {
         AWS_ACCOUNT_ID = '851725480061'  
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-        NODE_OPTIONS = '--max_old_space_size=4096'  
+        NODE_OPTIONS = '--max_old_space_size=8192'  
     }
 
     stages {
