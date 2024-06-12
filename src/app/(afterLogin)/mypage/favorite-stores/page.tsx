@@ -1,8 +1,8 @@
 "use client";
-import HeaderLayout from "@/app/_component/HeaderLayout";
 import { FaStar } from "react-icons/fa";
 import getLike from "../../_lib/getLike";
 import Link from "next/link";
+import HeaderLayout from "@/src/app/_component/HeaderLayout";
 
 const FavoriteStoresPage = (props: any) => {
   const { data } = getLike();

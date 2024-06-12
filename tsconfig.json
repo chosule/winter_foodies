@@ -12,28 +12,20 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsxImportSource": "@emotion/react",
-    "incremental": true,
-    "jsx": "preserve",
+    "jsx": "preserve", // 변경: 이 옵션은 유지하되 `jsxImportSource`는 제거
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
     ]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/components/Main/style.ts",
-    "src/hooks/auth/useLogin.tsx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
