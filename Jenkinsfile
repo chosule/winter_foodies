@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker buildx rm mybuilder || true'
-                    sh 'docker buildx create --name mybuilder --use'
+                    sh 'docker buildx create --name mybuilder --use || docker buildx use mybuilder'
                     sh 'docker buildx inspect --bootstrap'
                 }
             }
