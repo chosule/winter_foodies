@@ -9,6 +9,7 @@ pipeline {
         AWS_ACCOUNT_ID = '851725480061'  
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        NODE_OPTIONS = '--max_old_space_size=4096'  
     }
 
     stages {
@@ -36,7 +37,7 @@ pipeline {
                 }
                 sh '''
                 aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
-                docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_IMAGE} --push .
+                docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_IMAGE} --build-arg NODE_OPTIONS=${NODE_OPTIONS} --push .
                 '''
             }
         }

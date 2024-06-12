@@ -34,6 +34,9 @@ ENV AUTH_SECRET=YR5aDBkUoDEXcM7euJbQT+RQN787Ycb7+PBp+BsOhew=
 ENV NEXT_PUBLIC_BASE_URL=https://asia-northeast3-winter-foodis-new.cloudfunctions.net/projectAPI/api
 ENV AUTH_TRUST_HOST=http://localhost:3000
 
+# 빌드 시 힙 메모리 크기 설정
+ENV NODE_OPTIONS=--max_old_space_size=4096
+
 # 컨테이너 포트 설정
 EXPOSE 3000
 
