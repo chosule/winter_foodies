@@ -4,6 +4,7 @@ import { useState } from "react";
 import Tab from "@/app/_component/Tab";
 import MenuPriceList from "./_component/MenuPriceList";
 import StoreInfo from "./_component/StoreInfo";
+import StoreReview from "./_component/StoreReview";
 
 type Props = {
   params: {
@@ -35,6 +36,7 @@ export default function StoreMenuPage({ params }: Props) {
         </div>
         {selectedTab === 0 && <MenuPriceList params={params} />}
         {selectedTab === 1 && <StoreInfo params={params} />}
+        {selectedTab === 2 && <StoreReview params={params} />}
       </div>
     </div>
   );
