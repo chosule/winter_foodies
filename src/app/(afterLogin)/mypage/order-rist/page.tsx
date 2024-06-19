@@ -1,87 +1,62 @@
 "use client";
-import HeaderLayout from "@/src/components/layouts/HeaderLayout";
-import useCart from "@/src/hooks/cart/useCart";
+import HeaderLayout from "@/app/_component/HeaderLayout";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import useDateFormat from "@/src/hooks/useDateFormat";
-import StarRating from "@/src/components/ui/StarRating";
-import Skeleton from "@/src/components/Skeleton/Skeleton";
-import { Button } from "@/src/components/ui/Button";
-import useContextModal from "@/src/context/hooks/useContextModal";
+import getOrderLists from "../_lib/getOrderLists";
+import logo from "../../../../../public/img/mainLogoIcon.png";
 
 const OrderListPage = () => {
-  const modal = useContextModal();
-
-  const {
-    orderDetailsApi: { isLoading, data: orderDatas, isSuccess },
-  } = useCart();
-
-  if (isLoading) return <Skeleton />;
-
-  const openReview = (storeName: string, id: number) => {
-    modal.openReviewRegist({
-      storeName: `${storeName}`,
-      id: id,
-    });
-  };
-
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+  const { data } = getOrderLists(userId as string);
   return (
-    <>
+    <div className="px-8">
       <HeaderLayout headerTitle="주문내역" />
-      {orderDatas && orderDatas.data.length > 0 ? (
-        <div className="flex flex-col gap-[30px]">
-          {orderDatas && (
-            <>
-              {orderDatas?.data?.map(
-                ({
-                  storeImage,
-                  id,
-                  storeName,
-                  storeRating,
-                  orderTime,
-                  items,
-                  totalPrice,
-                }) => (
-                  <div className="w-hull bg-white h-full" key={id}>
-                    <div className="flex gap-[10px]">
-                      <Image
-                        className="rounded-[13px]"
-                        src={storeImage}
-                        alt="이미지"
-                        width={60}
-                        height={60}
-                      />
-                      <div className="flex gap-[6px] flex-col">
-                        <div className="gap-[10px] items-center">
-                          <p className="font-[600] text-[13px]">{storeName}</p>
-                          <StarRating storeRating={`${storeRating}`} />
-                        </div>
-                        <p>{useDateFormat(orderTime)}</p>
-                        <div className="flex gap-[10px]">
-                          {items.map((item, index) => (
-                            <div className="flex gap-[5px]" key={index}>
-                              <p>{item.itemName}</p>
-                              <p>{item.quantity}개</p>
-                            </div>
-                          ))}
-                        </div>
-                        <p>{totalPrice} 원</p>
+      <div className="flex flex-col gap-[30px]">
+        {data?.orders?.map((item, i) => {
+          const totalPrice = item.data.reduce(
+            (acc, cur) => acc + cur.totalPrice,
+            0
+          );
+
+          return (
+            <div
+              key={`주문내열${i}`}
+              className="bg-white rounded-md p-4 flex flex-col gap-6"
+            >
+              <div className="flex gap-2">
+                <div className="flex gap-[10px] w-[60px] h-[60px]">
+                  <Image
+                    className="rounded-[13px]"
+                    src={logo}
+                    alt="이미지"
+                    width={60}
+                    height={60}
+                  />
+                </div>
+                <div className="flex gap-[6px] flex-col">
+                  <p className="font-[600] text-[17px]">{item.store}</p>
+                  <p className="font-[600] text-[13px]">{item.createAt}</p>
+                  <div className="flex gap-2 ">
+                    {data?.orders[i].data?.map((data, i) => (
+                      <div key={`주문내역${i}`} className="flex gap-1 text-sm">
+                        <div>{data.id}</div>
+                        <div>{data.quantity}개</div>
+                        <div>{data.totalPrice}</div>
                       </div>
-                    </div>
-                    <Button width="100%">
-                      <p onClick={() => openReview(storeName, id)}>
-                        리뷰 작성하기
-                      </p>
-                    </Button>
+                    ))}
                   </div>
-                )
-              )}
-            </>
-          )}
-        </div>
-      ) : (
-        <div>데이터 없슴</div>
-      )}
-    </>
+                  <p className="font-medium">{totalPrice}원</p>
+                </div>
+              </div>
+              <button className="w-full border rounded-md border-color-orange py-3">
+                <p className="text-color-orange font-medium">리뷰 작성하기</p>
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 

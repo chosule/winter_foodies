@@ -1,7 +1,6 @@
-import HeaderLayout from "@/src/components/layouts/HeaderLayout";
 import { Button } from "@/src/components/ui/Button";
-import Rating from "@/src/components/ui/Rating";
 import Box from "@/src/components/ui/Box";
+import HeaderLayout from "@/src/app/_component/HeaderLayout";
 
 const ReviewPage = () => {
   return (
@@ -15,7 +14,7 @@ const ReviewPage = () => {
         <Box width="100%" height="100%" bg="#dedede">
           <div className="flex justify-between">
             <div className="items-center flex gap-[10px]">
-              <Rating rating={5} />
+              {/* <Rating rating={5} /> */}
               <p>몇일 전</p>
             </div>
             <Button bg="transparent">
