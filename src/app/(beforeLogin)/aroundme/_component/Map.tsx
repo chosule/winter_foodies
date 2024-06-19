@@ -12,7 +12,6 @@ const containerStyle = {
 
 export default function Map() {
   const { data: locationData } = getAround();
-  console.log("locationdata", locationData);
   const mapRef = useRef<google.maps.Map | null>(null);
 
   const { isLoaded } = useJsApiLoader({
