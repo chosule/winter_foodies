@@ -15,21 +15,28 @@ export const {
   },
   callbacks: {
     jwt({ token, user }) {
-      console.log("user", user);
+      // console.log("user", user);
       if (user) {
         token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
       }
       return token;
     },
     session({ session, token, user }) {
-      console.log("session", session, token);
       session.user.id = token.id as string;
+      session.user.email = token.email as string;
+      session.user.name = token.name as string;
+      // console.log("session", session, token);
       return session;
     },
   },
   events: {
     session(data) {
-      console.log("data", data, data.session);
+      // console.log("data", data, data.session);
+    },
+    signOut(data) {
+      // console.log("signout", data && data);
     },
   },
   providers: [
@@ -56,13 +63,17 @@ export const {
         }
 
         const user = await authResponse.json();
-        console.log("user?", user);
+        if (!user || !user.id) {
+          return null;
+        }
+        // console.log("user?", user);
         return {
-          email: user.id,
-          name: user.nickname,
+          // email: user.id,
+          name: user.id,
           ...user,
         };
       },
     }),
   ],
+  secret: process.env.AUTH_SECRET,
 });
