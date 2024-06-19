@@ -1,215 +1,143 @@
-// import styled from "@emotion/styled";
-// import Modal from "react-modal";
-// import CommonButton from "../ui/Button";
-// import { FaStar } from "react-icons/fa";
-// import { ChangeEvent, useEffect, useState } from "react";
-// import { ModalUI } from "./style";
-// import Image from "next/image";
-// import { CiImageOn } from "react-icons/ci";
-// import { IoClose } from "react-icons/io5";
-// import { TiDelete } from "react-icons/ti";
-// import useCart from "@/src/hooks/cart/useCart";
-// import { ModalPropsPartial } from "@/src/utils/modal";
+"use client";
+import { FaStar } from "react-icons/fa";
+import { ChangeEvent, useRef, useState } from "react";
+import Image from "next/image";
+import { CiImageOn } from "react-icons/ci";
+import { TiDelete } from "react-icons/ti";
+import review from "../mypage/_lib/reviewMutate";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-// Modal.setAppElement("#__next");
+type Form = {
+  image: string;
+  textarea: string;
+};
 
-// type Form = {
-//   image: string;
-//   textarea: string;
-// };
-// type ReviewRegistProps = {
-//   storeName?: string;
-//   close?: () => void;
-// };
-// export default function ReviewRegist({ storeName, close }: ReviewRegistProps) {
-//   const [rating, setRating] = useState(0);
+type Props = {
+  store?: string;
+};
 
-//   const [file, setFile] = useState<File | "">();
+export default function ReviewModal({ store }: Props) {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const [file, setFile] = useState<File | "">();
+  const [rating, setRating] = useState(0);
+  const [formData, setFormData] = useState<Form>({
+    image: "",
+    textarea: "",
+  });
+  const { trigger } = review();
+  const { data: session } = useSession();
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | any>
+  ) => {
+    const { name, files, value } = e.target;
+    if (name === "file") {
+      setFile(files && files[0]);
+      return;
+    }
 
-//   const [formData, setFormData] = useState<Form>({
-//     image: "",
-//     textarea: "",
-//   });
-//   // const {reviewWriteApi} = useCart();
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-//   const handleChange = (
-//     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | any>
-//   ) => {
-//     const { name, files, value } = e.target;
-//     // console.log('value',value)
-//     if (name === "file") {
-//       setFile(files && files[0]);
-//       return;
-//     }
+  const handleStarClick = (index: number) => {
+    setRating(index + 1);
+  };
 
-//     setFormData((prev) => ({
-//       ...prev,
-//       [name]: value,
-//     }));
-//     // console.log('form',formData)
-//   };
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const reviewData = {
+      userId: session?.user?.id,
+      storeName: decodeURIComponent(store as string),
+      rating,
+      reviewText: formData.textarea,
+      imageUrl: file,
+    };
+    const formDataToSend = new FormData();
+    formDataToSend.append("userId", reviewData.userId as string);
+    formDataToSend.append("storeName", reviewData.storeName as string);
+    formDataToSend.append("rating", reviewData.rating.toString());
+    formDataToSend.append("reviewText", reviewData.reviewText);
+    if (file) {
+      formDataToSend.append("image", file, file.name);
+    }
+    try {
+      await trigger(formDataToSend);
+      alert("리뷰가 등록되었습니다.");
+      router.back();
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
 
-//   const handleStarClick = (index: number) => {
-//     // console.log("index", index);
-//     setRating(index + 1);
-//   };
-
-//   const onSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     console.log("formData", formData);
-//     // const formDataToSend = new FormData();
-//     // Object.entries(formData).forEach(([key,value]) =>{
-//     //   formDataToSend.append(key,value)
-//     // })
-
-//     // const formDataSend = new FormData();
-//     // formDataSend.append("image",formData.image);
-//     // reviewWriteApi.mutate(
-//     //   formDataSend,
-//     //   {
-//     //     onSuccess:(res) => {
-//     //     console.log('res?',res)
-//     //   }
-//     // })
-//   };
-
-//   return (
-//     <div>
-//       <ModalUI.Overlay />
-//       <ModalUI.Content minWidth="400px" padding="40px">
-//         <StyledForm onSubmit={onSubmit}>
-//           <StyledCloseIcon onClick={close} />
-//           <ModalUI.Text fontWeight="600" fontSize="20px">
-//             {storeName}
-//           </ModalUI.Text>
-//           <StyledGradeContainer>
-//             {[...Array(5)].map((_, index) => (
-//               <StyledGrade
-//                 key={index}
-//                 onClick={() => handleStarClick(index)}
-//                 filled={rating > index}
-//               />
-//             ))}
-//           </StyledGradeContainer>
-//           <StyledTextarea
-//             placeholder="리뷰를 입력해주세요."
-//             type="textarea"
-//             name="textarea"
-//             onChange={handleChange}
-//           />
-//           <StyledFlex gap="10px">
-//             <StyledFileInputContainer>
-//               <StyledFileInput
-//                 type="file"
-//                 accept="image/*"
-//                 name="image"
-//                 onChange={handleChange}
-//                 required
-//               />
-//               <StyledFileInputLabel>
-//                 <CiImageOn style={{ fontSize: "25px", marginLeft: "5px" }} />
-//                 사진등록
-//               </StyledFileInputLabel>
-//             </StyledFileInputContainer>
-//             {file && (
-//               <StyledWrap>
-//                 <StyledImage
-//                   src={URL.createObjectURL(file)}
-//                   alt="파일이미지"
-//                   width={65}
-//                   height={65}
-//                 />
-//                 <StyledDeleteBtn onClick={() => setFile("")}>
-//                   <TiDelete style={{ fontSize: "20px" }} />
-//                 </StyledDeleteBtn>
-//               </StyledWrap>
-//             )}
-//           </StyledFlex>
-//           <CommonButton type="submit" width="100%" backgroundcolor="#dd8037">
-//             <p>등록하기</p>
-//           </CommonButton>
-//         </StyledForm>
-//       </ModalUI.Content>
-//     </div>
-//   );
-// }
-
-// const StyledFlex = styled(ModalUI.Flex)`
-//   margin-left: 9px;
-//   align-self: start;
-// `;
-// const StyledWrap = styled.div`
-//   position: relative;
-// `;
-// const StyledDeleteBtn = styled.button`
-//   position: absolute;
-//   top: -11px;
-//   right: -8px;
-// `;
-// const StyledImage = styled(Image)`
-//   border-radius: 13px;
-// `;
-// const StyledFileInput = styled.input`
-//   opacity: 0;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   cursor: pointer;
-// `;
-// const StyledFileInputContainer = styled.label`
-//   position: relative;
-//   width: 70px;
-//   height: 70px;
-//   border-radius: 13px;
-//   border: 1px solid gray;
-//   border-style: dotted;
-//   overflow: hidden;
-//   cursor: pointer;
-// `;
-
-// const StyledCloseIcon = styled(TiDelete)`
-//   position: absolute;
-//   right: -32px;
-//   top: -31px;
-//   cursor: pointer;
-//   font-size: 32px;
-//   color: #dd8037;
-// `;
-// const StyledForm = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 20px;
-//   position: relative;
-// `;
-
-// const StyledFileInputLabel = styled.span`
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   color: #000;
-//   pointer-events: none;
-//   font-size: 10px;
-// `;
-// const StyledGradeContainer = styled.div`
-//   display: flex;
-//   gap: 3px;
-// `;
-// const StyledGrade = styled(FaStar)<{ filled: boolean }>`
-//   color: ${({ filled }) => (filled ? "orange" : "gray")};
-//   font-size: 23px;
-// `;
-
-// const StyledTextarea = styled.input`
-//   border: none;
-//   width: 300px;
-//   height: 300px;
-//   padding: 15px;
-//   resize: none;
-//   border: 1px solid #eaeaea;
-//   border-radius: 13px;
-// `;
+  return (
+    <form
+      className="flex items-center justify-center flex-col gap-[20px] w-[310px]"
+      onSubmit={onSubmit}
+      encType="multipart/form-data"
+    >
+      <p className="font-medium text-[20px]">
+        {decodeURIComponent(store as string)}
+      </p>
+      <div className="flex gap-[3px]">
+        {[...Array(5)].map((_, index) => (
+          <FaStar
+            className={`text-[25px] ${
+              rating > index ? "text-color-orange" : "text-color-black"
+            }`}
+            key={index}
+            onClick={() => handleStarClick(index)}
+          />
+        ))}
+      </div>
+      <textarea
+        className="border w-full rounded-md h-[200px] resize-none p-4"
+        placeholder="리뷰를 입력해주세요."
+        name="textarea"
+        onChange={handleChange}
+      />
+      <div className="flex gap-[10px] self-start">
+        <input
+          type="file"
+          accept="image/*"
+          name="file"
+          onChange={handleChange}
+          className="hidden"
+          ref={fileRef}
+        />
+        <div
+          className="border p-3 rounded-md"
+          onClick={() => fileRef.current?.click()}
+        >
+          <CiImageOn style={{ fontSize: "25px", marginLeft: "5px" }} />
+          <p className="text-xs">사진등록</p>
+        </div>
+        {file && (
+          <div className="relative">
+            <button
+              onClick={() => setFile("")}
+              className="absolute right-[-16px]"
+            >
+              <TiDelete className="text-[24px]" />
+            </button>
+            <Image
+              src={URL.createObjectURL(file)}
+              alt="파일이미지"
+              width={65}
+              height={65}
+            />
+          </div>
+        )}
+      </div>
+      <button
+        className="w-full bg-[#dd8037] h-[40px] border rounded-md"
+        type="submit"
+      >
+        <p className="text-color-white font-medium">등록하기</p>
+      </button>
+    </form>
+  );
+}
