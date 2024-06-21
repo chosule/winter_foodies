@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
+    stage('Build and Push Docker Image') {
             steps {
                 script {
                     def dockerImage = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${env.ECR_REPOSITORY_NAME}:${env.BUILD_ID}"
@@ -37,11 +37,10 @@ pipeline {
                 }
                 sh '''
                 aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
-                docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_IMAGE} --build-arg NODE_OPTIONS=${NODE_OPTIONS} --push .
+                docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_IMAGE} --build-arg NODE_OPTIONS="${NODE_OPTIONS}" --build-arg NPM_CONFIG_REGISTRY="http://registry.npmjs.org/" --push .
                 '''
             }
         }
-
         stage('Deploy to ECS') {
             steps {
                 sh '''
