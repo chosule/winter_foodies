@@ -79,7 +79,7 @@ const ReviewPage = () => {
               <div className="flex justify-between">
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-1">
-                    {review.orderData.map((orderlist, i) => (
+                    {review.orderData?.map((orderlist, i) => (
                       <p
                         key={`주문내역${i}`}
                         className="text-sm text-[#929494]"
