@@ -4,11 +4,25 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import getOrderLists from "../_lib/getOrderLists";
 import logo from "../../../../../public/img/mainLogoIcon.png";
+import { useRouter } from "next/navigation";
+import Loading from "@/app/_component/Loading";
+import reviewDelete from "../_lib/reviewDelete";
 
 const OrderListPage = () => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
-  const { data } = getOrderLists(userId as string);
+  const { data, isLoading } = getOrderLists(userId as string);
+  const router = useRouter();
+
+  console.log("data?", data);
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (data?.orders?.length === 0) {
+    return <Loading>주문 내역이 존재하지 않습니다.</Loading>;
+  }
+
   return (
     <div className="px-8">
       <HeaderLayout headerTitle="주문내역" />
@@ -18,10 +32,9 @@ const OrderListPage = () => {
             (acc, cur) => acc + cur.totalPrice,
             0
           );
-
           return (
             <div
-              key={`주문내열${i}`}
+              key={`주문내역${i}`}
               className="bg-white rounded-md p-4 flex flex-col gap-6"
             >
               <div className="flex gap-2">
@@ -49,7 +62,14 @@ const OrderListPage = () => {
                   <p className="font-medium">{totalPrice}원</p>
                 </div>
               </div>
-              <button className="w-full border rounded-md border-color-orange py-3">
+              <button
+                className="w-full border rounded-md border-color-orange py-3"
+                onClick={() => {
+                  router.push(
+                    `/mypage/review-write/${encodeURIComponent(item.store)}`
+                  );
+                }}
+              >
                 <p className="text-color-orange font-medium">리뷰 작성하기</p>
               </button>
             </div>

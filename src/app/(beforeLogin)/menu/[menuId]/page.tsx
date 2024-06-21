@@ -1,12 +1,10 @@
 "use client";
 import HeaderLayout from "@/app/_component/HeaderLayout";
 import { useEffect, useState } from "react";
-import useSWR from "swr";
-import { GetMenuData, GetMenus } from "./_model/menu";
+import { GetMenus } from "./_model/menu";
 import MenuPost from "./_component/MenuPost";
 import filterMenuData from "./_lib/filterMenuData";
 import getMenu from "./_lib/getMenu";
-import getStoreMenu from "../../store/_lib/getStoreMenu";
 import Tab from "@/app/_component/Tab";
 
 const tabMenu = ["가까운 순", "판매량 순", "리뷰 순", "별점 순"];
@@ -29,7 +27,7 @@ export default function MenuDetailPage({ params }: Props) {
   }, [menuData]);
 
   return (
-    <div>
+    <div className="px-8">
       <HeaderLayout headerTitle={menuData?.store as string} />
       <div className="flex flex-col gap-5">
         <div className="flex gap-3">

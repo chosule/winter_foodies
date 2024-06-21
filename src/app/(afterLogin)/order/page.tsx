@@ -8,9 +8,9 @@ const orderDetailPage = () => {
   const { data } = getOrder();
   const totalPrice = data?.data.reduce((acc, item) => acc + item.totalPrice, 0);
 
-  console.log(new Date());
+  console.log("data?", data);
   return (
-    <div className="flex flex-col justify-center gap-[56px]">
+    <div className="flex flex-col justify-center gap-[56px] px-8">
       <div className="flex flex-col items-center gap-[20px]">
         <IoCheckmarkCircleOutline className="text-[52px] text-color-orange" />
         <div>
