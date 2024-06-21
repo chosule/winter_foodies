@@ -7,6 +7,11 @@ WORKDIR /app
 # 빌드 시 힙 메모리 크기 설정
 ENV NODE_OPTIONS=--max_old_space_size=8192
 
+# npm 레지스트리 설정 및 네트워크 타임아웃 설정
+RUN npm config set registry http://registry.npmjs.org/
+RUN npm set network-timeout 600000
+
+
 # 종속성 파일 복사
 COPY package.json package-lock.json ./
 
