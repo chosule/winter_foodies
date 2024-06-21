@@ -1,7 +1,6 @@
 "use client";
-import Button from "@/app/_component/Button";
 import Image from "next/image";
-import logo from "../../../../public/img/new-fish.png";
+import logo from "../../../../public/img/mainLogoIcon.png";
 import Link from "next/link";
 import { FormEventHandler, useState } from "react";
 import { signIn } from "next-auth/react";
@@ -55,7 +54,7 @@ export default function LoginPage() {
                 </label>
                 <input
                   onChange={onChange}
-                  type="text"
+                  type="email"
                   name="id"
                   placeholder="아이디를 입력해 주세요."
                   className="border rounded-md border-color-orange h-[50px] p-2"
@@ -75,20 +74,30 @@ export default function LoginPage() {
               </div>
             </div>
             <div className="text-[red] font-medium">{message}</div>
-            <Button
+            <button
               type="submit"
               disabled={!login.id || !login.password}
-              className="h-[40px] text-color-white font-medium"
+              className="h-[40px] text-color-white font-medium bg-color-orange rounded-md"
             >
               로그인
-            </Button>
+            </button>
           </div>
         </form>
         {/*  */}
         <div className="flex justify-between mt-4">
           <div className="flex gap-2">
-            <p className="text-sm font-medium">아이디 찾기</p>
-            <p className="text-sm font-medium">비밀번호 찾기</p>
+            <button
+              onClick={() => router.push("/login/find-id")}
+              className="text-sm font-medium"
+            >
+              아이디 찾기
+            </button>
+            <button
+              onClick={() => router.push("/login/find-pw")}
+              className="text-sm font-medium"
+            >
+              비밀번호 찾기
+            </button>
           </div>
           <Link href="/signup" className="text-sm font-medium">
             회원가입

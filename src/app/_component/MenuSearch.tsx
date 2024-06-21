@@ -1,8 +1,5 @@
 "use client";
-
 import { useState } from "react";
-
-import Button from "./Button";
 import { IoSearch } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import TextField from "./TextField";
@@ -49,12 +46,12 @@ const MenuSearch = () => {
         onChange={getValue}
         className="w-full h-[40px]"
       />
-      <Button
-        className="w-[50px] h-[40px] flex items-center justify-center"
+      <button
+        className="w-[50px] h-[40px] flex items-center justify-center bg-color-orange rounded-md"
         onClick={searchWordFilter}
       >
         <IoSearch className="text-xl text-color-white" />
-      </Button>
+      </button>
     </div>
   );
 };
