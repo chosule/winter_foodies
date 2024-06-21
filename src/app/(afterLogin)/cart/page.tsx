@@ -7,12 +7,15 @@ import { useEffect } from "react";
 import { useCartStore } from "@/store/cartStore";
 import { useRouter } from "next/navigation";
 import getOrderList from "./_lib/getOrderList";
+import Loading from "@/app/_component/Loading";
+import { useSession } from "next-auth/react";
 
 export default function CartPage() {
   const { data: cart, isLoading } = getCart();
   const storeName = decodeURIComponent(cart?.storeName as string);
   const router = useRouter();
   const { trigger } = getOrderList();
+  const { data: session } = useSession();
   const {
     cartItems,
     setInitialCartItems,
@@ -34,6 +37,7 @@ export default function CartPage() {
 
   const handleOrder = async () => {
     const orderData = {
+      userId: session?.user?.id,
       store: storeName,
       data: cartItems,
     };
@@ -48,17 +52,17 @@ export default function CartPage() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (cart?.data.length === 0) {
-    return <div>장바구니에 상품이 담기지 않았습니다.</div>;
+    return <Loading>아직 상품이 없습니다!</Loading>;
   }
 
   return (
     <>
       {cart?.data && (
-        <div className="flex gap-[30px] flex-col">
+        <div className="flex gap-[30px] flex-col px-8">
           <div className="w-full justify-between items-center h-full p-[10px] border-[#dd8037] border rounded-md bg-color-orange">
             {/* {cartState.imageUrl && (
              <Image
