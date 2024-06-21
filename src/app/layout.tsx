@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "./_component/Navigation";
-import ReactQueryProvider from "./_component/ReactQueryProvider";
 import localFont from "next/font/local";
-
-const inter = Inter({ subsets: ["latin"] });
+import AuthSession from "./_component/AuthSession";
 
 export const metadata: Metadata = {
   title: "windter-foodies",
@@ -44,13 +41,16 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={gmarket.className}>
-        <div className="w-full h-full flex items-center justify-center gap-[30px]">
-          {/* <MainLeftPc /> */}
-          <div className="w-full border border-color-gray-10 shadow-md h-full max-w-[500px] px-8 relative pb-[150px]">
-            <ReactQueryProvider>{children}</ReactQueryProvider>
-            <Navigation />
+        <AuthSession>
+          <div className="w-full items-center justify-center gap-[30px] flex flex-col min-h-screen">
+            <div className="flex-grow flex items-center justify-center w-full">
+              <div className="w-full border border-color-gray-100 shadow-md h-screen max-w-[500px]  relative pb-[150px] bg-color-gray-10 overflow-y-scroll">
+                {children}
+              </div>
+              <Navigation />
+            </div>
           </div>
-        </div>
+        </AuthSession>
       </body>
     </html>
   );
