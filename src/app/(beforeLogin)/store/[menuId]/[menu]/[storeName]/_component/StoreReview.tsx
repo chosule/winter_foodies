@@ -1,8 +1,8 @@
 import Loading from "@/app/_component/Loading";
 import { getStoreReviews } from "../_lib/getStoreReviews";
 import Rating from "@/app/_component/Rating";
-import { formatDate } from "@/app/(afterLogin)/mypage/review/page";
 import Image from "next/image";
+import { formatDate } from "@/app/(afterLogin)/mypage/_constant/formatDate";
 
 type Props = {
   params: {

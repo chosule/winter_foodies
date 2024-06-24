@@ -6,32 +6,8 @@ import Rating from "@/app/_component/Rating";
 import Image from "next/image";
 import Loading from "@/app/_component/Loading";
 import reviewDelete from "../_lib/reviewDelete";
+import { formatDate } from "../_constant/formatDate";
 
-export interface Timestamp {
-  _seconds: number;
-  _nanoseconds: number;
-}
-export const formatDate = (timestamp: Timestamp | undefined): string => {
-  if (!timestamp) {
-    return "";
-  }
-
-  const milliseconds =
-    timestamp._seconds * 1000 + timestamp._nanoseconds / 1000000;
-  const date = new Date(milliseconds);
-
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  };
-
-  return date.toLocaleString("ko-KR", options);
-};
 const ReviewPage = () => {
   const { data: session } = useSession();
   const { data, mutate: reviewMutate } = getReviews(
