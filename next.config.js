@@ -1,27 +1,21 @@
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-const nextConfig = withBundleAnalyzer({
-  experimental: {
-    appDir: true,
-  },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
-    return config;
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    domains: [
-      "encrypted-tbn0.gstatic.com",
-      "mblogthumb-phinf.pstatic.net",
-      "media.istockphoto.com",
-      "cdn.pixabay.com",
-      "via.placeholder.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co",
+        pathname: "/**",
+      },
     ],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-});
+};
 
 module.exports = nextConfig;
