@@ -9,7 +9,7 @@ type Props = {
 export default function page({ params }: Props) {
   const store = params.store;
   return (
-    <Modal>
+    <Modal className="p-3">
       <ReviewModal store={store} />
     </Modal>
   );
