@@ -1,17 +1,21 @@
 /** @type {import('next').NextConfig} */
-const withExportImages = require("next-export-optimize-images");
-
-const nextConfig = withExportImages({
-  experimental: {
-    appDir: true,
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co",
+        pathname: "/**",
+      },
+    ],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
-    return config;
-  },
-});
+};
 
 module.exports = nextConfig;
