@@ -9,15 +9,15 @@ type ButtonImage = {
 };
 
 const buttonImages: ButtonImage[] = [
-  { id: 1, imgName: "붕어빵", url: "/img/menuIcon/menuIcon1.svg" },
-  { id: 2, imgName: "어묵", url: "/img/menuIcon/menuIcon2.svg" },
-  { id: 3, imgName: "군밤", url: "/img/menuIcon/menuIcon3.svg" },
-  { id: 4, imgName: "호떡", url: "/img/menuIcon/menuIcon4.svg" },
-  { id: 5, imgName: "계란빵", url: "/img/menuIcon/menuIcon5.svg" },
-  { id: 6, imgName: "고구마", url: "/img/menuIcon/menuIcon6.svg" },
-  { id: 7, imgName: "다코야끼", url: "/img/menuIcon/menuIcon7.svg" },
-  { id: 8, imgName: "찐빵", url: "/img/menuIcon/menuIcon8.svg" },
-  { id: 9, imgName: "국화빵", url: "/img/menuIcon/menuIcon9.svg" },
+  { id: 1, imgName: "붕어빵", url: "/img/menuIcon1.svg" },
+  { id: 2, imgName: "어묵", url: "/img/menuIcon2.svg" },
+  { id: 3, imgName: "군밤", url: "/img/menuIcon3.svg" },
+  { id: 4, imgName: "호떡", url: "/img/menuIcon4.svg" },
+  { id: 5, imgName: "다코야끼", url: "/img/menuIcon5.svg" },
+  { id: 6, imgName: "고구마", url: "/img/menuIcon6.svg" },
+  { id: 7, imgName: "계란빵", url: "/img/menuIcon7.svg" },
+  { id: 8, imgName: "찐빵", url: "/img/menuIcon8.svg" },
+  { id: 9, imgName: "국화빵", url: "/img/menuIcon9.svg" },
 ];
 
 const nearSnack = [
@@ -30,7 +30,7 @@ const nearSnack = [
 
 export default function HomePage() {
   return (
-    <div className="mt-[20px] flex flex-col gap-[50px]">
+    <div className="mt-[20px] flex flex-col gap-[50px] px-8">
       <MenuSearch />
       <div className="grid grid-cols-3 justify-items-center gap-5">
         {buttonImages.map(({ id, imgName }) => (
