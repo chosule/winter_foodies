@@ -11,11 +11,11 @@ export interface GetReviewData {
     _seconds: number;
     _nanoseconds: number;
   };
-  orderCreatedAt: {
+  orderCreatedAt?: {
     _seconds: number;
     _nanoseconds: number;
   };
-  orderData: OrdersData[];
+  orderData?: OrdersData[];
 }
 
 export type GetReviews = {
