@@ -5,6 +5,7 @@ export interface GetMenuData {
   position: string;
   store: string;
   sales: number;
+  image: string;
 }
 export interface GetMenus {
   result: string;
