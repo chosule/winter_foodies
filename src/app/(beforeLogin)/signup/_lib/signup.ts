@@ -13,6 +13,9 @@ export default async (prevState: any, formData: FormData) => {
   if (!formData.get("password")) {
     return { message: "no_password" };
   }
+  if (!formData.get("phoneNumber")) {
+    return { message: "no_phoneNumber" };
+  }
   let shouldRedirect = false;
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/signup`, {
@@ -24,11 +27,10 @@ export default async (prevState: any, formData: FormData) => {
         id: formData.get("id"),
         name: formData.get("name"),
         password: formData.get("password"),
+        phoneNumber: formData.get("phoneNumber"),
       }),
-      credentials: "include", //쿠키 전달
+      credentials: "include",
     });
-    console.log("response", response);
-    console.log("await response.json()", await response.json());
     if (response.status === 403) {
       return { message: "user_exists" };
     }
