@@ -1,25 +1,15 @@
-import styled from "@emotion/styled";
-import { useState } from "react";
+import { FaStar } from "react-icons/fa";
 
-const Rating = ({ rating }:{rating:number}) => {
-  const roundedRating = Math.round(Math.min(Math.max(rating, 0), 5));
-
+type Props = {
+  rating: number;
+};
+const Rating = ({ rating }: Props) => {
   return (
-    <>
-      <div>
-        {[...Array(5)].map((_, index) => (
-          <span
-            key={index}
-            style={{
-              color: index < roundedRating ? "#ffcf00" : "#ccc",
-              cursor: "default",
-            }}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-    </>
+    <div className="flex">
+      {Array.from({ length: rating }).map((_, i) => (
+        <FaStar className="text-[12px] text-color-orange" key={i} />
+      ))}
+    </div>
   );
 };
 
