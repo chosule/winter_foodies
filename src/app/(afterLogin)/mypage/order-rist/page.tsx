@@ -6,7 +6,6 @@ import getOrderLists from "../_lib/getOrderLists";
 import logo from "../../../../../public/img/mainLogoIcon.png";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/_component/Loading";
-import reviewDelete from "../_lib/reviewDelete";
 
 const OrderListPage = () => {
   const { data: session } = useSession();
@@ -14,7 +13,6 @@ const OrderListPage = () => {
   const { data, isLoading } = getOrderLists(userId as string);
   const router = useRouter();
 
-  console.log("data?", data);
   if (isLoading) {
     return <Loading />;
   }
