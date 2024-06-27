@@ -1,50 +1,29 @@
-// import { SyntheticEvent, useState } from "react";
-// import SalesRateDetailPage from "@/src/app/(beforeLogin)/main/menu-detail/[id]/salesRateDetailPage";
-// import NearbyDetailPage from "@/src/app/(beforeLogin)/main/menu-detail/[id]/nearbyDetailPage";
-// import ReviesDetailPage from "@/src/app/(beforeLogin)/main/menu-detail/[id]/nearbyDetailPage";
-// import GradeDetailPage from "@/src/app/(beforeLogin)/main/menu-detail/[id]/gradeDetailPage";
-// import Box from "@/src/components/ui/Box";
+"use client";
 
-// const MenuDetailTab = () => {
-//   const [current, setCurrent] = useState(0);
+type Props = {
+  tabMenu: string[];
+  onSelectTab: (index: number) => void;
+  selectedTab: number;
+};
 
-//   const handleTab = (e: SyntheticEvent, value: number) => {
-//     setCurrent(value);
-//   };
-//   return (
-//     <Box>
-//       <StyledTabs value={current} onChange={handleTab}>
-//         <StyledTab label="가까운 순" />
-//         <StyledTab label="판매량 순" />
-//         <StyledTab label="리뷰 순" />
-//         <StyledTab label="별점 순" />
-//       </StyledTabs>
-//       {current === 0 && <NearbyDetailPage />}
-//       {current === 1 && <SalesRateDetailPage />}
-//       {current === 2 && <ReviesDetailPage />}
-//       {current === 3 && <GradeDetailPage />}
-//     </Box>
-//   );
-// };
+const Tab = ({ tabMenu, onSelectTab, selectedTab }: Props): JSX.Element => {
+  return (
+    <>
+      {tabMenu.map((tab, index) => (
+        <button
+          key={`tab${index}`}
+          onClick={() => onSelectTab(index)}
+          className={`py-1 px-2 rounded-xl border font-medium text-[13px] hover:bg-color-orange hover:text-color-white ${
+            index === selectedTab
+              ? "bg-color-orange text-color-white"
+              : "bg-color-white"
+          }`}
+        >
+          {tab}
+        </button>
+      ))}
+    </>
+  );
+};
 
-// const StyledBox = styled(Box)``;
-// const StyledTabs = styled(Tabs)`
-//   .MuiTabs-indicator {
-//     display: none;
-//   }
-//   .MuiTabs-flexContainer {
-//     gap: 10px;
-//   }
-//   .Mui-selected {
-//     background-color: #dd8037;
-//     color: #fff !important;
-//   }
-// `;
-// const StyledTab = styled(Tab)`
-//   background-color: #ddd;
-//   border-radius: 18px;
-//   min-height: 33px;
-//   padding: 6px 16px;
-// `;
-
-// export default MenuDetailTab;
+export default Tab;
