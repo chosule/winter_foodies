@@ -16,14 +16,16 @@ function showMessage(message: string | null) {
   if (message === "user_exists") {
     return "이미 가입되어있는 아이디 입니다.";
   }
+  if (message === "no_phoneNumber") {
+    return "휴대폰 번호를 다시 입력해 주세요.";
+  }
   return "";
 }
 const SignUpPage = () => {
   const [state, formAction] = useFormState(onSubmit, { message: null });
   const { pending } = useFormStatus();
-  console.log("pending", pending);
   return (
-    <>
+    <div className="px-8">
       <div className="h-[75vh]">
         <HeaderLayout headerTitle="회원가입" />
         <form action={formAction} className="grid grid-rows-1 h-full">
@@ -34,6 +36,7 @@ const SignUpPage = () => {
               </label>
               <input
                 name="id"
+                type="email"
                 placeholder="아이디를 입력해주세요."
                 className="border rounded-md border-color-orange h-[50px] p-2"
               />
@@ -59,6 +62,17 @@ const SignUpPage = () => {
                 className="border rounded-md border-color-orange h-[50px] p-2"
               />
             </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="phoneNumber" className="text-sm font-medium">
+                휴대폰 번호
+              </label>
+              <input
+                name="phoneNumber"
+                type="text"
+                placeholder="휴대폰번호를 입력해주세요."
+                className="border rounded-md border-color-orange h-[50px] p-2"
+              />
+            </div>
             <div className="text-[red] font-medium">
               {showMessage(state?.message as string)}
             </div>
@@ -73,7 +87,7 @@ const SignUpPage = () => {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
