@@ -1,11 +1,12 @@
 "use client";
 import HeaderLayout from "@/app/_component/HeaderLayout";
-import getReviews from "../_lib/getReviews";
 import { useSession } from "next-auth/react";
-import Rating from "@/app/_component/Rating";
-import Image from "next/image";
 import Loading from "@/app/_component/Loading";
+import getReviews from "../_lib/getReviews";
 import reviewDelete from "../_lib/reviewDelete";
+import Image from "next/image";
+import Button from "@/app/_component/Button";
+import Rating from "@/app/_component/Rating";
 import { formatDate } from "../_constant/formatDate";
 
 const ReviewPage = () => {
@@ -19,7 +20,6 @@ const ReviewPage = () => {
   if (data?.reviews?.length === 0) {
     return <Loading>아직 작성한 리뷰가 없습니다.</Loading>;
   }
-
   return (
     <div className="px-8">
       <HeaderLayout headerTitle="리뷰관리" />
@@ -40,8 +40,8 @@ const ReviewPage = () => {
                   <Rating rating={review.rating} />
                   <p className="text-xs">{formatDate(review.createdAt)} 작성</p>
                 </div>
-                <button
-                  onClick={async () => {
+                <Button
+                  onClickHandler={async () => {
                     await reviewDeleteTrigger({
                       userId: session?.user?.id,
                       storeName: review.storeName,
@@ -50,7 +50,7 @@ const ReviewPage = () => {
                   }}
                 >
                   <p className="text-[#a9a9a9] text-xs">삭제</p>
-                </button>
+                </Button>
               </div>
               <div className="flex justify-between">
                 <div className="flex flex-col gap-3">
