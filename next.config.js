@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -12,10 +13,16 @@ const nextConfig = {
         hostname: "i.ibb.co",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
     ],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  output: "standalone",
 };
 
 module.exports = nextConfig;
